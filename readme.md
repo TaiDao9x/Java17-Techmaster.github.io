@@ -28,4 +28,4 @@ Tham khảo link:
 Tham khảo tiếp [tại đây](https://learn.techmaster.vn/learn/TrXl0sHp/6xGmaFQ5/1bmaUo_7)
 
 ### Hình minh họa
-[sky](./lanju-fotografie-BvAoCypqRXU-unsplash.jpg)
+![sky](./lanju-fotografie-BvAoCypqRXU-unsplash.jpg)
