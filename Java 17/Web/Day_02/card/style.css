@@ -1,0 +1,48 @@
+/* font-family: 'Roboto', sans-serif; */
+
+/* padding
+margin */
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
+}
+
+img{
+    max-width: 100%;
+}
+
+.card{
+    width: 320px;
+    background-color: white;
+}
+
+.image{
+    height: 220px;
+}
+
+.image img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.content h3{
+    color:#464646;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.content p{
+    color:#757575;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.content p span{
+    color: #ffd600;
+}
+
+.content{
+    padding : 15px;
+}

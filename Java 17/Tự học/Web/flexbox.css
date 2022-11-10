@@ -1,0 +1,47 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f7fa;
+  color: #5f5f5f;
+  box-sizing: border-box;
+}
+.course {
+    height: 350px;
+    display: flex;
+  }
+
+h3{
+    font-size: 19px;
+    font-weight: 400;
+}
+
+p{
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.data, .java{
+    width: 319px;
+    max-height: 100%;
+    margin: 16px 24px 0 24px;
+    }
+
+.data .maindata,
+.java .mainjava {
+  background-color: white;
+  padding: 10px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+.footdata, .footjava{
+    display: flex;
+    justify-content: space-between;
+}
+
+i {
+  color: #ffd600;
+}

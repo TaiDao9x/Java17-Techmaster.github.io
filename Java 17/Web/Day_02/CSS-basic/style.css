@@ -1,0 +1,31 @@
+h2{
+    color: red;
+}
+
+#heading{
+    color: #0275d8;
+}
+
+/* Chọn thẻ h2 có id là heading */
+/* h2 #heading: Chọn thẻ id nằm trong thẻ h2 */
+/* h2 > #heading : chọn thẻ có id là heading là con trực tiếp của thẻ h2 */
+
+h2#heading{
+
+}
+
+.text-center{
+    text-align: center;
+}
+
+.upercase{
+    text-transform: uppercase;
+}
+
+.big{
+    font-size: 50px;
+}
+
+.bold{
+    font-weight: bolder;
+}
