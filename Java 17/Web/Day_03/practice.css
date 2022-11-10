@@ -1,0 +1,81 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #ededed;
+}
+
+.card {
+  margin: 5rem auto;
+  width: 50rem;
+  border: 1px gray;
+  border-radius: 0px 0px 5px 5px;
+  background-color: white;
+}
+
+.date {
+  background-color: #fe6d40;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.year {
+  border-radius: 5px 0px 0px 0px;
+  background-color: #ef5321;
+  font-size: 2rem;
+  padding: 4px 0px;
+}
+
+.day {
+  border-radius: 0px 0px 0px 5px;
+  padding: 30px 0px 50px;
+}
+.day1 {
+  font-size: 5rem;
+  /* font-weight: 50; */
+}
+
+.month {
+  font-size: 2rem;
+}
+
+.content {
+  padding: 20px 30px 10px;
+  color: rgba(0, 0, 0, 0.719);
+  line-height: 35px;
+}
+.content h3 {
+  font-size: 2.7rem;
+}
+
+.teacher {
+  margin-bottom: 15px;
+}
+
+.detail {
+  font-size: 2rem;
+}
+
+li {
+  list-style-type: none;
+}
+
+.sign {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.247);
+  border-top-width: 0.5px;
+}
+.sign a {
+  font-size: 2rem;
+  color: #5489ea;
+  text-decoration: none;
+}
