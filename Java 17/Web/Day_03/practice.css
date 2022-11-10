@@ -47,7 +47,7 @@ body {
 }
 
 .content {
-  padding: 20px 30px 10px;
+  padding: 20px 30px 1px;
   color: rgba(0, 0, 0, 0.719);
   line-height: 35px;
 }
@@ -68,8 +68,8 @@ li {
 }
 
 .sign {
-  margin-top: 10px;
-  padding-top: 10px;
+  margin-top: 5px;
+  padding-top: 5px;
   border-top-style: solid;
   border-top-color: rgba(0, 0, 0, 0.247);
   border-top-width: 0.5px;
