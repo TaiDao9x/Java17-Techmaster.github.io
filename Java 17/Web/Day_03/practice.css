@@ -10,6 +10,7 @@ html {
 body {
   font-family: "Roboto", sans-serif;
   background-color: #ededed;
+  word-spacing: 2px;
 }
 
 .card {
