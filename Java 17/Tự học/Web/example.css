@@ -128,3 +128,21 @@ input {
   padding-top: 5rem;
   margin: 0px auto;
 }
+
+/* Flex box */
+.container{
+  min-height: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  background-color: #fe6d40;
+}
+
+.container__list{
+  padding: 10px;
+}
+
+.container-iteam{
+  display: inline; 
+  margin: 5px;
+}
