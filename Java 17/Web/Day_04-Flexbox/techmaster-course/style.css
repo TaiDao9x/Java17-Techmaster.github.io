@@ -12,7 +12,8 @@ body {
 .container {
   /* width: 1320px; */
   margin: auto;
-  padding: 15px 0px;
+  padding: 15px 30px;
+  /* padding: 1rem 2rem; */
 }
 
 .row {
@@ -22,7 +23,8 @@ body {
 
 .col {
   flex-basis: 25%;
-  padding: 15px 15px;
+  /* padding: 15px 15px; */
+  padding: 1rem 1rem;
 }
 
 .linkcourse {
@@ -32,7 +34,7 @@ body {
 /* CSS cho card */
 
 .card {
-  min-width: 200px;
+  min-width: 12.5rem;
   height: 100%;
   background-color: white;
   border: 0px solid white;
@@ -42,7 +44,7 @@ body {
 
 .image {
   height: 221px;
-}
+  }
 
 .image img {
   width: 100%;
@@ -54,11 +56,13 @@ body {
 
 .content {
   margin: 16px 24px 0;
+  /* margin: 1rem 1.5rem 0; */
   line-height: 28px;
 }
 
 .content h3 {
   margin-bottom: 16px;
+  /* margin-top: 1rem; */
   font-size: 19px;
   font-weight: 400;
   color: rgb(70, 70, 70);
@@ -68,6 +72,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding-bottom: 16px;
+  /* padding-bottom: 1rem; */
   font-size: 15px;
   line-height: 21px;
   color: rgb(117, 117, 117);
