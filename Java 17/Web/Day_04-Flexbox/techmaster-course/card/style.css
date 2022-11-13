@@ -1,131 +1,79 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
-/* font-family: 'Roboto', sans-serif; */
-
-/* padding
-margin */
-
 * {
-  margin: 0;
-  padding: 0;
+  padding: 0px;
+  margin: 0px;
   box-sizing: border-box;
 }
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #ced9ea;
+  background-color: #f4f7fa;
 }
 
-img {
-  max-width: 100%;
-}
-
-.container {
+.container{
   width: 1320px;
   margin: auto;
+  padding: 15px 0px;
 }
 
-.row {
+.row{
   display: flex;
   flex-wrap: wrap;
 }
 
 .col{
-    flex-basis: 25%;
-    padding: 0 15px;
+  flex-basis: 25%;
+  padding: 15px 15px;
 }
 
+.linkcourse{
+  text-decoration: none;
+}
+
+/* CSS cho card */
+
 .card {
-  background-color: #fff;
-  margin-bottom: 30px;
+  /* width: 316px; */
+  height: 100%;
+  background-color: white;
+  border: 0px solid white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 7px 0px rgba(100, 100, 111, 0.301);
 }
 
 .image {
-  height: 220px;
+  height: 221px;
 }
 
 .image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 0px solid white;
+  border-radius: 5px 5px 0 0;
 }
 
 .content {
-  padding: 15px;
+  margin: 16px 24px 0;
+  line-height: 28px;
 }
 
 .content h3 {
-  color: #464646;
+  margin-bottom: 16px;
   font-size: 19px;
   font-weight: 400;
-}
-
-.content p:first-of-type {
-  margin: 20px 0;
+  color: rgb(70, 70, 70);
 }
 
 .content p {
-  color: #757575;
-  font-size: 14px;
-  font-weight: 100;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  font-size: 15px;
+  line-height: 21px;
+  color: rgb(117, 117, 117);
 }
 
-.content p span {
+p span i {
+  font-weight: 900;
   color: #ffd600;
 }
-
-
-
-
-/* CSS bai day 02 */
-.footer{
-    margin-bottom: 70px;
-    background-color: #30598c;
-    color: #fff;
-}
-h4 {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 21.6px;
-      }
-  
-  div ul li {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 35px;
-    list-style: none;
-  }
-  .owner{
-      margin-top: 50px;
-  }
-  a:link {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  a:visited {
-    color: #fff;
-  }
-  
-  a:hover {
-    color: gray;
-  }
-  
-  .facebook,
-  .youtube,
-  .github {
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 28px;
-  }
-  
-  .social {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
-  }
-  
-  .social > div {
-    width: 80px;
-    margin: 10px;
-    }

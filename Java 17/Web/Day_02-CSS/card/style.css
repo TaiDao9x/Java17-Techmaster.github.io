@@ -1,48 +1,54 @@
-/* font-family: 'Roboto', sans-serif; */
-
-/* padding
-margin */
-
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f7fa;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
 }
 
-img{
-    max-width: 100%;
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f7fa;
 }
 
-.card{
-    width: 320px;
-    background-color: white;
+.flex {
+  display: flex;
 }
 
-.image{
-    height: 220px;
+.card {
+  width: 316px;
+  background-color: white;
 }
 
-.image img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+.image {
+  height: 221px;
+  text-decoration: none;
 }
 
-.content h3{
-    color:#464646;
-    font-size: 19px;
-    font-weight: 400;
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.content p{
-    color:#757575;
-    font-size: 14px;
-    font-weight: 100;
+.content {
+  margin: 16px 24px 0;
 }
 
-.content p span{
-    color: #ffd600;
+.content h3 {
+  margin-bottom: 16px;
+  font-size: 19.2px;
+  font-weight: 400;
+  color: rgb(70, 70, 70);
 }
 
-.content{
-    padding : 15px;
+.content p {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  font-size: 15px;
+  color: rgb(117, 117, 117);
+}
+
+p span i {
+  font-weight: 900;
+  color: #ffd600;
 }
