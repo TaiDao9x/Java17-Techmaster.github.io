@@ -9,30 +9,30 @@ body {
   background-color: #f4f7fa;
 }
 
-.container{
-  width: 1320px;
+.container {
+  /* width: 1320px; */
   margin: auto;
   padding: 15px 0px;
 }
 
-.row{
+.row {
   display: flex;
   flex-wrap: wrap;
 }
 
-.col{
+.col {
   flex-basis: 25%;
   padding: 15px 15px;
 }
 
-.linkcourse{
+.linkcourse {
   text-decoration: none;
 }
 
 /* CSS cho card */
 
 .card {
-  /* width: 316px; */
+  min-width: 200px;
   height: 100%;
   background-color: white;
   border: 0px solid white;
