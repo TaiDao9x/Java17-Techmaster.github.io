@@ -1,0 +1,31 @@
+:root {
+  font-size: 14px;
+  --color-text:#6666FF;
+  --color-heading:#f4722b;
+}
+
+.text {
+  font-size: 2rem;
+  color: var(--color-text);
+}
+
+.parent {
+  font-size: 20px;
+}
+
+.child {
+  font-size: 2em;
+  color: var(--color-heading);
+}
+
+.box {
+  width: 50vw;
+  height: 50vh;
+  background-color: yellow;
+}
+
+.box.child{
+    width: 80%;
+    height: 80%;
+    background-color: red;
+}

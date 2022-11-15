@@ -50,6 +50,7 @@ li {
   line-height: 25px;
 }
 
+/* container */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +58,7 @@ li {
 
 .col {
   flex-basis: 25%;
-  padding: 1rem 1rem;
+  padding: 1rem;
 }
 
 .linkcourse {
