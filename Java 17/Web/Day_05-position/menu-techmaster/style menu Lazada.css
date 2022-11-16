@@ -45,7 +45,7 @@ p {
 
 .item:hover > p {
   background-color: rgb(221, 221, 221);
-  color: chocolate;
+  color: rgb(243, 109, 0);
 }
 
 .item .chevron {
