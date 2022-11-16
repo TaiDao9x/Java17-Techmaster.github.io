@@ -66,6 +66,7 @@ ul {
   color: #c4c4c4;
 }
 
+
 .menu-item:hover .sub-menu {
   display: flex;
 }
@@ -80,7 +81,6 @@ ul {
 
   display: none;
   flex-direction: column;
-  z-index: 10000;
 
   background-color: white;
 }
