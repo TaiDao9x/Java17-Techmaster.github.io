@@ -6,7 +6,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: azure;
+  background-color: rgb(147, 148, 148);
 
   height: 100vh;
   display: flex;
@@ -15,6 +15,7 @@ body {
   align-items: center;
 
   color: #757575;
+  font-size: 50px;
 }
 
 a {
@@ -22,76 +23,37 @@ a {
   color: #757575;
 }
 
-ul {
-  list-style-type: none;
+.link {
+  transition: all 2s;
 }
 
-.title {
-  margin-bottom: 20px;
+.link:hover {
+  color: rgb(226, 141, 43);
 }
 
-.menu {
-  background-color: #fff;
+.button {
+  display: inline-block;
+  padding: 15px 30px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
   position: relative;
 }
 
-.menu-item {
-  width: 200px;
-  /* position: relative; */
-}
-
-.menu-item p {
-  padding-left: 8px;
-  padding-right: 8px;
-  height: 27px;
-  line-height: 27px;
-  text-decoration: none;
-  font-size: 13px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.menu-item p .icon {
-  display: none;
-}
-
-.menu-item:hover>p
-{
-  color: chocolate;
-}
-
-.menu-item:hover > p .icon,
-.menu-item:hover > p .icon {
-  display: inline-block;
-  color: chocolate;
-}
-
-.sub-menu {
-  width: 200px;
+.button::before{
+  content: "";
   position: absolute;
   top: 0;
-  left: 200px;
-  background-color: aquamarine;
-  display: none;
+  left: 0;
+  height: 0;
+  width: 2px;
+  background-color: aqua;
+  z-index: -1;
+  transition: height 0.5s ease-in, width 0.3s linear 0.3s;
+}
+
+.button:hover::before{
   height: 100%;
-}
-
-.menu-item:hover .sub-menu {
-  display: block;
-}
-
-.sub-menu2 {
-  width: 200px;
-  position: absolute;
-  top: 0;
-  left: 200px;
-  background-color: aquamarine;
-  display: none;
-  height: 100%;
-}
-
-.menu-item:hover .sub-menu2 {
-  display: block;
+  width: 100%;
 }

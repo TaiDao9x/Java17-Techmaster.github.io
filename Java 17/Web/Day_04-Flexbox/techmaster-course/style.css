@@ -175,3 +175,15 @@ a:hover {
   margin-left: 16px;
   margin-right: 8px;
 }
+
+
+.content{
+  display: flex;.
+  justify-content: space-between;
+}
+
+.filter{
+  width: 185px;
+  position: sticky;
+  top: 50px;
+}
