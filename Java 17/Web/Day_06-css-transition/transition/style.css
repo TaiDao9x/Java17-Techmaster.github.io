@@ -1,0 +1,48 @@
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: violet;
+
+  transition: all 0.2s linear 0.2s;
+}
+
+.box:hover {
+  width: 400px;
+  height: 300px;
+}
+
+.content {
+  margin: auto;
+  width: 500px;
+  background-color: black;
+  color: rgb(141, 94, 94);
+  padding: 20px;
+
+  overflow: hidden;
+}
+
+.content h3 {
+  position: relative;
+  left: 550px;
+  opacity: 0;
+
+  transition: all 1s;
+}
+
+.content:hover h3 {
+  left: 0;
+  opacity: 1;
+}
+
+.content p {
+  position: relative;
+  left: -550px;
+  opacity: 0;
+
+  transition: all 1s;
+}
+
+.content:hover p {
+  left: 0;
+  opacity: 1;
+}
