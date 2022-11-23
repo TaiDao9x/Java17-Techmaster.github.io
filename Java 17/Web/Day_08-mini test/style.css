@@ -101,26 +101,46 @@ ul li a:hover {
   justify-content: center;
   align-items: center;
 
-  background-image: url(./image/photo-cover1.avif);
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(232, 191, 115, 0.603),
+      rgba(115, 128, 137, 0.603)
+    ),
+    url(./image/image_cover3.JPG);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: bottom;
   object-fit: cover;
 }
 .describe_content {
   text-align: center;
+  opacity: 0.7;
 }
 .describe_content p:first-child {
   font-size: 3.5rem;
   opacity: 0;
-  animation: slide-top 2s 2s forwards;
+  animation: slide-top1 2s 2s forwards;
 }
 .describe_content h2 {
   font-size: 5rem;
   opacity: 0;
-  animation: slide-top 2s 4s forwards;
+  animation: slide-top1 2s 4s forwards;
 }
 .describe_content p:last-child {
   font-size: 1.6rem;
+  /* font-weight: 500; */
   opacity: 0;
-  animation: slide-top 2s 6s forwards;
+  animation: slide-top1 2s 6s forwards;
+}
+@keyframes slide-top1 {
+  0% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+    transform: translateY(50px);
+    opacity: 1;
+  }
 }
