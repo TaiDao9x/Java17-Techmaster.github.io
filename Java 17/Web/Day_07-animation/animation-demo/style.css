@@ -1,0 +1,57 @@
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+
+  animation: example 2s 3 forwards;
+  position: relative;
+}
+
+@keyframes example {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  25% {
+    top: 0;
+    left: 300px;
+    background-color: #fff;
+  }
+  50% {
+    top: 300px;
+    left: 300px;
+    background-color: aqua;
+  }
+  75% {
+    top: 300px;
+    left: 0px;
+    background-color: blue;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    background-color: red;
+  }
+}
+
+.banner {
+  background-color: black;
+  padding: 30px;
+  color: #fff;
+  text-align: center;
+}
+/* .banner h2 {
+  position: relative;
+  animation: translate 3s infinite alternate;
+}
+
+@keyframes translate {
+  0% {
+    left: 200px;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+} */
