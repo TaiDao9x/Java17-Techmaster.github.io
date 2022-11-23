@@ -9,7 +9,7 @@ html {
 body {
   word-spacing: 0.2rem;
   font-family: "Montserrat", sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .about-me {
   width: 100vw;
@@ -24,6 +24,7 @@ body {
   height: 100%;
   padding: 3rem 4rem;
   flex: 80%;
+  overflow: scroll;
 
   background-image: linear-gradient(
       to right bottom,
