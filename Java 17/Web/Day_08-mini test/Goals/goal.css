@@ -33,19 +33,16 @@ a {
   flex: 80%;
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(to right bottom, #e8bf73, #738089);
+  background-image: linear-gradient(to right bottom, #e8bf7393, #73808986);
 }
 .goal_image {
   flex: 30%;
-  /* background-image: url(./image_goal.png);
-  background-position: top;
-  background-repeat: no-repeat;
-  background-attachment: scroll; */
 }
 .goal_image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  box-shadow: 0px 4px 7px 0px rgba(100, 100, 111, 0.986);
 }
 .goal_describe {
   padding: 0 5rem;
