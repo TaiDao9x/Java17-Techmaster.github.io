@@ -72,6 +72,7 @@ a {
   padding: 1.5rem;
   font-weight: 400;
 }
+
 .info_detail ul li a,
 .info_social ul li a {
   transition: all 0.25s;
@@ -81,6 +82,7 @@ ul li a:hover {
   color: rgb(232, 191, 115);
   font-size: 1.7rem;
 }
+
 .info_detail ul li:last-child {
   border: none;
 }
