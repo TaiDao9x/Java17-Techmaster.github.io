@@ -12,6 +12,8 @@ body {
 }
 .skills {
   display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 .skills_nav {
   flex: 20%;
