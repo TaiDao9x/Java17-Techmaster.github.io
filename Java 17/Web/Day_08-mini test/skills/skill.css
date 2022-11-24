@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  word-spacing: 0.2rem;
+  font-family: "Montserrat", sans-serif;
+}
+.skills {
+  display: flex;
+}
+.skills_nav {
+  flex: 20%;
+}
+.skills_content {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(232, 191, 115, 0.63),
+      rgba(115, 128, 137, 0.637)
+    ),
+    url(./image/kmk1542192409.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  flex: 80%;
+  display: flex;
+  justify-content: space-around;
+  padding: 5rem;
+  font-size: 1.6rem;
+}
+.soft-skills {
+  /* position: relative; */
+}
+.move-down {
+  position: absolute;
+  bottom: 15rem;
+}
