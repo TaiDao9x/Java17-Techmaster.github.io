@@ -1,4 +1,4 @@
-public class Main {
+public class Homework_day01 {
     public static void getName() {
         System.out.println("Xin chào các bạn");
     }
