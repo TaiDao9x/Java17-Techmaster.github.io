@@ -42,7 +42,8 @@ public class Homework_day01 {
         double binhPhuong = square(9.5);
         System.out.println("Bình phương bằng: " + binhPhuong);
 
-        System.out.println("Thế kỷ thứ: " + Math.ceil(theKy(601)));
+        int getTheky = (int) Math.ceil(theKy(2001));
+        System.out.println("Thế kỷ thứ: " + getTheky);
 
         double BMI = getBMI(54, 1.64);
         System.out.println("BMI = " + BMI);
