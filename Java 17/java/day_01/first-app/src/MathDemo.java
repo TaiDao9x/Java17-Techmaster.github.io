@@ -2,7 +2,7 @@ public class MathDemo {
     public static void main(String[] args) {
         System.out.println(Math.PI);
 
-        System.out.println(Math.ceil(3.3));
+        System.out.println(Math.ceil(3.0));
         System.out.println(Math.floor(3.3));
         System.out.println(Math.max(10, 20));
         System.out.println(Math.min(11, 222));

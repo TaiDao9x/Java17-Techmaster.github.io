@@ -8,7 +8,8 @@ public class Main {
     }
 
     static void getName2(String x2) {
-        System.out.println("Xin chào " + "" + x2 + "");
+        char nhay = 34;
+        System.out.println("Xin chào " + nhay + x2 + nhay);
     }
 
     static int sum(int a, int b) {
@@ -19,6 +20,10 @@ public class Main {
         return a * a;
     }
 
+    static double theKy(double a) {
+        return a / 100;
+    }
+
     static double getBMI(double a, double b) {
         return a / (b * b);
     }
@@ -27,7 +32,7 @@ public class Main {
     public static void main(String[] args) {
         getName();
 
-        getName1("Tài");
+        getName1("Đào Văn Tài");
 
         getName2("Kiên");
 
@@ -36,6 +41,8 @@ public class Main {
 
         double binhPhuong = square(9.5);
         System.out.println("Bình phương bằng: " + binhPhuong);
+
+        System.out.println("Thế kỷ thứ: " + Math.ceil(theKy(601)));
 
         double BMI = getBMI(54, 1.64);
         System.out.println("BMI = " + BMI);
