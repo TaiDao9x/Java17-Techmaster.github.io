@@ -24,10 +24,9 @@ public class Homework_day01 {
         return a / 100;
     }
 
-    static double getBMI(double a, double b) {
-        return a / (b * b);
+    static double getBMI(double weight, double height) {
+        return weight / (height * height);
     }
-
 
     public static void main(String[] args) {
         getName();
@@ -42,7 +41,7 @@ public class Homework_day01 {
         double binhPhuong = square(9.5);
         System.out.println("Bình phương bằng: " + binhPhuong);
 
-        short getTheky = (short) Math.ceil(theKy(2022));
+        short getTheky = (short) Math.ceil(theKy(569));
         System.out.println("Thế kỷ thứ: " + getTheky);
 
         double BMI = getBMI(54, 1.64);
