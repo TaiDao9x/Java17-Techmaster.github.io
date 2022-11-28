@@ -36,7 +36,7 @@ public class Homework_02 {
         String adress = sc.nextLine();
         System.out.println();
 
-        System.out.printf("Xin chào các bạn, mình tên là %s, năm nay mình %d tuổi, giới tính %s. Hiện tại mình đang sống và làm việc tại %s.", name, age, gender, adress);
+        System.out.printf(" Xin chào các bạn, mình tên là %s, năm nay mình %d tuổi, giới tính %s. Hiện tại mình đang sống và làm việc tại %s.", name, age, gender, adress);
 
 //        System.out.println("Xin chào các bạn, mình tên là " + name + ", năm nay mình " + age + " tuổi, giới tính "
 //                + gender + ". Hiện tại mình đang sống và làm việc tại " + adress + ".");
