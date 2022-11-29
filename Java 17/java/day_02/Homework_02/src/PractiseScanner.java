@@ -21,8 +21,9 @@ public class PractiseScanner {
         System.out.println("Thực hành toán tử:");
         int a = 10;
         int b = 20;
-        a += 10;
-        b -= 10;
+        a = a + b;
+        b = a - b;
+        a = a - b;
         System.out.printf("Số a = %d, số b = %d", a, b);
     }
 }
