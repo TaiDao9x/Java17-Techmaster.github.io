@@ -1,5 +1,5 @@
 public class ForDemo {
-    public static void main(String[] args) {
+    public static <String> void main(String[] args) {
         //thức dậy 5h sáng mỗi ngày
 //        for (int day = 1; day <= 30; day++) {
 //            if (day % 2 == 0) {

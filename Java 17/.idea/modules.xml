@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/java/DoItForSelf/DoItForSelf.iml" filepath="$PROJECT_DIR$/java/DoItForSelf/DoItForSelf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java 17.iml" filepath="$PROJECT_DIR$/.idea/Java 17.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_01/first-app/first-app.iml" filepath="$PROJECT_DIR$/java/day_01/first-app/first-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_01/homework_01/homework_01.iml" filepath="$PROJECT_DIR$/java/day_01/homework_01/homework_01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_02/homework_02/homework_02.iml" filepath="$PROJECT_DIR$/java/day_02/homework_02/homework_02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_03/homework_03/homework_03.iml" filepath="$PROJECT_DIR$/java/day_03/homework_03/homework_03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_02/lession_02/lession_02.iml" filepath="$PROJECT_DIR$/java/day_02/lession_02/lession_02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/day_03/lession_03/lession_03.iml" filepath="$PROJECT_DIR$/java/day_03/lession_03/lession_03.iml" />
+    </modules>
+  </component>
+</project>
