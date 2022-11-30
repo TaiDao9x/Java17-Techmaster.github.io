@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee96c6b7-c489-4d44-82ef-b08934f562c3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/Day_03/ForDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Day_03/ForPractise.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Day_03/IfDemo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Day_03/IfElsePractise.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Day_03/SwichCaseDemo.class" beforeDir="false" />
-    </list>
+    <list default="true" id="ee96c6b7-c489-4d44-82ef-b08934f562c3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,10 +30,12 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "F:/OneDrive - QUANG TRUNG COLLEGE/BO DEP ZAI/Coding Techmaster/TaiDao9x.github.io/Java 17/java/day_03/homework/src/Homework_03.java",
+    "settings.editor.selected.configurable": "CodeWithMe"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.ForPractise">
+  <component name="RunManager">
     <configuration name="ForDemo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ForDemo" />
       <module name="day_03" />
@@ -106,5 +102,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
