@@ -11,12 +11,7 @@ public class Bai_02 {
 
 
         for (; ; ) {
-            System.out.println("\n----------MENU----------");
-            System.out.println("1. Nhập số phần tử của mảng");
-            System.out.println("2. Nhập các phần tử của mảng");
-            System.out.println("3. In mảng ra màn hình");
-            System.out.println("4. Thay đổi các phần tử là số chẵn tăng lên 1 đơn vị");
-            System.out.println("5. Thoát");
+            showMenu();
 
             do {
                 System.out.print("Bấm để chọn (1/2/3/4/5): ");
@@ -79,6 +74,15 @@ public class Bai_02 {
 
     public static void warning() {
         System.out.println("Chưa tạo mảng, hãy tạo mảng trước!");
+    }
+
+    public static void showMenu() {
+        System.out.println("\n----------MENU----------");
+        System.out.println("1. Nhập số phần tử của mảng");
+        System.out.println("2. Nhập các phần tử của mảng");
+        System.out.println("3. In mảng ra màn hình");
+        System.out.println("4. Thay đổi các phần tử là số chẵn tăng lên 1 đơn vị");
+        System.out.println("5. Thoát");
     }
 }
 
