@@ -1,32 +1,18 @@
-
+import java.util.Scanner;
 
 public class ViDu {
 
-    public static String minCat(String text1, String text2) {
-        String text;
-        int diff;
-
-        if (text1.length() == text2.length()) {
-            text = text1 + text2;
-        }
-        if (text1.length() > text2.length()) {
-            diff = text1.length() - text2.length();
-            text = text1.substring(diff) + text2;
-        } else {
-            diff = text2.length() - text1.length();
-            text = text1 + text2.substring(diff);
-        }
-
-        return text;
-    }
-
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double[] mang1;
 
-        String st1 = "Welcome";
-        String st2 = "home";
-
-        System.out.println("Hai chuỗi là: " + st1 + " và " + st2);
-        System.out.println("Chuỗi mới là: " + minCat(st1, st2));
-
+        mang1 = new double[10];
+        double tong = 0;
+        for (int i = 0; i < mang1.length; i++) {
+            System.out.println("Nhập vào giá trị " + i + " là:");
+            mang1[i] = sc.nextDouble();
+            tong += mang1[i];
+        }
+        System.out.println(tong);
     }
 }
