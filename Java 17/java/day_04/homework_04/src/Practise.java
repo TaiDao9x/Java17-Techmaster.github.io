@@ -57,5 +57,21 @@ public class Practise {
 //        Kiểm tra xem số đó có phải là số nguyên tố hay không?
 //        Kết quả trả về true hoặc false.
 
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập vào số cần kiểm tra: ");
+        int number = sc.nextInt();
+        System.out.println(isPrime(number));
+    }
+
+    public static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i < number; i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
