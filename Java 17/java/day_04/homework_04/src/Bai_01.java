@@ -11,7 +11,7 @@ public class Bai_01 {
         Scanner sc = new Scanner(System.in);
         String fullName;
         System.out.print("Nhập vào họ tên cần chuẩn hóa: ");
-        fullName = sc.nextLine();
+        fullName = sc.nextLine().toLowerCase();
 
         fullName = fullName.substring(0, 1).toUpperCase() + fullName.substring(1);
 

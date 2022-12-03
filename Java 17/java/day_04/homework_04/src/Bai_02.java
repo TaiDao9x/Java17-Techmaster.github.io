@@ -28,11 +28,11 @@ public class Bai_02 {
                     break;
                 }
                 case 2: {
+                    System.out.println("Thực hiện lựa chọn 2: ");
                     if (n == 0) {
                         warning();
                     } else {
                         for (int i = 0; i < n; i++) {
-                            System.out.println("Thực hiện lựa chọn 2: ");
                             System.out.printf("Nhập vào phần tử thứ %d: ", i);
                             arr[i] = sc.nextInt();
                         }
