@@ -58,20 +58,46 @@ public class Practise {
 //        Kết quả trả về true hoặc false.
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhập vào số cần kiểm tra: ");
-        int number = sc.nextInt();
-        System.out.println(isPrime(number));
+        System.out.print("Nhập số: ");
+        int n = sc.nextInt();
+        int sum = 2;
+        if (n <= 1) {
+            sum = 0;
+            System.out.println("Nhập số không đúng!");
+        } else if (n == 2) {
+            sum = 2;
+        } else {
+            for (int i = 3; i <= n; i++) {
+                if (isPrime(i)) {
+                    sum += i;
+                }
+            }
+        }
+        System.out.printf("Tổng các số nguyên tố nhỏ hơn tới %d = %d", n, sum);
     }
 
     public static boolean isPrime(int number) {
-        if (number <= 1) {
-            return false;
-        }
+        boolean check = true;
+//        if (number <= 1) {
+//            return false;
+//        }
         for (int i = 2; i < number; i++) {
             if (number % i == 0) {
-                return false;
+                check = false;
+                break;
             }
         }
-        return true;
+        return check;
     }
+
+    public static int sumDream(int number) {
+        int sum = 0;
+        for (int i = 1; i <= number; i++) {
+            if (number % i == 0) {
+                sum += i;
+            }
+        }
+        return sum;
+    }
+
 }
