@@ -8,46 +8,53 @@ public class arrayPractise {
     public static void main(String[] args) {
 
 //        int[] arr = {4, 2, 5, 6, 2, 7};
-//
-//        getSurplus(arr);
-//
-//        repeatText2("a");
+//        System.out.println(getSurplus(arr));
+
+//        System.out.println(repeatText("a"));
+
+//        System.out.println(repeatText2("a"));
 
 //        int[] arr = {1, 2, 3, 4, 5};
-//        if (checkElementExist(arr, 10)) {
-//            System.out.println("%d có nằm trong mảng");
-//        } else {
-//            System.out.println("%d không nằm trong mảng");
-//        }
+//        System.out.println(checkElementExist(arr, 5));
 
 //        System.out.println("randomHexCode là: #" + randomHexCode());
 
-//        System.out.printf("rgb(%s)", randomRgbCode());
+        System.out.println(randomRgbCode());
 
-        System.out.println(500_000_000);
-        DecimalFormat formater = new DecimalFormat("#,###");
-        System.out.println(formater.format(200_000_000));
+//        System.out.println(500_000_000);
+//        DecimalFormat formater = new DecimalFormat("#,###");
+//        System.out.println(formater.format(200_000_000));
+
+//        int arr[] = {3, 3};
+//        randomHexCode2(arr, 6);
     }
 
 
     public static String randomRgbCode() {
         Random rand = new Random();
         int rgb[] = new int[3];
-        String phay = ",";
-        String result1 = "";
+
         for (int i = 0; i < 3; i++) {
             int randomRgb = rand.nextInt(256);
             rgb[i] = randomRgb;
-            String result = String.valueOf(rgb[i]);
-            if (i == 2) {
-                result1 = result1 + result;
-            } else {
-                result1 = result1 + result + phay;
-            }
         }
-        return result1;
+        String result = "rgb(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ")";
+        return result;
     }
 
+    public static void randomHexCode2(int[] arr, int target) {
+
+        for (int i = 0; i < arr.length; i++) {
+            int j = i + 1;
+            while (j < arr.length) {
+                if (arr[i] + arr[j] == target) {
+                    System.out.printf("[%d,%d]", i, j);
+                    break;
+                }
+                j++;
+            }
+        }
+    }
 
     public static String randomHexCode() {
         Random rand = new Random();
@@ -83,44 +90,44 @@ public class arrayPractise {
         return hex1;
     }
 
-
     public static boolean checkElementExist(int[] arr, int number) {
-        boolean checkeExist = false;
+
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == number) {
-                checkeExist = true;
-                break;
+                return true;
             }
         }
-        return checkeExist;
+        return false;
     }
 
-    public static void getSurplus(int[] arr) {
-
+    public static String getSurplus(int[] arr) {
         int[] surplus = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             surplus[i] = arr[i] % 2;
         }
-        System.out.println(Arrays.toString(surplus));
+        String surplusString = Arrays.toString(surplus);
+        return surplusString;
     }
 
-    public static void repeatText(String text) {
+    public static String repeatText(String text) {
         String[] arr = new String[10];
         for (int i = 0; i < 10; i++) {
             arr[i] = text;
-            System.out.print(arr[i]);
         }
-
+        String textString = String.join("", arr);
+        return textString;
     }
 
-    public static void repeatText2(String text) {
+    public static String repeatText2(String text) {
         String[] arr = new String[10];
         for (int i = 0; i < 10; i++) {
-
-            arr[i] = text + "-";
-            System.out.print(arr[i]);
+            if (i == 9) {
+                arr[i] = text;
+            } else {
+                arr[i] = text + "-";
+            }
         }
-
+        String textString = String.join("", arr);
+        return textString;
     }
-
 }
