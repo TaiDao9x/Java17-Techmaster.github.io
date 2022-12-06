@@ -56,20 +56,85 @@ public class arrayMultiDimentional {
 //            System.out.printf("Phần tử lớn nhất của hàng %d là: %d\n", i, maxRow);
 //        }
 
-        String[][] arr = new String[10][10];
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                if (i == 0 || i == arr.length - 1 || j == 0 || j == arr[i].length - 1) {
-                    arr[i][j] = "*";
-                } else {
-                    arr[i][j] = " ";
-                }
 
-                System.out.print(arr[i][j] + " ");
+//* * * *
+//*     *
+//*     *
+//*     *
+//* * * *
+//        String[][] arr = new String[10][10];
+//        for (int i = 0; i < arr.length; i++) {
+//            for (int j = 0; j < arr[i].length; j++) {
+//                if (i == 0 || i == arr.length - 1 || j == 0 || j == arr[i].length - 1) {
+//                    arr[i][j] = "*";
+//                } else {
+//                    arr[i][j] = " ";
+//                }
+//
+//                System.out.print(arr[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+
+
+//*           *     1
+//  *       *       2
+//    *   *         3
+//      *           4
+//    *   *         5
+//  *       *       6
+//*           *     7
+//        String arr[][] = new String[7][7];
+//        int number = 0;
+//        while (number < arr.length) {
+//            for (int i = 0; i < arr[number].length; i++) {
+//                arr[number][i] = "  ";
+//                arr[number][number] = "* ";
+//                arr[number][arr[number].length - number - 1] = "* ";
+//                System.out.print(arr[number][i]);
+//            }
+//            System.out.println();
+//            number++;
+//
+//        }
+        int number = 1;
+        while (number <= 7) {
+            for (int i = 1; i <= 7; i++) {
+                if (i == number || i == 8 - number) {
+                    System.out.print("* ");
+                } else {
+                    System.out.print("  ");
+                }
             }
             System.out.println();
+            number++;
         }
 
+//*
+//* *
+//* * *
+//* * * *
+
+//        final int HEIGHT = 10;
+//        int number = 1;
+//        while (number <= HEIGHT) {
+//            for (int i = 1; i <= number; i++) {
+//                System.out.print("*");
+//            }
+//            System.out.println();
+//            number++;
+//        }
+//        String arr[][] = new String[4][4];
+//        int number = 0;
+//        while (number < arr.length) {
+//            for (int i = 0; i <= number; i++) {
+//                arr[number][i] = "* ";
+//
+//                System.out.print(arr[number][i]);
+//            }
+//            System.out.println();
+//            number++;
+//        }
 
     }
 }

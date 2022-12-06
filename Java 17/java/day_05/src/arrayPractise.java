@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ public class arrayPractise {
 //
 //        getSurplus(arr);
 //
-        repeatText2("a");
+//        repeatText2("a");
 
 //        int[] arr = {1, 2, 3, 4, 5};
 //        if (checkElementExist(arr, 10)) {
@@ -21,7 +22,9 @@ public class arrayPractise {
 
 //        System.out.printf("rgb(%s)", randomRgbCode());
 
-
+        System.out.println(500_000_000);
+        DecimalFormat formater = new DecimalFormat("#,###");
+        System.out.println(formater.format(200_000_000));
     }
 
 
@@ -43,79 +46,39 @@ public class arrayPractise {
         return result1;
     }
 
+
     public static String randomHexCode() {
         Random rand = new Random();
-        char hex1 = ' ';
 
-        char randomHex[] = new char[6];
+        String hex[] = new String[6];
         for (int i = 0; i < 6; i++) {
-            int hex = rand.nextInt(16);
-            switch (hex) {
-                case 1: {
-                    hex1 = '1';
+            int hexCode = rand.nextInt(16);
+            switch (hexCode) {
+                case 10:
+                    hex[i] = "a";
                     break;
-                }
-                case 2: {
-                    hex1 = '2';
+                case 11:
+                    hex[i] = "b";
                     break;
-                }
-                case 3: {
-                    hex1 = '3';
+                case 12:
+                    hex[i] = "c";
                     break;
-                }
-                case 4: {
-                    hex1 = '4';
+                case 13:
+                    hex[i] = "d";
                     break;
-                }
-                case 5: {
-                    hex1 = '5';
+                case 14:
+                    hex[i] = "e";
                     break;
-                }
-                case 6: {
-                    hex1 = '6';
+                case 15:
+                    hex[i] = "f";
                     break;
-                }
-                case 7: {
-                    hex1 = '7';
+                default:
+                    hex[i] = String.valueOf(hexCode);
                     break;
-                }
-                case 8: {
-                    hex1 = '8';
-                    break;
-                }
-                case 9: {
-                    hex1 = '9';
-                    break;
-                }
-                case 10: {
-                    hex1 = 'a';
-                    break;
-                }
-                case 11: {
-                    hex1 = 'b';
-                    break;
-                }
-                case 12: {
-                    hex1 = 'c';
-                    break;
-                }
-                case 13: {
-                    hex1 = 'd';
-                    break;
-                }
-                case 14: {
-                    hex1 = 'e';
-                    break;
-                }
-                case 15: {
-                    hex1 = 'f';
-                    break;
-                }
             }
-            randomHex[i] = hex1;
-
         }
-        return String.valueOf(randomHex);
+        String hex1 = String.join("", hex);
+        return hex1;
     }
 
 
@@ -152,7 +115,7 @@ public class arrayPractise {
         String[] arr = new String[10];
         for (int i = 0; i < 10; i++) {
 
-            arr[i] = text+"-";
+            arr[i] = text + "-";
             System.out.print(arr[i]);
         }
 
