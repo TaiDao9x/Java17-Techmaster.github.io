@@ -19,7 +19,7 @@ public class arrayPractise {
 
 //        System.out.println("randomHexCode là: #" + randomHexCode());
 
-        System.out.println(randomRgbCode());
+//        System.out.println(randomRgbCode());
 
 //        System.out.println(500_000_000);
 //        DecimalFormat formater = new DecimalFormat("#,###");
@@ -27,6 +27,9 @@ public class arrayPractise {
 
 //        int arr[] = {3, 3};
 //        randomHexCode2(arr, 6);
+
+        System.out.println(randomHexCode2());
+
     }
 
 
@@ -54,6 +57,18 @@ public class arrayPractise {
                 j++;
             }
         }
+    }
+
+    public static String randomHexCode2() {
+        String textToFind = "0123456789abcdef";
+        Random random = new Random();
+        char hex[] = new char[6];
+        for (int i = 0; i < 6; i++) {
+            int hexNumber = random.nextInt(16);
+            hex[i] = textToFind.charAt(hexNumber);
+        }
+        String result = "#" + String.valueOf(hex);
+        return result;
     }
 
     public static String randomHexCode() {

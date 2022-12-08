@@ -29,6 +29,12 @@ public class ArrayDemo {
             System.out.println("\n" + name);
         }
 
-//        " một      ngày    nào     đó        "
+//        " một         ngày    nào     đó        "
+
+        String a = "      một           ngày       nào đó        ";
+//        String b = a.trim();
+//        System.out.println(b);
+        String c = a.replaceAll("\s+", " ");
+        System.out.println(c);
     }
 }
