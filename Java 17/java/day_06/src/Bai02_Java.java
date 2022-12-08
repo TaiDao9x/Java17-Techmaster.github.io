@@ -19,7 +19,7 @@ public class Bai02_Java {
 
     public static void countLetterO(String text) {
         int count = 0;
-       
+
         for (int i = 0; i < text.length(); i++) {
             if (text.charAt(i) == 'o') {
                 count++;
@@ -37,8 +37,5 @@ public class Bai02_Java {
         } else {
             System.out.println("Không có ký tự o nào trong chuỗi!");
         }
-
-
     }
-
 }
