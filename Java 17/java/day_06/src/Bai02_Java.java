@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 public class Bai02_Java {
     public static void main(String[] args) {
-
-        System.out.println("Số từ trong chuỗi 1 là: " + countLetter("Đào Văn Tài Java 17"));
+        String text = "Đào Văn Tài";
+        System.out.printf("\nSố từ trong chuỗi \"%s\" là: %d\n", text, countLetter(text));
 
         countLetterO("Đào Văno Tàoi Jaova 17");
     }
@@ -26,16 +26,20 @@ public class Bai02_Java {
             }
         }
 
-        if (count > 0) {
-            System.out.printf("Số ký tự o trong chuỗi 2 là: %d.\n", count);
-
-            for (int i = 0; i < text.length(); i++) {
-                if (text.charAt(i) == 'o') {
-                    System.out.println("Chữ o ở vị trí: " + i);
-                }
+        int result[] = new int[count];
+        int count1 = 0;
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) == 'o') {
+                result[count1] = i;
+                count1++;
             }
+        }
+
+        if (count > 0) {
+            System.out.printf("\nSố ký tự o trong chuỗi \"%s\" là: %d.\n", text, count);
+            System.out.println("Chữ \"o\" ở các vị trí:" + Arrays.toString(result));
         } else {
-            System.out.println("Không có ký tự o nào trong chuỗi!");
+            System.out.println("\nKhông có ký tự o nào trong chuỗi!");
         }
     }
 }
