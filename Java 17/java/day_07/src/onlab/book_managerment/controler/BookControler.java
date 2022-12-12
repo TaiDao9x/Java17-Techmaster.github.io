@@ -2,6 +2,7 @@ package onlab.book_managerment.controler;
 
 import onlab.book_managerment.service.BookService;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class BookControler {
@@ -9,13 +10,14 @@ public class BookControler {
 
     public void runMenu() {
         Scanner sc = new Scanner(System.in);
-        int option;
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
         boolean isQuit = false;
 
         while (!isQuit) {
             showMenu();
             System.out.print("Chọn chức năng: ");
-            option = sc.nextInt();
+            int option = sc.nextInt();
             sc.nextLine();
 
             switch (option) {
@@ -33,7 +35,7 @@ public class BookControler {
                 }
                 case 3: {
 //                    System.out.print("\nNhập vào năm xuất bản: ");
-                    bookService.findBookByPublishingYear(2022);
+                    bookService.findBookByPublishingYear(year);
                     break;
                 }
                 case 4: {
