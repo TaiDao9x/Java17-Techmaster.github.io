@@ -1,4 +1,4 @@
-package onlab;
+package athome;
 
 public class Pracise {
     public static void main(String[] args) {

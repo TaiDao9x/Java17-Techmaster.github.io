@@ -1,4 +1,4 @@
-package onlab;
+package athome;
 
 public class Calculator {
     public int number1;
