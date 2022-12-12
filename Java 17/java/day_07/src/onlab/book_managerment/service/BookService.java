@@ -1,8 +1,9 @@
 package onlab.book_managerment.service;
 
-import book_managerment.database.BookDatabase;
-import book_managerment.model.Book;
-import book_managerment.repository.BookRepository;
+
+import onlab.book_managerment.database.BookDatabase;
+import onlab.book_managerment.model.Book;
+import onlab.book_managerment.repository.BookRepository;
 
 public class BookService {
     BookRepository bookRepository = new BookRepository();

@@ -1,6 +1,6 @@
 package onlab.book_managerment.controler;
 
-import book_managerment.service.BookService;
+import onlab.book_managerment.service.BookService;
 
 import java.util.Scanner;
 

@@ -1,6 +1,6 @@
 package onlab.book_managerment.database;
 
-import book_managerment.model.Book;
+import onlab.book_managerment.model.Book;
 
 public class BookDatabase {
     public static Book[] books = {
