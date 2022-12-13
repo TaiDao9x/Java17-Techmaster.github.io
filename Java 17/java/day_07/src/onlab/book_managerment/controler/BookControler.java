@@ -54,7 +54,7 @@ public class BookControler {
         System.out.println("\n---------------MENU------------------");
         System.out.println("1. Tìm sách theo tên");
         System.out.println("2. Tìm sách theo thể loại");
-        System.out.println("3. Liệt kê các sách xuất bản năm 2022");
+        System.out.println("3. Liệt kê các sách xuất bản năm nay");
         System.out.println("4. Thoát");
     }
 }

@@ -1,6 +1,6 @@
-package books_managerment;
+package book_managerment;
 
-import books_managerment.controler.BookControler;
+import book_managerment.controler.BookControler;
 
 public class Test {
     public static void main(String[] args) {
