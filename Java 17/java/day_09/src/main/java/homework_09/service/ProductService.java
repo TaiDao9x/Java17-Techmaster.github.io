@@ -4,8 +4,11 @@ import homework_09.model.Product;
 import homework_09.repository.ProductRepository;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ProductService {
+
+    Scanner sc = new Scanner(System.in);
     ProductRepository productRepository = new ProductRepository();
 
     // 1. Xem danh sách sản phẩm
@@ -54,7 +57,32 @@ public class ProductService {
             for (Product p : productRepository.showAllProducts()) {
                 if (p.getId() == id) {
                     System.out.println(p);
-                    ;
+                }
+            }
+
+            boolean out = true;
+            while (out) {
+                subMenu();
+                int subOption = sc.nextInt();
+                sc.nextLine();
+                switch (subOption) {
+                    case 1:
+                        this.deleteById(id);
+                        out = false;
+                        break;
+                    case 2:
+                        System.out.print("Nhập vào số lượng sản phẩm: ");
+                        int quantity = sc.nextInt();
+                        sc.nextLine();
+
+                        this.updateById(id, quantity);
+                        break;
+                    case 0:
+                        out = false;
+                        break;
+                    default:
+                        System.out.println("Lựa chọn không tồn tại!");
+                        break;
                 }
             }
         }
@@ -65,13 +93,13 @@ public class ProductService {
         productRepository.deleteProduct(id);
     }
 
-    // 5. Cập nhât số lượng sản phẩm
+    // 5. Cập nhật số lượng sản phẩm
 
     public void updateById(int id, int quantity) {
         productRepository.updateQuantityProduct(id, quantity);
     }
 
-    // 6. Tìm các san rphẩm có số lượng dưới 5
+    // 6. Tìm các san phẩm có số lượng dưới 5
     public void findByQuantity(int quantity) {
         ArrayList<Product> product = new ArrayList<>();
         for (Product p : productRepository.showAllProducts()) {
@@ -92,7 +120,7 @@ public class ProductService {
 
     }
 
-    // 7. Tìm san rphẩm theo mức giá
+    // 7. Tìm san phẩm theo mức giá
     public void findByPrice(double minPrice, double maxPrice) {
         ArrayList<Product> product = new ArrayList<>();
         for (Product p : productRepository.showAllProducts()) {
@@ -109,5 +137,13 @@ public class ProductService {
                 System.out.println(p);
             }
         }
+    }
+
+    public void subMenu() {
+        System.out.println("\nBạn muốn tiếp tục? ");
+        System.out.println("1. Xóa sản phẩm");
+        System.out.println("2. Cập nhật số lượng sản phẩm");
+        System.out.println("0. Trở về menu");
+        System.out.print("Bạn chọn: ");
     }
 }
