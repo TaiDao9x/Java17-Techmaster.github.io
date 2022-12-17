@@ -31,14 +31,16 @@ public class Serial extends Film {
 
     @Override
     public String toString() {
-        return "Film{" +
-                "id=" + getId() +
-                ", title='" + getTitle() + '\'' +
-                ", category='" + getCategory() + '\'' +
-                ", derector='" + getDirector() + '\'' +
-                ", premiereDate=" + getPremiereDate() +
-                ", episodes=" + episodes +
-                ", avgtime=" + avgTime +
-                '}';
+        System.out.printf("%-5d %-25s %-20s %-20s %d %d %d",getId(),getTitle(),getCategory(),getDirector(),getPremiereDate(),episodes,avgTime);
+//        return "Film{" +
+//                "   " + getId() +
+//                ",  " + getTitle() + '\'' +
+//                ",  " + getCategory() + '\'' +
+//                ",   " + getDirector() + '\'' +
+//                ",   " + getPremiereDate() +
+//                ",   " + episodes +
+//                ",   " + avgTime +
+//                '}';
+        return "";
     }
 }

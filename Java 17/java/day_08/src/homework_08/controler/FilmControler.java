@@ -20,7 +20,12 @@ public class FilmControler {
             sc.nextLine();
 
             switch (option) {
-                case 1 -> filmService.showFilm();
+                case 1 -> {
+                    System.out.println("\nDANH SÁCH PHIM:");
+                    System.out.printf("%-5s %25s %-20s %-20s %-20s\n\n", "ID", "Title", "Category", "Director", "getPremiereDate");
+                    filmService.showFilm();
+                }
+
                 case 2 -> {
                     System.out.print("\nNhập tiêu đề phim muốn tìm: ");
                     String title = sc.nextLine();

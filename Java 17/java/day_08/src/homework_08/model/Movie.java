@@ -21,13 +21,15 @@ public class Movie extends Film {
 
     @Override
     public String toString() {
-        return "Film{" +
-                "id=" + getId() +
-                ", title='" + getTitle() + '\'' +
-                ", category='" + getCategory() + '\'' +
-                ", derector='" + getDirector() + '\'' +
-                ", premiereDate=" + getPremiereDate() +
-                ", time=" + time +
-                '}';
+        System.out.printf("%-5d %-25s %-20s %-20s",getId(),getTitle(),getCategory(),getDirector());
+//        return "Film{" +
+//                "  " + getId() +
+//                ",  " + getTitle() + '\'' +
+//                ",  " + getCategory() + '\'' +
+//                ",  " + getDirector() + '\'' +
+//                ",  " + getPremiereDate() +
+//                ",  " + time +
+//                '}';
+        return "";
     }
 }

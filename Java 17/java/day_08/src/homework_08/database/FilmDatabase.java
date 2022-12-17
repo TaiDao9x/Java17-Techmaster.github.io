@@ -8,7 +8,7 @@ public class FilmDatabase {
             new Movie(1, "Batman", "Action", "Matt Reeves", 2022, 175),
             new Movie(2, "Điện thoại đen", "Horrified", "Scott Derrickson", 2021, 102),
             new Movie(3, "Gia đình Addams", "Cartoon", "Conrad Vernon", 2019, 87),
-            new Movie(4, " Harry Potter và Chiếc cốc lửa", "Magic", " Mike Newell", 2005, 157),
+            new Movie(4, "Harry Potter và Chiếc cốc lửa", "Magic", " Mike Newell", 2005, 157),
             new Movie(5, "Thor: Tình Yêu Và Sấm Sét", "Action", " Taika Waititi", 2022, 118)
 
     };

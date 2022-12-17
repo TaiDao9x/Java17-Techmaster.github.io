@@ -1,6 +1,6 @@
 package homework_08.model;
 
-public class Film {
+public abstract class Film {
     private int id;
     private String title;
     private String category;
@@ -69,3 +69,4 @@ public class Film {
                 '}';
     }
 }
+
