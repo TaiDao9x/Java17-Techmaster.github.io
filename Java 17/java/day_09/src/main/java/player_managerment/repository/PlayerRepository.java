@@ -13,23 +13,27 @@ public class PlayerRepository {
     public ArrayList<Player> buildTeam(int GKNumber, int DFNumber, int MFNumber, int FWNumber) {
         ArrayList<Player> team = new ArrayList<>();
         for (int i = 0; i < GKNumber; i++) {
-            int random = rand.nextInt(PlayerDatabase.GK.size()-1);
+            int random = rand.nextInt(PlayerDatabase.GK.size() - 1);
             team.add(PlayerDatabase.GK.get(random));
         }
 
         for (int i = 0; i < DFNumber; i++) {
-            int random = rand.nextInt(PlayerDatabase.DF.size()-1);
+            int random = rand.nextInt(PlayerDatabase.DF.size() - 1);
+
             team.add(PlayerDatabase.DF.get(random));
+            PlayerDatabase.DF.remove(random);
         }
 
         for (int i = 0; i < MFNumber; i++) {
-            int random = rand.nextInt(PlayerDatabase.MF.size()-1);
+            int random = rand.nextInt(PlayerDatabase.MF.size() - 1);
             team.add(PlayerDatabase.MF.get(random));
+            PlayerDatabase.MF.remove(random);
         }
 
         for (int i = 0; i < FWNumber; i++) {
-            int random = rand.nextInt(PlayerDatabase.FW.size()-1);
+            int random = rand.nextInt(PlayerDatabase.FW.size() - 1);
             team.add(PlayerDatabase.FW.get(random));
+            PlayerDatabase.FW.remove(random);
         }
 
         return team;

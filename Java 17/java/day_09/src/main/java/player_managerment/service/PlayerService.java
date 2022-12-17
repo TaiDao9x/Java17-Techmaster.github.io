@@ -7,7 +7,6 @@ public class PlayerService {
     PlayerRepository playerRepository = new PlayerRepository();
 
     public void buildTeam(int GKNumber, int DFNumber, int MFNumber, int FWNumber) {
-        playerRepository.buildTeam(GKNumber, DFNumber, MFNumber, FWNumber);
         for (Player p : playerRepository.buildTeam(GKNumber, DFNumber, MFNumber, FWNumber)) {
             System.out.println(p);
         }

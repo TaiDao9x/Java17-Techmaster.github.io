@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b287aa5-0374-4961-a9a1-5e252a64ff21" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/homework_09/controler/ProductControler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/homework_09/controler/ProductControler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/homework_09/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/homework_09/repository/ProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/homework_09/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/homework_09/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/homework_09/controler/ProductControler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/homework_09/controler/ProductControler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/homework_09/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/homework_09/repository/ProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/homework_09/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/homework_09/service/ProductService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/repository/PlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/repository/PlayerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/service/PlayerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/repository/PlayerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/repository/PlayerRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/service/PlayerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/service/PlayerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/test.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,16 +51,10 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.homework_09.Test">
-    <configuration name="Example" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="polimophism_demo.Example" />
+  <component name="RunManager" selected="Application.test">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="day_09" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="polimophism_demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -118,11 +113,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.homework_09.Test" />
         <item itemvalue="Application.test" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.homework_09.Test" />
         <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Example" />
       </list>
     </recent_temporary>
   </component>
