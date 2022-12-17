@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b287aa5-0374-4961-a9a1-5e252a64ff21" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/repository/PlayerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/repository/PlayerRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/service/PlayerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/player_managerment/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/player_managerment/test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/repository/PlayerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/repository/PlayerRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/service/PlayerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/service/PlayerService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/player_managerment/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/player_managerment/test.class" afterDir="false" />
     </list>

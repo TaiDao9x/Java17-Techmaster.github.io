@@ -7,8 +7,10 @@ public class PlayerService {
     PlayerRepository playerRepository = new PlayerRepository();
 
     public void buildTeam(int GKNumber, int DFNumber, int MFNumber, int FWNumber) {
-        for (Player p : playerRepository.buildTeam(GKNumber, DFNumber, MFNumber, FWNumber)) {
-            System.out.println(p);
-        }
+
+        System.out.println("\nDanh sách cầu thủ tham gia thi đấu: ");
+        for (Player player : playerRepository.buildTeam(GKNumber, DFNumber, MFNumber, FWNumber))
+            System.out.println(player);
     }
 }
+

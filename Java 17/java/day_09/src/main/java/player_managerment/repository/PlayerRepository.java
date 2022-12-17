@@ -2,6 +2,7 @@ package player_managerment.repository;
 
 import player_managerment.database.PlayerDatabase;
 import player_managerment.model.Player;
+import player_managerment.model.Position;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,15 +40,19 @@ public class PlayerRepository {
         return team;
     }
 
-//     Phương thức lấy số lượng cầu thủ bất kỳ thuộc vị trí được chỉ định
-//    private ArrayList<Player> getPlayers(Position position, int number) {
-//        ArrayList<Player> lineUp = new ArrayList<>();
-//
-//        for (int i = 0; i < number; i++) {
-//            int random = rand.nextInt(PlayerDatabase.position.size());
-//            lineUp.add(PlayerDatabase.position.get(random));
-//        }
-//
-//        return lineUp;
-//    }
+    //     Phương thức lấy số lượng cầu thủ bất kỳ thuộc vị trí được chỉ định
+    private ArrayList<Player> getPlayers(Position position, int number) {
+        ArrayList<Player> lineUp = new ArrayList<>();
+
+        if (position == Position.GK) {
+            for (int i = 0; i < number; i++) {
+                int random = rand.nextInt(PlayerDatabase.GK.size());
+                lineUp.add(PlayerDatabase.GK.get(random));
+            }
+        }
+
+
+
+        return lineUp;
+    }
 }
