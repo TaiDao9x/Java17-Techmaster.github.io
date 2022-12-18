@@ -13,7 +13,7 @@ public class ProductService {
 
     // 1. Xem danh sách sản phẩm
     public void showAllProducts() {
-        System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
+        formattingDisplay();
 
         for (Product p : productRepository.showAllProducts()) {
             System.out.println(p);
@@ -30,7 +30,7 @@ public class ProductService {
         }
 
         if (products.size() > 0) {
-            System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
+            formattingDisplay();
 
             for (Product p : products) {
                 System.out.println(p);
@@ -53,7 +53,7 @@ public class ProductService {
         if (count == 0) {
             System.out.println("Không có sản phẩm nào có Id là: " + id);
         } else {
-            System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
+            formattingDisplay();
             for (Product p : productRepository.showAllProducts()) {
                 if (p.getId() == id) {
                     System.out.println(p);
@@ -111,7 +111,7 @@ public class ProductService {
         if (product.isEmpty()) {
             System.out.println("Không có sản phẩm nào có số lượng dưới: " + quantity);
         } else {
-            System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
+            formattingDisplay();
 
             for (Product p : product) {
                 System.out.println(p);
@@ -131,7 +131,7 @@ public class ProductService {
         if (product.isEmpty()) {
             System.out.println("Không có sản phẩm nào thỏa mãn!");
         } else {
-            System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
+            formattingDisplay();
 
             for (Product p : product) {
                 System.out.println(p);
@@ -145,5 +145,9 @@ public class ProductService {
         System.out.println("2. Cập nhật số lượng sản phẩm");
         System.out.println("0. Trở về menu");
         System.out.print("Bạn chọn: ");
+    }
+
+    public void formattingDisplay() {
+        System.out.printf("\n%-5s %-20s %-20s %-10s %-15s\n\n", "Id", "Name", "Description", "Quantity", "Price");
     }
 }

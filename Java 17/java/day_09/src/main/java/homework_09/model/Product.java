@@ -27,12 +27,16 @@ public class Product {
 
     @Override
     public String toString() {
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat vn = NumberFormat.getInstance(localeVN);
 
         System.out.printf("%-5d %-20s %-20s %-10d %-15s", this.getId(), this.getName(),
-                this.getDescription(), this.getQuantity(), vn.format(this.getPrice()));
+                this.getDescription(), this.getQuantity(), formattingNumber(this.getPrice()));
         return "";
+    }
+
+    public String formattingNumber(double number) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat vn = NumberFormat.getInstance(localeVN);
+        return vn.format(number);
     }
 
 }

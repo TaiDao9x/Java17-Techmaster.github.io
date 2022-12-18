@@ -40,8 +40,6 @@ public class test {
                 System.out.println("Hãy nhập lại!");
             }
         }
-
-
     }
 }
 
