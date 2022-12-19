@@ -18,11 +18,27 @@ public class Test {
         employees.add(employe);
         employees.add(employe1);
         employees.add(new Developer(3, "C", 30, 8_000_000, 15));
-        employees.add(new Tester(4, "D", 29, 5_000_000, 5));
+        employees.add(new Tester(4, "D", 29, 30000000, 5));
 
         System.out.println("In ra lương của từng nhân viên: ");
         for (Employee employee : employees) {
             System.out.println(employee.calculateSalaryBasic());
+        }
+
+//        Sắp xếp giảm dần
+        Employee middleEmployee = employees.get(0);
+        for (int i = 0; i < employees.size(); i++) {
+            for (int j = i + 1; j < employees.size(); j++) {
+                if (employees.get(i).calculateSalaryBasic() < employees.get(j).calculateSalaryBasic()) {
+                    middleEmployee = employees.get(j);
+                    employees.set(j, employees.get(i));
+                    employees.set(i, middleEmployee);
+                }
+            }
+        }
+        System.out.println("Lương giảm dần vơ for: ");
+        for (Employee e : employees) {
+            System.out.println(e.calculateSalaryBasic());
         }
 
 // Sắp xếp theo lương giảm dần

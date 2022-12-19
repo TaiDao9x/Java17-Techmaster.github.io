@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerService {
+
     private ArrayList<Player> players = new ArrayList<>();
 
-    // Khởi tạo đối tượng bằng constructor
+//     Khởi tạo đối tượng bằng constructor
     public PlayerService() {
         init();
     }
@@ -58,7 +59,7 @@ public class PlayerService {
     //  1GK - 3DF - 5MF - 2FW
 
     // Tạo danh sách cầu thủ với số lượng cầu thủ mỗi vị trí đã được chỉ định sẵn
-    public ArrayList<Player> buildTeam(int GKNumber, int DFNumber, int MFNumber, int FWNumber) {
+    public  ArrayList<Player> buildTeam(int GKNumber, int DFNumber, int MFNumber, int FWNumber) {
         ArrayList<Player> selectedPlayers = new ArrayList<>();
         selectedPlayers.addAll(getPlayers(Position.GK, GKNumber));
         selectedPlayers.addAll(getPlayers(Position.DF, DFNumber));
@@ -69,7 +70,7 @@ public class PlayerService {
     }
 
     // Phương thức lấy số lượng cầu thủ bất kỳ thuộc vị trí được chỉ định
-    private ArrayList<Player> getPlayers(Position position, int number) {
+    private  ArrayList<Player> getPlayers(Position position, int number) {
         ArrayList<Player> selectedPlayers = new ArrayList<>();
         int count = 0;
 
