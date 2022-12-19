@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b287aa5-0374-4961-a9a1-5e252a64ff21" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/controler/StudentControler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/database/StudentDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/model/Student.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/repository/StudentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/service/StudentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/homework_09/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/homework_09/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/homework_09/database/ProductDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/homework_09/database/ProductDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/homework_09/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/homework_09/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/homework_09/database/ProductDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/homework_09/database/ProductDatabase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/src/main/java/asbtract/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/src/main/java/asbtract/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/src/main/java/team_managerment/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/src/main/java/team_managerment/service/PlayerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/team_managerment/service/PlayerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/team_managerment/service/PlayerService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
