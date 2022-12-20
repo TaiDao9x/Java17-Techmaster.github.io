@@ -1,6 +1,8 @@
 package employee_managerment.repository;
 
 import employee_managerment.database.EmployeeDatabase;
+import employee_managerment.exception.InValidSalaryException;
+import employee_managerment.exception.NotFoundException;
 import employee_managerment.model.Employee;
 
 import java.util.ArrayList;
@@ -30,31 +32,27 @@ public class EmployeeRepository {
                 return e;
             }
         }
-        return null;
+        throw new NotFoundException("Not found employee with id: " + id);
     }
 
     public void deleteById(int id) {
-        ArrayList<Employee> toRemove = new ArrayList<>();
-        for (Employee e : EmployeeDatabase.employee) {
-            if (e.getId() == (id)) {
-                toRemove.add(e);
-            }
-        }
-        if (toRemove.size() > 0) {
-            EmployeeDatabase.employee.removeAll(toRemove);
-        }else {
-            System.out.println("Không có nhân viên nào có ID = "+id);
-        }
+        Employee employee = findById(id);
+        EmployeeDatabase.employee.remove(employee);
 
     }
 
     public ArrayList<Employee> findBySalary(int minSalary, int maxSalary) {
-        ArrayList<Employee> arrayList = new ArrayList<>();
+
+        if (minSalary >= maxSalary) {
+            throw new InValidSalaryException("minSalary không được lớn hơn hoặc bằng maxSalary");
+        }
+
+        ArrayList<Employee> arrayEmployee = new ArrayList<>();
         for (Employee e : EmployeeDatabase.employee) {
             if (e.getSalary() >= minSalary && e.getSalary() <= maxSalary) {
-                arrayList.add(e);
+                arrayEmployee.add(e);
             }
         }
-        return arrayList;
+        return arrayEmployee;
     }
 }

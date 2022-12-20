@@ -25,10 +25,10 @@ public class StringDemo {
         System.out.println("In hoa: " + text.toUpperCase());
         System.out.println("In thường: " + text.toLowerCase());
         System.out.println("Độ dài: " + text.length());
-        System.out.println("Cắt chuỗi: " + text.substring(2,5));
+        System.out.println("Cắt chuỗi: " + text.substring(2, 5));
         System.out.println("Vị trí 1 là ký tự: " + text.charAt(1));
         System.out.println("So sánh: " + text.equals(text2));
         System.out.println("So sánh không phân biệt hoa thường: " + text.equalsIgnoreCase(text2));
 
-          }
+    }
 }

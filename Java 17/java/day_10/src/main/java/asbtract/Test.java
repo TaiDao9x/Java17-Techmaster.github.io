@@ -26,11 +26,11 @@ public class Test {
         }
 
 //        Sắp xếp giảm dần
-        Employee middleEmployee = employees.get(0);
         for (int i = 0; i < employees.size(); i++) {
             for (int j = i + 1; j < employees.size(); j++) {
                 if (employees.get(i).calculateSalaryBasic() < employees.get(j).calculateSalaryBasic()) {
-                    middleEmployee = employees.get(j);
+
+                    Employee middleEmployee = employees.get(j);
                     employees.set(j, employees.get(i));
                     employees.set(i, middleEmployee);
                 }

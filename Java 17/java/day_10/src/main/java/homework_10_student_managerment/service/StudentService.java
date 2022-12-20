@@ -63,21 +63,21 @@ public class StudentService {
 
 
     public void sortStudentsByName() {
-        ArrayList<Student> sortStudentsClone = (ArrayList<Student>) allStudents.clone();
+        ArrayList<Student> studentsClone = (ArrayList<Student>) allStudents.clone();
 
-        int STUDENT_CLONE_LENTH = sortStudentsClone.size();
+        int STUDENT_CLONE_LENTH = studentsClone.size();
 
-        sortStudentsClone.sort((o1, o2) -> o2.getName().compareTo(o1.getName()));
+        studentsClone.sort((o1, o2) -> o2.getName().compareTo(o1.getName()));
 
-        for (Student student : sortStudentsClone) {
+        for (Student student : studentsClone) {
             System.out.println(student);
         }
     }
 
 
     public void sortStudentsByAge() {
-        ArrayList<Student> sortStudentsClone = (ArrayList<Student>) allStudents.clone();
-        sortStudentsClone.sort(new Comparator<>() {
+        ArrayList<Student> studentsClone = (ArrayList<Student>) allStudents.clone();
+        studentsClone.sort(new Comparator<>() {
             @Override
             public int compare(Student o1, Student o2) {
                 return o1.getAge() - o2.getAge();
@@ -85,28 +85,28 @@ public class StudentService {
         });
 
         formattingDisplayList();
-        for (Student student : sortStudentsClone) {
+        for (Student student : studentsClone) {
             System.out.println(student);
         }
     }
 
     public void sortStudentsByPoint() {
-        ArrayList<Student> sortStudentsClone = (ArrayList<Student>) allStudents.clone();
+        ArrayList<Student> studentsClone = (ArrayList<Student>) allStudents.clone();
 
-        int STUDENT_CLONE_LENTH = sortStudentsClone.size();
+        int STUDENT_CLONE_LENTH = studentsClone.size();
 
         for (int i = 0; i < STUDENT_CLONE_LENTH; i++) {
             for (int j = i + 1; j < STUDENT_CLONE_LENTH; j++) {
-                if (sortStudentsClone.get(i).getPoint() < sortStudentsClone.get(j).getPoint()) {
+                if (studentsClone.get(i).getPoint() < studentsClone.get(j).getPoint()) {
 
-                    Student middleStudent = sortStudentsClone.get(j);
-                    sortStudentsClone.set(j, sortStudentsClone.get(i));
-                    sortStudentsClone.set(i, middleStudent);
+                    Student middleStudent = studentsClone.get(j);
+                    studentsClone.set(j, studentsClone.get(i));
+                    studentsClone.set(i, middleStudent);
                 }
             }
         }
         formattingDisplayList();
-        for (Student student : sortStudentsClone) {
+        for (Student student : studentsClone) {
             System.out.println(student);
         }
     }

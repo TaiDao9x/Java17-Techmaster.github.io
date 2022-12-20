@@ -5,7 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b287aa5-0374-4961-a9a1-5e252a64ff21" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../DoItForSelf/src/equals/LambdaExpression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DoItForSelf/src/equals/reference/IStudent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DoItForSelf/src/equals/reference/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DoItForSelf/src/equals/reference/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_02/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_02/.idea/day_02.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_02/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_02/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_02/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/employee_managerment/exception/InValidSalaryException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/employee_managerment/exception/NotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/list-student.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/custom_exception/NotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/custom_exception/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/CheckedCallStack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/CheckedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/HandleException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/ThrowAndThrowsDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/UncheckExceptionDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/exception_demo/UncheckedCallStack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/gson/FindJson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/gson/ObjJson.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/gson/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/src/main/java/org/example/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day_11/student.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoItForSelf/DoItForSelf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoItForSelf/DoItForSelf.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoItForSelf/out/production/DoItForSelf/equals/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoItForSelf/out/production/DoItForSelf/student_managerment/DanhSachSinhVien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoItForSelf/out/production/DoItForSelf/student_managerment/SinhVien.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoItForSelf/out/production/DoItForSelf/student_managerment/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_02/lession_02/src/StringDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_02/lession_02/src/StringDemo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/employee_managerment/repository/EmployeeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/employee_managerment/repository/EmployeeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/employee_managerment/repository/EmployeeRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/employee_managerment/repository/EmployeeRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/src/main/java/asbtract/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/src/main/java/asbtract/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/database/StudentDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/database/StudentDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/src/main/java/homework_10_student_managerment/service/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/asbtract/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/homework_10_student_managerment/database/StudentDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/homework_10_student_managerment/database/StudentDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day_10/target/classes/homework_10_student_managerment/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../day_10/target/classes/homework_10_student_managerment/service/StudentService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,14 +85,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "F:/OneDrive - QUANG TRUNG COLLEGE/BO DEP ZAI/Coding Techmaster/TaiDao9x.github.io/Java 17/java/day_10",
+    "last_opened_file_path": "F:/OneDrive - QUANG TRUNG COLLEGE/BO DEP ZAI/Coding Techmaster/TaiDao9x.github.io/Java 17/java/day_09",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.homework_09.Test">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="day_09" />
@@ -106,10 +154,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.homework_09.Test" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.test" />
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
