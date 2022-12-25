@@ -15,18 +15,13 @@
     "password": "Abc123@"
   },
   {
-    "userName": "abc",
-    "email": "tai221192@gmail.com",
+    "userName": "Đào Tài",
+    "email": "tai123@gmail.com",
     "password": "123456789"
   },
   {
     "userName": "Việt Mỹ",
-    "email": "my92@gmail.com",
-    "password": "abcd1234"
-  },
-  {
-    "userName": "Tai",
-    "email": "tai@gmail.com",
-    "password": "123456789"
+    "email": "my@gmail.com",
+    "password": "1234abcd"
   }
 ]

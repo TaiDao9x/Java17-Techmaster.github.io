@@ -52,22 +52,18 @@ public class UserService {
         return Pattern.matches(PASSWORD_PATTERN, password);
     }
 
-    public void updatePassword(Request updatePassword) {
-        userRepository.updatePassword(updatePassword);
-    }
-
     public void createUser(User newUser) {
         User user = new User();
         user.setUserName(newUser.getUserName());
         user.setEmail(newUser.getEmail());
         user.setPassword(newUser.getPassword());
-        userRepository.createUser(user);
-
+        ALL_USER.add(user);
+        userRepository.updateFiles(ALL_USER);
     }
 
     public User findUserByEmail(String email) {
         User findUser = new User();
-        for (User user : userRepository.findAll()) {
+        for (User user : ALL_USER) {
             if (user.getEmail().equals(email)) {
                 findUser = user;
             }
@@ -75,11 +71,31 @@ public class UserService {
         return findUser;
     }
 
+    public void updatePassword(Request updatePassword) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equals(updatePassword.getEmail())) {
+                user.setPassword(updatePassword.getPassword());
+            }
+        }
+        userRepository.updateFiles(ALL_USER);
+    }
+
+
     public void updateUsername(String email, String newUsername) {
-        userRepository.updateUsername(email, newUsername);
+        for (User user : ALL_USER) {
+            if (user.getEmail().equals(email)) {
+                user.setUserName(newUsername);
+            }
+        }
+        userRepository.updateFiles(ALL_USER);
     }
 
     public void updateEmail(String email, String newEmail) {
-        userRepository.updateEmail(email, newEmail);
+        for (User user : ALL_USER) {
+            if (user.getEmail().equals(email)) {
+                user.setEmail(newEmail);
+            }
+        }
+        userRepository.updateFiles(ALL_USER);
     }
 }

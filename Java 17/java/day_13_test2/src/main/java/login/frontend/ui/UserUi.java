@@ -30,7 +30,7 @@ public class UserUi {
 
             switch (option) {
                 case 1 -> {
-                    System.out.println("\n------------- ĐĂNG NHẬP -------------");
+                    System.out.println("\n------------ ĐĂNG NHẬP ------------");
                     System.out.print("Nhập vào email của bạn: ");
                     String email = sc.nextLine();
 
@@ -42,9 +42,8 @@ public class UserUi {
                     try {
                         userControler.checkLogin(checkLogin);
 
-                        System.out.println("\n--------------- ĐĂNG NHẬP THÀNH CÔNG ---------------");
-                        System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n",
-                                userControler.findUserByEmail(email).getUserName());
+                        System.out.println("\n------------ ĐĂNG NHẬP THÀNH CÔNG ------------");
+                        System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n", userControler.findUserByEmail(email).getUserName());
 
                         int optionSubMenu;
                         boolean isQuitSubMenu = false;
@@ -64,25 +63,29 @@ public class UserUi {
 
                             switch (optionSubMenu) {
                                 case 1 -> {
-                                    System.out.println("\n------- THAY ĐỔI USERNAME -------");
+                                    System.out.println("\n------------ THAY ĐỔI USERNAME ------------");
                                     System.out.print("Nhập username mới của bạn: ");
                                     String newUsername = sc.nextLine();
                                     userControler.updateUsername(email, newUsername);
                                     System.out.println("Thay đổi username thành công!");
                                 }
                                 case 2 -> {
-                                    System.out.println("\n------- THAY ĐỔI EMAIL -------");
+                                    System.out.println("\n------------ THAY ĐỔI EMAIL ------------");
                                     String newEmail = getEmail();
 
                                     userControler.updateEmail(email, newEmail);
                                     System.out.println("Thay đổi email thành công!");
                                 }
                                 case 3 -> {
-                                    System.out.println("------------- THAY ĐỔI MẬT KHẨU -------------");
+                                    System.out.println("\n------------ THAY ĐỔI MẬT KHẨU ------------");
                                     changePassword(email);
                                 }
-                                case 4 -> isQuitSubMenu = true;
+                                case 4 -> {
+                                    System.out.println("\n------------- HẸN GẶP LẠI! -------------");
+                                    isQuitSubMenu = true;
+                                }
                                 case 5 -> {
+                                    System.out.println("\n------------- HẸN GẶP LẠI! -------------");
                                     isQuitSubMenu = true;
                                     isQuit = true;
                                 }
@@ -96,7 +99,7 @@ public class UserUi {
 
                 }
                 case 2 -> {
-                    System.out.println("\n----------- ĐĂNG KÝ TÀI KHOẢN ------------");
+                    System.out.println("\n------------ ĐĂNG KÝ TÀI KHOẢN ------------");
                     System.out.print("Nhập UserName: ");
                     String userName = sc.nextLine();
 
@@ -106,11 +109,12 @@ public class UserUi {
 
                     User newUser = new User(userName, email, password);
                     userControler.createUser(newUser);
-                    System.out.println("Đăng ký tài khoản thành công!");
+                    System.out.println("\nĐăng ký tài khoản thành công!");
                     System.out.println(userControler.findUserByEmail(email));
                 }
                 case 3 -> {
-                    System.out.print("\nNhập vào email của bạn: ");
+                    System.out.println("\n------------ QUÊN MẬT KHẨU ------------");
+                    System.out.print("Nhập vào email của bạn: ");
                     String email = sc.nextLine();
                     if (userControler.checkEmail(email)) {
                         changePassword(email);
@@ -126,8 +130,8 @@ public class UserUi {
     }
 
     private void showMenu() {
-        System.out.println("\n------------ WELCOME ------------");
-        System.out.println("---------------------------------");
+        System.out.println("\n---------------------------------");
+        System.out.println("------------ WELCOME ------------\n");
         System.out.println("""
                 1. Đăng nhập
                 2. Đăng ký
@@ -147,8 +151,7 @@ public class UserUi {
     }
 
 
-    private String changePassword(String email) {
-        String password = "";
+    private void changePassword(String email) {
         boolean checkPassword = false;
         while (!checkPassword) {
             System.out.print("\nNhập mật khẩu mới cho tài khoản của bạn: ");
@@ -163,7 +166,6 @@ public class UserUi {
                 System.out.println("Mật khẩu phải có ít nhất từ 7 đến 15 ký tự");
             }
         }
-        return password;
     }
 
     private String getEmail() {
