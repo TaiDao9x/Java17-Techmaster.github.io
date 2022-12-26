@@ -33,7 +33,7 @@ public class UserService {
 
     public boolean checkEmailValid(String email) {
         String EMAIL_PATTERN =
-                "^[a-zA-Z][\\w-]+@([\\w]{5}+\\.[\\w]+|[\\w]{5}+\\.[\\w]{2,}\\.[\\w]{2,})$";
+                "^[a-zA-Z][\\w-]+@([\\w]{5}+\\.[\\w]{3,}+|[\\w]{5}+\\.[\\w]{3,}\\.[\\w]{2,})$";
 
         return Pattern.matches(EMAIL_PATTERN, email);
     }

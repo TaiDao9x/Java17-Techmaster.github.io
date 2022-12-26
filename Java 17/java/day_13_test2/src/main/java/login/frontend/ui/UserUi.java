@@ -31,7 +31,7 @@ public class UserUi {
             switch (option) {
                 case 1 -> {
                     System.out.println("\n------------ ĐĂNG NHẬP ------------");
-                    String email = checkEmailValid();
+                    String email = getEmailForLogin();
 
                     System.out.print("Nhập vào password của bạn: ");
                     String password = sc.nextLine();
@@ -151,7 +151,7 @@ public class UserUi {
 
     }
 
-    private String checkEmailValid() {
+    private String getEmailForLogin() {
         boolean checkEmail = false;
         String email = "";
         while (!checkEmail) {
