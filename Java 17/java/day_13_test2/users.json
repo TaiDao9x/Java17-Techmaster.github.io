@@ -23,5 +23,10 @@
     "userName": "Việt Mỹ",
     "email": "my@gmail.com",
     "password": "1234abcd"
+  },
+  {
+    "userName": "Đào Tài",
+    "email": "taileader92@gmail.com",
+    "password": "987654321"
   }
 ]

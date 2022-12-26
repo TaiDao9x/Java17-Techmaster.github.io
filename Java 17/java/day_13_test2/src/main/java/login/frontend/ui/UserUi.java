@@ -31,8 +31,7 @@ public class UserUi {
             switch (option) {
                 case 1 -> {
                     System.out.println("\n------------ ĐĂNG NHẬP ------------");
-                    System.out.print("Nhập vào email của bạn: ");
-                    String email = sc.nextLine();
+                    String email = checkEmailValid();
 
                     System.out.print("Nhập vào password của bạn: ");
                     String password = sc.nextLine();
@@ -66,6 +65,7 @@ public class UserUi {
                                     System.out.println("\n------------ THAY ĐỔI USERNAME ------------");
                                     System.out.print("Nhập username mới của bạn: ");
                                     String newUsername = sc.nextLine();
+
                                     userControler.updateUsername(email, newUsername);
                                     System.out.println("Thay đổi username thành công!");
                                 }
@@ -104,11 +104,11 @@ public class UserUi {
                     String userName = sc.nextLine();
 
                     String email = getEmail();
-
                     String password = getPassword();
 
                     User newUser = new User(userName, email, password);
                     userControler.createUser(newUser);
+
                     System.out.println("\nĐăng ký tài khoản thành công!");
                     System.out.println(userControler.findUserByEmail(email));
                 }
@@ -116,6 +116,7 @@ public class UserUi {
                     System.out.println("\n------------ QUÊN MẬT KHẨU ------------");
                     System.out.print("Nhập vào email của bạn: ");
                     String email = sc.nextLine();
+
                     if (userControler.checkEmail(email)) {
                         changePassword(email);
 
@@ -150,22 +151,19 @@ public class UserUi {
 
     }
 
-
-    private void changePassword(String email) {
-        boolean checkPassword = false;
-        while (!checkPassword) {
-            System.out.print("\nNhập mật khẩu mới cho tài khoản của bạn: ");
-            String newPassword = sc.nextLine();
-
-            if (userControler.checkPassword(newPassword)) {
-                Request updatePassword = new Request(email, newPassword);
-                userControler.updatePassword(updatePassword);
-                System.out.println("Đổi mật khẩu thành công!");
-                checkPassword = true;
+    private String checkEmailValid() {
+        boolean checkEmail = false;
+        String email = "";
+        while (!checkEmail) {
+            System.out.print("\nNhập email của bạn: ");
+            email = sc.nextLine();
+            if (userControler.checkEmailValid(email)) {
+                checkEmail = true;
             } else {
-                System.out.println("Mật khẩu phải có ít nhất từ 7 đến 15 ký tự");
+                System.out.println("Email không hợp lệ!");
             }
         }
+        return email;
     }
 
     private String getEmail() {
@@ -187,6 +185,24 @@ public class UserUi {
         }
         return newEmail;
     }
+
+    private void changePassword(String email) {
+        boolean checkPassword = false;
+        while (!checkPassword) {
+            System.out.print("\nNhập mật khẩu mới cho tài khoản của bạn: ");
+            String newPassword = sc.nextLine();
+
+            if (userControler.checkPassword(newPassword)) {
+                Request updatePassword = new Request(email, newPassword);
+                userControler.updatePassword(updatePassword);
+                System.out.println("Đổi mật khẩu thành công!");
+                checkPassword = true;
+            } else {
+                System.out.println("Mật khẩu phải có ít nhất từ 7 đến 15 ký tự");
+            }
+        }
+    }
+
 
     private String getPassword() {
         String password = "";
