@@ -40,10 +40,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        System.out.printf("%-15s %-25s %-15s", userName, email, password);
+        return "";
     }
 }

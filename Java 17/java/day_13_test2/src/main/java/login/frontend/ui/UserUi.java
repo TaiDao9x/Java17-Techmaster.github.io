@@ -5,8 +5,6 @@ import login.backend.exception.NotFoundException;
 import login.backend.model.User;
 import login.backend.request.Request;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class UserUi {
@@ -63,7 +61,8 @@ public class UserUi {
 
                                 switch (optionAdminMenu) {
                                     case 1 -> {
-                                        System.out.println("\n------------ HIỂN THỊ DANH SÁCH USER ------------");
+                                        System.out.print("\n------------------ DANH SÁCH USER ------------------");
+                                        formattingDisplay();
                                         for (Object user : userControler.findAll()) {
                                             System.out.println(user);
                                         }
@@ -88,10 +87,7 @@ public class UserUi {
                                     default -> System.out.println("Lựa chọn không tồn tại!");
                                 }
                             }
-
-
                         } else {
-
 
                             System.out.println("\n------------ ĐĂNG NHẬP THÀNH CÔNG ------------");
                             System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n", userControler.findUserByEmail(email).getUserName());
@@ -148,7 +144,6 @@ public class UserUi {
                     } catch (NotFoundException e) {
                         System.out.println(e.getMessage());
                     }
-
                 }
                 case 2 -> {
                     System.out.println("\n------------ ĐĂNG KÝ TÀI KHOẢN ------------");
@@ -162,6 +157,7 @@ public class UserUi {
                     userControler.createUser(newUser);
 
                     System.out.println("\nĐăng ký tài khoản thành công!");
+                    formattingDisplay();
                     System.out.println(userControler.findUserByEmail(email));
                 }
                 case 3 -> {
@@ -179,7 +175,6 @@ public class UserUi {
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại! ");
             }
         }
-
     }
 
     private void showMenu() {
@@ -223,6 +218,7 @@ public class UserUi {
             if (userControler.checkEmailValid(email)) {
                 if (userControler.checkEmailExists(email)) {
                     user = userControler.findUserByEmail(email);
+                    formattingDisplay();
                     checkEmail = true;
                 } else {
                     System.out.println("Email không tồn tại!");
@@ -236,10 +232,11 @@ public class UserUi {
 
     private void deleteUser() {
         User user = findUserByEmail();
+        System.out.println(user);
 
         boolean isDelete = false;
         while (!isDelete) {
-            System.out.printf("Bạn có thực sự muốn xóa tài khoản %s không?\n", user.getEmail());
+            System.out.printf("\nBạn có thực sự muốn xóa tài khoản %s không?\n", user.getEmail());
             System.out.println("1. Có \t\t 2. không");
             int option = 0;
             try {
@@ -256,9 +253,7 @@ public class UserUi {
             } else {
                 System.out.println("Lựa chọn không có. Hãy chọn lại!");
             }
-
         }
-
     }
 
     private String getEmailForLogin() {
@@ -313,12 +308,11 @@ public class UserUi {
         }
     }
 
-
     private String getPassword() {
         String password = "";
         boolean checkPassword = false;
         while (!checkPassword) {
-            System.out.print("\nNhập mật khẩu: ");
+            System.out.print("Nhập mật khẩu: ");
             password = sc.nextLine();
 
             if (userControler.checkPassword(password)) {
@@ -328,5 +322,10 @@ public class UserUi {
             }
         }
         return password;
+    }
+
+    private void formattingDisplay() {
+        System.out.printf("\n%-15s %-25s %-15s\n", "UserName", "   Email", "Password");
+        System.out.println("----------------------------------------------------");
     }
 }

@@ -23,5 +23,10 @@
     "userName": "vm",
     "email": "my92@gmail.com",
     "password": "1234567"
+  },
+  {
+    "userName": "my",
+    "email": "my@gmail.com",
+    "password": "1234567"
   }
 ]
