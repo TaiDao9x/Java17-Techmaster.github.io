@@ -1,5 +1,10 @@
 [
   {
+    "userName": "ADMIN",
+    "email": "admin@gmail.com",
+    "password": "123456789"
+  },
+  {
     "userName": "tai92",
     "email": "tai92@gmail.com",
     "password": "123456789"
@@ -15,8 +20,8 @@
     "password": "123456789"
   },
   {
-    "userName": "Việt Mỹ",
-    "email": "my@gmail.com",
-    "password": "123456789"
+    "userName": "vm",
+    "email": "my92@gmail.com",
+    "password": "1234567"
   }
 ]

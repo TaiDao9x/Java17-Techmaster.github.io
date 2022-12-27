@@ -98,4 +98,19 @@ public class UserService {
         }
         userRepository.updateFiles(ALL_USER);
     }
+
+    public ArrayList findAll() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUser(User user) {
+        ArrayList<User> list = new ArrayList<>();
+        for (User findUser : ALL_USER) {
+            if (user.getEmail().equals(findUser.getEmail())) {
+                list.add(user);
+            }
+        }
+        ALL_USER.removeAll(list);
+        userRepository.updateFiles(ALL_USER);
+    }
 }

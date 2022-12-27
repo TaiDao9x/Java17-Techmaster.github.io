@@ -5,6 +5,8 @@ import login.backend.exception.NotFoundException;
 import login.backend.model.User;
 import login.backend.request.Request;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserUi {
@@ -41,58 +43,108 @@ public class UserUi {
                     try {
                         userControler.checkLogin(checkLogin);
 
-                        System.out.println("\n------------ ĐĂNG NHẬP THÀNH CÔNG ------------");
-                        System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n", userControler.findUserByEmail(email).getUserName());
+                        if (email.equals("admin@gmail.com")) {
 
-                        int optionSubMenu;
-                        boolean isQuitSubMenu = false;
+                            int optionAdminMenu;
+                            boolean isQuitAdminMenu = false;
 
-                        while (!isQuitSubMenu) {
+                            while (!isQuitAdminMenu) {
 
-                            subMenu();
+                                adminMenu();
 
-                            try {
-                                System.out.print("Lựa chọn của bạn: ");
-                                optionSubMenu = Integer.parseInt(sc.nextLine());
+                                try {
+                                    System.out.print("Lựa chọn của bạn: ");
+                                    optionAdminMenu = Integer.parseInt(sc.nextLine());
 
-                            } catch (Exception e) {
-                                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại! ");
-                                continue;
+                                } catch (Exception e) {
+                                    System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại! ");
+                                    continue;
+                                }
+
+                                switch (optionAdminMenu) {
+                                    case 1 -> {
+                                        System.out.println("\n------------ HIỂN THỊ DANH SÁCH USER ------------");
+                                        for (Object user : userControler.findAll()) {
+                                            System.out.println(user);
+                                        }
+                                    }
+                                    case 2 -> {
+                                        System.out.println("\n------------ TÌM TÀI KHOẢN ------------");
+                                        System.out.println(findUserByEmail());
+                                    }
+                                    case 3 -> {
+                                        System.out.println("\n------------ XÓA TÀI KHOẢN ------------");
+                                        deleteUser();
+                                    }
+                                    case 4 -> {
+                                        System.out.println("\n------------- HẸN GẶP LẠI! -------------");
+                                        isQuitAdminMenu = true;
+                                    }
+                                    case 5 -> {
+                                        System.out.println("\n------------- HẸN GẶP LẠI! -------------");
+                                        isQuitAdminMenu = true;
+                                        isQuit = true;
+                                    }
+                                    default -> System.out.println("Lựa chọn không tồn tại!");
+                                }
                             }
 
-                            switch (optionSubMenu) {
-                                case 1 -> {
-                                    System.out.println("\n------------ THAY ĐỔI USERNAME ------------");
-                                    System.out.print("Nhập username mới của bạn: ");
-                                    String newUsername = sc.nextLine();
 
-                                    userControler.updateUsername(email, newUsername);
-                                    System.out.println("Thay đổi username thành công!");
-                                }
-                                case 2 -> {
-                                    System.out.println("\n------------ THAY ĐỔI EMAIL ------------");
-                                    String newEmail = getEmail();
+                        } else {
 
-                                    userControler.updateEmail(email, newEmail);
-                                    System.out.println("Thay đổi email thành công!");
+
+                            System.out.println("\n------------ ĐĂNG NHẬP THÀNH CÔNG ------------");
+                            System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n", userControler.findUserByEmail(email).getUserName());
+
+                            int optionSubMenu;
+                            boolean isQuitSubMenu = false;
+
+                            while (!isQuitSubMenu) {
+
+                                subMenu();
+
+                                try {
+                                    System.out.print("Lựa chọn của bạn: ");
+                                    optionSubMenu = Integer.parseInt(sc.nextLine());
+
+                                } catch (Exception e) {
+                                    System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại! ");
+                                    continue;
                                 }
-                                case 3 -> {
-                                    System.out.println("\n------------ THAY ĐỔI MẬT KHẨU ------------");
-                                    changePassword(email);
+
+                                switch (optionSubMenu) {
+                                    case 1 -> {
+                                        System.out.println("\n------------ THAY ĐỔI USERNAME ------------");
+                                        System.out.print("Nhập username mới của bạn: ");
+                                        String newUsername = sc.nextLine();
+
+                                        userControler.updateUsername(email, newUsername);
+                                        System.out.println("Thay đổi username thành công!");
+                                    }
+                                    case 2 -> {
+                                        System.out.println("\n------------ THAY ĐỔI EMAIL ------------");
+                                        String newEmail = getEmail();
+
+                                        userControler.updateEmail(email, newEmail);
+                                        System.out.println("Thay đổi email thành công!");
+                                    }
+                                    case 3 -> {
+                                        System.out.println("\n------------ THAY ĐỔI MẬT KHẨU ------------");
+                                        changePassword(email);
+                                    }
+                                    case 4 -> {
+                                        System.out.println("\n------------- HẸN GẶP LẠI! -------------");
+                                        isQuitSubMenu = true;
+                                    }
+                                    case 5 -> {
+                                        System.out.println("\n------------- HẸN GẶP LẠI! -------------");
+                                        isQuitSubMenu = true;
+                                        isQuit = true;
+                                    }
+                                    default -> System.out.println("Lựa chọn không tồn tại!");
                                 }
-                                case 4 -> {
-                                    System.out.println("\n------------- HẸN GẶP LẠI! -------------");
-                                    isQuitSubMenu = true;
-                                }
-                                case 5 -> {
-                                    System.out.println("\n------------- HẸN GẶP LẠI! -------------");
-                                    isQuitSubMenu = true;
-                                    isQuit = true;
-                                }
-                                default -> System.out.println("Lựa chọn không tồn tại!");
                             }
                         }
-
                     } catch (NotFoundException e) {
                         System.out.println(e.getMessage());
                     }
@@ -148,6 +200,64 @@ public class UserUi {
                 4. Đăng xuất (Sau khi đăng xuất quay về mục yêu cầu đăng nhập hoặc đăng ký)
                 5. Thoát chương trình
                 """);
+
+    }
+
+    private void adminMenu() {
+        System.out.println("\n------------ ADMIN ------------");
+        System.out.println("""
+                1. Hiển thị tất cả các tài khoản
+                2. Tìm tài khoản 
+                3. Xóa tài khoản
+                4. Đăng xuất
+                5. Thoát chương trình
+                """);
+    }
+
+    private User findUserByEmail() {
+        boolean checkEmail = false;
+        User user = new User();
+        while (!checkEmail) {
+            System.out.print("Nhập email: ");
+            String email = sc.nextLine();
+            if (userControler.checkEmailValid(email)) {
+                if (userControler.checkEmailExists(email)) {
+                    user = userControler.findUserByEmail(email);
+                    checkEmail = true;
+                } else {
+                    System.out.println("Email không tồn tại!");
+                }
+            } else {
+                System.out.println("Email không hợp lệ!");
+            }
+        }
+        return user;
+    }
+
+    private void deleteUser() {
+        User user = findUserByEmail();
+
+        boolean isDelete = false;
+        while (!isDelete) {
+            System.out.printf("Bạn có thực sự muốn xóa tài khoản %s không?\n", user.getEmail());
+            System.out.println("1. Có \t\t 2. không");
+            int option = 0;
+            try {
+                option = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+            }
+            if (option == 1) {
+                userControler.deleteUser(user);
+                System.out.println("Đã xóa tài khoản thành công!");
+                isDelete = true;
+            } else if (option == 2) {
+                isDelete = true;
+            } else {
+                System.out.println("Lựa chọn không có. Hãy chọn lại!");
+            }
+
+        }
 
     }
 

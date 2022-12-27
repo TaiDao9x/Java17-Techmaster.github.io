@@ -4,7 +4,10 @@ import login.backend.model.User;
 import login.backend.request.Request;
 import login.backend.service.UserService;
 
+import java.util.ArrayList;
+
 public class UserControler {
+
     UserService userService = new UserService();
 
     public void checkLogin(Request loginRequest) {
@@ -39,11 +42,19 @@ public class UserControler {
         return userService.findUserByEmail(email);
     }
 
-    public void updateUsername(String email,String newUsername) {
-        userService.updateUsername(email,newUsername);
+    public void updateUsername(String email, String newUsername) {
+        userService.updateUsername(email, newUsername);
     }
 
-    public void updateEmail(String email,String newEmail) {
-        userService.updateEmail(email,newEmail);
+    public void updateEmail(String email, String newEmail) {
+        userService.updateEmail(email, newEmail);
+    }
+
+    public ArrayList findAll() {
+       return userService.findAll();
+    }
+
+    public void deleteUser(User user) {
+        userService.deleteUser(user);
     }
 }
