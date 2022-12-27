@@ -89,8 +89,9 @@ public class UserUi {
                             }
                         } else {
 
-                            System.out.println("\n------------ ĐĂNG NHẬP THÀNH CÔNG ------------");
-                            System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n", userControler.findUserByEmail(email).getUserName());
+                            System.out.println("\n-------------- ĐĂNG NHẬP THÀNH CÔNG --------------");
+                            System.out.printf("Chào mừng %s, bạn có thể thực hiện các công việc sau: \n",
+                                    userControler.findUserByEmail(email).getUserName());
 
                             int optionSubMenu;
                             boolean isQuitSubMenu = false;
