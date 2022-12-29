@@ -3,7 +3,7 @@ package leetcode;
 
 import java.util.Arrays;
 
-class Solution {
+class Shuffle {
     public static void main(String[] args) {
         int[] nums = {1, 2, 3, 4, 5, 6};
 
