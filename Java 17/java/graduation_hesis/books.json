@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Heaven's Burning",
+    "category": [
+      "Văn học"
+    ],
+    "author": "Shawn Calvey",
+    "pageNumber": 61,
+    "releaseYear": 2009,
+    "price": 120000,
+    "publishCompany": "NXB trẻ",
+    "quantity": 30,
+    "rating": 4.9
+  },
+  {
+    "id": 1,
+    "title": "Heaven\u0027s Burning",
+    "category": [
+      "Kinh tê"
+    ],
+    "author": "Shawn Calvey",
+    "pageNumber": 61,
+    "releaseYear": 2009,
+    "price": 2009,
+    "publishCompany": "NXB Lao động",
+    "quantity": 2009,
+    "rating": 2009
+  }
+]

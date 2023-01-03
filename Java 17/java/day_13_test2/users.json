@@ -28,5 +28,10 @@
     "userName": "my",
     "email": "my@gmail.com",
     "password": "1234567"
+  },
+  {
+    "userName": "dt",
+    "email": "tai221192@gmail.com",
+    "password": "123456789"
   }
 ]

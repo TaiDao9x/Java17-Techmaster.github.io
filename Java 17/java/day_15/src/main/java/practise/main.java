@@ -2,6 +2,8 @@ package practise;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +38,16 @@ public class main {
         Product product = new Product(6, "Vivo pro bet", 13_000_000, "Vivo", 6);
         products = addProduct(products, product);
         printInfo(products);
+        System.out.println("-----7----");
+        printInfo(findOthersasmung(products, "Samsung"));
 
+        System.out.println("-----8----");
+        printInfo(sortProduct(products));
+
+        System.out.println("-----9----");
+
+
+        printInfo(shufleProduct(products));
     }
 
 
@@ -87,11 +98,22 @@ public class main {
         return products;
 
     }
-//    Xóa tất cả sản phẩm của thương hiệu “Samsung” trong giỏ hàng
-//
-//    Sắp xếp giỏ hàng theo price tăng dần
-//
-//    Sắp xếp giỏ hàng theo count giảm dần
-//
-//    Lấy ra 2 sản phẩm bất kỳ trong giỏ hàng
+
+    //    Xóa tất cả sản phẩm của thương hiệu “Samsung” trong giỏ hàng
+    public static List<Product> findOthersasmung(List<Product> products, String brand) {
+        return products.stream().filter(n -> !n.getBrand().equalsIgnoreCase(brand)).collect(Collectors.toList());
+    }
+
+    //    Sắp xếp giỏ hàng theo price tăng dần
+    public static List<Product> sortProduct(List<Product> products) {
+        return products.stream().sorted(Comparator.comparingInt(Product::getPrice).reversed()).collect(Collectors.toList());
+    }
+
+    //    Sắp xếp giỏ hàng theo count giảm dần
+
+    //    Lấy ra 2 sản phẩm bất kỳ trong giỏ hàng
+    public static List<Product> shufleProduct(List<Product> products) {
+        Collections.shuffle(products);
+        return products.stream().limit(2).collect(Collectors.toList());
+    }
 }

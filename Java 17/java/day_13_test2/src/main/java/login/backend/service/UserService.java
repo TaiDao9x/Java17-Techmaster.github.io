@@ -53,11 +53,11 @@ public class UserService {
     }
 
     public void createUser(User newUser) {
-        User user = new User();
-        user.setUserName(newUser.getUserName());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(newUser.getPassword());
-        ALL_USER.add(user);
+//        User user = new User();
+//        user.setUserName(newUser.getUserName());
+//        user.setEmail(newUser.getEmail());
+//        user.setPassword(newUser.getPassword());
+        ALL_USER.add(newUser);
         userRepository.updateFiles(ALL_USER);
     }
 
