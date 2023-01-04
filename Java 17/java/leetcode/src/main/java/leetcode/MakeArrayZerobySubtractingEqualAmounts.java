@@ -2,7 +2,6 @@ package leetcode;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class MakeArrayZerobySubtractingEqualAmounts {
     public int minimumOperations(int[] nums) {

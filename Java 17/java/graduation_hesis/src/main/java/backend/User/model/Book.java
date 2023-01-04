@@ -1,4 +1,4 @@
-package backend.Book.model;
+package backend.User.model;
 
 import lombok.*;
 

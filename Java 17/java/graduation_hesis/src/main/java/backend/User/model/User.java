@@ -1,6 +1,5 @@
 package backend.User.model;
 
-import backend.Book.model.Book;
 import lombok.*;
 
 import java.util.List;
