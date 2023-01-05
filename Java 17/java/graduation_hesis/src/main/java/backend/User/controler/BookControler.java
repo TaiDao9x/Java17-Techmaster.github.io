@@ -23,4 +23,12 @@ public class BookControler {
        return bookService.findBookByAuthor(author);
 
     }
+
+    public Book findBookById(int id) {
+        return bookService.findBookById(id);
+    }
+
+    public boolean checkIdExist(int id) {
+        return bookService.checkIdExist(id);
+    }
 }

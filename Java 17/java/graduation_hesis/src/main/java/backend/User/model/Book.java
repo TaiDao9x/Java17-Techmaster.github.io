@@ -21,18 +21,4 @@ public class Book {
     private int quantity;
     private double rating;
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", category=" + category +
-                ", author='" + author + '\'' +
-                ", pageNumber=" + pageNumber +
-                ", releaseYear=" + releaseYear +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", rating=" + rating +
-                '}';
-    }
-}
+  }

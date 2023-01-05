@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class BookFileUltis {
+public class BookFileUltils {
     public static ArrayList<Book> getDataFromFile(String fileName) {
 
         try {

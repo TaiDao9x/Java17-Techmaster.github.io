@@ -1,11 +1,12 @@
 package frontend;
 
 import backend.User.controler.BookControler;
-import backend.User.controler.UserControler;
+import backend.User.controler.ItemController;
 import backend.User.model.Book;
+import backend.User.model.Cart;
+import backend.User.model.Item;
 import backend.User.model.User;
-import backend.User.request.UserRequest;
-import backend.User.ultils.BookFileUltis;
+import backend.User.ultils.BookFileUltils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,6 +14,8 @@ import java.util.Scanner;
 public class ClientUi {
     Scanner sc = new Scanner(System.in);
     BookControler bookControler = new BookControler();
+    ItemController itemController = new ItemController();
+
 
     // KHUNG TRONG CLIENT (lv2)
     // Login thành công (client)
@@ -55,7 +58,7 @@ public class ClientUi {
                     findBook();
                 }
                 case 3 -> {
-
+                    manageOrder();
                 }
                 case 4 -> {
 
@@ -79,9 +82,7 @@ public class ClientUi {
 
         while (!backToMenu) {
             System.out.println("""
-                    1. Theo thể loại
-                    2. Theo nhà xuất bản
-                    9. Quay lại
+                    1. Xem theo thể loại \t\t 2. Xem theo nhà xuất bản\t\t9. Quay lại
                     """);
             System.out.print("Bạn chọn: ");
 
@@ -214,7 +215,6 @@ public class ClientUi {
         return bookControler.showBookByPulisherCompany(pulisherCompany);
     }
 
-
     // 2. Tìm kiếm sản phẩm
     public void findBook() {
         int option;
@@ -222,9 +222,7 @@ public class ClientUi {
 
         while (!backToMenu) {
             System.out.println("""
-                    1. Tìm theo tên sách
-                    2. Tìm theo tên tác giả
-                    9. Quay lại
+                    1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 9. Quay lại
                     """);
             System.out.print("Bạn chọn: ");
 
@@ -267,18 +265,102 @@ public class ClientUi {
         return bookControler.findBookByName(title);
     }
 
+    // 2.2 Tìm theo tác giả
     public ArrayList<Book> findBookByAuthor() {
         System.out.print("Nhập vào tên tác giả: ");
         String author = sc.nextLine();
         return bookControler.findBookByAuthor(author);
     }
 
+    // 3. Quản lý đơn hàng
+    public void askToBuy() {
+        System.out.println("""
+                \n1. Thêm sản phẩm vào giỏ hàng
+                2. Xem giỏ hàng
+                3. Xem tiếp sản phẩm
+                9. Quay lại
+                 """);
+        System.out.print("Bạn muốn: ");
+    }
 
-//    5. Sửa thông tin cá nhân
+    public void manageOrder() {
+        int option;
+        boolean backToMenu = false;
+
+        while (!backToMenu) {
+            askToBuy();
+            try {
+                option = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+
+            switch (option) {
+                case 1 -> {
+                    addItemFromIdBook();
+//                    backToMenu = true;
+                }
+                case 2 -> {
+                    System.out.println(getCart());
+                    backToMenu = true;
+                }
+                case 3 -> {
+
+                    backToMenu = true;
+                }
+                case 9 -> backToMenu = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // 3.1. Thêm sản phẩm vào giỏ hàng
+
+    // Từ id book khách hàng nhập vào ->lấy ra Item để chuyển vào giỏ hàng
+    public void addItemFromIdBook() {
+        boolean back = false;
+        int id;
+        Book book = new Book();
+
+        while (!back) {
+
+            try {
+                System.out.print("Nhập id sản phẩm: ");
+                id = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            if (checkIdExist(id)) {
+                book = findBookById(id);
+                back = true;
+            } else {
+                System.out.println("Không tồn tại sản phẩm có id: " + id);
+            }
+        }
+        Item item = new Item(book.getId(), book.getTitle(), 1, book.getPrice(), book.getPrice());
+        itemController.addItemFromIdBook(item);
+        System.out.printf("Thêm %s vào giỏ hàng!\n", book.getTitle());
+    }
+
+//    3.2 Xem giỏ hàng
+    public Cart getCart(){
+        return new Cart();
+    }
+
+
+    public Book findBookById(int id) {
+        return bookControler.findBookById(id);
+    }
+
+    public boolean checkIdExist(int id) {
+        return bookControler.checkIdExist(id);
+    }
 
     // Method phụ
     public void printBook(ArrayList<Book> books) {
-        BookFileUltis.printBook(books);
+        BookFileUltils.printBook(books);
     }
 
     // Đã làm xong chức năng tìm kiếm và show sản phẩm. Tiếp tục chuwcs năng mua hàng và sửa thông tin cá nhân

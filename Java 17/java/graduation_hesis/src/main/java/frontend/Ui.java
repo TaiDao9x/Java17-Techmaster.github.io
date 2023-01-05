@@ -1,9 +1,11 @@
 package frontend;
 
+import backend.User.model.Address;
 import backend.User.model.Book;
 import backend.User.controler.UserControler;
 import backend.User.model.User;
 import backend.User.request.UserRequest;
+import backend.User.ultils.UserFileUltils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,30 +31,33 @@ public class Ui {
 
             switch (option) {
                 case 1 -> {
+                    clientUi.showBook();
+                }
+                case 2 -> {
+                    clientUi.findBook();
+                }
+                case 3 -> {
                     System.out.println("\n----------- ĐĂNG NHẬP -----------");
                     User clientLogin = getUserAfterCheckPass(getEmailToLogin());
                     clientUi.clientLoginSuccess(clientLogin);
                 }
-                case 2 -> {
-                    System.out.println("\n----------- ĐĂNG KÝ TAI KHOẢN -----------");
+                case 4 -> {
+                    System.out.println("\n----------- ĐĂNG KÝ TÀI KHOẢN -----------");
                     System.out.print("Nhập username: ");
                     String userName = sc.nextLine();
 
                     String email = getEmailToRegister();
                     String password = getPasswordToRegister();
                     String phone = getPhoneToRegister();
+                    Address address = getAddressToRegister();
 
-                    System.out.print("Nhập địa chỉ: ");
-                    String address = sc.nextLine();
-                    ArrayList<Book> order = new ArrayList<>();
-
-                    User newUser = new User(userName, email, password, phone, address, order);
+                    User newUser = new User(userName, email, password, phone, address);
 
                     userControler.createNewUser(newUser);
-                    System.out.println("Xin chúc mừng... Đã tạo tài khoản thành công!");
-                    System.out.println(newUser);
+                    System.out.println("Bạn đã tạo tài khoản thành công! Xin chúc mừng. ");
+                    UserFileUltils.printUser(newUser);
                 }
-                case 3 -> {
+                case 5 -> {
                     System.out.println("\n----------- QUÊN MẬT KHẨU -----------");
 
                     String email = getEmailToLogin();
@@ -73,9 +78,11 @@ public class Ui {
         System.out.println("\n-----------------------------------------");
         System.out.println("------- WELCOME TO DT'S BOOKSTORE -------");
         System.out.println("""
-                1. Đăng nhập 
-                2. Đăng ký
-                3. Quên mật khẩu
+                1. Xem sản phẩm
+                2. Tìm kiếm sản phẩm
+                3. Đăng nhập
+                4. Đăng ký
+                5. Quên mật khẩu
                 0. Thoát ứng dụng
                 """);
         System.out.print("Nhập lựa chọn của bạn: ");
@@ -181,5 +188,22 @@ public class Ui {
             }
         }
         return phone;
+    }
+
+    public Address getAddressToRegister() {
+        System.out.println("Địa chỉ của bạn: ");
+        System.out.print("Thành phố: ");
+        String city = sc.nextLine();
+
+        System.out.print("Quận: ");
+        String district = sc.nextLine();
+
+        System.out.print("Đường: ");
+        String street = sc.nextLine();
+
+        System.out.print("Địa chỉ nhận hàng: ");
+        String addressDetail = sc.nextLine();
+
+        return new Address(city, district, street, addressDetail);
     }
 }

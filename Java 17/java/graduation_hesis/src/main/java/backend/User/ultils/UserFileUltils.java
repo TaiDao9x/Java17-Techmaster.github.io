@@ -1,5 +1,6 @@
 package backend.User.ultils;
 
+import backend.User.model.Address;
 import backend.User.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,5 +39,17 @@ public class UserFileUltils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void printUser(User user) {
+        Address address = new Address();
+        System.out.printf("%-10s %-20s %-15s %-15s %-50s \n", "Username", "Email", "Password", "Phone", "Địa chỉ");
+        System.out.println("----------------------------------------------------------------------------------------------" +
+                "---------------");
+
+        System.out.printf("%-10s %-20s %-15s %-15s %-50s \n", user.getUserName(), user.getEmail(),
+                user.getPassword(), user.getPhone(), user.getAddress().getDetail() + ", " + user.getAddress().getStreet() + ", " + user.getAddress().getDistrict() +
+                        ", " + user.getAddress().getCity());
+
     }
 }

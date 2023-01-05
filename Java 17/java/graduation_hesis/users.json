@@ -1,26 +1,14 @@
 [
   {
-    "userName": "ADMIN",
-    "email": "admin@gmail.com",
-    "password": "admin@",
-    "phone": "123456789",
-    "address": "Hà Nội",
-    "order": []
-  },
-  {
-    "userName": "tai",
-    "email": "tai@gmail.com",
-    "password": "Dtai92@",
-    "phone": "123456789",
-    "address": "Vĩnh Phúc",
-    "order": []
-  },
-  {
     "userName": "dt",
-    "email": "tai92@gmail.com",
-    "password": "Tai929292@",
+    "email": "tai@gmail.com",
+    "password": "Tai92@",
     "phone": "0969957697",
-    "address": "hn",
-    "order": []
+    "address": {
+      "city": "HN",
+      "district": "BTL",
+      "street": "Xuân Tảo",
+      "detail": "N04A"
+    }
   }
 ]

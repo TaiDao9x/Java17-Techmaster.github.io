@@ -48,4 +48,23 @@ public class BookService {
         }
         return listBook;
     }
+
+    public Book findBookById(int id) {
+        Book book = new Book();
+        for (Book book1 : ALL_BOOKS) {
+            if (book1.getId() == id) {
+                book = book1;
+            }
+        }
+        return book;
+    }
+
+    public boolean checkIdExist(int id) {
+        for (Book book : ALL_BOOKS) {
+            if (book.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
