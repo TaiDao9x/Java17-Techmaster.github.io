@@ -42,7 +42,6 @@ public class UserFileUltils {
     }
 
     public static void printUser(User user) {
-        Address address = new Address();
         System.out.printf("%-10s %-20s %-15s %-15s %-50s \n", "Username", "Email", "Password", "Phone", "Địa chỉ");
         System.out.println("----------------------------------------------------------------------------------------------" +
                 "---------------");

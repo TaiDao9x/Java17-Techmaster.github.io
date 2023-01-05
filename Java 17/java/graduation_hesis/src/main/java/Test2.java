@@ -1,8 +1,8 @@
-import backend.User.database.CartDatabase;
-import backend.User.database.ItemDatabase;
+import backend.User.controler.ItemController;
 
 public class Test2 {
     public static void main(String[] args) {
-        System.out.println(CartDatabase.cart());
+        ItemController itemController = new ItemController();
+        System.out.println(itemController.getCart("tai@gmail.com"));
     }
 }

@@ -2,17 +2,17 @@ package frontend;
 
 import backend.User.controler.BookControler;
 import backend.User.controler.ItemController;
-import backend.User.model.Book;
-import backend.User.model.Cart;
-import backend.User.model.Item;
-import backend.User.model.User;
+import backend.User.controler.UserControler;
+import backend.User.model.*;
 import backend.User.ultils.BookFileUltils;
+import backend.User.ultils.ItemFileUltils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientUi {
     Scanner sc = new Scanner(System.in);
+    UserControler userControler = new UserControler();
     BookControler bookControler = new BookControler();
     ItemController itemController = new ItemController();
 
@@ -30,35 +30,29 @@ public class ClientUi {
                 5. Sửa thông tin cá nhân
                 9. Đăng xuất                                
                 """);
-        System.out.print("Bạn chọn: ");
     }
 
     // Menu khi login vào tài khoản client (màn hình sau khi đăng nhập thành công)
     public void clientLoginSuccess(User clientLogin) {
         System.out.println("\n----------- ĐĂNG NHẬP THÀNH CÔNG -----------");
-        System.out.printf("Chào mừng \"%s\"... \n", clientLogin.getUserName().toUpperCase());
+        System.out.printf("Xin chào \"%s\"! \n", clientLogin.getUserName().toUpperCase());
 
-        int option;
         boolean isQuitLogin = false;
         while (!isQuitLogin) {
-            try {
-                subClientMenu();
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            subClientMenu();
+            int option = getOption();
 
             switch (option) {
                 case 1 -> {
                     showBook();
-
+                    manageOrder(clientLogin.getEmail());
                 }
                 case 2 -> {
                     findBook();
+                    manageOrder(clientLogin.getEmail());
                 }
                 case 3 -> {
-                    manageOrder();
+                    myCart(clientLogin.getEmail());
                 }
                 case 4 -> {
 
@@ -72,26 +66,155 @@ public class ClientUi {
         }
     }
 
+    // 3. Quản lý đơn hàng
+    public void askToBuy() {
+        System.out.println("""
+                \n1. Thêm sản phẩm vào giỏ hàng
+                2. Xem giỏ hàng
+                9. Quay lại
+                 """);
+    }
+
+    public void manageOrder(String email) {
+        boolean backToMenu = false;
+
+        while (!backToMenu) {
+            askToBuy();
+            int option = getOption();
+            switch (option) {
+                case 1 -> addItemFromIdBook(email);
+                case 2 -> myCart(email);
+                case 9 -> backToMenu = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // 3.1. Thêm sản phẩm vào giỏ hàng
+    // Từ id book khách hàng nhập vào ->lấy ra Item để chuyển vào giỏ hàng
+
+    public void addItemFromIdBook(String email) {
+        boolean back = false;
+        int id;
+        Book book = new Book();
+
+        while (!back) {
+
+            try {
+                System.out.print("Nhập id sản phẩm: ");
+                id = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            if (bookControler.checkIdExist(id)) {
+                book = bookControler.findBookById(id);
+                back = true;
+            } else {
+                System.out.println("Không tồn tại sản phẩm có id: " + id);
+            }
+        }
+        Item item = new Item(email, book.getId(), book.getTitle(), 1, book.getPrice(), book.getPrice());
+        itemController.addItemFromIdBook(item);
+        System.out.printf("Đã thêm %s vào giỏ hàng!\n", book.getTitle());
+    }
+
+    //    3.2 Xem giỏ hàng
+    public void menuCart() {
+        System.out.println("""
+                \n1. Xóa sản phẩm
+                2. Thay đổi số lượng sản phẩm
+                3. Mua hàng
+                9. Quay lại chọn thêm sản phẩm
+                """);
+    }
+
+    public void myCart(String email) {
+
+        boolean backToMenu = false;
+
+        while (!backToMenu) {
+            printCart(itemController.getCart(email));
+            System.out.println("Tổng số tiền cho đơn hàng này là: " + ItemFileUltils.formattingDisplay(itemController.getTotal(email)));
+            if (itemController.getTotal(email) == 0) {
+                System.out.println("Giỏ hàng trống!");
+                backToMenu = true;
+            } else {
+                menuCart();
+                int option = getOption();
+                switch (option) {
+                    case 1 -> {
+                        deleteItemFromCart(email);
+                        System.out.println("Đã xóa sản phẩm thành công!");
+                    }
+                    case 2 -> changeCount(email);
+                    case 3 -> ;
+
+                    case 9 -> backToMenu = true;
+                    default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+                }
+            }
+        }
+    }
+
+    public Order getPreOrder(String email) {
+        ArrayList<Item> cart = itemController.getCart(email);
+        Address address = userControler.getAddress(email);
+
+        return new Order(cart, address);
+    }
+
+    public void changeCount(String email) {
+        int id = getId();
+        System.out.print("Nhập số lượng sản phẩm: ");
+        int count = Integer.parseInt(sc.nextLine());
+        itemController.changeCount(id, email, count);
+    }
+
+    public void deleteItemFromCart(String email) {
+        boolean back = false;
+        int id;
+
+        while (!back) {
+            id = getId();
+            if (itemController.checkItemExist(id, email)) {
+                itemController.deleteItemFromCart(id, email);
+                back = true;
+            } else {
+                System.out.println("Không có sản phẩm trong giỏ hàng.");
+            }
+        }
+    }
+
+    public int getId() {
+        boolean back = false;
+        int id = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập id sản phẩm: ");
+                id = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            back = true;
+        }
+        return id;
+    }
 
     // TẦNG SHOW DỮ LIỆU (lv3, lv4)
     // 1. Xem danh sách sản phẩm
 
     public void showBook() {
-        int option;
         boolean backToMenu = false;
 
         while (!backToMenu) {
             System.out.println("""
                     1. Xem theo thể loại \t\t 2. Xem theo nhà xuất bản\t\t9. Quay lại
                     """);
-            System.out.print("Bạn chọn: ");
 
-            try {
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            int option = getOption();
 
             switch (option) {
                 case 1 -> {
@@ -119,23 +242,17 @@ public class ClientUi {
                 5. Thiếu nhi
                 9. Quay lại menu
                 """);
-        System.out.print("Bạn chọn: ");
     }
 
     // Trả về list sách theo thể loại khi đã lấy được dữ liệu loại sách muốn tìm
     public ArrayList<Book> showBookByCategory() {
-        int option;
         boolean backToMenu = false;
         String category = "";
 
         while (!backToMenu) {
-            try {
-                listCategory();
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            listCategory();
+
+            int option = getOption();
 
             switch (option) {
                 case 1 -> {
@@ -174,22 +291,16 @@ public class ClientUi {
                 4. NXB Nhã Nam
                 9. Quay lại
                 """);
-        System.out.print("Bạn chọn: ");
     }
 
     public ArrayList<Book> showBookByPulisherCompany() {
-        int option;
         boolean backToMenu = false;
         String pulisherCompany = "";
 
         while (!backToMenu) {
-            try {
-                listPushlisherCompany();
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            listPushlisherCompany();
+
+            int option = getOption();
 
             switch (option) {
                 case 1 -> {
@@ -217,21 +328,14 @@ public class ClientUi {
 
     // 2. Tìm kiếm sản phẩm
     public void findBook() {
-        int option;
         boolean backToMenu = false;
 
         while (!backToMenu) {
             System.out.println("""
                     1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 9. Quay lại
                     """);
-            System.out.print("Bạn chọn: ");
 
-            try {
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            int option = getOption();
 
             switch (option) {
                 case 1 -> {
@@ -272,97 +376,31 @@ public class ClientUi {
         return bookControler.findBookByAuthor(author);
     }
 
-    // 3. Quản lý đơn hàng
-    public void askToBuy() {
-        System.out.println("""
-                \n1. Thêm sản phẩm vào giỏ hàng
-                2. Xem giỏ hàng
-                3. Xem tiếp sản phẩm
-                9. Quay lại
-                 """);
-        System.out.print("Bạn muốn: ");
-    }
 
-    public void manageOrder() {
-        int option;
-        boolean backToMenu = false;
-
-        while (!backToMenu) {
-            askToBuy();
+    // Method phụ
+    public int getOption() {
+        boolean checkOption = false;
+        int option = 0;
+        while (!checkOption) {
             try {
+                System.out.print("Nhập lựa chọn của bạn: ");
                 option = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
                 continue;
             }
-
-            switch (option) {
-                case 1 -> {
-                    addItemFromIdBook();
-//                    backToMenu = true;
-                }
-                case 2 -> {
-                    System.out.println(getCart());
-                    backToMenu = true;
-                }
-                case 3 -> {
-
-                    backToMenu = true;
-                }
-                case 9 -> backToMenu = true;
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
+            checkOption = true;
         }
+        return option;
     }
 
-    // 3.1. Thêm sản phẩm vào giỏ hàng
-
-    // Từ id book khách hàng nhập vào ->lấy ra Item để chuyển vào giỏ hàng
-    public void addItemFromIdBook() {
-        boolean back = false;
-        int id;
-        Book book = new Book();
-
-        while (!back) {
-
-            try {
-                System.out.print("Nhập id sản phẩm: ");
-                id = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            if (checkIdExist(id)) {
-                book = findBookById(id);
-                back = true;
-            } else {
-                System.out.println("Không tồn tại sản phẩm có id: " + id);
-            }
-        }
-        Item item = new Item(book.getId(), book.getTitle(), 1, book.getPrice(), book.getPrice());
-        itemController.addItemFromIdBook(item);
-        System.out.printf("Thêm %s vào giỏ hàng!\n", book.getTitle());
-    }
-
-//    3.2 Xem giỏ hàng
-    public Cart getCart(){
-        return new Cart();
-    }
-
-
-    public Book findBookById(int id) {
-        return bookControler.findBookById(id);
-    }
-
-    public boolean checkIdExist(int id) {
-        return bookControler.checkIdExist(id);
-    }
-
-    // Method phụ
     public void printBook(ArrayList<Book> books) {
         BookFileUltils.printBook(books);
     }
 
+    public void printCart(ArrayList<Item> items) {
+        ItemFileUltils.printCart(items);
+    }
     // Đã làm xong chức năng tìm kiếm và show sản phẩm. Tiếp tục chuwcs năng mua hàng và sửa thông tin cá nhân
 
 }

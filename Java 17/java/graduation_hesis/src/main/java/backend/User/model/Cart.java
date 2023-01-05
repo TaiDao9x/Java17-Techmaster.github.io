@@ -11,5 +11,4 @@ import java.util.ArrayList;
 @ToString
 public class Cart {
     private ArrayList<Item> items;
-
 }

@@ -14,7 +14,6 @@ public class User {
     private String password;
     private String phone;
     private Address address;
-    private Cart cart;
     private Order order;
 
     public User(String userName, String email, String password, String phone, Address address) {

@@ -1,6 +1,7 @@
 package backend.User.ultils;
 
-import backend.User.model.*;
+import backend.User.model.Item;
+import backend.User.model.Order;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -13,18 +14,17 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class ItemFileUltils {
-
-    public static ArrayList<Item> getDataFromFile(String fileName) {
+public class OrderFileUltils {
+    public static ArrayList<Order> getDataFromFile(String fileName) {
 
         try {
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(fileName));
-            Type type = new TypeToken<ArrayList<Item>>() {
+            Type type = new TypeToken<ArrayList<Order>>() {
             }.getType();
-            ArrayList<Item> item = gson.fromJson(reader, type);
+            ArrayList<Order> order = gson.fromJson(reader, type);
             reader.close();
-            return item;
+            return order;
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
@@ -42,31 +42,21 @@ public class ItemFileUltils {
         }
     }
 
-    public static void printCart(ArrayList<Item> items) {
+    public static void printPreOrder(Order order) {
         System.out.printf("%-5s %-20s %-10s %-15s %-20s \n", "Id", "Tên sách", "Số lượng", "Giá", "Thành tiền");
         System.out.println("---------------------------------------------------------------------");
 
-        for (Item item : items) {
+        for (Item item : order.getItem()) {
             System.out.printf("%-5d %-20s %-10s %-15s %-20s \n", item.getId(), item.getBookName(), item.getCount(),
                     formattingDisplay(item.getPrice()), formattingDisplay(item.getCount() * item.getPrice()));
         }
-
-
+        System.out.printf("Địa chỉ giao hàng: %-10s, %-20s, %-15s, %-15s, %-50s \n", order.getAddressShip().getDetail(),
+                order.getAddressShip().getStreet(), order.getAddressShip().getDistrict(),
+                order.getAddressShip().getCity());
     }
 
     public static String formattingDisplay(int price) {
         DecimalFormat formatter = new DecimalFormat("###,###,### VND");
         return formatter.format(price);
     }
-
 }
-//    private String email;
-//    private int id;
-//    private String bookName;
-//    private int count;
-//    private int price;
-//    private int money;
-//
-//    public void setMoney(int money) {
-//        this.money = count * price;
-//    }

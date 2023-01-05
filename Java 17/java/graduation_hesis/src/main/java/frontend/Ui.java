@@ -18,16 +18,11 @@ public class Ui {
     public void runMenu() {
 
         boolean isQuit = false;
-        int option;
 
         while (!isQuit) {
-            try {
-                showMenuLogin();
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
+            showMenuLogin();
+
+            int option=clientUi.getOption();
 
             switch (option) {
                 case 1 -> {
@@ -85,7 +80,6 @@ public class Ui {
                 5. Quên mật khẩu
                 0. Thoát ứng dụng
                 """);
-        System.out.print("Nhập lựa chọn của bạn: ");
     }
 
     // KHUNG NGOÀI (lv1)

@@ -1,5 +1,6 @@
 package backend.User.service;
 
+import backend.User.model.Address;
 import backend.User.model.User;
 import backend.User.repository.UserRepository;
 import backend.User.request.UserRequest;
@@ -64,5 +65,14 @@ public class UserService {
             }
         }
         userRepository.updateFile(ALL_USER);
+    }
+
+    public Address getAddress(String email) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                return user.getAddress();
+            }
+        }
+        return null;
     }
 }

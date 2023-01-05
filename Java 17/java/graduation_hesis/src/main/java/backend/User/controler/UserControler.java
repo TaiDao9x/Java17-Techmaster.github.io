@@ -1,5 +1,6 @@
 package backend.User.controler;
 
+import backend.User.model.Address;
 import backend.User.model.User;
 import backend.User.request.UserRequest;
 import backend.User.service.UserService;
@@ -36,5 +37,9 @@ public class UserControler {
 
     public void changePassword(UserRequest changePasswordRequest) {
         userService.changePassword(changePasswordRequest);
+    }
+
+    public Address getAddress(String email) {
+        return userService.getAddress(email);
     }
 }

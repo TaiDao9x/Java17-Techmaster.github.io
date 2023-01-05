@@ -2,6 +2,7 @@ package backend.User.model;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -10,13 +11,14 @@ import java.util.Date;
 @Setter
 @ToString
 public class Order {
-    private String bookName;
-    private int count;
-    private int price;
-    private int money;
+    private String email;
+    private ArrayList<Item> item;
+    private Address addressShip;
     private Date date;
+    private String status;
 
-    public void setMoney(int money) {
-        this.money = count*price;
+    public Order(ArrayList<Item> item, Address addressShip) {
+        this.item = item;
+        this.addressShip = addressShip;
     }
 }
