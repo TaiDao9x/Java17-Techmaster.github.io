@@ -75,4 +75,31 @@ public class UserService {
         }
         return null;
     }
+
+    public void changeUsername(String email, String newUsername) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                user.setUserName(newUsername);
+            }
+        }
+        userRepository.updateFile(ALL_USER);
+    }
+
+    public void changePassword(String email, String newPassword) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                user.setPassword(newPassword);
+            }
+        }
+        userRepository.updateFile(ALL_USER);
+    }
+
+    public void changeAddress(String email, Address newAddress) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                user.setAddress(newAddress);
+            }
+        }
+        userRepository.updateFile(ALL_USER);
+    }
 }

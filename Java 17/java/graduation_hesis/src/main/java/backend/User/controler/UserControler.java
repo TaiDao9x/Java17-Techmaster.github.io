@@ -39,7 +39,16 @@ public class UserControler {
         userService.changePassword(changePasswordRequest);
     }
 
-    public Address getAddress(String email) {
-        return userService.getAddress(email);
+
+    public void changeUsername(String email, String newUsername) {
+        userService.changeUsername(email, newUsername);
+    }
+
+    public void changePassword(String email, String newPassword) {
+        userService.changePassword(email, newPassword);
+    }
+
+    public void changeAddress(String email, Address newAddress) {
+        userService.changeAddress(email,newAddress);
     }
 }

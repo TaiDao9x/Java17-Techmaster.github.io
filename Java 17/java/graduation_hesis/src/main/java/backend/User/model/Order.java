@@ -12,13 +12,18 @@ import java.util.Date;
 @ToString
 public class Order {
     private String email;
+    private String phone;
     private ArrayList<Item> item;
     private Address addressShip;
     private Date date;
     private String status;
 
-    public Order(ArrayList<Item> item, Address addressShip) {
+    public Order(String email, String phone, ArrayList<Item> item, Address addressShip) {
+        this.email = email;
+        this.phone = phone;
         this.item = item;
         this.addressShip = addressShip;
     }
+
+
 }

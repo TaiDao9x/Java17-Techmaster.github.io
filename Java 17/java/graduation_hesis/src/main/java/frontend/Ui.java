@@ -1,13 +1,11 @@
 package frontend;
 
 import backend.User.model.Address;
-import backend.User.model.Book;
 import backend.User.controler.UserControler;
 import backend.User.model.User;
 import backend.User.request.UserRequest;
 import backend.User.ultils.UserFileUltils;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -161,7 +159,7 @@ public class Ui {
             if (userControler.checkPasswordValid(password)) {
                 checkPassword = true;
             } else {
-                System.out.println("Email không hợp lệ!");
+                System.out.println("Password không hợp lệ!");
                 System.out.println("Password phải có ít nhất 6 ký tự gồm chữ hoa, chữ thường, số và 1 ký tự đặc biệt!");
             }
         }
@@ -185,7 +183,7 @@ public class Ui {
     }
 
     public Address getAddressToRegister() {
-        System.out.println("Địa chỉ của bạn: ");
+        System.out.println("Nhập địa chỉ: ");
         System.out.print("Thành phố: ");
         String city = sc.nextLine();
 

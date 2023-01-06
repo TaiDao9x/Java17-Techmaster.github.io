@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class OrderFileUltils {
+public class PreOrderFileUltils {
     public static ArrayList<Order> getDataFromFile(String fileName) {
 
         try {
@@ -53,10 +53,11 @@ public class OrderFileUltils {
             rs += (item.getCount() * item.getPrice());
         }
         System.out.println("Tổng giá trị đơn hàng là: " + formattingDisplay(rs));
-        System.out.printf("Người nhận: %s. Điện thoại: %s\n", order.getEmail(), order.getPhone());
-        System.out.printf("Địa chỉ: %s, %s, %s, %s \n", order.getAddressShip().getDetail(),
+        System.out.printf("\nĐịa chỉ: %s, %s, %s, %s \n", order.getAddressShip().getDetail(),
                 order.getAddressShip().getStreet(), order.getAddressShip().getDistrict(),
                 order.getAddressShip().getCity());
+        System.out.printf("Người nhận: %s.\t Điện thoại: %s\n", order.getEmail(), order.getPhone());
+
     }
 
     public static String formattingDisplay(int price) {
