@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public class BookDatabase {
     public static ArrayList<Book> books() {
-        return BookFileUltils.getDataFromFile("books.json");
+        return BookFileUltils.getDataFromFile("book.json");
     }
 }

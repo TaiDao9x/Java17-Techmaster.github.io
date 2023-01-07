@@ -12,6 +12,7 @@ public class UserRepository {
     }
 
     public void updateFile(ArrayList<User> users){
-        UserFileUltils.setDataToFile("users.json",users);
+        UserFileUltils.setDataToFile("user.json",users);
     }
+
 }

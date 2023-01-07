@@ -1,51 +1,22 @@
 [
-
   {
-    "email": "Tai92@gmail.com",
+    "email": "tai@gmail.com",
     "phone": "0969957697",
     "item": [
       {
-        "email": "Tai92@gmail.com",
-        "id": 1,
+        "email": "tai@gmail.com",
+        "id": 2,
         "bookName": "Heaven\u0027s Burning",
         "count": 3,
-        "price": 120000,
-        "money": 120000
+        "price": 90000,
+        "money": 90000
       }
     ],
     "addressShip": {
-      "city": "hn",
-      "district": "abc",
-      "street": "abc",
-      "detail": "abc"
-    }
-  },
-  {
-    "email": "Tai92@gmail.com",
-    "phone": "0969957697",
-    "item": [
-      {
-        "email": "Tai92@gmail.com",
-        "id": 1,
-        "bookName": "Heaven\u0027s Burning",
-        "count": 3,
-        "price": 120000,
-        "money": 120000
-      },
-      {
-        "email": "Tai92@gmail.com",
-        "id": 1,
-        "bookName": "Heaven\u0027s Burning",
-        "count": 1,
-        "price": 120000,
-        "money": 120000
-      }
-    ],
-    "addressShip": {
-      "city": "hn",
-      "district": "abc",
-      "street": "abc",
-      "detail": "abc"
+      "city": "Hà Nội",
+      "district": "Bắc Từ Liêm",
+      "street": "Xuân Tảo",
+      "detail": "N04A"
     }
   }
 ]

@@ -1,26 +1,10 @@
 [
   {
     "email": "tai@gmail.com",
-    "id": 1,
-    "bookName": "Heaven\u0027s Burning",
-    "count": 2,
-    "price": 120000,
-    "money": 120000
-  },
-  {
-    "email": "Tai92@gmail.com",
-    "id": 1,
+    "id": 2,
     "bookName": "Heaven\u0027s Burning",
     "count": 3,
-    "price": 120000,
-    "money": 120000
-  },
-  {
-    "email": "Tai92@gmail.com",
-    "id": 1,
-    "bookName": "Heaven\u0027s Burning",
-    "count": 1,
-    "price": 120000,
-    "money": 120000
+    "price": 90000,
+    "money": 90000
   }
 ]

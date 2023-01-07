@@ -44,11 +44,15 @@ public class UserControler {
         userService.changeUsername(email, newUsername);
     }
 
-    public void changePassword(String email, String newPassword) {
-        userService.changePassword(email, newPassword);
+    public void changeAddress(String email, Address newAddress) {
+        userService.changeAddress(email, newAddress);
     }
 
-    public void changeAddress(String email, Address newAddress) {
-        userService.changeAddress(email,newAddress);
+    public void changePhone(String email, String newPhone) {
+        userService.changePhone(email, newPhone);
+    }
+
+    public void deleteAcount(String emailToDelete) {
+        userService.deleteAcount(emailToDelete);
     }
 }

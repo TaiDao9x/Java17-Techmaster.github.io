@@ -85,14 +85,6 @@ public class UserService {
         userRepository.updateFile(ALL_USER);
     }
 
-    public void changePassword(String email, String newPassword) {
-        for (User user : ALL_USER) {
-            if (user.getEmail().equalsIgnoreCase(email)) {
-                user.setPassword(newPassword);
-            }
-        }
-        userRepository.updateFile(ALL_USER);
-    }
 
     public void changeAddress(String email, Address newAddress) {
         for (User user : ALL_USER) {
@@ -100,6 +92,26 @@ public class UserService {
                 user.setAddress(newAddress);
             }
         }
+        userRepository.updateFile(ALL_USER);
+    }
+
+    public void changePhone(String email, String newPhone) {
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(email)) {
+                user.setPhone(newPhone);
+            }
+        }
+        userRepository.updateFile(ALL_USER);
+    }
+
+    public void deleteAcount(String emailToDelete) {
+        ArrayList<User> toRemove = new ArrayList<>();
+        for (User user : ALL_USER) {
+            if (user.getEmail().equalsIgnoreCase(emailToDelete)) {
+                toRemove.add(user);
+            }
+        }
+        ALL_USER.removeAll(toRemove);
         userRepository.updateFile(ALL_USER);
     }
 }

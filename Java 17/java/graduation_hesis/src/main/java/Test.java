@@ -6,5 +6,3 @@ public class Test {
         ui.runMenu();
     }
 }
-// TODO: Đã thiết kees xong phần khung menu bên ngoài, các tính năng login,logout, lấy lại mật khẩu.
-// Tiếp tục xây dựng các tính năng lv2 cho client và admin

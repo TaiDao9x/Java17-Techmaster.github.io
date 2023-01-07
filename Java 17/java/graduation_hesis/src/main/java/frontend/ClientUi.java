@@ -5,6 +5,7 @@ import backend.User.controler.ItemController;
 import backend.User.controler.UserControler;
 import backend.User.model.*;
 import backend.User.repository.PreOrderRepository;
+import backend.User.request.UserRequest;
 import backend.User.service.PreOderService;
 import backend.User.ultils.*;
 
@@ -18,8 +19,6 @@ public class ClientUi {
     ItemController itemController = new ItemController();
     PreOderService preOderService = new PreOderService();
 
-    Ui ui = new Ui();
-
 
     // KHUNG TRONG CLIENT (lv2)
     // Login thành công (client)
@@ -32,14 +31,14 @@ public class ClientUi {
                 3. Quản lý giỏ hàng
                 4. Lịch sử mua hàng
                 5. Sửa thông tin cá nhân
-                9. Đăng xuất                                
+                0. Đăng xuất                                
                 """);
     }
 
     // Menu khi login vào tài khoản client (màn hình sau khi đăng nhập thành công)
     public void clientLoginSuccess(User clientLogin) {
         System.out.println("\n----------- ĐĂNG NHẬP THÀNH CÔNG -----------");
-        System.out.printf("Xin chào \"%s\"! \n", clientLogin.getUserName().toUpperCase());
+        System.out.printf("Xin chào bạn, %s. \n", clientLogin.getUserName());
 
         boolean isQuitLogin = false;
         while (!isQuitLogin) {
@@ -61,10 +60,11 @@ public class ClientUi {
                 case 4 -> {
 
                 }
-                case 5 -> {
-                    updateInfo(clientLogin.getEmail());
+                case 5 -> updateInfo(clientLogin.getEmail());
+                case 0 -> {
+                    System.out.println("\n----------- HẸN GẶP LẠI -----------");
+                    isQuitLogin = true;
                 }
-                case 9 -> isQuitLogin = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -73,8 +73,11 @@ public class ClientUi {
     //5.Sửa thông tin cá nhân
     public void updateInfoMenu() {
         System.out.println("""
-                \n1. Thay đổi username \t\t2. Thay đổi mật khẩu \t\t 3. Thay đổi địa chỉ \t\t 9. Trở về menu
-                
+                \n1. Thay đổi username 
+                2. Thay đổi mật khẩu
+                3. Thay đổi địa chỉ 
+                4. Thay đổi số điện thoại
+                0. Trở về menu
                     """);
     }
 
@@ -89,23 +92,32 @@ public class ClientUi {
                 case 1 -> changeUsername(email);
                 case 2 -> changePassword(email);
                 case 3 -> changeAddress(email);
-                case 9 -> back = true;
+                case 4 -> changePhone(email);
+                case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
     }
 
+    //5.4 Thay đổi số điện thoại
+    public void changePhone(String email) {
+        String newPhone = getPhoneToUpdate();
+        userControler.changePhone(email, newPhone);
+        System.out.println("Thay đổi số điện thoại thành công!");
+    }
+
     // 5.3 Thay đổi địa chỉ
-    public void changeAddress(String email){
-        Address newAddress = ui.getAddressToRegister();
-        userControler.changeAddress(email,newAddress);
+    public void changeAddress(String email) {
+        Address newAddress = getAddressToUpdate();
+        userControler.changeAddress(email, newAddress);
         System.out.println("Đã cập nhật địa chỉ thành công!");
     }
 
     // 5.2 Thay đổi password
     public void changePassword(String email) {
-        String newPassword = ui.getPasswordToRegister();
-        userControler.changePassword(email,newPassword);
+        String newPassword = getPasswordToUpdate();
+        UserRequest changePasswordRequest = new UserRequest(email, newPassword);
+        userControler.changePassword(changePasswordRequest);
         System.out.println("Đã cập nhật mật khẩu thành công!");
     }
 
@@ -117,11 +129,62 @@ public class ClientUi {
         System.out.println("Đã thay đổi username thành công!");
     }
 
+    // Kiểm tra password
+    public String getPasswordToUpdate() {
+        boolean checkPassword = false;
+        String password = "";
+        while (!checkPassword) {
+            System.out.print("Nhập password: ");
+            password = sc.nextLine();
+            if (userControler.checkPasswordValid(password)) {
+                checkPassword = true;
+            } else {
+                System.out.println("Password không hợp lệ!");
+                System.out.println("Password phải có ít nhất 6 ký tự gồm chữ hoa, chữ thường, số và 1 ký tự đặc biệt!");
+            }
+        }
+        return password;
+    }
+
+    // Kiểm tra phone
+    public String getPhoneToUpdate() {
+        boolean checkPhoned = false;
+        String phone = "";
+        while (!checkPhoned) {
+            System.out.print("Nhập số điện thoại của bạn: ");
+            phone = sc.nextLine();
+            if (userControler.checkPhoneValid(phone)) {
+                checkPhoned = true;
+            } else {
+                System.out.println("Số điện không hợp lệ!");
+            }
+        }
+        return phone;
+    }
+
+    // Kiểm tra địa chỉ
+    public Address getAddressToUpdate() {
+        System.out.println("Nhập địa chỉ: ");
+        System.out.print("Thành phố: ");
+        String city = sc.nextLine();
+
+        System.out.print("Quận: ");
+        String district = sc.nextLine();
+
+        System.out.print("Đường: ");
+        String street = sc.nextLine();
+
+        System.out.print("Địa chỉ nhận hàng: ");
+        String addressDetail = sc.nextLine();
+
+        return new Address(city, district, street, addressDetail);
+    }
+
 
     // 3. Quản lý đơn hàng
     public void askToBuy() {
         System.out.println("""
-                \n1. Thêm sản phẩm vào giỏ hàng \t\t 2. Xem giỏ hàng \t\t 9. Quay lại
+                \n1. Thêm sản phẩm vào giỏ hàng  \t\t 0. Quay lại
                  """);
     }
 
@@ -133,8 +196,7 @@ public class ClientUi {
             int option = getOption();
             switch (option) {
                 case 1 -> addItemFromIdBook(email);
-                case 2 -> myCart(email);
-                case 9 -> backToMenu = true;
+                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -175,7 +237,7 @@ public class ClientUi {
                 \n1. Xóa sản phẩm
                 2. Thay đổi số lượng sản phẩm
                 3. Mua hàng
-                9. Quay lại chọn thêm sản phẩm
+                0. Quay lại chọn thêm sản phẩm
                 """);
     }
 
@@ -186,7 +248,8 @@ public class ClientUi {
 
         while (!backToMenu) {
             printCart(itemController.getCart(email));
-            System.out.println("Tổng số tiền cho đơn hàng này là: " + ItemFileUltils.formattingDisplay(itemController.getTotal(email)));
+            System.out.println("Tổng số tiền các SP trong giỏ hàng này là: " +
+                    ItemFileUltils.formattingDisplay(itemController.getTotal(email)));
             if (itemController.getTotal(email) == 0) {
                 System.out.println("Giỏ hàng trống!");
                 backToMenu = true;
@@ -201,7 +264,7 @@ public class ClientUi {
                     case 2 -> changeCount(email);
                     case 3 -> confirmPreOrder(email);
 
-                    case 9 -> backToMenu = true;
+                    case 0 -> backToMenu = true;
                     default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
                 }
             }
@@ -220,7 +283,7 @@ public class ClientUi {
 
             System.out.println("""
                     \nHãy kiểm tra kỹ lại thông tin đơn hàng! 
-                    1. Thay đổi sản phẩm
+                    1. Quay lại thay đổi sản phẩm
                     2. Thay đổi địa chỉ giao hàng
                     3. Đặt hàng
                     """);
@@ -229,7 +292,7 @@ public class ClientUi {
                 case 1 -> back = true;
                 case 2 -> changeAddressPreOrder(email);
                 case 3 -> {
-
+// Todo: tiếp tục pần mua hàng
                 }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
@@ -335,7 +398,7 @@ public class ClientUi {
 
         while (!backToMenu) {
             System.out.println("""
-                    1. Xem theo thể loại \t\t 2. Xem theo nhà xuất bản\t\t9. Quay lại
+                    1. Xem theo thể loại \t\t 2. Xem theo nhà xuất bản\t\t0. Quay lại
                     """);
 
             int option = getOption();
@@ -349,7 +412,7 @@ public class ClientUi {
                     printBook(showBookByPulisherCompany());
                     backToMenu = true;
                 }
-                case 9 -> backToMenu = true;
+                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -364,7 +427,7 @@ public class ClientUi {
                 3. Tâm lý - Kỹ năng sống
                 4. Nuôi dạy con
                 5. Thiếu nhi
-                9. Quay lại menu
+                0. Quay lại menu
                 """);
     }
 
@@ -399,7 +462,7 @@ public class ClientUi {
                     category = "Thiếu nhi";
                     backToMenu = true;
                 }
-                case 9 -> backToMenu = true;
+                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -413,7 +476,7 @@ public class ClientUi {
                 2. NXB Kim Đồng
                 3. NXB Lao Động
                 4. NXB Nhã Nam
-                9. Quay lại
+                0. Quay lại
                 """);
     }
 
@@ -443,7 +506,7 @@ public class ClientUi {
                     pulisherCompany = "NXB Nhã Nam";
                     backToMenu = true;
                 }
-                case 9 -> backToMenu = true;
+                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -456,7 +519,7 @@ public class ClientUi {
 
         while (!backToMenu) {
             System.out.println("""
-                    1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 9. Quay lại
+                    1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 0. Quay lại
                     """);
 
             int option = getOption();
@@ -480,7 +543,7 @@ public class ClientUi {
                     }
                     backToMenu = true;
                 }
-                case 9 -> backToMenu = true;
+                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -525,5 +588,6 @@ public class ClientUi {
     public void printCart(ArrayList<Item> items) {
         ItemFileUltils.printCart(items);
     }
+
 
 }

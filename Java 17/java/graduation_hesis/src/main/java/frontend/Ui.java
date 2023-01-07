@@ -1,7 +1,9 @@
 package frontend;
 
+import backend.User.controler.AdminController;
 import backend.User.model.Address;
 import backend.User.controler.UserControler;
+import backend.User.model.Admin;
 import backend.User.model.User;
 import backend.User.request.UserRequest;
 import backend.User.ultils.UserFileUltils;
@@ -12,6 +14,8 @@ public class Ui {
     Scanner sc = new Scanner(System.in);
     UserControler userControler = new UserControler();
     ClientUi clientUi = new ClientUi();
+    AdminController adminController = new AdminController();
+    AdminUi adminUi = new AdminUi();
 
     public void runMenu() {
 
@@ -20,7 +24,7 @@ public class Ui {
         while (!isQuit) {
             showMenuLogin();
 
-            int option=clientUi.getOption();
+            int option = clientUi.getOption();
 
             switch (option) {
                 case 1 -> {
@@ -31,8 +35,7 @@ public class Ui {
                 }
                 case 3 -> {
                     System.out.println("\n----------- ĐĂNG NHẬP -----------");
-                    User clientLogin = getUserAfterCheckPass(getEmailToLogin());
-                    clientUi.clientLoginSuccess(clientLogin);
+                    logIn();
                 }
                 case 4 -> {
                     System.out.println("\n----------- ĐĂNG KÝ TÀI KHOẢN -----------");
@@ -54,16 +57,30 @@ public class Ui {
                     System.out.println("\n----------- QUÊN MẬT KHẨU -----------");
 
                     String email = getEmailToLogin();
-                    System.out.println("Tài khoản email tồn tại, hãy nhập mật khẩu mới cho tài khoản của bạn!");
+                    System.out.println("Hãy nhập mật khẩu mới cho tài khoản của bạn!");
                     String password = getPasswordToRegister();
 
                     UserRequest changePasswordRequest = new UserRequest(email, password);
                     userControler.changePassword(changePasswordRequest);
                     System.out.println("Thay đổi password thành công!");
                 }
-                case 0 -> isQuit = true;
+                case 0 -> {
+                    System.out.println("\n----------- HẸN GẶP LẠI -----------");
+                    isQuit = true;
+                }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
+        }
+    }
+
+    public void logIn() {
+        String email = getEmailToLogin();
+        if (adminController.checkEmailExist(email)) {
+            Admin admin = getAdminAfterCheckPass(email);
+            adminUi.adminLoginSuccess(admin);
+        } else {
+            User clientLogin = getUserAfterCheckPass(email);
+            clientUi.clientLoginSuccess(clientLogin);
         }
     }
 
@@ -92,6 +109,8 @@ public class Ui {
             email = sc.nextLine();
             if (userControler.checkEmailValid(email)) {
                 if (userControler.checkEmailExist(email)) {
+                    checkEmail = true;
+                } else if (adminController.checkEmailExist(email)) {
                     checkEmail = true;
                 } else {
                     System.out.println("Email không tồn tại!");
@@ -126,8 +145,31 @@ public class Ui {
         return user;
     }
 
+    public Admin getAdminByEmail(String email) {
+        return adminController.getAdminByEmail(email);
+    }
+
+    public Admin getAdminAfterCheckPass(String email) {
+        Admin admin = new Admin();
+
+        boolean checkPassword = false;
+
+        while (!checkPassword) {
+            System.out.print("Nhập password: ");
+            String password = sc.nextLine();
+            if (password.equals(getAdminByEmail(email).getPassword())) {
+                admin = getAdminByEmail(email);
+                checkPassword = true;
+            } else {
+                System.out.println("Password của bạn không chính xác!");
+            }
+        }
+        return admin;
+    }
+
     // ĐĂNG KÝ TÀI KHOẢN MỚI
     // Kiểm tra tính hợp lệ của email cho phần đăng ký
+    // Email không được trùng với tài khoản của admin.
     public String getEmailToRegister() {
         boolean checkEmail = false;
         String email = "";
@@ -137,6 +179,8 @@ public class Ui {
             if (userControler.checkEmailValid(email)) {
                 if (userControler.checkEmailExist(email)) {
                     System.out.println("Email đã tồn tại!");
+                } else if (adminController.checkEmailExist(email)) {
+                    System.out.println("Bạn không được sử dụng email này! ");
                 } else {
                     checkEmail = true;
                 }
