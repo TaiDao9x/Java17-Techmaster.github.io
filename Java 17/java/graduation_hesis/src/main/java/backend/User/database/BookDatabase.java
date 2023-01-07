@@ -6,7 +6,6 @@ import backend.User.ultils.BookFileUltils;
 import java.util.ArrayList;
 
 public class BookDatabase {
-    public static ArrayList<Book> books() {
-        return BookFileUltils.getDataFromFile("book.json");
-    }
+    public static ArrayList<Book> books = BookFileUltils.getDataFromFile("book.json");
+
 }

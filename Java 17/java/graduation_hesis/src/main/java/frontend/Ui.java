@@ -135,8 +135,8 @@ public class Ui {
         while (!checkPassword) {
             System.out.print("Nhập password: ");
             String password = sc.nextLine();
-            if (password.equals(getUserByEmail(email).getPassword())) {
-                user = getUserByEmail(email);
+            if (password.equals(userControler.getUserByEmail(email).getPassword())) {
+                user = userControler.getUserByEmail(email);
                 checkPassword = true;
             } else {
                 System.out.println("Password của bạn không chính xác!");

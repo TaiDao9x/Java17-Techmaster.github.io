@@ -12,7 +12,7 @@ public class BookService {
     public ArrayList<Book> showBookByCategory(String category) {
         ArrayList<Book> listBook = new ArrayList<>();
         for (Book book : ALL_BOOKS) {
-            if (book.getCategory().contains(category)) {
+            if (book.getCategory().toLowerCase().contains(category.toLowerCase())) {
                 listBook.add(book);
             }
         }
@@ -22,7 +22,7 @@ public class BookService {
     public ArrayList<Book> showBookByPulisherCompany(String pulisherCompany) {
         ArrayList<Book> listBook = new ArrayList<>();
         for (Book book : ALL_BOOKS) {
-            if (book.getPublishCompany().equals(pulisherCompany)) {
+            if (book.getPublishCompany().toLowerCase().contains(pulisherCompany.toLowerCase())) {
                 listBook.add(book);
             }
         }
@@ -66,5 +66,24 @@ public class BookService {
             }
         }
         return false;
+    }
+
+    public int getIdBook() {
+        int max = 0;
+        for (Book book : ALL_BOOKS) {
+            if (book.getId() > max) {
+                max = book.getId();
+            }
+        }
+        return max + 1;
+    }
+
+    public void addBook(Book newBook) {
+        ALL_BOOKS.add(newBook);
+        bookRepository.updateFile(ALL_BOOKS);
+    }
+
+    public ArrayList<Book> showBook() {
+        return ALL_BOOKS;
     }
 }

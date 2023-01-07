@@ -1,5 +1,6 @@
 package backend.User.service;
 
+import backend.User.database.UserDatabase;
 import backend.User.model.Address;
 import backend.User.model.User;
 import backend.User.repository.UserRepository;
@@ -11,6 +12,10 @@ import java.util.regex.Pattern;
 public class UserService {
     UserRepository userRepository = new UserRepository();
     ArrayList<User> ALL_USER = userRepository.findAll();
+
+    public ArrayList<User> allUser() {
+        return userRepository.findAll();
+    }
 
     public boolean checkEmailValid(String email) {
         String EMAIL_PATTERN =
@@ -59,7 +64,7 @@ public class UserService {
     }
 
     public void changePassword(UserRequest changePasswordRequest) {
-        for (User user : ALL_USER) {
+        for (User user : UserDatabase.users) {
             if (user.getEmail().equalsIgnoreCase(changePasswordRequest.getEmail())) {
                 user.setPassword(changePasswordRequest.getPassword());
             }

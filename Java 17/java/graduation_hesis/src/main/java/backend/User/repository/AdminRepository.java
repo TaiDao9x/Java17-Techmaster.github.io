@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AdminRepository {
     public ArrayList<Admin> findAll() {
-        return AdminDatabase.admins();
+        return AdminDatabase.admins;
     }
 
     public void updateFile(ArrayList<Admin> admin) {

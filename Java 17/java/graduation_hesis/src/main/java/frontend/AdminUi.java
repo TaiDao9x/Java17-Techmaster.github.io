@@ -6,8 +6,10 @@ import backend.User.controler.ItemController;
 import backend.User.controler.UserControler;
 import backend.User.model.Address;
 import backend.User.model.Admin;
+import backend.User.model.Book;
 import backend.User.model.User;
 import backend.User.service.PreOderService;
+import backend.User.ultils.BookFileUltils;
 import backend.User.ultils.UserFileUltils;
 
 import java.util.Scanner;
@@ -24,8 +26,8 @@ public class AdminUi {
         System.out.println("""
                 \n1. Quản lý tài khoản
                 2. Quản lý khách hàng
-                3. Quản lý đơn hàng
-                4. Quản lý sản phẩm
+                3. Quản lý sản phẩm
+                4. Quản lý đơn hàng
                 5. Thống kê, báo cáo
                 0. Đăng xuất
                 """);
@@ -43,9 +45,8 @@ public class AdminUi {
 
             switch (option) {
                 case 1 -> manageAcount(admin.getEmail());
-                case 2 -> manageClient(admin.getEmail());
-                case 3 -> {
-                }
+                case 2 -> manageClient();
+                case 3 -> manageProduct();
                 case 4 -> {
 
                 }
@@ -60,8 +61,66 @@ public class AdminUi {
         }
     }
 
+    // 3. Quản lý sản phẩm
+    public void manageProduct() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("""
+                    \n1. Xem sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
+                    4. Xóa sách \t\t 5. Sách gần hết \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> showBook();
+                case 2 -> addBook();
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    //3.1 Xem sách
+    public void showBook() {
+        BookFileUltils.printBook(bookControler.showBook());
+    }
+
+    //3.2 thêm sách
+    public void addBook() {
+        int id = bookControler.getIdBook();
+        System.out.print("Nhập vào tên sách:");
+        String title = sc.nextLine();
+        if (checkBookExist(title)) {
+            System.out.println("Sách đã có trong cửa hàng!");
+
+        } else {
+            System.out.print("Nhập vào thể loại: ");
+            String category = sc.nextLine();
+            System.out.print("Nhập vào tên tác giả: ");
+            String author = sc.nextLine();
+            System.out.print("Năm xuất bản: ");
+            int year = Integer.parseInt(sc.nextLine());
+            System.out.print("Giá bán: ");
+            int price = Integer.parseInt(sc.nextLine());
+            System.out.print("Nhà xuất bản: ");
+            String publishCompany = sc.nextLine();
+            System.out.print("Số lượng sản phẩm: ");
+            int quantity = Integer.parseInt(sc.nextLine());
+            System.out.print("Rating: ");
+            double rating = Double.parseDouble(sc.nextLine());
+            Book newBook = new Book(id, title, category, author, year, price, publishCompany, quantity, rating);
+            bookControler.addBook(newBook);
+            System.out.println("Đã thêm sách vào cửa hàng!");
+        }
+    }
+
+    public boolean checkBookExist(String title) {
+        return bookControler.findBookByName(title).size() > 0;
+    }
+
     //2. Quản lý khách hàng
-    public void manageClient(String email) {
+    public void manageClient() {
         boolean back = false;
         while (!back) {
             System.out.println("\n1. Thêm tài khoản \t\t 2. Xóa tài khoản \t\t 0. Quay lại");
@@ -134,7 +193,7 @@ public class AdminUi {
         boolean checkEmail = false;
         String email = "";
         while (!checkEmail) {
-            System.out.print("Nhập email của bạn: ");
+            System.out.print("Nhập email tài khoản: ");
             email = sc.nextLine();
             if (userControler.checkEmailValid(email)) {
                 if (userControler.checkEmailExist(email)) {

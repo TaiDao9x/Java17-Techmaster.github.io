@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class BookControler {
     BookService bookService = new BookService();
+
     public ArrayList<Book> showBookByCategory(String category) {
         return bookService.showBookByCategory(category);
     }
@@ -20,7 +21,7 @@ public class BookControler {
     }
 
     public ArrayList<Book> findBookByAuthor(String author) {
-       return bookService.findBookByAuthor(author);
+        return bookService.findBookByAuthor(author);
 
     }
 
@@ -30,5 +31,17 @@ public class BookControler {
 
     public boolean checkIdExist(int id) {
         return bookService.checkIdExist(id);
+    }
+
+    public int getIdBook() {
+        return bookService.getIdBook();
+    }
+
+    public void addBook(Book newBook) {
+        bookService.addBook(newBook);
+    }
+
+    public ArrayList<Book> showBook() {
+        return bookService.showBook();
     }
 }

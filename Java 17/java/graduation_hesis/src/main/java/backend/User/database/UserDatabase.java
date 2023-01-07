@@ -6,7 +6,6 @@ import backend.User.ultils.UserFileUltils;
 import java.util.ArrayList;
 
 public class UserDatabase {
-    public static ArrayList<User> users() {
-        return UserFileUltils.getDataFromFile("user.json");
-    }
+    public static ArrayList<User> users = UserFileUltils.getDataFromFile("user.json");
+
 }

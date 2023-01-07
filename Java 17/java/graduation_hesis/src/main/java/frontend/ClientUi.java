@@ -422,11 +422,8 @@ public class ClientUi {
     public void listCategory() {
 
         System.out.println("""
-                1. Văn học
-                2. Kinh tế
-                3. Tâm lý - Kỹ năng sống
-                4. Nuôi dạy con
-                5. Thiếu nhi
+                1. Văn học \t\t\t 2. Kinh tế \t\t 3. Tâm lý - Kỹ năng sống
+                4. Nuôi dạy con \t 5. Thiếu nhi \t\t 6. Tâm linh
                 0. Quay lại menu
                 """);
     }
@@ -462,6 +459,10 @@ public class ClientUi {
                     category = "Thiếu nhi";
                     backToMenu = true;
                 }
+                case 6 -> {
+                    category = "Tâm linh";
+                    backToMenu = true;
+                }
                 case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
@@ -491,19 +492,19 @@ public class ClientUi {
 
             switch (option) {
                 case 1 -> {
-                    pulisherCompany = "NXB trẻ";
+                    pulisherCompany = "trẻ";
                     backToMenu = true;
                 }
                 case 2 -> {
-                    pulisherCompany = "NXB Kim Đồng";
+                    pulisherCompany = "Kim Đồng";
                     backToMenu = true;
                 }
                 case 3 -> {
-                    pulisherCompany = "NXB Lao Động";
+                    pulisherCompany = "Lao Động";
                     backToMenu = true;
                 }
                 case 4 -> {
-                    pulisherCompany = "NXB Nhã Nam";
+                    pulisherCompany = "Nhã Nam";
                     backToMenu = true;
                 }
                 case 0 -> backToMenu = true;
