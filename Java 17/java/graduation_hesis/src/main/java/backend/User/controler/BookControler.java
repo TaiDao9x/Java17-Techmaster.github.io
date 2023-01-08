@@ -44,4 +44,22 @@ public class BookControler {
     public ArrayList<Book> showBook() {
         return bookService.showBook();
     }
+
+    public void upDatePrice(int id, int newPrice) {
+        bookService.upDatePrice(id, newPrice);
+    }
+
+    public void updateQuantity(int id, int newQuantity) {
+        bookService.updateQuantity(id, newQuantity);
+    }
+
+    public void deleteBook(int id) {
+        bookService.deleteBook(id);
+    }
+
+    public ArrayList<Book> showBookLessx(int checkQuantity) {
+        return bookService.showBookLessx(checkQuantity);
+    }
+
+
 }

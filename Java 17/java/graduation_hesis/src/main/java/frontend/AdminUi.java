@@ -12,6 +12,7 @@ import backend.User.service.PreOderService;
 import backend.User.ultils.BookFileUltils;
 import backend.User.ultils.UserFileUltils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AdminUi {
@@ -48,7 +49,7 @@ public class AdminUi {
                 case 2 -> manageClient();
                 case 3 -> manageProduct();
                 case 4 -> {
-
+// todo quản lý đơn hàng sau khi khách hàng tạo đơn hàng
                 }
                 case 5 -> {
                 }
@@ -66,8 +67,8 @@ public class AdminUi {
         boolean back = false;
         while (!back) {
             System.out.println("""
-                    \n1. Xem sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
-                    4. Xóa sách \t\t 5. Sách gần hết \t\t 0. Quay lại
+                    \n1. Xem toàn bộ sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
+                    4. Xóa sách \t\t\t\t 5. Kiểm tra sách \t\t 0. Quay lại
                     """);
 
             int option = getOption();
@@ -75,15 +76,140 @@ public class AdminUi {
             switch (option) {
                 case 1 -> showBook();
                 case 2 -> addBook();
+                case 3 -> editBook();
+                case 4 -> deleteBook();
+                case 5 -> checkBook();
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
     }
 
-    //3.1 Xem sách
-    public void showBook() {
-        BookFileUltils.printBook(bookControler.showBook());
+    // 3.5 Hiển thị những đầu sach sắp hết trong kho
+    public void checkBook() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("""
+                    \n1. Kiểm tra số lượng sách \t\t 2. Sách best seller \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> showBookLessx();
+                case 2 -> bookBestSeller();
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // kiểm tra số lượng sách trong kho
+    public void showBookLessx() {
+        int checkQuantity = getQuantity();
+        BookFileUltils.printBook(bookControler.showBookLessx(checkQuantity));
+    }
+
+    // kiểm tra chất lượng sách theo số lượng bán ra
+    public void bookBestSeller() {
+// todo: check số lượng bán ra của sách. Sách nào bán nhiều đưa lên đầu
+    }
+
+
+    // 3.4 xóa sách
+    public void deleteBook() {
+        int id = getId();
+        ArrayList<Book> findBook = new ArrayList<>();
+        findBook.add(bookControler.findBookById(id));
+        BookFileUltils.printBook(findBook);
+
+        boolean back = false;
+        while (!back) {
+            System.out.println("\nBạn muốn xóa sách này: ");
+
+            System.out.print("1. Có \t\t 2. Không\n");
+            int option = getOption();
+
+
+            switch (option) {
+                case 1 -> {
+                    bookControler.deleteBook(id);
+                    System.out.println("Bạn đã xóa sách thành công!");
+                    back = true;
+                }
+                case 2 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // 3.3 sửa sách
+    public void editBook() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("""
+                    \n1. Sửa giá \t\t 2. Cập nhật số lượng sách \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> upDatePrice();
+                case 2 -> updateQuantity();
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // cập nhật giá sách
+    public void upDatePrice() {
+        int id = getId();
+        int newPrice = getPrice();
+        bookControler.upDatePrice(id, newPrice);
+        System.out.println("Đã cập nhật giá sách thành công!");
+    }
+
+    public int getPrice() {
+        boolean back = false;
+        int newPrice = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập vào giá mới: ");
+                newPrice = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            back = true;
+        }
+        return newPrice;
+    }
+
+    // cập nhật số lượng trong kho
+    public void updateQuantity() {
+        int id = getId();
+        int newQuantity = getQuantity();
+        bookControler.updateQuantity(id, newQuantity);
+        System.out.println("Đã cập nhật số lượng sách trong kho!");
+    }
+
+    public int getQuantity() {
+        boolean back = false;
+        int newQuantity = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập số lượng sách: ");
+                newQuantity = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            back = true;
+        }
+        return newQuantity;
     }
 
     //3.2 thêm sách
@@ -118,6 +244,12 @@ public class AdminUi {
     public boolean checkBookExist(String title) {
         return bookControler.findBookByName(title).size() > 0;
     }
+
+    //3.1 Xem sách
+    public void showBook() {
+        BookFileUltils.printBook(bookControler.showBook());
+    }
+
 
     //2. Quản lý khách hàng
     public void manageClient() {
@@ -271,7 +403,7 @@ public class AdminUi {
             int option = getOption();
 
             switch (option) {
-                case 1 -> changeEmail(email); // todo: THAY ĐỔI EMAIL PASS KO ĐƯỢC
+                case 1 -> changeEmail(email);
                 case 2 -> changePassword(email);
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
@@ -345,5 +477,20 @@ public class AdminUi {
         return option;
     }
 
+    public int getId() {
+        boolean back = false;
+        int id = 0;
 
+        while (!back) {
+            try {
+                System.out.print("Nhập id sản phẩm: ");
+                id = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            back = true;
+        }
+        return id;
+    }
 }

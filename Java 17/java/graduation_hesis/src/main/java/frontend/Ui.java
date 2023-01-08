@@ -73,16 +73,6 @@ public class Ui {
         }
     }
 
-    public void logIn() {
-        String email = getEmailToLogin();
-        if (adminController.checkEmailExist(email)) {
-            Admin admin = getAdminAfterCheckPass(email);
-            adminUi.adminLoginSuccess(admin);
-        } else {
-            User clientLogin = getUserAfterCheckPass(email);
-            clientUi.clientLoginSuccess(clientLogin);
-        }
-    }
 
     public void showMenuLogin() {
         System.out.println("\n-----------------------------------------");
@@ -97,10 +87,23 @@ public class Ui {
                 """);
     }
 
+
     // KHUNG NGOÀI (lv1)
-    // LOGIN
+    // 3. LOGIN
     // Kiểm tra, check email được nhập vào nếu đúng -> lấy ra email sang bước kiểm tra password
     // Sử dụng để lấy lại mật khẩu
+
+    public void logIn() {
+        String email = getEmailToLogin();
+        if (adminController.checkEmailExist(email)) {
+            Admin admin = getAdminAfterCheckPass(email);
+            adminUi.adminLoginSuccess(admin);
+        } else {
+            User clientLogin = getUserAfterCheckPass(email);
+            clientUi.clientLoginSuccess(clientLogin);
+        }
+    }
+
     public String getEmailToLogin() {
         boolean checkEmail = false;
         String email = "";

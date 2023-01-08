@@ -4,6 +4,8 @@ import backend.User.model.Book;
 import backend.User.repository.BookRepository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class BookService {
     private final BookRepository bookRepository = new BookRepository();
@@ -86,4 +88,35 @@ public class BookService {
     public ArrayList<Book> showBook() {
         return ALL_BOOKS;
     }
+
+    public void upDatePrice(int id, int newPrice) {
+        for (Book book : ALL_BOOKS) {
+            if (book.getId() == id) {
+                book.setPrice(newPrice);
+            }
+        }
+        bookRepository.updateFile(ALL_BOOKS);
+    }
+
+    public void updateQuantity(int id, int newQuantity) {
+        for (Book book : ALL_BOOKS) {
+            if (book.getId() == id) {
+                book.setQuantity(newQuantity);
+            }
+        }
+        bookRepository.updateFile(ALL_BOOKS);
+    }
+
+    public void deleteBook(int id) {
+        ALL_BOOKS.removeIf(a -> a.getId() == id);
+        bookRepository.updateFile(ALL_BOOKS);
+    }
+
+    public ArrayList<Book> showBookLessx(int checkQuantity) {
+        return (ArrayList<Book>) ALL_BOOKS.stream()
+                .filter(n -> n.getQuantity() < checkQuantity)
+                .sorted((Comparator.comparingInt(Book::getQuantity)))
+                .collect(Collectors.toList());
+    }
+
 }

@@ -23,13 +23,24 @@
   },
   {
     "id": 3,
-    "title": "Luật hấp dẫn",
-    "category": "Tâm linh",
-    "author": "Esther",
-    "releaseYear": 2006,
-    "price": 89000,
-    "publishCompany": "Nhã Nam",
-    "quantity": 50,
-    "rating": 4.5
+    "title": "abc",
+    "category": "Văn học",
+    "author": "Shawn Calvey",
+    "releaseYear": 2009,
+    "price": 120000,
+    "publishCompany": "NXB trẻ",
+    "quantity": 18,
+    "rating": 4.9
+  },
+  {
+    "id": 4,
+    "title": "aaaaaaaa",
+    "category": "Kinh tế",
+    "author": "Shawn Calvey",
+    "releaseYear": 2009,
+    "price": 90000,
+    "publishCompany": "NXB Lao động",
+    "quantity": 35,
+    "rating": 4.8
   }
 ]

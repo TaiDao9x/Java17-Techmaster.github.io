@@ -2,7 +2,6 @@ package backend.User.model;
 
 import lombok.*;
 
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

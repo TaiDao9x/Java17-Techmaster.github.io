@@ -7,5 +7,4 @@ import java.util.ArrayList;
 
 public class BookDatabase {
     public static ArrayList<Book> books = BookFileUltils.getDataFromFile("book.json");
-
 }
