@@ -1,13 +1,12 @@
 package frontend;
 
-import backend.User.controler.BookControler;
-import backend.User.controler.ItemController;
-import backend.User.controler.UserControler;
-import backend.User.model.*;
-import backend.User.repository.PreOrderRepository;
-import backend.User.request.UserRequest;
-import backend.User.service.PreOderService;
-import backend.User.ultils.*;
+import backend.controler.BookControler;
+import backend.controler.UserControler;
+import backend.model.Address;
+import backend.model.Book;
+import backend.model.User;
+import backend.request.UserRequest;
+import backend.ultils.FileUltils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,8 +15,6 @@ public class ClientUi {
     Scanner sc = new Scanner(System.in);
     UserControler userControler = new UserControler();
     BookControler bookControler = new BookControler();
-    ItemController itemController = new ItemController();
-    PreOderService preOderService = new PreOderService();
 
 
     // KHUNG TRONG CLIENT (lv2)
@@ -48,14 +45,14 @@ public class ClientUi {
             switch (option) {
                 case 1 -> {
                     showBook();
-                    manageOrder(clientLogin.getEmail());
+//                    manageOrder(clientLogin.getEmail());
                 }
                 case 2 -> {
                     findBook();
-                    manageOrder(clientLogin.getEmail());
+//                    manageOrder(clientLogin.getEmail());
                 }
                 case 3 -> {
-                    myCart(clientLogin.getEmail());
+//                    myCart(clientLogin.getEmail());
                 }
                 case 4 -> {
 
@@ -82,7 +79,7 @@ public class ClientUi {
     }
 
     public void updateInfo(String email) {
-        UserFileUltils.printUser(userControler.getUserByEmail(email));
+        FileUltils.printUser(userControler.getUserByEmail(email));
         boolean back = false;
         while (!back) {
             updateInfoMenu();
@@ -180,215 +177,6 @@ public class ClientUi {
         return new Address(city, district, street, addressDetail);
     }
 
-
-    // 3. Quản lý đơn hàng
-    public void askToBuy() {
-        System.out.println("""
-                \n1. Thêm sản phẩm vào giỏ hàng  \t\t 0. Quay lại
-                 """);
-    }
-
-    public void manageOrder(String email) {
-        boolean backToMenu = false;
-
-        while (!backToMenu) {
-            askToBuy();
-            int option = getOption();
-            switch (option) {
-                case 1 -> addItemFromIdBook(email);
-                case 0 -> backToMenu = true;
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-    }
-
-    // 3.1. Thêm sản phẩm vào giỏ hàng
-    // Từ id book khách hàng nhập vào ->lấy ra Item để chuyển vào giỏ hàng
-
-    public void addItemFromIdBook(String email) {
-        boolean back = false;
-        int id;
-        Book book = new Book();
-
-        while (!back) {
-
-            try {
-                System.out.print("Nhập id sản phẩm: ");
-                id = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            if (bookControler.checkIdExist(id)) {
-                book = bookControler.findBookById(id);
-                back = true;
-            } else {
-                System.out.println("Không tồn tại sản phẩm có id: " + id);
-            }
-        }
-        Item item = new Item(email, book.getId(), book.getTitle(), 1, book.getPrice(), book.getPrice());
-        itemController.addItemFromIdBook(item);
-        System.out.printf("Đã thêm %s vào giỏ hàng!\n", book.getTitle());
-    }
-
-    //    3.2 Xem giỏ hàng
-    public void menuCart() {
-        System.out.println("""
-                \n1. Xóa sản phẩm
-                2. Thay đổi số lượng sản phẩm
-                3. Mua hàng
-                0. Quay lại chọn thêm sản phẩm
-                """);
-    }
-
-    // Giỏ hàng của tôi
-    public void myCart(String email) {
-
-        boolean backToMenu = false;
-
-        while (!backToMenu) {
-            printCart(itemController.getCart(email));
-            System.out.println("Tổng số tiền các SP trong giỏ hàng này là: " +
-                    ItemFileUltils.formattingDisplay(itemController.getTotal(email)));
-            if (itemController.getTotal(email) == 0) {
-                System.out.println("Giỏ hàng trống!");
-                backToMenu = true;
-            } else {
-                menuCart();
-                int option = getOption();
-                switch (option) {
-                    case 1 -> {
-                        deleteItemFromCart(email);
-                        System.out.println("Đã xóa sản phẩm thành công!");
-                    }
-                    case 2 -> changeCount(email);
-                    case 3 -> confirmPreOrder(email);
-
-                    case 0 -> backToMenu = true;
-                    default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-                }
-            }
-        }
-    }
-
-    // Kiểm tra, thay đổi thông tin trước khi đặt hàng
-    public void confirmPreOrder(String email) {
-        createPreOrder(email);
-
-        boolean back = false;
-        int option;
-
-        while (!back) {
-            PreOrderFileUltils.printPreOrder(getPreOrder(email));
-
-            System.out.println("""
-                    \nHãy kiểm tra kỹ lại thông tin đơn hàng! 
-                    1. Quay lại thay đổi sản phẩm
-                    2. Thay đổi địa chỉ giao hàng
-                    3. Đặt hàng
-                    """);
-            option = getOption();
-            switch (option) {
-                case 1 -> back = true;
-                case 2 -> changeAddressPreOrder(email);
-                case 3 -> {
-// Todo: tiếp tục pần mua hàng
-                }
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-        deletePreOrder(email);
-    }
-
-    // Sau khi người mua đặt hàng sẽ xóa preOder
-    public void deletePreOrder(String email) {
-        preOderService.deletePreOrder(email);
-    }
-
-    // Lấy hiển thị preOrder cho người mua kiểm tra trước khi đặt hàng
-    public Order getPreOrder(String email) {
-        return preOderService.getPreOrder(email);
-    }
-
-    // thay đổi địa chỉ giao hàng
-    public void changeAddressPreOrder(String email) {
-        System.out.println("Nhập địa chỉ nhận hàng: ");
-        System.out.print("Thành phố: ");
-        String city = sc.nextLine();
-
-        System.out.print("Quận: ");
-        String district = sc.nextLine();
-
-        System.out.print("Đường: ");
-        String street = sc.nextLine();
-
-        System.out.print("Địa chỉ nhận hàng: ");
-        String addressDetail = sc.nextLine();
-        Address newAddress = new Address(city, district, street, addressDetail);
-        preOderService.changeAddressPreOrder(email, newAddress);
-    }
-
-    // Tạo preOrder để người mua kiểm xa và xác nhận
-    public void createPreOrder(String email) {
-
-        String phone = userControler.getUserByEmail(email).getPhone();
-        ArrayList<Item> cart = itemController.getCart(email);
-        Address address = userControler.getUserByEmail(email).getAddress();
-        Order newOrder = new Order(email, phone, cart, address);
-        preOderService.createPreOrder(newOrder);
-    }
-
-    // Thực hiện thay đổi số lượng sản phẩm trong giỏ hàng
-    public void changeCount(String email) {
-        boolean idExist = false;
-        int id;
-        while (!idExist) {
-            id = getId();
-            if (itemController.checkItemExist(id, email)) {
-                System.out.print("Nhập số lượng sản phẩm: ");
-                int count = Integer.parseInt(sc.nextLine());
-                itemController.changeCount(id, email, count);
-                idExist = true;
-            } else {
-                System.out.println("Không có sản phẩm trong giỏ hàng.");
-            }
-        }
-
-    }
-
-    // Thực hiện xóa sản phẩm trong giỏ hàng
-    public void deleteItemFromCart(String email) {
-        boolean back = false;
-        int id;
-
-        while (!back) {
-            id = getId();
-            if (itemController.checkItemExist(id, email)) {
-                itemController.deleteItemFromCart(id, email);
-                back = true;
-            } else {
-                System.out.println("Không có sản phẩm trong giỏ hàng.");
-            }
-        }
-    }
-
-    // Lấy id sản phẩm
-    public int getId() {
-        boolean back = false;
-        int id = 0;
-
-        while (!back) {
-            try {
-                System.out.print("Nhập id sản phẩm: ");
-                id = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            back = true;
-        }
-        return id;
-    }
 
     // TẦNG SHOW DỮ LIỆU (lv3, lv4)
     // 1. Xem danh sách sản phẩm
@@ -567,27 +355,11 @@ public class ClientUi {
 
     // Method phụ
     public int getOption() {
-        boolean checkOption = false;
-        int option = 0;
-        while (!checkOption) {
-            try {
-                System.out.print("Nhập lựa chọn của bạn: ");
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            checkOption = true;
-        }
-        return option;
+        return FileUltils.getOption();
     }
 
     public void printBook(ArrayList<Book> books) {
-        BookFileUltils.printBook(books);
-    }
-
-    public void printCart(ArrayList<Item> items) {
-        ItemFileUltils.printCart(items);
+        FileUltils.printBook(books);
     }
 
 

@@ -1,16 +1,13 @@
 package frontend;
 
-import backend.User.controler.AdminController;
-import backend.User.controler.BookControler;
-import backend.User.controler.ItemController;
-import backend.User.controler.UserControler;
-import backend.User.model.Address;
-import backend.User.model.Admin;
-import backend.User.model.Book;
-import backend.User.model.User;
-import backend.User.service.PreOderService;
-import backend.User.ultils.BookFileUltils;
-import backend.User.ultils.UserFileUltils;
+import backend.controler.AdminController;
+import backend.controler.BookControler;
+import backend.controler.UserControler;
+import backend.model.Address;
+import backend.model.Admin;
+import backend.model.Book;
+import backend.model.User;
+import backend.ultils.FileUltils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,8 +17,6 @@ public class AdminUi {
     AdminController adminController = new AdminController();
     UserControler userControler = new UserControler();
     BookControler bookControler = new BookControler();
-    ItemController itemController = new ItemController();
-    PreOderService preOderService = new PreOderService();
 
     public void showMenu() {
         System.out.println("""
@@ -107,7 +102,7 @@ public class AdminUi {
     // kiểm tra số lượng sách trong kho
     public void showBookLessx() {
         int checkQuantity = getQuantity();
-        BookFileUltils.printBook(bookControler.showBookLessx(checkQuantity));
+        FileUltils.printBook(bookControler.showBookLessx(checkQuantity));
     }
 
     // kiểm tra chất lượng sách theo số lượng bán ra
@@ -121,7 +116,7 @@ public class AdminUi {
         int id = getId();
         ArrayList<Book> findBook = new ArrayList<>();
         findBook.add(bookControler.findBookById(id));
-        BookFileUltils.printBook(findBook);
+        FileUltils.printBook(findBook);
 
         boolean back = false;
         while (!back) {
@@ -247,7 +242,7 @@ public class AdminUi {
 
     //3.1 Xem sách
     public void showBook() {
-        BookFileUltils.printBook(bookControler.showBook());
+        FileUltils.printBook(bookControler.showBook());
     }
 
 
@@ -271,7 +266,7 @@ public class AdminUi {
     // 2.2 Xóa tài khoản
     public void deleteAcount() {
         String email = getEmailToDelete();
-        UserFileUltils.printUser(getUserByEmail(email));
+        FileUltils.printUser(getUserByEmail(email));
         System.out.println("Bạn có muốn xóa tài khoản này?");
         System.out.println("1. Có \t\t 2. Không");
         int option = getOption();
@@ -318,7 +313,7 @@ public class AdminUi {
 
         userControler.createNewUser(newUser);
         System.out.println("Bạn đã tạo tài khoản thành công! Xin chúc mừng. ");
-        UserFileUltils.printUser(newUser);
+        FileUltils.printUser(newUser);
     }
 
     public String getEmailToRegister() {
@@ -403,7 +398,10 @@ public class AdminUi {
             int option = getOption();
 
             switch (option) {
-                case 1 -> changeEmail(email);
+                case 1 -> {
+                    changeEmail(email);
+                    back = true;
+                }
                 case 2 -> changePassword(email);
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
@@ -420,7 +418,9 @@ public class AdminUi {
     public void changeEmail(String email) {
         String newEmail = getNewEmail();
         adminController.changeEmail(email, newEmail);
-        System.out.println("Đã thay đổi email thành công!");
+        System.out.println("Đã thay đổi email thành công! Yêu cầu đổi mật khẩu.");
+        changePassword(newEmail);
+        System.out.println("Đăng nhập lại để hoàn tất!");
     }
 
     // Lấy email mới
@@ -462,35 +462,10 @@ public class AdminUi {
 
     // Method phụ
     public int getOption() {
-        boolean checkOption = false;
-        int option = 0;
-        while (!checkOption) {
-            try {
-                System.out.print("Nhập lựa chọn của bạn: ");
-                option = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            checkOption = true;
-        }
-        return option;
+        return FileUltils.getOption();
     }
 
     public int getId() {
-        boolean back = false;
-        int id = 0;
-
-        while (!back) {
-            try {
-                System.out.print("Nhập id sản phẩm: ");
-                id = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
-                continue;
-            }
-            back = true;
-        }
-        return id;
+        return FileUltils.getId();
     }
 }

@@ -1,12 +1,12 @@
 package frontend;
 
-import backend.User.controler.AdminController;
-import backend.User.model.Address;
-import backend.User.controler.UserControler;
-import backend.User.model.Admin;
-import backend.User.model.User;
-import backend.User.request.UserRequest;
-import backend.User.ultils.UserFileUltils;
+import backend.controler.AdminController;
+import backend.model.Address;
+import backend.controler.UserControler;
+import backend.model.Admin;
+import backend.model.User;
+import backend.request.UserRequest;
+import backend.ultils.FileUltils;
 
 import java.util.Scanner;
 
@@ -51,7 +51,7 @@ public class Ui {
 
                     userControler.createNewUser(newUser);
                     System.out.println("Bạn đã tạo tài khoản thành công! Xin chúc mừng. ");
-                    UserFileUltils.printUser(newUser);
+                    FileUltils.printUser(newUser);
                 }
                 case 5 -> {
                     System.out.println("\n----------- QUÊN MẬT KHẨU -----------");
@@ -86,7 +86,6 @@ public class Ui {
                 0. Thoát ứng dụng
                 """);
     }
-
 
     // KHUNG NGOÀI (lv1)
     // 3. LOGIN
@@ -125,9 +124,6 @@ public class Ui {
         return email;
     }
 
-    public User getUserByEmail(String email) {
-        return userControler.getUserByEmail(email);
-    }
 
     // Kiểm tra password theo email bên trên, nếu đúng -> lấy ra user
     public User getUserAfterCheckPass(String email) {

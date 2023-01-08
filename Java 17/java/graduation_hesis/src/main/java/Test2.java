@@ -1,12 +1,11 @@
-import backend.User.controler.ItemController;
-import backend.User.ultils.ItemFileUltils;
-import backend.User.ultils.OrderFileUltils;
+import backend.model.Item;
 import frontend.ClientUi;
 
 public class Test2 {
     public static void main(String[] args) {
         ClientUi clientUi = new ClientUi();
-        clientUi.createPreOrder("tai@gmail.com" +
-                "");
+
+        Item cart = new Item();
+
     }
 }
