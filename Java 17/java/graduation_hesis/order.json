@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "idOrder": 1,
+    "email": "tai@gmail.com",
+    "cart": [
+      {
+        "email": "tai@gmail.com",
+        "id": 1,
+        "title": "Heaven\u0027s Burning",
+        "count": 3,
+        "price": 120000,
+        "monney": 120000
+      }
+    ],
+    "name": "tai@gmail.com",
+    "phone": "0987702769",
+    "address": {
+      "city": "HN",
+      "district": "BTL",
+      "street": "XT",
+      "detail": "N04A"
+    },
+    "date": "09/01/2023  15:55:17",
+    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+  },
+  {
+    "idOrder": 2,
+    "email": "tai@gmail.com",
+    "cart": [
+      {
+        "email": "tai@gmail.com",
+        "id": 3,
+        "title": "abc",
+        "count": 1,
+        "price": 120000,
+        "monney": 120000
+      }
+    ],
+    "name": "tai@gmail.com",
+    "phone": "0987702769",
+    "address": {
+      "city": "HN",
+      "district": "BTL",
+      "street": "XT",
+      "detail": "N04A"
+    },
+    "date": "09/01/2023  16:00:56",
+    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+  }
+]

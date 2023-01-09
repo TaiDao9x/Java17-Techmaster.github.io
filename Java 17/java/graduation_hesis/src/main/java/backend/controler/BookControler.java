@@ -4,6 +4,7 @@ import backend.model.Book;
 import backend.service.BookService;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class BookControler {
     BookService bookService = new BookService();
@@ -61,4 +62,7 @@ public class BookControler {
         return bookService.showBookLessx(checkQuantity);
     }
 
+    public void changeAfterOrder(Map<Integer, Integer> reduceCount) {
+        bookService.changeAfterOrder(reduceCount);
+    }
 }

@@ -4,10 +4,12 @@ import backend.controler.AdminController;
 import backend.model.Address;
 import backend.controler.UserControler;
 import backend.model.Admin;
+import backend.model.Book;
 import backend.model.User;
 import backend.request.UserRequest;
 import backend.ultils.FileUltils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -28,10 +30,18 @@ public class Ui {
 
             switch (option) {
                 case 1 -> {
-                    clientUi.showBook();
+                    ArrayList<Book> books = clientUi.showBook();
+                    if (books.size() != 0) {
+                        FileUltils.printBook(books);
+                        choseToCart();
+                    }
                 }
                 case 2 -> {
-                    clientUi.findBook();
+                    ArrayList<Book> books = clientUi.findBook();
+                    if (books.size() != 0) {
+                        FileUltils.printBook(books);
+                        choseToCart();
+                    }
                 }
                 case 3 -> {
                     System.out.println("\n----------- ĐĂNG NHẬP -----------");
@@ -89,8 +99,24 @@ public class Ui {
 
     // KHUNG NGOÀI (lv1)
     // 3. LOGIN
-    // Kiểm tra, check email được nhập vào nếu đúng -> lấy ra email sang bước kiểm tra password
-    // Sử dụng để lấy lại mật khẩu
+
+    public void choseToCart() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n1. Mua sách \t\t 0. Quay lại");
+
+            int option = clientUi.getOption();
+
+            switch (option) {
+                case 1 -> {
+                    System.out.println("Hãy đăng nhập để mua hàng!");
+                    back = true;
+                }
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
 
     public void logIn() {
         String email = getEmailToLogin();
@@ -103,6 +129,9 @@ public class Ui {
         }
     }
 
+    // Kiểm tra, check email được nhập vào nếu đúng -> lấy ra email sang bước kiểm tra password
+    // Sử dụng để lấy lại mật khẩu
+    // Lấy ra mail để kiểm tra và đăng nhập
     public String getEmailToLogin() {
         boolean checkEmail = false;
         String email = "";

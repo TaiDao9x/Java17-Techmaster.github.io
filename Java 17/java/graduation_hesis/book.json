@@ -7,7 +7,7 @@
     "releaseYear": 2009,
     "price": 120000,
     "publishCompany": "NXB trẻ",
-    "quantity": 30,
+    "quantity": 0,
     "rating": 4.9
   },
   {
@@ -29,7 +29,7 @@
     "releaseYear": 2009,
     "price": 120000,
     "publishCompany": "NXB trẻ",
-    "quantity": 18,
+    "quantity": 29,
     "rating": 4.9
   },
   {
@@ -40,7 +40,7 @@
     "releaseYear": 2009,
     "price": 90000,
     "publishCompany": "NXB Lao động",
-    "quantity": 35,
+    "quantity": 5,
     "rating": 4.8
   }
 ]

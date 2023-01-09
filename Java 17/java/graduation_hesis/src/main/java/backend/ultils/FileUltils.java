@@ -1,10 +1,7 @@
 package backend.ultils;
 
 import backend.controler.BookControler;
-import backend.model.Admin;
-import backend.model.Book;
-import backend.model.Item;
-import backend.model.User;
+import backend.model.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -16,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileUltils {
@@ -87,6 +85,22 @@ public class FileUltils {
         }
     }
 
+    public static ArrayList<Order> getOrderDataFromFile(String fileName) {
+
+        try {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(fileName));
+            Type type = new TypeToken<ArrayList<Order>>() {
+            }.getType();
+            ArrayList<Order> order = gson.fromJson(reader, type);
+            reader.close();
+            return order;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
     // ghi data vào json
     public static void setDataToFile(String fileName, Object obj) {
         try {
@@ -122,6 +136,47 @@ public class FileUltils {
         }
     }
 
+    public static void printCart(ArrayList<Item> cart) {
+        System.out.printf("\n%-5s %-25s %-15s %-10s %-15s\n", "Id", "Tên sách", "Giá sách", "Số lượng", "Thành tiền");
+        System.out.println("------------------------------------------------------------------------");
+        for (Item item : cart) {
+            System.out.printf("%-5d %-25s %-15s %-10d %-15s\n", item.getId(), item.getTitle(), formattingDisplay(item.getPrice()), item.getCount(), formattingDisplay(item.getPrice() * item.getCount()));
+        }
+    }
+
+    public static void printOrder(ArrayList<Order> orders) {
+        for (Order order : orders) {
+            Address address = order.getAddress();
+            List<Item> cart = order.getCart();
+            System.out.println("\nĐƠN SỐ: " + order.getIdOrder());
+            System.out.println("=========================================================================");
+            System.out.println("\tNgười nhận: " + order.getName() + "\t\t\t Số điện thoại: " + order.getPhone());
+            System.out.printf("\tĐịa chỉ: %s, %s, %s, %s \n", address.getDetail(), address.getStreet(), address.getDistrict(), address.getCity());
+            System.out.println("\n\tDanh sách Sản phẩm:");
+            System.out.printf("%-5s %-25s %-15s %-10s %-15s\n", "Id", "Tên sách", "Giá sách", "Số lượng", "Thành tiền");
+            System.out.println("------------------------------------------------------------------------");
+            for (Item item : cart) {
+                System.out.printf("%-5d %-25s %-15s %-10d %-15s\n", item.getId(), item.getTitle(), formattingDisplay(item.getPrice()), item.getCount(), formattingDisplay(item.getPrice() * item.getCount()));
+            }
+            System.out.println("------------------------------------------------------------------------");
+            calculateTotal(order);
+            System.out.println("\tThời gian đặt hàng: " + order.getDate());
+            System.out.println("\tTrạng thái đơn hàng: " + order.getStatus());
+            System.out.println("=========================================================================");
+        }
+
+    }
+
+    public static void calculateTotal(Order order) {
+        List<Item> cart = order.getCart();
+        int rs = cart.stream()
+                .map(item -> item.getCount() * item.getPrice())
+                .mapToInt(a -> a)
+                .sum();
+        System.out.println("\tTổng giá trị đơn hàng: " + FileUltils.formattingDisplay(rs));
+    }
+
+
     // Format số
     public static String formattingDisplay(int price) {
         DecimalFormat formatter = new DecimalFormat("###,###,### VND");
@@ -145,7 +200,7 @@ public class FileUltils {
             if (bookControler.checkIdExist(id)) {
                 back = true;
             } else {
-                System.out.println("Id sản phẩm không tồn tại!");
+                System.out.println("Không có sản phẩm nào trùng id!");
             }
         }
         return id;

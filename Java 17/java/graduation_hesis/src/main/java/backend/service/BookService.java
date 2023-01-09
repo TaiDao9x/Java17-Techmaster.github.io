@@ -5,6 +5,8 @@ import backend.repository.BookRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BookService {
@@ -119,4 +121,15 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
+    public void changeAfterOrder(Map<Integer, Integer> reduceCount) {
+        Set<Integer> set = reduceCount.keySet();
+        for (Book book : ALL_BOOKS) {
+            for (Integer key : set) {
+                if (book.getId() == key) {
+                    book.setQuantity(book.getQuantity() - reduceCount.get(key));
+                }
+            }
+        }
+        bookRepository.updateFile(ALL_BOOKS);
+    }
 }
