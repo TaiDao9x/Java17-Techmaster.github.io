@@ -5,6 +5,8 @@ import backend.model.Status;
 import backend.repository.OrderRepository;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderService {
     OrderRepository orderRepository = new OrderRepository();
@@ -41,10 +43,24 @@ public class OrderService {
     public ArrayList<Order> getorderDone(String email) {
         ArrayList<Order> orders = new ArrayList<>();
         for (Order order : allOder) {
-            if (order.getEmail().equalsIgnoreCase(email) && order.getStatus().equals(Status.ĐÃ_NHẬN_HÀNG)) {
+            if (order.getEmail().equalsIgnoreCase(email) && order.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
                 orders.add(order);
             }
         }
         return orders;
+    }
+
+    public List<Order> getOrdersBystatus(Status status) {
+        return allOder.stream()
+                .filter(order -> order.getStatus().equals(status)).collect(Collectors.toList());
+    }
+
+    public void changeStatus(int id, Status status) {
+        for (Order order : allOder) {
+            if (order.getIdOrder() == id) {
+                order.setStatus(status);
+            }
+        }
+        orderRepository.updateFile(allOder);
     }
 }

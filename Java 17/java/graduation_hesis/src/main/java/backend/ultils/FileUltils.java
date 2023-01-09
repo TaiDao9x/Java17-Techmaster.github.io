@@ -149,7 +149,7 @@ public class FileUltils {
             Address address = order.getAddress();
             List<Item> cart = order.getCart();
             System.out.println("\nĐƠN SỐ: " + order.getIdOrder());
-            System.out.println("=========================================================================");
+            System.out.println("*************************************************************************");
             System.out.println("\tNgười nhận: " + order.getName() + "\t\t\t Số điện thoại: " + order.getPhone());
             System.out.printf("\tĐịa chỉ: %s, %s, %s, %s \n", address.getDetail(), address.getStreet(), address.getDistrict(), address.getCity());
             System.out.println("\n\tDanh sách Sản phẩm:");
@@ -162,7 +162,7 @@ public class FileUltils {
             calculateTotal(order);
             System.out.println("\tThời gian đặt hàng: " + order.getDate());
             System.out.println("\tTrạng thái đơn hàng: " + order.getStatus());
-            System.out.println("=========================================================================");
+            System.out.println("*************************************************************************");
         }
 
     }
@@ -184,14 +184,14 @@ public class FileUltils {
     }
 
 
-    // Lấy id sản phẩm
+    // Lấy id book
     public static int getId() {
         boolean back = false;
         int id = 0;
 
         while (!back) {
             try {
-                System.out.print("Nhập id sản phẩm: ");
+                System.out.print("Nhập vào id: ");
                 id = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");

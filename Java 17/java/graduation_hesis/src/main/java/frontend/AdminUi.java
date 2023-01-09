@@ -2,11 +2,9 @@ package frontend;
 
 import backend.controler.AdminController;
 import backend.controler.BookControler;
+import backend.controler.OrderController;
 import backend.controler.UserControler;
-import backend.model.Address;
-import backend.model.Admin;
-import backend.model.Book;
-import backend.model.User;
+import backend.model.*;
 import backend.ultils.FileUltils;
 
 import java.util.ArrayList;
@@ -17,13 +15,14 @@ public class AdminUi {
     AdminController adminController = new AdminController();
     UserControler userControler = new UserControler();
     BookControler bookControler = new BookControler();
+    OrderController orderController = new OrderController();
 
     public void showMenu() {
         System.out.println("""
-                \n1. Quản lý tài khoản
-                2. Quản lý khách hàng
-                3. Quản lý sản phẩm
-                4. Quản lý đơn hàng
+                \n1. Tài khoản
+                2. Khách hàng
+                3. Sản phẩm
+                4. Đơn hàng
                 5. Thống kê, báo cáo
                 0. Đăng xuất
                 """);
@@ -43,10 +42,9 @@ public class AdminUi {
                 case 1 -> manageAcount(admin.getEmail());
                 case 2 -> manageClient();
                 case 3 -> manageProduct();
-                case 4 -> {
-// todo quản lý đơn hàng sau khi khách hàng tạo đơn hàng
-                }
+                case 4 -> manageOrder();
                 case 5 -> {
+                    // todo: 5. thống kê, báo cáo
                 }
                 case 0 -> {
                     System.out.println("\n----------- HẸN GẶP LẠI -----------");
@@ -57,12 +55,125 @@ public class AdminUi {
         }
     }
 
+    // 4. Quản lý đơn hàng
+    public void manageOrder() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("""
+                    \n---------------------- QUẢN LÝ ĐƠN HÀNG -----------------------
+                    1. Đơn chờ xác nhận \t\t 2. Đơn đang chuẩn bị
+                    3. Đơn đang vận chuyển \t\t 4. Đơn đã hoàn thành \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+            // TODO: thêm điều kiện không có order
+            switch (option) {
+                case 1 -> {
+                    showOrder(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                    orderBrowsing(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                }
+                case 2 -> showOrder(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
+                case 3 -> showOrder(Status.ĐANG_GIAO_HÀNG);
+                case 4 -> showOrder(Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // in ra đơn hàng có trạng thái tương ứng
+    public void showOrder(Status status) {
+        ArrayList<Order> orders = getOrdersBystatus(status);
+        printOrders(orders);
+    }
+
+    // lấy ra đơn hàng bằng status
+    public ArrayList<Order> getOrdersBystatus(Status status) {
+        return (ArrayList<Order>) orderController.getOrdersBystatus(status);
+    }
+
+    // Duyệt đơn hàng
+    public void orderBrowsing(Status status) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n1. Duyệt từng đơn hàng \t\t 2. Duyệt tất cả đơn hàng \t\t 0. Quay lại");
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> browingOneByOne(status);
+//              TODO: Tiếp tục ở đây  case 2 -> browingAll(status);
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // case 1. Duyệt từng đơn hàng
+    public void browingOneByOne(Status status) {
+
+        boolean back = false;
+        while (!back) {
+            System.out.println("\nHãy chọn id đơn hàng muốn sửa!");
+            int idOrder = getIdOrder();
+            if (checkIdOrderExist(idOrder, status)) {
+                changeStatus(idOrder);
+            } else {
+                System.out.println("Id đơn hàng không có!");
+            }
+            back = true;
+        }
+    }
+
+    public boolean checkIdOrderExist(int id, Status status) {
+        return getOrdersBystatus(status).stream()
+                .anyMatch(n -> n.getIdOrder() == id);
+    }
+
+    public void changeStatus(int id) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("Bạn muốn thay đổi đơn hàng này thành: ");
+            System.out.println("""
+                    1. CHỜ_NGƯỜI_BÁN_XÁC_NHẬN
+                    2. NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG
+                    3. ĐANG_GIAO_HÀNG
+                    4. KHÁCH_ĐÃ_NHẬN_HÀNG
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    orderController.changeStatus(id, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                    back = true;
+                }
+                case 2 -> {
+                    orderController.changeStatus(id, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
+                    back = true;
+                }
+                case 3 -> {
+                    orderController.changeStatus(id, Status.ĐANG_GIAO_HÀNG);
+                    back = true;
+                }
+                case 4 -> {
+                    orderController.changeStatus(id, Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                    back = true;
+                }
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        System.out.println("Thay đổi thành công!");
+    }
+
+
     // 3. Quản lý sản phẩm
     public void manageProduct() {
         boolean back = false;
         while (!back) {
             System.out.println("""
-                    \n1. Xem toàn bộ sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
+                    \n---------------------- QUẢN LÝ SẢN PHẨM -----------------------
+                    1. Xem toàn bộ sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
                     4. Xóa sách \t\t\t\t 5. Kiểm tra sách \t\t 0. Quay lại
                     """);
 
@@ -110,7 +221,6 @@ public class AdminUi {
         // todo: check số lượng bán ra của sách. Sách nào bán nhiều đưa lên đầu
     }
 
-
     // 3.4 xóa sách
     public void deleteBook() {
         int id = getId();
@@ -124,7 +234,6 @@ public class AdminUi {
 
             System.out.print("1. Có \t\t 2. Không\n");
             int option = getOption();
-
 
             switch (option) {
                 case 1 -> {
@@ -250,6 +359,7 @@ public class AdminUi {
     public void manageClient() {
         boolean back = false;
         while (!back) {
+            System.out.println("\n---------------------- QUẢN LÝ KHÁCH HÀNG -----------------------");
             System.out.println("\n1. Thêm tài khoản \t\t 2. Xóa tài khoản \t\t 0. Quay lại");
 
             int option = getOption();
@@ -393,6 +503,7 @@ public class AdminUi {
     public void manageAcount(String email) {
         boolean back = false;
         while (!back) {
+            System.out.println("\n---------------------- QUẢN LÝ TÀI KHOẢN -----------------------");
             System.out.println("\n1. Thay đổi email \t\t 2. Đổi mật khẩu \t\t 0. Quay lại");
 
             int option = getOption();
@@ -467,5 +578,26 @@ public class AdminUi {
 
     public int getId() {
         return FileUltils.getId();
+    }
+
+    public int getIdOrder() {
+        boolean back = false;
+        int id = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập vào id: ");
+                id = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            back = true;
+        }
+        return id;
+    }
+
+    public void printOrders(ArrayList<Order> orders) {
+        FileUltils.printOrder(orders);
     }
 }

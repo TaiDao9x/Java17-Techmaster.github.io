@@ -41,6 +41,8 @@ public class Ui {
                     if (books.size() != 0) {
                         FileUltils.printBook(books);
                         choseToCart();
+                    } else {
+                        System.out.println("Kết quả tìm kiếm không có!");
                     }
                 }
                 case 3 -> {
@@ -75,7 +77,7 @@ public class Ui {
                     System.out.println("Thay đổi password thành công!");
                 }
                 case 0 -> {
-                    System.out.println("\n----------- HẸN GẶP LẠI -----------");
+                    System.out.println("\n----------- HẸN GẶP LẠI! -----------");
                     isQuit = true;
                 }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");

@@ -21,7 +21,7 @@
       "detail": "N04A"
     },
     "date": "09/01/2023  15:55:17",
-    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+    "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
   },
   {
     "idOrder": 2,
@@ -45,6 +45,6 @@
       "detail": "N04A"
     },
     "date": "09/01/2023  16:00:56",
-    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+    "status": "KHÁCH_ĐÃ_NHẬN_HÀNG"
   }
 ]

@@ -57,6 +57,8 @@ public class ClientUi {
                     if (books.size() != 0) {
                         printBook(books);
                         choseToCart(clientLogin, books);
+                    } else {
+                        System.out.println("Kết quả tìm kiếm không có!");
                     }
                 }
                 case 3 -> managerOrderUI.manageCart(clientLogin.getEmail());
@@ -305,7 +307,6 @@ public class ClientUi {
         System.out.println("""
                 \n1. Văn học \t\t\t 2. Kinh tế \t\t 3. Tâm lý - Kỹ năng sống
                 4. Nuôi dạy con \t 5. Thiếu nhi \t\t 6. Tâm linh
-                0. Quay lại menu
                 """);
     }
 
@@ -344,7 +345,6 @@ public class ClientUi {
                     category = "Tâm linh";
                     backToMenu = true;
                 }
-                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -359,7 +359,6 @@ public class ClientUi {
                 2. NXB Kim Đồng
                 3. NXB Lao Động
                 4. NXB Nhã Nam
-                0. Quay lại
                 """);
     }
 
@@ -389,7 +388,6 @@ public class ClientUi {
                     pulisherCompany = "Nhã Nam";
                     backToMenu = true;
                 }
-                case 0 -> backToMenu = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
@@ -411,20 +409,10 @@ public class ClientUi {
             switch (option) {
                 case 1 -> {
                     books = findBookByName();
-                    if (books.size() != 0) {
-                        printBook(books);
-                    } else {
-                        System.out.println("Không có sách bạn muốn tìm!");
-                    }
                     backToMenu = true;
                 }
                 case 2 -> {
                     books = findBookByAuthor();
-                    if (books.size() != 0) {
-                        printBook(books);
-                    } else {
-                        System.out.println("Không có tác giả bạn muốn tìm!");
-                    }
                     backToMenu = true;
                 }
                 case 0 -> backToMenu = true;
