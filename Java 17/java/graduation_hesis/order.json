@@ -46,5 +46,61 @@
     },
     "date": "08/02/2023  16:00:56",
     "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
+  },
+  {
+    "idOrder": 3,
+    "email": "tai@gmail.com",
+    "cart": [
+      {
+        "email": "tai@gmail.com",
+        "id": 2,
+        "title": "Heaven\u0027s Burning",
+        "count": 5,
+        "price": 90000,
+        "monney": 90000
+      }
+    ],
+    "name": "tai@gmail.com",
+    "phone": "0987702769",
+    "address": {
+      "city": "HN",
+      "district": "BTL",
+      "street": "XT",
+      "detail": "N04A"
+    },
+    "date": "10/01/2023  15:09:06",
+    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+  },
+  {
+    "idOrder": 4,
+    "email": "tai@gmail.com",
+    "cart": [
+      {
+        "email": "tai@gmail.com",
+        "id": 1,
+        "title": "Heaven\u0027s Burning",
+        "count": 1,
+        "price": 120000,
+        "monney": 120000
+      },
+      {
+        "email": "tai@gmail.com",
+        "id": 3,
+        "title": "abc",
+        "count": 1,
+        "price": 120000,
+        "monney": 120000
+      }
+    ],
+    "name": "tai@gmail.com",
+    "phone": "0987702769",
+    "address": {
+      "city": "HN",
+      "district": "BTL",
+      "street": "XT",
+      "detail": "N04A"
+    },
+    "date": "10/01/2023  15:11:24",
+    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
   }
 ]

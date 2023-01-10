@@ -17,8 +17,7 @@ public class Test2 {
 //        String date = localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss"));
 //        System.out.println(date);
 
-        System.out.println(Integer.parseInt(orderService.test())==1);
-        System.out.println(orderService.getRevenueByYear(2023));
+        System.out.println(orderService.getBookHasSold());
 
     }
 }

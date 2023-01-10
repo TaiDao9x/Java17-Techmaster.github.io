@@ -46,6 +46,8 @@ public class ClientUi {
 
             switch (option) {
                 case 1 -> {
+                    System.out.println("\n----------- XEM SÁCH -----------");
+
                     ArrayList<Book> books = showBook();
                     if (books.size() != 0) {
                         printBook(books);
@@ -53,6 +55,8 @@ public class ClientUi {
                     }
                 }
                 case 2 -> {
+                    System.out.println("\n----------- TÌM SÁCH -----------");
+
                     ArrayList<Book> books = findBook();
                     if (books.size() != 0) {
                         printBook(books);
@@ -61,9 +65,18 @@ public class ClientUi {
                         System.out.println("Kết quả tìm kiếm không có!");
                     }
                 }
-                case 3 -> managerOrderUI.manageCart(clientLogin.getEmail());
-                case 4 -> orderHistory(clientLogin.getEmail());
-                case 5 -> updateInfo(clientLogin.getEmail());
+                case 3 -> {
+                    System.out.println("\n----------- GIỎ HÀNG -----------");
+                    managerOrderUI.manageCart(clientLogin.getEmail());
+                }
+                case 4 -> {
+                    System.out.println("\n----------- LỊCH SỬ MUA HÀNG -----------");
+                    orderHistory(clientLogin.getEmail());
+                }
+                case 5 -> {
+                    System.out.println("\n----------- THÔNG TIN CÁ NHÂN -----------");
+                    updateInfo(clientLogin.getEmail());
+                }
                 case 0 -> {
                     System.out.println("\n----------- HẸN GẶP LẠI! -----------");
                     isQuitLogin = true;
@@ -237,17 +250,18 @@ public class ClientUi {
 
         while (!backToMenu) {
             System.out.println("""
-                    \n1. Xem theo thể loại \t\t 2. Xem theo nhà xuất bản\t\t0. Quay lại
+                    \n1. Xem toàn bộ sách \t\t 2. Xem theo thể loại \t\t 3. Xem theo nhà xuất bản\t\t0. Quay lại
                     """);
 
             int option = getOption();
 
             switch (option) {
-                case 1 -> {
+                case 1 -> printBook((ArrayList<Book>) bookControler.showAllBook());
+                case 2 -> {
                     books = showBookByCategory();
                     backToMenu = true;
                 }
-                case 2 -> {
+                case 3 -> {
                     books = showBookByPulisherCompany();
                     backToMenu = true;
                 }
@@ -281,17 +295,21 @@ public class ClientUi {
     public void addToCart(String email, ArrayList<Book> books) {
         int id = getId();
         if (checkIdExist(id, books)) {
-            Book book = bookControler.findBookById(id);
-            Item item = new Item(email, id, book.getTitle(), 1, book.getPrice(), book.getPrice());
-            itemControler.addItem(item);
-            System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
+            if (checkBookInCart(email, id)) {
+                System.out.println("Sản phẩm này đã có sẵn trong giỏ hàng!");
+                System.out.println("Hãy chọn sản phẩm khác hoặc đến giỏ hàng!");
+            } else {
+                Book book = bookControler.findBookById(id);
+                Item item = new Item(email, id, book.getTitle(), 1, book.getPrice(), book.getPrice());
+                itemControler.addItem(item);
+                System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
+            }
         } else {
             System.out.println("Không có sản phẩm nào trùng id");
         }
-
     }
 
-    // check id trong kết quả trả về sau khi tìm kiếm
+    // check id trong kết quả trả về (do KH chọn xem hay tìm trước đó)
     public boolean checkIdExist(int id, ArrayList<Book> books) {
         for (Book book : books) {
             if (book.getId() == id) {
@@ -299,6 +317,11 @@ public class ClientUi {
             }
         }
         return false;
+    }
+
+    // Kiểm tra xem trong giỏ hàng đã có sách mà khách hàng chọn hay ko? Nếu có thì thông báo đã có, nếu chưa thì thêm sách vào giỏ
+    public boolean checkBookInCart(String email, int id) {
+        return managerOrderUI.getMyCart(email).stream().anyMatch(item -> item.getId() == id);
     }
 
     // 1.1. Xem theo thể loại

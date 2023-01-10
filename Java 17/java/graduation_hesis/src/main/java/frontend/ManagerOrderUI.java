@@ -101,7 +101,8 @@ public class ManagerOrderUI {
 
     // Tạo preOrder
     public Order createPreorder(String email) {
-        return new Order(getIdOrder(), email, getMyCart(email), getUserbyEmail(email).getEmail(), getUserbyEmail(email).getPhone(), getUserbyEmail(email).getAddress(), getDateTimeOrder(), Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+        return new Order(getIdOrder(), email, getMyCart(email), getUserbyEmail(email).getEmail(),
+                getUserbyEmail(email).getPhone(), getUserbyEmail(email).getAddress(), getDateTimeOrder(), Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
     }
 
     // Tạo Order
@@ -139,29 +140,39 @@ public class ManagerOrderUI {
             itemControler.deleteItem(email, id);
             System.out.println("Đã xóa sản phẩm thành công! ");
         } else {
-            System.out.println("Không có sản phẩm trong giỏ hàng!");
+            System.out.printf("Không có sản phẩm có id %d trong giỏ hàng!\n", id);
         }
     }
 
     // check xem trong giỏ hàng có sách là id hay ko?
     public boolean checkIdInCart(String email, int id) {
-        ArrayList<Item> cart = getMyCart(email);
-        for (Item item : cart) {
-            if (item.getId() == id) {
-                return true;
-            }
-        }
-        return false;
+        return getMyCart(email).stream().anyMatch(n -> n.getId() == id);
+//        ArrayList<Item> cart = getMyCart(email);
+//        for (Item item : cart) {
+//            if (item.getId() == id) {
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
     // 3.2 thay đổi số lượng sản phẩm
     public void changeCount(String email) {
-        int id = getId();
-        int newCount = getCount();
-        if (checkIdInCart(email, id)) {
-            itemControler.changeCount(email, id, newCount);
-        } else {
-            System.out.println("Không có sản phẩm trong giỏ hàng!");
+
+        boolean back = false;
+        while (!back) {
+            int id = getId();
+            if (checkIdInCart(email, id)) {
+                int newCount = getCount();
+                if (newCount < bookControler.findBookById(id).getQuantity()) {
+                    itemControler.changeCount(email, id, newCount);
+                    back = true;
+                } else {
+                    System.out.println("Số lượng sách trong kho không đủ. Hãy nhập lại!");
+                }
+            } else {
+                System.out.printf("Không có sản phẩm id là %d trong giỏ hàng. Hãy chọn lại!\n", id);
+            }
         }
     }
 
@@ -189,10 +200,7 @@ public class ManagerOrderUI {
 
     // Tính tổng tiền cần thanh toán
     public void calculateTotal(ArrayList<Item> cart) {
-        int rs = cart.stream()
-                .map(item -> item.getCount() * item.getPrice())
-                .mapToInt(a -> a)
-                .sum();
+        int rs = cart.stream().map(item -> item.getCount() * item.getPrice()).mapToInt(a -> a).sum();
         System.out.println("Tổng giá trị giỏ hàng: " + FileUltils.formattingDisplay(rs));
     }
 

@@ -8,6 +8,7 @@ import backend.model.*;
 import backend.ultils.FileUltils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminUi {
@@ -63,7 +64,7 @@ public class AdminUi {
 
             switch (option) {
                 case 1 -> reportRevenueByYear();
-//                case 2 -> reportRevenueByProduct();
+                case 2 -> reportRevenueByProduct();
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
@@ -109,6 +110,10 @@ public class AdminUi {
         }
     }
 
+    // 5.2 Báo cáo doanh thu theo sản phẩm
+    public void reportRevenueByProduct() {
+        FileUltils.printBookHasSold(orderController.reportRevenueByProduct());
+    }
 
     // 4. Quản lý đơn hàng
     public void manageOrder() {
@@ -326,7 +331,7 @@ public class AdminUi {
         boolean back = false;
         while (!back) {
             System.out.println("""
-                    \n1. Kiểm tra số lượng sách \t\t 2. Sách best seller \t\t 0. Quay lại
+                    \n1. Kiểm tra số lượng sách tồn kho \t\t 2. Sách best seller \t\t 0. Quay lại
                     """);
 
             int option = getOption();
@@ -348,7 +353,7 @@ public class AdminUi {
 
     // kiểm tra chất lượng sách theo số lượng bán ra
     public void bookBestSeller() {
-        // todo: check số lượng bán ra của sách. Sách nào bán nhiều đưa lên đầu
+        printBookHasSold(orderController.getBookHasSold());
     }
 
     // 3.4 xóa sách
@@ -772,6 +777,10 @@ public class AdminUi {
 
     public void printOrders(ArrayList<Order> orders) {
         FileUltils.printOrder(orders);
+    }
+
+    public void printBookHasSold(List<Item> items) {
+        FileUltils.printBookHasSold(items);
     }
 
     public String formattingNumber(int num) {

@@ -126,7 +126,7 @@ public class FileUltils {
 
     public static void printBook(ArrayList<Book> list) {
         System.out.printf("%-5s %-20s %-20s %-15s %-10s %-15s %-20s %-10s %-9s\n", "Id", "Tên sách", "Thể loại", "Tác giả",
-                "Năm XB", "Giá", "Nhà xuất bản", "Số lượng", "Đánh giá");
+                "Năm XB", "Giá", "Nhà xuất bản", "Còn", "Đánh giá");
         System.out.println("----------------------------------------------------------------------------------------------" +
                 "-------------------------------------");
         for (Book book : list) {
@@ -144,11 +144,19 @@ public class FileUltils {
         }
     }
 
+    public static void printBookHasSold(List<Item> items) {
+        System.out.printf("\n%-5s %-25s %-15s %-15s %-15s\n", "Id", "Tên sách", "Giá sách", "Đã bán được", "Doamh thu");
+        System.out.println("------------------------------------------------------------------------");
+        for (Item item : items) {
+            System.out.printf("%-5d %-25s %-15s %-15d %-15s\n", item.getId(), item.getTitle(), formattingDisplay(item.getPrice()), item.getCount(), formattingDisplay(item.getPrice() * item.getCount()));
+        }
+    }
+
     public static void printOrder(ArrayList<Order> orders) {
         for (Order order : orders) {
             Address address = order.getAddress();
             List<Item> cart = order.getCart();
-            System.out.println("*************************************************************************");
+            System.out.println("\n*************************************************************************");
             System.out.println("ĐƠN SỐ: " + order.getIdOrder());
             System.out.println("\n\tNgười nhận: " + order.getName() + "\t\t\t Số điện thoại: " + order.getPhone());
             System.out.printf("\tĐịa chỉ: %s, %s, %s, %s \n", address.getDetail(), address.getStreet(), address.getDistrict(), address.getCity());

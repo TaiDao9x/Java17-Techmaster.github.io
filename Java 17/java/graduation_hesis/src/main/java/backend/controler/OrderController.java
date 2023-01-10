@@ -1,5 +1,6 @@
 package backend.controler;
 
+import backend.model.Item;
 import backend.model.Order;
 import backend.model.Status;
 import backend.service.OrderService;
@@ -34,8 +35,8 @@ public class OrderController {
         orderService.changeStatus(id, status);
     }
 
-    public void changeAllStatus(Status status,Status newStatus) {
-        orderService.changeAllStatus(status,newStatus);
+    public void changeAllStatus(Status status, Status newStatus) {
+        orderService.changeAllStatus(status, newStatus);
     }
 
     public long countOrder(Status status) {
@@ -51,6 +52,14 @@ public class OrderController {
     }
 
     public int getRevenueByMonth(int month, int year) {
-        return orderService.getRevenueByMonth(month,year);
+        return orderService.getRevenueByMonth(month, year);
+    }
+
+    public List<Item> getBookHasSold() {
+        return orderService.getBookHasSold();
+    }
+
+    public List<Item> reportRevenueByProduct() {
+        return orderService.reportRevenueByProduct();
     }
 }

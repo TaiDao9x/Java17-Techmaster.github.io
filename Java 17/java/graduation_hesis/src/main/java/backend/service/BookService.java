@@ -3,15 +3,16 @@ package backend.service;
 import backend.model.Book;
 import backend.repository.BookRepository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookService {
     private final BookRepository bookRepository = new BookRepository();
     ArrayList<Book> ALL_BOOKS = bookRepository.allBooks();
+
+    public List<Book> showAllBook() {
+        return ALL_BOOKS;
+    }
 
     public ArrayList<Book> showBookByCategory(String category) {
         ArrayList<Book> listBook = new ArrayList<>();
@@ -132,4 +133,6 @@ public class BookService {
         }
         bookRepository.updateFile(ALL_BOOKS);
     }
+
+
 }
