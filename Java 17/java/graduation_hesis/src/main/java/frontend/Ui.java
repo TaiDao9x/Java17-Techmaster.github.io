@@ -90,7 +90,12 @@ public class Ui {
         System.out.println("\n-----------------------------------------");
         System.out.println("------- WELCOME TO DT'S BOOKSTORE -------");
         System.out.println("""
-                1. Xem sản phẩm
+                \nGặp được một quyển sách HAY nên mua liền dù đọc được hay không đọc được, 
+                vì sớm muộn gì cũng cần đến nó. (W.Churchill)
+                """);
+
+        System.out.println("""
+                1. Xem sản phẩm ngay
                 2. Tìm kiếm sản phẩm
                 3. Đăng nhập
                 4. Đăng ký

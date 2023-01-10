@@ -42,10 +42,10 @@ public class OrderService {
         return (ArrayList<Order>) orders.stream().sorted((o1, o2) -> o2.getIdOrder() - o1.getIdOrder()).collect(Collectors.toList());
     }
 
-    public ArrayList<Order> getorderDone(String email) {
+    public ArrayList<Order> getorderDone(String email, Status status) {
         ArrayList<Order> orders = new ArrayList<>();
         for (Order order : allOder) {
-            if (order.getEmail().equalsIgnoreCase(email) && order.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
+            if (order.getEmail().equalsIgnoreCase(email) && order.getStatus().equals(status)) {
                 orders.add(order);
             }
         }
@@ -85,7 +85,17 @@ public class OrderService {
     public int getRevenueByYear(int year) {
         int revenue = 0;
         for (Order order : allOder) {
-            if (Integer.parseInt(order.getDate().substring(6, 10)) == year) {
+            if (Integer.parseInt(order.getDate().substring(6, 10)) == year && order.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
+                revenue += calculateTotal(order);
+            }
+        }
+        return revenue;
+    }
+
+    public int getRevenueByMonth(int month, int year) {
+        int revenue = 0;
+        for (Order order : allOder) {
+            if (Integer.parseInt(order.getDate().substring(3, 5)) == month && Integer.parseInt(order.getDate().substring(6, 10)) == year && order.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
                 revenue += calculateTotal(order);
             }
         }
@@ -97,27 +107,19 @@ public class OrderService {
         return cart.stream().map(item -> item.getCount() * item.getPrice()).mapToInt(a -> a).sum();
     }
 
-    public int getRevenueByMonth(int month, int year) {
-        int revenue = 0;
-        for (Order order : allOder) {
-            if (Integer.parseInt(order.getDate().substring(3, 5)) == month && Integer.parseInt(order.getDate().substring(6, 10)) == year) {
-                revenue += calculateTotal(order);
-            }
-        }
-        return revenue;
-    }
-
     // Lấy ra danh sách tất cả sp đã được khách hàng đặt
     public Map<Integer, Integer> getCountBookHasSold() {
         int totalCount = 0;
         Map<Integer, Integer> bookAndCount = new HashMap<>();
         for (int i = 1; i <= bookService.ALL_BOOKS.size(); i++) {
             for (Order order : allOder) {
-                List<Item> cart = order.getCart();
-                for (Item item : cart) {
-                    {
-                        if (item.getId() == i) {
-                            totalCount += item.getCount();
+                if (order.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
+                    List<Item> cart = order.getCart();
+                    for (Item item : cart) {
+                        {
+                            if (item.getId() == i) {
+                                totalCount += item.getCount();
+                            }
                         }
                     }
                 }
@@ -142,8 +144,23 @@ public class OrderService {
     }
 
     public List<Item> reportRevenueByProduct() {
-        return getBookHasSold().stream()
-                .sorted((o1, o2) -> o2.getCount() * o2.getCount() - o1.getCount() * o1.getCount())
-                .collect(Collectors.toList());
+        return getBookHasSold().stream().sorted((o1, o2) -> o2.getCount() * o2.getCount() - o1.getCount() * o1.getCount()).collect(Collectors.toList());
+    }
+
+    public boolean checkIdOrderExist(int idOrder, String email) {
+        return allOder.stream().anyMatch(n -> n.getEmail().equalsIgnoreCase(email) && n.getIdOrder() == idOrder && (!n.getStatus().equals(Status.ĐƠN_ĐÃ_HỦY) || !n.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)));
+    }
+
+    public boolean checkIdOrderEnableCancel(int idOrder, String email) {
+        return allOder.stream().anyMatch(n -> n.getEmail().equalsIgnoreCase(email) && n.getIdOrder() == idOrder && (n.getStatus().equals(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) || n.getStatus().equals(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG)));
+    }
+
+    public void cancelOrderYes(String email, int idOrder) {
+        for (Order order : allOder) {
+            if (order.getEmail().equalsIgnoreCase(email) && order.getIdOrder() == idOrder && (order.getStatus().equals(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) || order.getStatus().equals(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG))) {
+                order.setStatus(Status.ĐƠN_ĐÃ_HỦY);
+            }
+        }
+        orderRepository.updateFile(allOder);
     }
 }

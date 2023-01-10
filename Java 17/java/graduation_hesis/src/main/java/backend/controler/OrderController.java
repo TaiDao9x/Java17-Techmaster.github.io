@@ -23,8 +23,8 @@ public class OrderController {
         return orderService.getOrders(email);
     }
 
-    public ArrayList<Order> getorderDone(String email) {
-        return orderService.getorderDone(email);
+    public ArrayList<Order> getorderDone(String email, Status status) {
+        return orderService.getorderDone(email,status);
     }
 
     public List<Order> getOrdersBystatus(Status status) {
@@ -61,5 +61,17 @@ public class OrderController {
 
     public List<Item> reportRevenueByProduct() {
         return orderService.reportRevenueByProduct();
+    }
+
+    public boolean checkIdOrderExist(int idOrder, String email) {
+        return orderService.checkIdOrderExist(idOrder, email);
+    }
+
+    public boolean checkIdOrderEnableCancel(int idOrder, String email) {
+        return orderService.checkIdOrderEnableCancel(idOrder, email);
+    }
+
+    public void cancelOrderYes(String email, int idOrder) {
+        orderService.cancelOrderYes(email, idOrder);
     }
 }

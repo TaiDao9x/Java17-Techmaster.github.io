@@ -21,7 +21,7 @@
       "detail": "N04A"
     },
     "date": "09/01/2023  15:55:17",
-    "status": "ĐANG_GIAO_HÀNG"
+    "status": "KHÁCH_ĐÃ_NHẬN_HÀNG"
   },
   {
     "idOrder": 2,
@@ -45,7 +45,7 @@
       "detail": "N04A"
     },
     "date": "08/02/2023  16:00:56",
-    "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
+    "status": "ĐƠN_ĐÃ_HỦY"
   },
   {
     "idOrder": 3,
@@ -69,7 +69,7 @@
       "detail": "N04A"
     },
     "date": "10/01/2023  15:09:06",
-    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+    "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
   },
   {
     "idOrder": 4,
@@ -101,6 +101,6 @@
       "detail": "N04A"
     },
     "date": "10/01/2023  15:11:24",
-    "status": "CHỜ_NGƯỜI_BÁN_XÁC_NHẬN"
+    "status": "ĐƠN_ĐÃ_HỦY"
   }
 ]

@@ -45,7 +45,7 @@ public class ManagerOrderUI {
                 switch (option) {
                     case 1 -> deleteItem(email);
                     case 2 -> changeCount(email);
-                    case 3 -> checkOrderBook(email);
+                    case 3 -> preOrderBook(email);
                     case 0 -> back = true;
                     default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
                 }
@@ -57,7 +57,7 @@ public class ManagerOrderUI {
     }
 
     // 3.3 Mua hàng (tạo order -> sẽ xóa cart và chuyển sang cho admin duyệt)
-    public void checkOrderBook(String email) {
+    public void preOrderBook(String email) {
         Order preOrder = createPreorder(email);
         boolean back = false;
         while (!back) {
@@ -147,13 +147,6 @@ public class ManagerOrderUI {
     // check xem trong giỏ hàng có sách là id hay ko?
     public boolean checkIdInCart(String email, int id) {
         return getMyCart(email).stream().anyMatch(n -> n.getId() == id);
-//        ArrayList<Item> cart = getMyCart(email);
-//        for (Item item : cart) {
-//            if (item.getId() == id) {
-//                return true;
-//            }
-//        }
-//        return false;
     }
 
     // 3.2 thay đổi số lượng sản phẩm
