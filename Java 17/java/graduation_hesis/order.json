@@ -7,7 +7,7 @@
         "email": "tai@gmail.com",
         "id": 1,
         "title": "Heaven\u0027s Burning",
-        "count": 3,
+        "count": 1,
         "price": 120000,
         "monney": 120000
       }
@@ -21,7 +21,7 @@
       "detail": "N04A"
     },
     "date": "09/01/2023  15:55:17",
-    "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
+    "status": "ĐANG_GIAO_HÀNG"
   },
   {
     "idOrder": 2,
@@ -44,7 +44,7 @@
       "street": "XT",
       "detail": "N04A"
     },
-    "date": "09/01/2023  16:00:56",
-    "status": "KHÁCH_ĐÃ_NHẬN_HÀNG"
+    "date": "08/02/2023  16:00:56",
+    "status": "NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG"
   }
 ]

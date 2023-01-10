@@ -33,4 +33,24 @@ public class OrderController {
     public void changeStatus(int id, Status status) {
         orderService.changeStatus(id, status);
     }
+
+    public void changeAllStatus(Status status,Status newStatus) {
+        orderService.changeAllStatus(status,newStatus);
+    }
+
+    public long countOrder(Status status) {
+        return orderService.countOrder(status);
+    }
+
+    public long countAllOrder() {
+        return orderService.countAllOrder();
+    }
+
+    public int getRevenueByYear(int year) {
+        return orderService.getRevenueByYear(year);
+    }
+
+    public int getRevenueByMonth(int month, int year) {
+        return orderService.getRevenueByMonth(month,year);
+    }
 }

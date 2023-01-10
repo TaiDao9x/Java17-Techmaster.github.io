@@ -1,8 +1,10 @@
 package backend.service;
 
+import backend.model.Item;
 import backend.model.Order;
 import backend.model.Status;
 import backend.repository.OrderRepository;
+import backend.ultils.FileUltils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,4 +65,63 @@ public class OrderService {
         }
         orderRepository.updateFile(allOder);
     }
+
+    public void changeAllStatus(Status status, Status newStatus) {
+        for (Order order : allOder) {
+            if (order.getStatus().equals(status)) {
+                order.setStatus(newStatus);
+            }
+        }
+        orderRepository.updateFile(allOder);
+    }
+
+    public long countOrder(Status status) {
+        return allOder.stream()
+                .filter(n -> n.getStatus().equals(status))
+                .count();
+    }
+
+    public long countAllOrder() {
+        return allOder.size();
+    }
+
+    public int getRevenueByYear(int year) {
+        int revenue = 0;
+        for (Order order : allOder) {
+            if (Integer.parseInt(order.getDate().substring(6, 10)) == year) {
+                revenue += calculateTotal(order);
+            }
+        }
+        return revenue;
+    }
+
+    public int calculateTotal(Order order) {
+        List<Item> cart = order.getCart();
+        return cart.stream()
+                .map(item -> item.getCount() * item.getPrice())
+                .mapToInt(a -> a)
+                .sum();
+    }
+
+    public int getRevenueByMonth(int month, int year) {
+        int revenue = 0;
+        for (Order order : allOder) {
+            if (Integer.parseInt(order.getDate().substring(3, 5)) == month && Integer.parseInt(order.getDate().substring(6, 10)) == year) {
+                revenue += calculateTotal(order);
+            }
+        }
+        return revenue;
+    }
+
+    // TODO: xóa
+    public String test() {
+        String date = "";
+        for (Order o : allOder
+        ) {
+            date = o.getDate().substring(3, 5);
+        }
+        return date;
+    }
+
+
 }

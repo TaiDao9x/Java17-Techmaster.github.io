@@ -43,11 +43,9 @@ public class AdminUi {
                 case 2 -> manageClient();
                 case 3 -> manageProduct();
                 case 4 -> manageOrder();
-                case 5 -> {
-                    // todo: 5. thống kê, báo cáo
-                }
+                case 5 -> report();
                 case 0 -> {
-                    System.out.println("\n----------- HẸN GẶP LẠI -----------");
+                    System.out.println("\n----------- HẸN GẶP LẠI! -----------");
                     isQuitLogin = true;
                 }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
@@ -55,30 +53,125 @@ public class AdminUi {
         }
     }
 
-    // 4. Quản lý đơn hàng
-    public void manageOrder() {
+    // 5. Thống kê, báo cáo
+    public void report() {
         boolean back = false;
         while (!back) {
-            System.out.println("""
-                    \n---------------------- QUẢN LÝ ĐƠN HÀNG -----------------------
-                    1. Đơn chờ xác nhận \t\t 2. Đơn đang chuẩn bị
-                    3. Đơn đang vận chuyển \t\t 4. Đơn đã hoàn thành \t\t 0. Quay lại
-                    """);
-
+            System.out.println("\n---------------------- THỐNG KÊ, BÁO CÁO -----------------------");
+            System.out.println("1. Báo cáo doanh thu theo năm \t\t 2. Báo cáo doanh thu theo sản phẩm \t\t 0. Quay lại");
             int option = getOption();
-            // TODO: thêm điều kiện không có order
+
             switch (option) {
-                case 1 -> {
-                    showOrder(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
-                    orderBrowsing(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
-                }
-                case 2 -> showOrder(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
-                case 3 -> showOrder(Status.ĐANG_GIAO_HÀNG);
-                case 4 -> showOrder(Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                case 1 -> reportRevenueByYear();
+//                case 2 -> reportRevenueByProduct();
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
+    }
+
+    // 5.1: Báo cáo theo năm
+    public void reportRevenueByYear() {
+        int year = getYear();
+        System.out.printf("\nDoanh thu năm %d là: %s \n", year, formattingNumber(getRevenueByYear(year)));
+
+        boolean back = false;
+        while (!back) {
+            if (getRevenueByYear(year) > 0) {
+                System.out.println("\nXem chi tiết doanh thu theo tháng. ");
+                System.out.println("1. Có \t\t 2. Không \t\t 0. Quay lại");
+                int option = getOption();
+
+                switch (option) {
+                    case 1 -> getRevenueByMonth(year);
+                    case 2, 0 -> back = true;
+                    default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+                }
+            } else {
+                back = true;
+            }
+        }
+    }
+
+    // Tính doanh thu theo năm
+    public int getRevenueByYear(int year) {
+        return orderController.getRevenueByYear(year);
+    }
+
+    // Báo cáo doanh thu theo ngày
+    public void getRevenueByMonth(int year) {
+        int month = getMonth();
+        if (orderController.getRevenueByMonth(month, year) > 0) {
+            System.out.printf("Doanh thu tháng %d năm %d là: %s\n", month, year, formattingNumber(orderController.getRevenueByMonth(month, year)));
+        } else {
+            System.out.printf("Doanh thu tháng %d năm %d là: 0 VND \n", month, year);
+
+        }
+    }
+
+
+    // 4. Quản lý đơn hàng
+    public void manageOrder() {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n---------------------- QUẢN LÝ ĐƠN HÀNG -----------------------");
+            System.out.println("\t\t- Tổng số đơn: " + countAllOrder());
+            System.out.println("\t\t- Đơn chờ xác nhận: " + countOrder(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN));
+            System.out.println("\t\t- Đơn đang chuẩn bị: " + countOrder(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG));
+            System.out.println("\t\t- Đơn đang giao: " + countOrder(Status.ĐANG_GIAO_HÀNG));
+            System.out.println("\t\t- Đơn đã hoàn thành: " + countOrder(Status.KHÁCH_ĐÃ_NHẬN_HÀNG));
+            System.out.println("""
+                    \n1. Đơn chờ xác nhận \t\t 2. Đơn đang chuẩn bị
+                    3. Đơn đang vận chuyển \t\t 4. Đơn đã hoàn thành \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+            switch (option) {
+                case 1 -> {
+                    if (getOrdersBystatus(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN).size() > 0) {
+                        showOrder(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                        orderBrowsing(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                    } else {
+                        System.out.println("Không có đơn hàng nào!");
+                    }
+                }
+                case 2 -> {
+                    if (getOrdersBystatus(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG).size() > 0) {
+                        showOrder(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
+                        orderBrowsing(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
+                    } else {
+                        System.out.println("Không có đơn hàng nào!");
+                    }
+                }
+                case 3 -> {
+                    if (getOrdersBystatus(Status.ĐANG_GIAO_HÀNG).size() > 0) {
+                        showOrder(Status.ĐANG_GIAO_HÀNG);
+                        orderBrowsing(Status.ĐANG_GIAO_HÀNG);
+                    } else {
+                        System.out.println("Không có đơn hàng nào!");
+                    }
+                }
+                case 4 -> {
+                    if (getOrdersBystatus(Status.KHÁCH_ĐÃ_NHẬN_HÀNG).size() > 0) {
+                        showOrder(Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                        orderBrowsing(Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                    } else {
+                        System.out.println("Không có đơn hàng nào!");
+                    }
+                }
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // Đếm số đơn
+    public long countAllOrder() {
+        return orderController.countAllOrder();
+    }
+
+    public long countOrder(Status status) {
+        return orderController.countOrder(status);
     }
 
     // in ra đơn hàng có trạng thái tương ứng
@@ -102,7 +195,7 @@ public class AdminUi {
 
             switch (option) {
                 case 1 -> browingOneByOne(status);
-//              TODO: Tiếp tục ở đây  case 2 -> browingAll(status);
+                case 2 -> browingAll(status);
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
@@ -158,6 +251,43 @@ public class AdminUi {
                 }
                 case 4 -> {
                     orderController.changeStatus(id, Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
+                    back = true;
+                }
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        System.out.println("Thay đổi thành công!");
+    }
+
+    // case 2: duyệt tất cả đơn
+    public void browingAll(Status status) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("Bạn muốn thay đổi tất cả đơn hàng này thành: ");
+            System.out.println("""
+                    1. CHỜ_NGƯỜI_BÁN_XÁC_NHẬN
+                    2. NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG
+                    3. ĐANG_GIAO_HÀNG
+                    4. KHÁCH_ĐÃ_NHẬN_HÀNG
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    orderController.changeAllStatus(status, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                    back = true;
+                }
+                case 2 -> {
+                    orderController.changeAllStatus(status, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG);
+                    back = true;
+                }
+                case 3 -> {
+                    orderController.changeAllStatus(status, Status.ĐANG_GIAO_HÀNG);
+                    back = true;
+                }
+                case 4 -> {
+                    orderController.changeAllStatus(status, Status.KHÁCH_ĐÃ_NHẬN_HÀNG);
                     back = true;
                 }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
@@ -597,7 +727,54 @@ public class AdminUi {
         return id;
     }
 
+    // Lấy ra năm theo ko lỗi
+    public int getYear() {
+        boolean back = false;
+        int year = 1;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập vào năm: ");
+                year = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy nhập lại!");
+                continue;
+            }
+            if (year > 0) {
+                back = true;
+            } else {
+                System.out.println("Không có năm này. Hãy nhập lại!");
+            }
+        }
+        return year;
+    }
+
+    public int getMonth() {
+        boolean back = false;
+        int month = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập vào tháng: ");
+                month = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy nhập lại!");
+                continue;
+            }
+            if (month > 0 && month < 12) {
+                back = true;
+            } else {
+                System.out.println("Không có tháng này. Hãy nhập lại!");
+            }
+        }
+        return month;
+    }
+
     public void printOrders(ArrayList<Order> orders) {
         FileUltils.printOrder(orders);
+    }
+
+    public String formattingNumber(int num) {
+        return FileUltils.formattingDisplay(num);
     }
 }

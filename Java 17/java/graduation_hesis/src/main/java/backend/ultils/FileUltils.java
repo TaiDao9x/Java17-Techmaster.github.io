@@ -148,9 +148,9 @@ public class FileUltils {
         for (Order order : orders) {
             Address address = order.getAddress();
             List<Item> cart = order.getCart();
-            System.out.println("\nĐƠN SỐ: " + order.getIdOrder());
             System.out.println("*************************************************************************");
-            System.out.println("\tNgười nhận: " + order.getName() + "\t\t\t Số điện thoại: " + order.getPhone());
+            System.out.println("ĐƠN SỐ: " + order.getIdOrder());
+            System.out.println("\n\tNgười nhận: " + order.getName() + "\t\t\t Số điện thoại: " + order.getPhone());
             System.out.printf("\tĐịa chỉ: %s, %s, %s, %s \n", address.getDetail(), address.getStreet(), address.getDistrict(), address.getCity());
             System.out.println("\n\tDanh sách Sản phẩm:");
             System.out.printf("%-5s %-25s %-15s %-10s %-15s\n", "Id", "Tên sách", "Giá sách", "Số lượng", "Thành tiền");
