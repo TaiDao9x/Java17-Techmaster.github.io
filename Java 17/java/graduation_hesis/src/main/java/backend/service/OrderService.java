@@ -52,7 +52,7 @@ public class OrderService {
         }
         return (ArrayList<Order>) orders.stream().sorted((o1, o2) -> o2.getIdOrder() - o1.getIdOrder()).collect(Collectors.toList());
     }
-
+    // TODO: trung ten method
     public List<Order> getOrdersBystatus(Status status) {
         return allOder.stream().filter(order -> order.getStatus().equals(status)).collect(Collectors.toList());
     }

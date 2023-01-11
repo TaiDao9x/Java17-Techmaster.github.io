@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ManagerOrderUI {
+public class ManageOrderUI {
     Scanner sc = new Scanner(System.in);
     UserControler userControler = new UserControler();
     ItemControler itemControler = new ItemControler();

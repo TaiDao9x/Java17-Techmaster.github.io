@@ -15,7 +15,7 @@ public class ClientUi {
     Scanner sc = new Scanner(System.in);
     UserControler userControler = new UserControler();
     BookControler bookControler = new BookControler();
-    ManagerOrderUI managerOrderUI = new ManagerOrderUI();
+    ManageOrderUI managerOrderUI = new ManageOrderUI();
     ItemControler itemControler = new ItemControler();
     OrderController orderController = new OrderController();
 
