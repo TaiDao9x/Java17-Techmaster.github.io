@@ -110,6 +110,16 @@ public class BookService {
         bookRepository.updateFile(ALL_BOOKS);
     }
 
+    public int getCurrentQuanity(int id) {
+        int currentQuanity = 0;
+        for (Book book : ALL_BOOKS) {
+            if (book.getId() == id) {
+                currentQuanity = book.getQuantity();
+            }
+        }
+        return currentQuanity;
+    }
+
     public void deleteBook(int id) {
         ALL_BOOKS.removeIf(a -> a.getId() == id);
         bookRepository.updateFile(ALL_BOOKS);

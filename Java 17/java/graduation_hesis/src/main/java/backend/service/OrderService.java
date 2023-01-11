@@ -3,6 +3,7 @@ package backend.service;
 import backend.model.Item;
 import backend.model.Order;
 import backend.model.Status;
+import backend.repository.BookRepository;
 import backend.repository.OrderRepository;
 
 import java.util.*;
@@ -42,7 +43,7 @@ public class OrderService {
         return (ArrayList<Order>) orders.stream().sorted((o1, o2) -> o2.getIdOrder() - o1.getIdOrder()).collect(Collectors.toList());
     }
 
-    public ArrayList<Order> getorderDone(String email, Status status) {
+    public ArrayList<Order> getorderByStatus(String email, Status status) {
         ArrayList<Order> orders = new ArrayList<>();
         for (Order order : allOder) {
             if (order.getEmail().equalsIgnoreCase(email) && order.getStatus().equals(status)) {
@@ -163,4 +164,19 @@ public class OrderService {
         }
         orderRepository.updateFile(allOder);
     }
+
+    public void updateCountAfterCancel(String email, int idOrder) {
+        for (Order order : allOder.stream().filter(n -> n.getIdOrder() == idOrder).toList()) {
+            List<Item> cart = order.getCart();
+            for (Item item : cart) {
+                bookService.updateQuantity(item.getId(), (bookService.getCurrentQuanity(item.getId()) + item.getCount()));
+            }
+        }
+    }
+
+    public List<Order> countAllOrderByEmail(String email) {
+        return allOder.stream().filter(n -> n.getEmail().equalsIgnoreCase(email)).collect(Collectors.toList());
+    }
+
+
 }

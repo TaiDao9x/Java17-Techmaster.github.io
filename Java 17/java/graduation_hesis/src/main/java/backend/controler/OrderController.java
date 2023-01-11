@@ -6,6 +6,7 @@ import backend.model.Status;
 import backend.service.OrderService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class OrderController {
@@ -23,8 +24,8 @@ public class OrderController {
         return orderService.getOrders(email);
     }
 
-    public ArrayList<Order> getorderDone(String email, Status status) {
-        return orderService.getorderDone(email,status);
+    public ArrayList<Order> getorderByStatus(String email, Status status) {
+        return orderService.getorderByStatus(email, status);
     }
 
     public List<Order> getOrdersBystatus(Status status) {
@@ -73,5 +74,13 @@ public class OrderController {
 
     public void cancelOrderYes(String email, int idOrder) {
         orderService.cancelOrderYes(email, idOrder);
+    }
+
+    public List<Order> countAllOrderByEmail(String email) {
+        return orderService.countAllOrderByEmail(email);
+    }
+
+    public void updateCountAfterCancel(String email, int idOrder) {
+        orderService.updateCountAfterCancel(email,idOrder);
     }
 }

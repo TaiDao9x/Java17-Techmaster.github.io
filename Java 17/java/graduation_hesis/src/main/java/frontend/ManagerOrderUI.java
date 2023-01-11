@@ -157,7 +157,7 @@ public class ManagerOrderUI {
             int id = getId();
             if (checkIdInCart(email, id)) {
                 int newCount = getCount();
-                if (newCount < bookControler.findBookById(id).getQuantity()) {
+                if (newCount <= bookControler.findBookById(id).getQuantity()) {
                     itemControler.changeCount(email, id, newCount);
                     back = true;
                 } else {

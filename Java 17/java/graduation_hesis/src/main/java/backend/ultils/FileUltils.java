@@ -125,12 +125,12 @@ public class FileUltils {
     }
 
     public static void printBook(ArrayList<Book> list) {
-        System.out.printf("%-5s %-20s %-20s %-15s %-10s %-15s %-20s %-10s %-9s\n", "Id", "Tên sách", "Thể loại", "Tác giả",
+        System.out.printf("%-5s %-25s %-27s %-20s %-10s %-15s %-17s %-7s %-9s\n", "Id", "Tên sách", "Thể loại", "Tác giả",
                 "Năm XB", "Giá", "Nhà xuất bản", "Còn", "Đánh giá");
         System.out.println("----------------------------------------------------------------------------------------------" +
-                "-------------------------------------");
+                "------------------------------------------------");
         for (Book book : list) {
-            System.out.printf("%-5d %-20s %-20s %-15s %-10d %-15s %-20s %-10d %-9.1f\n", book.getId(), book.getTitle(), book.getCategory(),
+            System.out.printf("%-5d %-25s %-27s %-20s %-10d %-15s %-17s %-7d %-9.1f\n", book.getId(), book.getTitle(), book.getCategory(),
                     book.getAuthor(), book.getReleaseYear(), formattingDisplay(book.getPrice()), book.getPublishCompany(),
                     book.getQuantity(), book.getRating());
         }

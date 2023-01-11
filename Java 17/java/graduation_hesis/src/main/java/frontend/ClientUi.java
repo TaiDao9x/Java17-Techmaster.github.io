@@ -86,11 +86,263 @@ public class ClientUi {
         }
     }
 
+
+    // TẦNG SHOW DỮ LIỆU (lv3, lv4)
+    // 1. Xem danh sách sản phẩm
+
+    public ArrayList<Book> showBook() {
+        ArrayList<Book> books = new ArrayList<>();
+        boolean backToMenu = false;
+
+        while (!backToMenu) {
+            System.out.println("""
+                    \n1. Xem toàn bộ sách \t\t 2. Xem theo thể loại \t\t 3. Xem theo nhà xuất bản\t\t0. Quay lại
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    books = (ArrayList<Book>) bookControler.showAllBook();
+
+                    backToMenu = true;
+                }
+                case 2 -> {
+                    books = showBookByCategory();
+                    backToMenu = true;
+                }
+                case 3 -> {
+                    books = showBookByPulisherCompany();
+                    backToMenu = true;
+                }
+                case 0 -> backToMenu = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        return books;
+    }
+
+    // Đưa ra lựa chọn cho khách hàng sau khi xem sách
+    public void choseToCart(User client, ArrayList<Book> books) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("\n1. Thêm sách vào giỏ hàng \t\t 2. Đến giỏ hàng \t\t 0. Quay lại");
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> addToCart(client.getEmail(), books);
+                case 2 -> managerOrderUI.manageCart(client.getEmail());
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // Thêm sách vào giỏ hàng
+    public void addToCart(String email, ArrayList<Book> books) {
+        int id = getId();
+        if (checkIdExist(id, books)) {
+            if (checkBookInCart(email, id)) {
+                System.out.println("\nSản phẩm này đã có sẵn trong giỏ hàng!");
+                System.out.println("Hãy chọn sản phẩm khác hoặc đến giỏ hàng!");
+            } else if (bookControler.findBookById(id).getQuantity() <= 0) {
+                System.out.println("\nRất tiếc! Sản phẩm này đã cháy hàng!");
+            } else {
+                Book book = bookControler.findBookById(id);
+                Item item = new Item(email, id, book.getTitle(), 1, book.getPrice(), book.getPrice());
+                itemControler.addItem(item);
+                System.out.println("\nĐã thêm sản phẩm vào giỏ hàng!");
+            }
+        } else {
+            System.out.println("Không có sản phẩm nào trùng id");
+        }
+    }
+
+    // check id trong kết quả trả về (do KH chọn xem hay tìm trước đó)
+    public boolean checkIdExist(int id, ArrayList<Book> books) {
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Kiểm tra xem trong giỏ hàng đã có sách mà khách hàng chọn hay ko? Nếu có thì thông báo đã có, nếu chưa thì thêm sách vào giỏ
+    public boolean checkBookInCart(String email, int id) {
+        return managerOrderUI.getMyCart(email).stream().anyMatch(item -> item.getId() == id);
+    }
+
+    // 1.1. Xem theo thể loại
+    public void listCategory() {
+
+        System.out.println("""
+                \n1. Tiểu thuyết\t2. Kinh doanh\t\t3. Hướng nghiệp\t\t\t4. Kinh tế\t\t5. Văn học
+                6. Self-help\t7. Nuôi dạy con\t\t8. Tiểu sử - Hồi ký\t\t9. Lịch sử\t\t10. Khoa học
+                """);
+    }
+
+    // Trả về list sách theo thể loại khi đã lấy được dữ liệu loại sách muốn tìm
+    public ArrayList<Book> showBookByCategory() {
+        boolean backToMenu = false;
+        String category = " ";
+
+        while (!backToMenu) {
+            listCategory();
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    category = "Tiểu thuyết";
+                    backToMenu = true;
+                }
+                case 2 -> {
+                    category = "Kinh doanh";
+                    backToMenu = true;
+                }
+                case 3 -> {
+                    category = "Hướng nghiệp";
+                    backToMenu = true;
+                }
+                case 4 -> {
+                    category = "Kinh tế";
+                    backToMenu = true;
+                }
+                case 5 -> {
+                    category = "Văn học";
+                    backToMenu = true;
+                }
+                case 6 -> {
+                    category = "Self-help";
+                    backToMenu = true;
+                }
+                case 7 -> {
+                    category = "Nuôi dạy con";
+                    backToMenu = true;
+                }
+                case 8 -> {
+                    category = "Tiểu sử - Hồi ký";
+                    backToMenu = true;
+                }
+                case 9 -> {
+                    category = "Lịch sử";
+                    backToMenu = true;
+                }
+                case 10 -> {
+                    category = "Khoa học";
+                    backToMenu = true;
+                }
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        return bookControler.showBookByCategory(category);
+        // todo:........ bị return về tất cả sách
+    }
+
+    // 1.2. Xem danh sách sản phẩm theo nhà xuất bản
+    public void listPushlisherCompany() {
+        System.out.println("""
+                \n1. NXB trẻ
+                2. NXB Thế giới
+                3. NXB Lao Động
+                4. NXB Dân trí
+                5. NXB Văn học
+                """);
+    }
+
+    public ArrayList<Book> showBookByPulisherCompany() {
+        boolean backToMenu = false;
+        String pulisherCompany = " ";
+
+        while (!backToMenu) {
+            listPushlisherCompany();
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    pulisherCompany = "trẻ";
+                    backToMenu = true;
+                }
+                case 2 -> {
+                    pulisherCompany = "Thế giới";
+                    backToMenu = true;
+                }
+                case 3 -> {
+                    pulisherCompany = "Lao Động";
+                    backToMenu = true;
+                }
+                case 4 -> {
+                    pulisherCompany = "Dân trí";
+                    backToMenu = true;
+                }
+                case 5 -> {
+                    pulisherCompany = "Văn học";
+                    backToMenu = true;
+                }
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        return bookControler.showBookByPulisherCompany(pulisherCompany);
+    }
+
+    // 2. Tìm kiếm sản phẩm
+    public ArrayList<Book> findBook() {
+        ArrayList<Book> books = new ArrayList<>();
+        boolean backToMenu = false;
+
+        while (!backToMenu) {
+            System.out.println("""
+                    \n1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 0. Quay lại
+                    """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    books = findBookByName();
+                    backToMenu = true;
+                }
+                case 2 -> {
+                    books = findBookByAuthor();
+                    backToMenu = true;
+                }
+                case 0 -> backToMenu = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+        return books;
+    }
+
+    // 2.1 Tìm theo tên
+    public ArrayList<Book> findBookByName() {
+        System.out.print("Nhập vào tên sách bạn muốn tìm: ");
+        String title = sc.nextLine();
+        return bookControler.findBookByName(title);
+    }
+
+    // 2.2 Tìm theo tác giả
+    public ArrayList<Book> findBookByAuthor() {
+        System.out.print("Nhập vào tên tác giả: ");
+        String author = sc.nextLine();
+        return bookControler.findBookByAuthor(author);
+    }
+
     // 4. Lịch sử mua hàng
     public void orderHistory(String email) {
         boolean back = false;
         while (!back) {
-            System.out.println("\n1. Theo dõi đơn hàng\t\t2. Hủy đơn hàng \t\t 3. Đơn đã mua \t\t4. Đơn đã hủy \t\t 0. Quay lại");
+            System.out.println("\t\t- Tổng số đơn: " + countAllOrderByEmail(email));
+            System.out.println("\t\t- Đơn chờ xác nhận: " + countOrder(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN));
+            System.out.println("\t\t- Đơn đang chuẩn bị: " + countOrder(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG));
+            System.out.println("\t\t- Đơn đang giao: " + countOrder(email, Status.ĐANG_GIAO_HÀNG));
+            System.out.println("\t\t- Đơn đã hoàn thành: " + countOrder(email, Status.KHÁCH_ĐÃ_NHẬN_HÀNG));
+            System.out.println("\t\t- Đơn khách đã hủy: " + countOrder(email, Status.ĐƠN_ĐÃ_HỦY));
+            System.out.printf("\n1. Theo dõi đơn hàng (%d)\t\t2. Hủy đơn hàng\t\t 3. Đơn đã mua (%d)\t\t4. Đơn đã hủy (%d)\t\t 0. Quay lại\n"
+                    , countOrder(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) + countOrder(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG) + countOrder(email, Status.ĐANG_GIAO_HÀNG)
+                    , countOrder(email, Status.KHÁCH_ĐÃ_NHẬN_HÀNG), countOrder(email, Status.ĐƠN_ĐÃ_HỦY));
 
             int option = getOption();
 
@@ -118,6 +370,16 @@ public class ClientUi {
         return orderController.getOrders(email);
     }
 
+    // Đếm tổng số đơn hàng
+    public int countAllOrderByEmail(String email) {
+        return orderController.countAllOrderByEmail(email).size();
+    }
+
+    // Đếm số đơn hàng của từng status
+    public int countOrder(String email, Status status) {
+        return orderController.getorderByStatus(email, status).size();
+    }
+
     // 4.2 Hủy đơn hàng
     public void cancelOrder(String email) {
         boolean back = false;
@@ -130,7 +392,14 @@ public class ClientUi {
             int option = getOption();
 
             switch (option) {
-                case 1 -> cancelOrderYes(email);
+                case 1 -> {
+                    if (getorderByStatus(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN).size() > 0 || getorderByStatus(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG).size() > 0 || getorderByStatus(email, Status.ĐANG_GIAO_HÀNG).size() > 0) {
+                        cancelOrderYes(email);
+                    } else {
+                        System.out.println("Bạn không có đơn hàng nào để hủy!");
+                        back = true;
+                    }
+                }
                 case 2, 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
@@ -142,6 +411,7 @@ public class ClientUi {
         int idOrder = getIdOrder(email);
         if (orderController.checkIdOrderEnableCancel(idOrder, email)) {
             orderController.cancelOrderYes(email, idOrder);
+            updateCountAfterCancel(email, idOrder);
             System.out.println("\nĐã hủy đơn hàng thành công!");
             System.out.println("Chúc bạn tìm được cuốn sách ưng ý!\n");
         } else {
@@ -165,9 +435,15 @@ public class ClientUi {
                 back = true;
             } else {
                 System.out.println("Không có id đơn hàng trên!");
+                back = true;
             }
         }
         return idOrder;
+    }
+
+    //Update lại số hàng trong kho sau khi hủy đơn
+    public void updateCountAfterCancel(String email, int idOrder) {
+        orderController.updateCountAfterCancel(email, idOrder);
     }
 
     // 4.3 Show đơn hàng đã hoàn thành và đã hủy
@@ -181,9 +457,8 @@ public class ClientUi {
 
     // Lấy ra đơn đã hoàn thành và đã hủy
     public ArrayList<Order> getorderByStatus(String email, Status status) {
-        return orderController.getorderDone(email, status);
+        return orderController.getorderByStatus(email, status);
     }
-
 
     //5.Sửa thông tin cá nhân
     public void updateInfoMenu() {
@@ -293,225 +568,6 @@ public class ClientUi {
         String addressDetail = sc.nextLine();
 
         return new Address(city, district, street, addressDetail);
-    }
-
-
-    // TẦNG SHOW DỮ LIỆU (lv3, lv4)
-    // 1. Xem danh sách sản phẩm
-
-    public ArrayList<Book> showBook() {
-        ArrayList<Book> books = new ArrayList<>();
-        boolean backToMenu = false;
-
-        while (!backToMenu) {
-            System.out.println("""
-                    \n1. Xem toàn bộ sách \t\t 2. Xem theo thể loại \t\t 3. Xem theo nhà xuất bản\t\t0. Quay lại
-                    """);
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> printBook((ArrayList<Book>) bookControler.showAllBook());
-                case 2 -> {
-                    books = showBookByCategory();
-                    backToMenu = true;
-                }
-                case 3 -> {
-                    books = showBookByPulisherCompany();
-                    backToMenu = true;
-                }
-                case 0 -> {
-                    backToMenu = true;
-                }
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-        return books;
-    }
-
-    // Đưa ra lựa chọn cho khách hàng sau khi xem sách
-    public void choseToCart(User client, ArrayList<Book> books) {
-        boolean back = false;
-        while (!back) {
-            System.out.println("\n1. Thêm sách vào giỏ hàng \t\t 2. Đến giỏ hàng \t\t 0. Quay lại");
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> addToCart(client.getEmail(), books);
-                case 2 -> managerOrderUI.manageCart(client.getEmail());
-                case 0 -> back = true;
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-    }
-
-    // Thêm sách vào giỏ hàng
-    public void addToCart(String email, ArrayList<Book> books) {
-        int id = getId();
-        if (checkIdExist(id, books)) {
-            if (checkBookInCart(email, id)) {
-                System.out.println("Sản phẩm này đã có sẵn trong giỏ hàng!");
-                System.out.println("Hãy chọn sản phẩm khác hoặc đến giỏ hàng!");
-            } else {
-                Book book = bookControler.findBookById(id);
-                Item item = new Item(email, id, book.getTitle(), 1, book.getPrice(), book.getPrice());
-                itemControler.addItem(item);
-                System.out.println("Đã thêm sản phẩm vào giỏ hàng!");
-            }
-        } else {
-            System.out.println("Không có sản phẩm nào trùng id");
-        }
-    }
-
-    // check id trong kết quả trả về (do KH chọn xem hay tìm trước đó)
-    public boolean checkIdExist(int id, ArrayList<Book> books) {
-        for (Book book : books) {
-            if (book.getId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Kiểm tra xem trong giỏ hàng đã có sách mà khách hàng chọn hay ko? Nếu có thì thông báo đã có, nếu chưa thì thêm sách vào giỏ
-    public boolean checkBookInCart(String email, int id) {
-        return managerOrderUI.getMyCart(email).stream().anyMatch(item -> item.getId() == id);
-    }
-
-    // 1.1. Xem theo thể loại
-    public void listCategory() {
-
-        System.out.println("""
-                \n1. Văn học \t\t\t 2. Kinh tế \t\t 3. Tâm lý - Kỹ năng sống
-                4. Nuôi dạy con \t 5. Thiếu nhi \t\t 6. Tâm linh
-                """);
-    }
-
-    // Trả về list sách theo thể loại khi đã lấy được dữ liệu loại sách muốn tìm
-    public ArrayList<Book> showBookByCategory() {
-        boolean backToMenu = false;
-        String category = " ";
-
-        while (!backToMenu) {
-            listCategory();
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> {
-                    category = "Văn học";
-                    backToMenu = true;
-                }
-                case 2 -> {
-                    category = "Kinh tế";
-                    backToMenu = true;
-                }
-                case 3 -> {
-                    category = "Tâm lý - Kỹ năng sống";
-                    backToMenu = true;
-                }
-                case 4 -> {
-                    category = "Nuôi dạy con";
-                    backToMenu = true;
-                }
-                case 5 -> {
-                    category = "Thiếu nhi";
-                    backToMenu = true;
-                }
-                case 6 -> {
-                    category = "Tâm linh";
-                    backToMenu = true;
-                }
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-        return bookControler.showBookByCategory(category);
-        // todo:........ bị return về tất cả sách
-    }
-
-    // 1.2. Xem danh sách sản phẩm theo nhà xuất bản
-    public void listPushlisherCompany() {
-        System.out.println("""
-                \n1. NXB trẻ
-                2. NXB Kim Đồng
-                3. NXB Lao Động
-                4. NXB Nhã Nam
-                """);
-    }
-
-    public ArrayList<Book> showBookByPulisherCompany() {
-        boolean backToMenu = false;
-        String pulisherCompany = " ";
-
-        while (!backToMenu) {
-            listPushlisherCompany();
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> {
-                    pulisherCompany = "trẻ";
-                    backToMenu = true;
-                }
-                case 2 -> {
-                    pulisherCompany = "Kim Đồng";
-                    backToMenu = true;
-                }
-                case 3 -> {
-                    pulisherCompany = "Lao Động";
-                    backToMenu = true;
-                }
-                case 4 -> {
-                    pulisherCompany = "Nhã Nam";
-                    backToMenu = true;
-                }
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-        return bookControler.showBookByPulisherCompany(pulisherCompany);
-    }
-
-    // 2. Tìm kiếm sản phẩm
-    public ArrayList<Book> findBook() {
-        ArrayList<Book> books = new ArrayList<>();
-        boolean backToMenu = false;
-
-        while (!backToMenu) {
-            System.out.println("""
-                    \n1. Tìm theo tên sách \t\t 2. Tìm theo tên tác giả \t\t 0. Quay lại
-                    """);
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> {
-                    books = findBookByName();
-                    backToMenu = true;
-                }
-                case 2 -> {
-                    books = findBookByAuthor();
-                    backToMenu = true;
-                }
-                case 0 -> backToMenu = true;
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-        return books;
-    }
-
-    // 2.1 Tìm theo tên
-    public ArrayList<Book> findBookByName() {
-        System.out.print("Nhập vào tên sách bạn muốn tìm: ");
-        String title = sc.nextLine();
-        return bookControler.findBookByName(title);
-    }
-
-    // 2.2 Tìm theo tác giả
-    public ArrayList<Book> findBookByAuthor() {
-        System.out.print("Nhập vào tên tác giả: ");
-        String author = sc.nextLine();
-        return bookControler.findBookByAuthor(author);
     }
 
     // Method phụ
