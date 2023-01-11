@@ -4,12 +4,10 @@ import backend.controler.AdminController;
 import backend.model.Address;
 import backend.controler.UserControler;
 import backend.model.Admin;
-import backend.model.Book;
 import backend.model.User;
 import backend.request.UserRequest;
 import backend.ultils.FileUltils;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -18,73 +16,6 @@ public class Ui {
     ClientUi clientUi = new ClientUi();
     AdminController adminController = new AdminController();
     AdminUi adminUi = new AdminUi();
-
-    public void runMenu() {
-
-        boolean isQuit = false;
-
-        while (!isQuit) {
-            showMenuLogin();
-
-            int option = clientUi.getOption();
-
-            switch (option) {
-                case 1 -> {
-                    ArrayList<Book> books = clientUi.showBook();
-                    if (books.size() != 0) {
-                        FileUltils.printBook(books);
-                        choseToCart();
-                    }
-                }
-                case 2 -> {
-                    ArrayList<Book> books = clientUi.findBook();
-                    if (books.size() != 0) {
-                        FileUltils.printBook(books);
-                        choseToCart();
-                    } else {
-                        System.out.println("Kết quả tìm kiếm không có!");
-                    }
-                }
-                case 3 -> {
-                    System.out.println("\n----------- ĐĂNG NHẬP -----------");
-                    logIn();
-                }
-                case 4 -> {
-                    System.out.println("\n----------- ĐĂNG KÝ TÀI KHOẢN -----------");
-                    System.out.print("Nhập username: ");
-                    String userName = sc.nextLine();
-
-                    String email = getEmailToRegister();
-                    String password = getPasswordToRegister();
-                    String phone = getPhoneToRegister();
-                    Address address = getAddressToRegister();
-
-                    User newUser = new User(userName, email, password, phone, address);
-
-                    userControler.createNewUser(newUser);
-                    System.out.println("Bạn đã tạo tài khoản thành công! Xin chúc mừng. ");
-                    FileUltils.printUser(newUser);
-                }
-                case 5 -> {
-                    System.out.println("\n----------- QUÊN MẬT KHẨU -----------");
-
-                    String email = getEmailToLogin();
-                    System.out.println("Hãy nhập mật khẩu mới cho tài khoản của bạn!");
-                    String password = getPasswordToRegister();
-
-                    UserRequest changePasswordRequest = new UserRequest(email, password);
-                    userControler.changePassword(changePasswordRequest);
-                    System.out.println("Thay đổi password thành công!");
-                }
-                case 0 -> {
-                    System.out.println("\n----------- HẸN GẶP LẠI! -----------");
-                    isQuit = true;
-                }
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-    }
-
 
     public void showMenuLogin() {
         System.out.println("\n-----------------------------------------");
@@ -104,26 +35,40 @@ public class Ui {
                 """);
     }
 
-    // KHUNG NGOÀI (lv1)
-    // 3. LOGIN
+    public void runMenu() {
 
-    public void choseToCart() {
-        boolean back = false;
-        while (!back) {
-            System.out.println("\n1. Mua sách \t\t 0. Quay lại");
+        boolean isQuit = false;
+
+        while (!isQuit) {
+            showMenuLogin();
 
             int option = clientUi.getOption();
 
             switch (option) {
-                case 1 -> {
-                    System.out.println("Hãy đăng nhập để mua hàng!");
-                    back = true;
+                case 1 -> clientUi.showBook(new User());
+                case 2 -> clientUi.findBook(new User());
+                case 3 -> {
+                    System.out.println("\n----------- ĐĂNG NHẬP -----------");
+                    logIn();
                 }
-                case 0 -> back = true;
+                case 4 -> {
+                    System.out.println("\n----------- ĐĂNG KÝ TÀI KHOẢN -----------");
+                    register();
+                }
+                case 5 -> {
+                    System.out.println("\n----------- QUÊN MẬT KHẨU -----------");
+                    forgetPassword();
+                }
+                case 0 -> {
+                    System.out.println("\n----------- HẸN GẶP LẠI! -----------");
+                    isQuit = true;
+                }
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
     }
+
+    // 3. LOGIN
 
     public void logIn() {
         String email = getEmailToLogin();
@@ -159,7 +104,6 @@ public class Ui {
         }
         return email;
     }
-
 
     // Kiểm tra password theo email bên trên, nếu đúng -> lấy ra user
     public User getUserAfterCheckPass(String email) {
@@ -202,9 +146,26 @@ public class Ui {
         return admin;
     }
 
-    // ĐĂNG KÝ TÀI KHOẢN MỚI
+    // 4. ĐĂNG KÝ TÀI KHOẢN MỚI
     // Kiểm tra tính hợp lệ của email cho phần đăng ký
     // Email không được trùng với tài khoản của admin.
+
+    public void register() {
+        System.out.print("Nhập username: ");
+        String userName = sc.nextLine();
+
+        String email = getEmailToRegister();
+        String password = getPasswordToRegister();
+        String phone = getPhoneToRegister();
+        Address address = getAddressToRegister();
+
+        User newUser = new User(userName, email, password, phone, address);
+
+        userControler.createNewUser(newUser);
+        System.out.println("Bạn đã tạo tài khoản thành công! Xin chúc mừng. ");
+        FileUltils.printUser(newUser);
+    }
+
     public String getEmailToRegister() {
         boolean checkEmail = false;
         String email = "";
@@ -276,5 +237,16 @@ public class Ui {
         String addressDetail = sc.nextLine();
 
         return new Address(city, district, street, addressDetail);
+    }
+
+    // 5. quên mật khẩu
+    public void forgetPassword() {
+        String email = getEmailToLogin();
+        System.out.println("Hãy nhập mật khẩu mới cho tài khoản của bạn!");
+        String password = getPasswordToRegister();
+
+        UserRequest changePasswordRequest = new UserRequest(email, password);
+        userControler.changePassword(changePasswordRequest);
+        System.out.println("Thay đổi password thành công!");
     }
 }

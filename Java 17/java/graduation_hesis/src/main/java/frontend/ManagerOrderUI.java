@@ -21,6 +21,7 @@ public class ManagerOrderUI {
     OrderController orderController = new OrderController();
     BookControler bookControler = new BookControler();
 
+
     // 3. Quản lý giỏ hàng
     public void menuCart() {
         System.out.println("""
@@ -54,83 +55,6 @@ public class ManagerOrderUI {
                 back = true;
             }
         }
-    }
-
-    // 3.3 Mua hàng (tạo order -> sẽ xóa cart và chuyển sang cho admin duyệt)
-    public void preOrderBook(String email) {
-        Order preOrder = createPreorder(email);
-        boolean back = false;
-        while (!back) {
-            System.out.println("\n========================================================================");
-            System.out.println("Bạn hãy kiểm tra lại các thông tin trước khi đật hàng! ");
-            ArrayList<Item> myCart = getMyCart(email);
-            printCart(myCart);
-            calculateTotal(myCart);
-
-            System.out.println("\nNgười nhận: " + preOrder.getName() + "\t\tSố điện thoại: " + preOrder.getPhone());
-            System.out.print("Địa chỉ: ");
-            printAddress(preOrder.getAddress());
-            System.out.println("========================================================================");
-
-            System.out.println("\n1. Thay đổi người nhận hàng  \t\t 2. Đặt hàng \t\t 0. Quay lại");
-
-            int option = getOption();
-
-            switch (option) {
-                case 1 -> preOrder = changeReceiverInfo(email);
-                case 2 -> {
-                    creatOrder(preOrder);
-                    back = true;
-                }
-                case 0 -> back = true;
-                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
-            }
-        }
-    }
-
-    // 3.2 Mua hàng
-    // Thay đổi thông tin người nhận hàng
-    public Order changeReceiverInfo(String email) {
-        System.out.print("Tên người nhận hàng: ");
-        String name = sc.nextLine();
-        String phone = getPhoneToOrder();
-        Address address = getAddressToOrder();
-        String date = getDateTimeOrder();
-        return new Order(getIdOrder(), email, getMyCart(email), name, phone, address, date, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
-    }
-
-    // Tạo preOrder
-    public Order createPreorder(String email) {
-        return new Order(getIdOrder(), email, getMyCart(email), getUserbyEmail(email).getEmail(),
-                getUserbyEmail(email).getPhone(), getUserbyEmail(email).getAddress(), getDateTimeOrder(), Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
-    }
-
-    // Tạo Order
-    public void creatOrder(Order order) {
-        changeAfterOrder(order);
-        deleteCart(order.getEmail());
-        orderController.creatOrder(order);
-        System.out.println("Bạn đã đặt hàng thành công!");
-    }
-
-    public int getIdOrder() {
-        return orderController.getIdOrder();
-    }
-
-    // Sau khi đặt hàng số lượng trong kho giảm đi
-    public void changeAfterOrder(Order order) {
-        ArrayList<Item> cart = getMyCart(order.getEmail());
-        Map<Integer, Integer> reduceCount = new HashMap<>();
-        for (Item item : cart) {
-            reduceCount.put(item.getId(), item.getCount());
-        }
-
-        bookControler.changeAfterOrder(reduceCount);
-    }
-
-    // Xóa giỏ hàng sau khi đặt hàng thành công
-    public void deleteCart(String email) {
-        itemControler.deleteCart(email);
     }
 
     // 3.1 Xóa sách trong giỏ
@@ -197,7 +121,90 @@ public class ManagerOrderUI {
         System.out.println("Tổng giá trị giỏ hàng: " + FileUltils.formattingDisplay(rs));
     }
 
-    // Method thường xuyên sử dụng
+    // 3.3 Mua hàng
+    // (tạo preOrder -> sẽ xóa cart và chuyển sang cho admin duyệt)
+    public void preOrderBook(String email) {
+        Order preOrder = createPreorder(email);
+        boolean back = false;
+        while (!back) {
+            showPreOrder(email, preOrder);
+
+            System.out.println("\n1. Thay đổi người nhận hàng  \t\t 2. Đặt hàng \t\t 0. Quay lại");
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> preOrder = changeReceiverInfo(email);
+                case 2 -> {
+                    creatOrder(preOrder);
+                    back = true;
+                }
+                case 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    public void showPreOrder(String email, Order preOrder) {
+        System.out.println("\n========================================================================");
+        System.out.println("Bạn hãy kiểm tra lại các thông tin trước khi đật hàng! ");
+        ArrayList<Item> myCart = getMyCart(email);
+        printCart(myCart);
+        calculateTotal(myCart);
+
+        System.out.println("\nNgười nhận: " + preOrder.getName() + "\t\tSố điện thoại: " + preOrder.getPhone());
+        System.out.print("Địa chỉ: ");
+        printAddress(preOrder.getAddress());
+        System.out.println("========================================================================");
+
+    }
+
+    // Tạo preOrder
+    public Order createPreorder(String email) {
+        return new Order(getIdOrder(), email, getMyCart(email), getUserbyEmail(email).getEmail(),
+                getUserbyEmail(email).getPhone(), getUserbyEmail(email).getAddress(), getDateTimeOrder(), Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+    }
+
+    // Đặt hàng
+    // Thay đổi thông tin người nhận hàng
+    public Order changeReceiverInfo(String email) {
+        System.out.print("Tên người nhận hàng: ");
+        String name = sc.nextLine();
+        String phone = getPhoneToOrder();
+        Address address = getAddressToOrder();
+        String date = getDateTimeOrder();
+        return new Order(getIdOrder(), email, getMyCart(email), name, phone, address, date, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+    }
+
+    // Tạo Order
+    public void creatOrder(Order order) {
+        changeAfterOrder(order);
+        deleteCart(order.getEmail());
+        orderController.creatOrder(order);
+        System.out.println("Bạn đã đặt hàng thành công!");
+    }
+
+    public int getIdOrder() {
+        return orderController.getIdOrder();
+    }
+
+    // Sau khi đặt hàng số lượng trong kho giảm đi
+    public void changeAfterOrder(Order order) {
+        ArrayList<Item> cart = getMyCart(order.getEmail());
+        Map<Integer, Integer> reduceCount = new HashMap<>();
+        for (Item item : cart) {
+            reduceCount.put(item.getId(), item.getCount());
+        }
+        bookControler.changeAfterOrder(reduceCount);
+    }
+
+    // Xóa giỏ hàng sau khi đặt hàng thành công
+    public void deleteCart(String email) {
+        itemControler.deleteCart(email);
+    }
+
+
+    // Method phụ
     public int getOption() {
         return FileUltils.getOption();
     }
