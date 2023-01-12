@@ -144,17 +144,24 @@ public class AdminUi {
     public void manageClient() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n1. Thêm tài khoản \t\t 2. Xóa tài khoản \t\t 0. Quay lại");
+            System.out.println("\n1. Hiển thị tất cả tài khoản \t\t2. Thêm tài khoản \t\t 3. Xóa tài khoản \t\t 0. Quay lại");
 
             int option = getOption();
 
             switch (option) {
-                case 1 -> addAcount();
-                case 2 -> deleteAcount();
+                case 1 -> showAllUser();
+                case 2 -> addAcount();
+                case 3 -> deleteAcount();
                 case 0 -> back = true;
                 default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
             }
         }
+    }
+
+
+    // Hiển thị tất cả tài khoản
+    public void showAllUser() {
+        FileUltils.printAllUser(userControler.showAllUser());
     }
 
     // 2.1 thêm tài khoản
@@ -288,7 +295,7 @@ public class AdminUi {
         boolean back = false;
         while (!back) {
             System.out.println("""
-                    1. Xem toàn bộ sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
+                    \n1. Xem toàn bộ sách \t\t 2. Thêm sách \t\t\t 3. Sửa sách  
                     4. Xóa sách \t\t\t\t 5. Kiểm tra sách \t\t 0. Quay lại
                     """);
 
@@ -320,23 +327,27 @@ public class AdminUi {
             System.out.println("Sách đã có trong cửa hàng!");
 
         } else {
-            System.out.print("Nhập vào thể loại: ");
-            String category = sc.nextLine();
-            System.out.print("Nhập vào tên tác giả: ");
-            String author = sc.nextLine();
-            System.out.print("Năm xuất bản: ");
-            int year = Integer.parseInt(sc.nextLine());
-            System.out.print("Giá bán: ");
-            int price = Integer.parseInt(sc.nextLine());
-            System.out.print("Nhà xuất bản: ");
-            String publishCompany = sc.nextLine();
-            System.out.print("Số lượng sản phẩm: ");
-            int quantity = Integer.parseInt(sc.nextLine());
-            System.out.print("Rating: ");
-            double rating = Double.parseDouble(sc.nextLine());
-            Book newBook = new Book(id, title, category, author, year, price, publishCompany, quantity, rating);
-            bookControler.addBook(newBook);
-            System.out.println("Đã thêm sách vào cửa hàng!");
+            try {
+                System.out.print("Nhập vào thể loại: ");
+                String category = sc.nextLine();
+                System.out.print("Nhập vào tên tác giả: ");
+                String author = sc.nextLine();
+                System.out.print("Năm xuất bản: ");
+                int year = Integer.parseInt(sc.nextLine());
+                System.out.print("Giá bán: ");
+                int price = Integer.parseInt(sc.nextLine());
+                System.out.print("Nhà xuất bản: ");
+                String publishCompany = sc.nextLine();
+                System.out.print("Số lượng sản phẩm: ");
+                int quantity = Integer.parseInt(sc.nextLine());
+                System.out.print("Rating: ");
+                double rating = Double.parseDouble(sc.nextLine());
+                Book newBook = new Book(id, title, category, author, year, price, publishCompany, quantity, rating);
+                bookControler.addBook(newBook);
+                System.out.println("Đã thêm sách vào cửa hàng!");
+            } catch (Exception e) {
+                System.out.println("Nhập lỗi!");
+            }
         }
     }
 
@@ -462,7 +473,11 @@ public class AdminUi {
     // kiểm tra số lượng sách trong kho
     public void showBookLessx() {
         int checkQuantity = getQuantity();
-        FileUltils.printBook(bookControler.showBookLessx(checkQuantity));
+        if (bookControler.showBookLessx(checkQuantity).size() > 0) {
+            FileUltils.printBook(bookControler.showBookLessx(checkQuantity));
+        } else {
+            System.out.println("Không có sản phẩm nào dưới: " + checkQuantity);
+        }
     }
 
     // kiểm tra chất lượng sách theo số lượng bán ra

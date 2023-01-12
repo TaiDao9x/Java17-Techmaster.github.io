@@ -42,4 +42,6 @@ public class ItemService {
         ALL_ITEMS.removeIf(item -> item.getEmail().equalsIgnoreCase(email));
         itemRepository.updateFile(ALL_ITEMS);
     }
+
+
 }

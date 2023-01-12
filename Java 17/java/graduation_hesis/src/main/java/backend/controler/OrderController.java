@@ -80,6 +80,18 @@ public class OrderController {
     }
 
     public void updateCountAfterCancel(String email, int idOrder) {
-        orderService.updateCountAfterCancel(email,idOrder);
+        orderService.updateCountAfterCancel(email, idOrder);
+    }
+
+    public boolean checkIdOrderEnableReOrder(String email, int idOrder, Status status) {
+        return orderService.checkIdOrderEnableReOrder(email, idOrder, status);
+    }
+
+    public void reOrderYes(String email, int idOrder) {
+        orderService.reOrderYes(email, idOrder);
+    }
+
+    public Order getOrdersById(int idOrder) {
+        return orderService.getOrdersById(idOrder);
     }
 }

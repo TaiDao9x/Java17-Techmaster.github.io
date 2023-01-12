@@ -12,6 +12,8 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -124,6 +126,19 @@ public class FileUltils {
 
     }
 
+    public static void printAllUser(List<User> users) {
+        System.out.printf("%-10s %-20s %-15s %-15s %-50s \n", "Username", "Email", "Password", "Phone", "Địa chỉ");
+        System.out.println("--------------------------------------------------------------------------------------");
+
+        for (User user : users) {
+            System.out.printf("%-10s %-20s %-15s %-15s %-50s \n", user.getUserName(), user.getEmail(),
+                    user.getPassword(), user.getPhone(), user.getAddress().getDetail() + ", " + user.getAddress().getStreet() + ", " + user.getAddress().getDistrict() +
+                            ", " + user.getAddress().getCity());
+
+        }
+
+    }
+
     public static void printBook(ArrayList<Book> list) {
         System.out.printf("%-5s %-25s %-27s %-20s %-10s %-15s %-17s %-7s %-9s\n", "Id", "Tên sách", "Thể loại", "Tác giả",
                 "Năm XB", "Giá", "Nhà xuất bản", "Còn", "Đánh giá");
@@ -145,8 +160,8 @@ public class FileUltils {
     }
 
     public static void printBookHasSold(List<Item> items) {
-        System.out.printf("\n%-5s %-25s %-15s %-15s %-15s\n", "Id", "Tên sách", "Giá sách", "Đã bán được", "Doamh thu");
-        System.out.println("------------------------------------------------------------------------");
+        System.out.printf("\n%-5s %-25s %-15s %-15s %-15s\n", "Id", "Tên sách", "Giá sách", "Đã bán được", "Doanh thu");
+        System.out.println("---------------------------------------------------------------------------");
         for (Item item : items) {
             System.out.printf("%-5d %-25s %-15s %-15d %-15s\n", item.getId(), item.getTitle(), formattingDisplay(item.getPrice()), item.getCount(), formattingDisplay(item.getPrice() * item.getCount()));
         }
@@ -230,4 +245,10 @@ public class FileUltils {
         }
         return option;
     }
+
+    public static String getDate() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        return localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss"));
+    }
+
 }

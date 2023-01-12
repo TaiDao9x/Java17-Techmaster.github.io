@@ -5,6 +5,7 @@ import backend.model.Order;
 import backend.model.Status;
 import backend.repository.BookRepository;
 import backend.repository.OrderRepository;
+import backend.ultils.FileUltils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -52,6 +53,7 @@ public class OrderService {
         }
         return (ArrayList<Order>) orders.stream().sorted((o1, o2) -> o2.getIdOrder() - o1.getIdOrder()).collect(Collectors.toList());
     }
+
     // TODO: trung ten method
     public List<Order> getOrdersBystatus(Status status) {
         return allOder.stream().filter(order -> order.getStatus().equals(status)).collect(Collectors.toList());
@@ -149,7 +151,7 @@ public class OrderService {
     }
 
     public boolean checkIdOrderExist(int idOrder, String email) {
-        return allOder.stream().anyMatch(n -> n.getEmail().equalsIgnoreCase(email) && n.getIdOrder() == idOrder && (!n.getStatus().equals(Status.ĐƠN_ĐÃ_HỦY) || !n.getStatus().equals(Status.KHÁCH_ĐÃ_NHẬN_HÀNG)));
+        return allOder.stream().anyMatch(n -> n.getEmail().equalsIgnoreCase(email) && n.getIdOrder() == idOrder && (n.getStatus().equals(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) || n.getStatus().equals(Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG) || n.getStatus().equals(Status.ĐANG_GIAO_HÀNG)));
     }
 
     public boolean checkIdOrderEnableCancel(int idOrder, String email) {
@@ -179,4 +181,28 @@ public class OrderService {
     }
 
 
+    public boolean checkIdOrderEnableReOrder(String email, int idOrder, Status status) {
+        return allOder.stream()
+                .anyMatch(n -> (n.getEmail().equalsIgnoreCase(email) && n.getIdOrder() == idOrder && n.getStatus().equals(status)));
+    }
+
+    public void reOrderYes(String email, int idOrder) {
+        for (Order order : allOder) {
+            if (order.getEmail().equalsIgnoreCase(email) && order.getIdOrder() == idOrder) {
+                order.setDate(FileUltils.getDate());
+                order.setStatus(Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+            }
+        }
+        orderRepository.updateFile(allOder);
+    }
+
+    public Order getOrdersById(int idOrder) {
+        Order order = new Order();
+        for (Order o : allOder) {
+            if (o.getIdOrder() == idOrder) {
+                order = o;
+            }
+        }
+        return order;
+    }
 }

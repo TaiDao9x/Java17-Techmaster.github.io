@@ -153,6 +153,9 @@ public class Ui {
     public void register() {
         System.out.print("Nhập username: ");
         String userName = sc.nextLine();
+        if (userName.equals("")) {
+            userName = "-";
+        }
 
         String email = getEmailToRegister();
         String password = getPasswordToRegister();
@@ -226,15 +229,26 @@ public class Ui {
         System.out.println("Nhập địa chỉ: ");
         System.out.print("Thành phố: ");
         String city = sc.nextLine();
-
+        if (city.equals("")) {
+            city = "-";
+        }
         System.out.print("Quận: ");
         String district = sc.nextLine();
+        if (district.equals("")) {
+            district = "-";
+        }
 
         System.out.print("Đường: ");
         String street = sc.nextLine();
+        if (street.equals("")) {
+            street = "-";
+        }
 
         System.out.print("Địa chỉ nhận hàng: ");
         String addressDetail = sc.nextLine();
+        if (addressDetail.equals("")) {
+            addressDetail = "-";
+        }
 
         return new Address(city, district, street, addressDetail);
     }

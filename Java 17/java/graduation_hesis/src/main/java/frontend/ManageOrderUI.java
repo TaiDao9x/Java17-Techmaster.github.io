@@ -254,8 +254,7 @@ public class ManageOrderUI {
     }
 
     public String getDateTimeOrder() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        return localDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy  HH:mm:ss"));
+        return FileUltils.getDate();
     }
 
     public void printAddress(Address address) {

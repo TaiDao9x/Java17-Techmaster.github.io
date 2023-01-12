@@ -119,13 +119,22 @@ public class ClientUi {
 
     // Đưa ra lựa chọn cho khách hàng sau khi xem sách
     public void choseToCart(User client, ArrayList<Book> books) {
-        try {
-            boolean back = false;
-            while (!back) {
-                System.out.println("\n1. Thêm sách vào giỏ hàng \t\t 2. Đến giỏ hàng \t\t 0. Quay lại");
+
+        boolean back = false;
+        while (!back) {
+
+            System.out.println("\n1. Thêm sách vào giỏ hàng \t\t 2. Đến giỏ hàng \t\t 0. Quay lại");
+            if (client.getEmail() == null) {
 
                 int option = getOption();
+                if (option == 0) {
+                    back = true;
+                } else {
+                    System.out.println("\nVui lòng đăng nhập trước!");
 
+                }
+            } else {
+                int option = getOption();
                 switch (option) {
                     case 1 -> addToCart(client.getEmail(), books);
                     case 2 -> managerOrderUI.manageCart(client.getEmail());
@@ -133,8 +142,6 @@ public class ClientUi {
                     default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
                 }
             }
-        } catch (NullPointerException e) {
-            System.out.println("Hãy đăng nhập trước!");
         }
     }
 
@@ -347,15 +354,13 @@ public class ClientUi {
     public void orderHistory(String email) {
         boolean back = false;
         while (!back) {
-            System.out.println("\t\t- Tổng số đơn: " + countAllOrderByEmail(email));
+            System.out.println("\n\t\t- TỔNG SỐ ĐƠN: " + countAllOrderByEmail(email));
             System.out.println("\t\t- Đơn chờ xác nhận: " + countOrder(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN));
             System.out.println("\t\t- Đơn đang chuẩn bị: " + countOrder(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG));
             System.out.println("\t\t- Đơn đang giao: " + countOrder(email, Status.ĐANG_GIAO_HÀNG));
             System.out.println("\t\t- Đơn đã hoàn thành: " + countOrder(email, Status.KHÁCH_ĐÃ_NHẬN_HÀNG));
             System.out.println("\t\t- Đơn khách đã hủy: " + countOrder(email, Status.ĐƠN_ĐÃ_HỦY));
-            System.out.printf("\n1. Theo dõi đơn hàng (%d)\t\t2. Hủy đơn hàng\t\t 3. Đơn đã mua (%d)\t\t4. Đơn đã hủy (%d)\t\t 0. Quay lại\n"
-                    , countOrder(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) + countOrder(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG) + countOrder(email, Status.ĐANG_GIAO_HÀNG)
-                    , countOrder(email, Status.KHÁCH_ĐÃ_NHẬN_HÀNG), countOrder(email, Status.ĐƠN_ĐÃ_HỦY));
+            System.out.printf("\n1. Theo dõi đơn hàng (%d)\t\t2. Hủy đơn hàng\t\t 3. Đơn đã mua (%d)\t\t4. Đơn đã hủy (%d)\t\t 0. Quay lại\n", countOrder(email, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN) + countOrder(email, Status.NGƯỜI_BÁN_ĐANG_CHUẨN_BỊ_HÀNG) + countOrder(email, Status.ĐANG_GIAO_HÀNG), countOrder(email, Status.KHÁCH_ĐÃ_NHẬN_HÀNG), countOrder(email, Status.ĐƠN_ĐÃ_HỦY));
 
             int option = getOption();
 
@@ -423,19 +428,23 @@ public class ClientUi {
 
     // Quyết định hủy đơn
     public void cancelOrderYes(String email) {
-        int idOrder = getIdOrder(email);
+        int idOrder = getIdOrderForCancel(email);
         if (orderController.checkIdOrderEnableCancel(idOrder, email)) {
+
             orderController.cancelOrderYes(email, idOrder);
             updateCountAfterCancel(email, idOrder);
+
             System.out.println("\nĐã hủy đơn hàng thành công!");
             System.out.println("Chúc bạn tìm được cuốn sách ưng ý!\n");
+        } else if (!orderController.checkIdOrderExist(idOrder, email)) {
+            System.out.println();
         } else {
             System.out.println("\nRất tiếc! Đơn đang giao không thể hủy.");
         }
     }
 
     // Lấy ra id của đơn hàng
-    public int getIdOrder(String email) {
+    public int getIdOrderForCancel(String email) {
         boolean back = false;
         int idOrder = 0;
 
@@ -447,12 +456,10 @@ public class ClientUi {
                 System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
                 continue;
             }
-            if (orderController.checkIdOrderExist(idOrder, email)) {
-                back = true;
-            } else {
+            if (!orderController.checkIdOrderExist(idOrder, email)) {
                 System.out.println("Không có id đơn hàng trên!");
-                back = true;
             }
+            back = true;
         }
         return idOrder;
     }
@@ -462,10 +469,12 @@ public class ClientUi {
         orderController.updateCountAfterCancel(email, idOrder);
     }
 
-    // 4.3 Show đơn hàng đã hoàn thành và đã hủy
+
+    // 4.3 Show đơn hàng đã hoàn thành và đã hủy (chỉ cần thay đổi status)
     public void showOrderDone(String email, Status status) {
         if (getorderByStatus(email, status).size() > 0) {
             printOrder(getorderByStatus(email, status));
+            reOrder(email, status);
         } else {
             System.out.println("Không có đơn hàng nào!");
         }
@@ -474,6 +483,74 @@ public class ClientUi {
     // Lấy ra đơn đã hoàn thành và đã hủy
     public ArrayList<Order> getorderByStatus(String email, Status status) {
         return orderController.getorderByStatus(email, status);
+    }
+
+    //Mua lại hàng
+    public void reOrder(String email, Status status) {
+        boolean back = false;
+        while (!back) {
+            System.out.println("""
+                    \nBạn muốn mua lại đơn hàng:
+                     1. Có \t\t 2. Không \t\t 0. Quay lại
+                     """);
+
+            int option = getOption();
+
+            switch (option) {
+                case 1 -> {
+                    int idOrder = getIdOrderForReOrder(email, status);
+                    if (orderController.checkIdOrderEnableReOrder(email, idOrder, Status.ĐƠN_ĐÃ_HỦY)) {
+                        reOrderYes(email, idOrder);
+                        System.out.println("Đặt lại đơn hàng thành công!");
+
+                    }
+                    if (orderController.checkIdOrderEnableReOrder(email, idOrder, Status.KHÁCH_ĐÃ_NHẬN_HÀNG)) {
+                        Order oldOrder = orderController.getOrdersById(idOrder);
+
+                        int newId = managerOrderUI.getIdOrder();
+                        String name = oldOrder.getName();
+                        String phone = oldOrder.getPhone();
+                        Address address = oldOrder.getAddress();
+                        String date = managerOrderUI.getDateTimeOrder();
+
+                        Order newOrder = new Order(newId, email, oldOrder.getCart(), name, phone, address, date, Status.CHỜ_NGƯỜI_BÁN_XÁC_NHẬN);
+                        orderController.creatOrder(newOrder);
+                        managerOrderUI.changeAfterOrder(newOrder);
+                        System.out.println("Đặt lại đơn hàng thành công!");
+
+                    }
+//                    back = true;
+                }
+                case 2, 0 -> back = true;
+                default -> System.out.println("Lựa chọn không tồn tại. Hãy chọn lại!");
+            }
+        }
+    }
+
+    // Kiểm tra id trong phần đơn hủy và hoàn thành -> Trả về id của đơn hàng
+    public int getIdOrderForReOrder(String email, Status status) {
+        boolean back = false;
+        int idOrder = 0;
+
+        while (!back) {
+            try {
+                System.out.print("Nhập vào id đơn hàng bạn muốn mua lại: ");
+                idOrder = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
+                continue;
+            }
+            if (!orderController.checkIdOrderEnableReOrder(email, idOrder, status)) {
+                System.out.println("Không có id đơn hàng trên!");
+            }
+            back = true;
+        }
+        return idOrder;
+    }
+
+    // Thực hiện đặt hàng lại
+    public void reOrderYes(String email, int idOrder) {
+        orderController.reOrderYes(email, idOrder);
     }
 
     //5.Sửa thông tin cá nhân

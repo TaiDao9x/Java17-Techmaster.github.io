@@ -5,6 +5,8 @@ import backend.model.User;
 import backend.request.UserRequest;
 import backend.service.UserService;
 
+import java.util.List;
+
 
 public class UserControler {
 
@@ -53,5 +55,10 @@ public class UserControler {
 
     public void deleteAcount(String emailToDelete) {
         userService.deleteAcount(emailToDelete);
+    }
+
+
+    public List<User> showAllUser() {
+        return userService.showAllUser();
     }
 }
