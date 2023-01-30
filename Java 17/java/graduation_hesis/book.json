@@ -7,7 +7,7 @@
     "releaseYear": 2019,
     "price": 80000,
     "publishCompany": "NXB Thế giới",
-    "quantity": 90,
+    "quantity": 99,
     "rating": 4.9
   },
   {
@@ -18,7 +18,7 @@
     "releaseYear": 2013,
     "price": 61500,
     "publishCompany": "NXB Dân Trí",
-    "quantity": 100,
+    "quantity": 71,
     "rating": 4.8
   },
   {
@@ -29,7 +29,7 @@
     "releaseYear": 2016,
     "price": 126000,
     "publishCompany": "NXB Trẻ",
-    "quantity": 100,
+    "quantity": 64,
     "rating": 4.9
   },
   {
@@ -40,7 +40,7 @@
     "releaseYear": 2018,
     "price": 80500,
     "publishCompany": "NXB Lao động",
-    "quantity": 100,
+    "quantity": 83,
     "rating": 4.7
   },
   {
@@ -51,7 +51,7 @@
     "releaseYear": 2018,
     "price": 123000,
     "publishCompany": "NXB Văn học",
-    "quantity": 100,
+    "quantity": 70,
     "rating": 4.8
   },
   {
@@ -62,7 +62,7 @@
     "releaseYear": 2013,
     "price": 90500,
     "publishCompany": "NXB Lao động",
-    "quantity": 100,
+    "quantity": 68,
     "rating": 4.6
   },
   {
@@ -73,7 +73,7 @@
     "releaseYear": 2016,
     "price": 84000,
     "publishCompany": "NXB Thế giới",
-    "quantity": 100,
+    "quantity": 50,
     "rating": 4.5
   },
   {
@@ -95,7 +95,7 @@
     "releaseYear": 2020,
     "price": 248000,
     "publishCompany": "NXB Trẻ",
-    "quantity": 100,
+    "quantity": 30,
     "rating": 4.9
   },
   {
@@ -106,7 +106,7 @@
     "releaseYear": 2022,
     "price": 577000,
     "publishCompany": "NXB Thế giới",
-    "quantity": 100,
+    "quantity": 120,
     "rating": 4.8
   },
   {
@@ -117,7 +117,7 @@
     "releaseYear": 2019,
     "price": 123000,
     "publishCompany": "NXB Văn học",
-    "quantity": 100,
+    "quantity": 150,
     "rating": 4.6
   },
   {
@@ -139,7 +139,7 @@
     "releaseYear": 2021,
     "price": 485500,
     "publishCompany": "NXB Lao Động",
-    "quantity": 100,
+    "quantity": 150,
     "rating": 4.6
   },
   {
@@ -150,7 +150,7 @@
     "releaseYear": 2017,
     "price": 82500,
     "publishCompany": "NXB Dân Trí",
-    "quantity": 100,
+    "quantity": 184,
     "rating": 4.3
   },
   {
@@ -161,7 +161,7 @@
     "releaseYear": 2014,
     "price": 159000,
     "publishCompany": "NXB Trẻ",
-    "quantity": 100,
+    "quantity": 210,
     "rating": 4.3
   }
 ]

@@ -250,11 +250,7 @@ public class ClientUi {
     // 1.2. Xem danh sách sản phẩm theo nhà xuất bản
     public void listPushlisherCompany() {
         System.out.println("""
-                \n1. NXB trẻ
-                2. NXB Thế giới
-                3. NXB Lao Động
-                4. NXB Dân trí
-                5. NXB Văn học
+                \n1. NXB trẻ\t\t2. NXB Thế giới\t\t3. NXB Lao Động\t\t4. NXB Dân trí\t\t5. NXB Văn học
                 """);
     }
 

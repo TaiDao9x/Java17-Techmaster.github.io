@@ -101,6 +101,10 @@ public class ManageOrderUI {
             try {
                 System.out.print("Nhập số lượng sách bạn muốn đặt: ");
                 newCount = Integer.parseInt(sc.nextLine());
+                if (newCount < 0) {
+                    System.out.println("Số lượng cần lớn hơn 0");
+                    continue;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Lựa chọn không hợp lệ. Hãy chọn lại!");
                 continue;
