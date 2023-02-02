@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class _136_Single_Number {
@@ -19,8 +20,19 @@ public class _136_Single_Number {
         return list.get(0);
     }
 
+    public int singleNumber2(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i += 2) {
+            if (nums[i] != nums[i + 1]) {
+                return nums[i];
+            }
+        }
+        return nums[nums.length - 1];
+    }
+
     public static void main(String[] args) {
-        int[] nums={1};
+        int[] nums = {1};
         System.out.println(singleNumber(nums));
+
     }
 }

@@ -23,7 +23,7 @@ public class _27_Remove_Element {
 
     public static int remove(int[] a, int val) {
         a = Arrays.stream(a).filter(n -> n != val).toArray();
-          System.out.println(Arrays.toString(a));
+        System.out.println(Arrays.toString(a));
         return a.length;
     }
 
@@ -34,5 +34,6 @@ public class _27_Remove_Element {
 
         System.out.println(remove(nums, 3));
         System.out.println("Done");
+
     }
 }

@@ -1,8 +1,6 @@
 package leetcode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class _1089_Duplicate_Zeros {
     public static void duplicateZeros(int[] arr) {

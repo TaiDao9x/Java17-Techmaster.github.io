@@ -1,34 +1,26 @@
 package leetcode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class _387_First_Unique_Character_in_a_String {
     public static int firstUniqChar(String s) {
-        List<Character> list = new ArrayList<>();
-        List<Character> toRemove = new ArrayList<>();
+        int[] alphabet = new int[26];
+        // bắt đầu từ 'a' kết thúc tại 'z'
+        //index a= 0, z=25
         for (int i = 0; i < s.length(); i++) {
-            list.add(s.charAt(i));
-            for (int j = i + 1; j < s.length(); j++) {
-                if (s.charAt(i) == s.charAt(j)) {
-                    toRemove.add(s.charAt(i));
-                }
-            }
-        }
-        list.removeAll(toRemove);
-        if (list.size() > 0) {
-            for (int i = 0; i < s.length(); i++) {
-                if (s.charAt(i) == list.get(0)) {
-                    return i;
-                }
-            }
-        }
+            char character = s.charAt(i);
+            alphabet[character - 'a']++; // index tương ứng
+        }// đếm được số lần xuất hiện của tất cả các ký tự trong s
 
+        for (int i = 0; i < s.length(); i++) { // bắt đầu đếm
+            char character = s.charAt(i);
+            if (alphabet[character - 'a'] == 1) {
+                return i;
+            }
+        }
         return -1;
     }
 
     public static void main(String[] args) {
-        String s = "aabb";
+        String s = "baccddee";
         System.out.println(firstUniqChar(s));
     }
 }
