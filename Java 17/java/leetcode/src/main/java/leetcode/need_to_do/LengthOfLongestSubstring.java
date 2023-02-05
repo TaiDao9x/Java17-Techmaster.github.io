@@ -26,24 +26,7 @@ public class LengthOfLongestSubstring {
         System.out.println(list);
     }
 
-    public static int lengthOfLongestSubstring(String s) {
-        ArrayList<Integer> list = new ArrayList<>();
-        int count = 0;
-        int max = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = i + 1; j < s.length(); j++) {
-                if (s.charAt(i) != s.charAt(j)) {
-                    count++;
-                    if (count > max) {
-                        max = count + 1;
-                    }
-                } else {
-                    count = 0;
-
-                }
-                list.add(count);
-            }
-        }
-        return max;
-    }
+//    public static int lengthOfLongestSubstring(String s) {
+//
+//    }
 }

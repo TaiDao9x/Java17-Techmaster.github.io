@@ -3,14 +3,16 @@ package leetcode;
 import java.util.Arrays;
 
 public class _1051_Height_Checker {
-    public int heightChecker(int[] heights) {
-        int[] expected = Arrays.stream(heights).sorted().toArray();
+    public static int heightChecker(int[] heights) {
+        int[] checked = heights.clone();
+        Arrays.sort(checked);
         int count = 0;
         for (int i = 0; i < heights.length; i++) {
-            if (heights[i] != expected[i]) {
+            if (heights[i] != checked[i]) {
                 count++;
             }
         }
         return count;
     }
+
 }

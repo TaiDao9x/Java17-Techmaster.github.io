@@ -6,11 +6,14 @@ import java.util.Arrays;
 public class _1816_Truncate_Sentence {
     public static String truncateSentence(String s, int k) {
         String[] sentence = s.split(" ");
-        s = String.join(" ", Arrays
-                .stream(sentence)
-                .limit(k)
-                .toList());
-        return s;
+        StringBuilder rs = new StringBuilder();
+        for (int i = 0; i < k - 1; i++) {
+            rs.append(sentence[i])
+                    .append(" ");
+        }
+        rs.append(sentence[k - 1]);
+
+        return rs.toString();
     }
 
     public static void main(String[] args) {

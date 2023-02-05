@@ -10,9 +10,22 @@ public class _387_First_Unique_Character_in_a_String {
             if (alphabet[s.charAt(i) - 'a'] == 1) {
                 return i;
             }
-
         }
         return -1;
+    }
+
+    public static int firstUniqChar1(String s) {
+        int minIndex = Integer.MAX_VALUE;
+        for (int c = 'a'; c < 'z'; c++) {
+            int indexInS = s.indexOf(c);
+            if (indexInS != -1 && indexInS == s.lastIndexOf(c)) {
+                minIndex = Math.min(minIndex, indexInS);
+            }
+        }
+        if (minIndex == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return minIndex;
     }
 
     public static void main(String[] args) {

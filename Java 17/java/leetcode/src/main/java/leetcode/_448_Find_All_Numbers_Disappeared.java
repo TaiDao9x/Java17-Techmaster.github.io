@@ -6,12 +6,11 @@ import java.util.List;
 public class _448_Find_All_Numbers_Disappeared {
     public static List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> rs = new ArrayList<>();
-        boolean[] exist = new boolean[nums.length + 1];
+        boolean[] exist = new boolean[nums.length+1];
         for (int i = 0; i < nums.length; i++) {
             exist[nums[i]] = true;
         }
-
-        for (int i = 1; i <= nums.length; i++) {
+        for (int i = 1; i < exist.length; i++) {
             if (!exist[i]) {
                 rs.add(i);
             }
