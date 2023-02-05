@@ -15,7 +15,6 @@ public class _1859_Sorting_the_Sentence {
             map.put(Integer.parseInt(value.substring(value.length() - 1)),
                     value.substring(0, value.length() - 1));
         }
-        System.out.println(map);
         for (int i = 0; i < a.length; i++) {
             a[i] = map.get(i + 1);
         }
@@ -29,11 +28,10 @@ public class _1859_Sorting_the_Sentence {
         for (int i = 0; i < sArray.length; i++) {
             sArray[i] = sArray[i].substring(0, sArray[i].length() - 1);
         }
-
         return String.join(" ", sArray);
     }
 
     public static void main(String[] args) {
-        System.out.println( sortSentence("is2 sentence4 This1 a3"));
+        System.out.println(sortSentence("is2 sentence4 This1 a3"));
     }
 }

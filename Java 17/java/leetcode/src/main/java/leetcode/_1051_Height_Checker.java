@@ -14,5 +14,4 @@ public class _1051_Height_Checker {
         }
         return count;
     }
-
 }
