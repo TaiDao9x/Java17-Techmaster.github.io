@@ -2,7 +2,7 @@ package day03;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
+
 
 public class Sort {
     static class Main {
@@ -19,22 +19,9 @@ public class Sort {
             Arrays.sort(word);
 //            System.out.println(Arrays.toString(word));
 
-            Student[] students = {
-                    new Student("Tài", 30),
-                    new Student("Toàn", 25),
-                    new Student("Anh", 29)
-            };
 
-            Arrays.sort(students, new Comparator<Student>() {
-                @Override
-                public int compare(Student o1, Student o2) {
-                    return o1.getName().compareTo(o2.getName());
-                }
-            });
-            for (Student t : students
-            ) {
-                System.out.println(t);
-            }
+
+
 
 
         }

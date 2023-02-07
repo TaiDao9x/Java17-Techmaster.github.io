@@ -1,20 +1,22 @@
 package day03;
 
-public class Student implements Comparable {
-    private String name;
+public class Student {
+    private String fullName;
     private int age;
+    private int GPA;
 
-    public Student(String name, int age) {
-        this.name = name;
+    public Student(String fullName, int age, int GPA) {
+        this.fullName = fullName;
         this.age = age;
+        this.GPA = GPA;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getAge() {
@@ -25,16 +27,20 @@ public class Student implements Comparable {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public int getGPA() {
+        return GPA;
+    }
+
+    public void setGPA(int GPA) {
+        this.GPA = GPA;
     }
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public String toString() {
+        return "Student{" +
+                "fullName='" + fullName + '\'' +
+                ", age=" + age +
+                ", GPA=" + GPA +
+                '}';
     }
 }
