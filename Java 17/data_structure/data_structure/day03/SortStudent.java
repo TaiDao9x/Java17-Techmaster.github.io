@@ -19,6 +19,7 @@ public class SortStudent {
                 new Student("Tào Tháo", 25, 10),
                 new Student("Gia Cát Lượng", 19, 10)
         };
+
         //1. Sắp xếp học sinh theo fullName, nếu giống fullName thì ai nhiều tuổi hơn thì đứng trước.
         Arrays.sort(students, new Comparator<Student>() {
             @Override
