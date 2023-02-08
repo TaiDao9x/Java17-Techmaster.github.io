@@ -1,7 +1,7 @@
 package leetcode;
 
 public class _509_Fibonacci_Number {
-    public int fib(int n) {
+    public int fibo(int n) {
         if (n == 0) {
             return 0;
         }
@@ -9,6 +9,6 @@ public class _509_Fibonacci_Number {
             return 1;
         }
 
-        return fib(n - 1) + fib(n - 2);
+        return fibo(n - 1) + fibo(n - 2);
     }
 }

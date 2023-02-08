@@ -2,32 +2,24 @@ package leetcode;
 
 //s = ["h","e","l","l","o"]
 public class _344_Reverse_String {
-    public static void reverseString1(char[] s) {
-        int n = s.length;
-
-        for (int i = 0; i < n / 2; i++) {
-            char middle = s[i];
-            s[i] = s[n - i - 1];
-            s[n - i - 1] = middle;
-        }
-
-        System.out.println(s);
-    }
 
     public static void reverseString(char[] s) {
-        int n = s.length;
+        reverseStringUseRecursion(s, 0, s.length - 1);
+    }
 
-        for (int i = 0; i < n / 2; i++) {
-            char middle = s[i];
-            s[i] = s[n - i - 1];
-            s[n - i - 1] = middle;
+    public static void reverseStringUseRecursion(char[] s, int a, int b) {
+        if (a > b) {
+            return;
         }
+        char temp = s[a];
+        s[a] = s[b];
+        s[b] = temp;
+        reverseStringUseRecursion(s, a + 1, b - 1);
 
-        System.out.println(s);
     }
 
     public static void main(String[] args) {
-        char[] s = {'h', 'e', 'l', 'l', 'o' };
-        reverseString(s);
+        char[] s = {'h', 'e', 'l', 'l', 'o'};
+        reverseStringUseRecursion(s, 0, s.length - 1);
     }
 }
