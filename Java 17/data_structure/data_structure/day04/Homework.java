@@ -10,12 +10,12 @@ public class Homework {
             return;
         }
 
-        System.out.println(arr[i][j]);
+        System.out.print(arr[i][j]+" ");
         if (j < arr[i].length - 1) {
             Duyet(i, j + 1, arr);
             return;
         }
-
+        System.out.println();
         Duyet(i + 1, 0, arr);
 
     }

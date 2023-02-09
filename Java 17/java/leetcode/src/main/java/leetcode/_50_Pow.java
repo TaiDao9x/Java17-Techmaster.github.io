@@ -1,22 +1,21 @@
 package leetcode;
 
 public class _50_Pow {
-    public static double myPow(double x, int n) {
-        if (n == 0) return 1;
+    public  double myPow(double x, int n) {
+        return pow(x, n);
+    }
 
-        int m = 0;
-        if (n < 0) {
-            x = 1 / x;
-            m = -(n / 2);
+    public double pow(double x, long n) {
+        double rs = 0;
+        if (n > 0) {
+            rs = Math.pow(x, n);
         } else {
-            m = n / 2;
-        }
+            rs = Math.pow(1 / x, -n);
 
-        double t = myPow(x, m);
-        return (n % 2 == 0) ? t * t : t * t * x;
+        }
+        return rs;
     }
 
     public static void main(String[] args) {
-        System.out.println(myPow(2, 5));
     }
 }
