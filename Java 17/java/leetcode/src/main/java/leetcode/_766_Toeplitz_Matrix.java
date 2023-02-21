@@ -13,5 +13,4 @@ public class _766_Toeplitz_Matrix {
     }
 }
 
-// Độ phức tập thuật toán khi for nhau lồng nhau: (n-1)*(n-1)= n2 - 2n +1 -> Độ phức tạp thuật toán: O(n2)
-// O n bình phương
+// Độ phức tập thuật toán khi for nhau lồng nhau: (n-1)*(n-1)= n^2 - 2n +1 -> Độ phức tạp thuật toán: O(n^2)
