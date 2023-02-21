@@ -16,5 +16,5 @@ public class _283_Move_Zeroes {
 }
 
 // Vòng for 1 chạy n lần, vòng for 2 với worst case khi k=0 -> vòng for này sẽ chạy n lần
-// Fn = n + n = 2n
-// O(Fn) = O(2n) = O(n)
+// f(n) = n + n = 2n
+// O(f(n) ) = O(2n) = O(n)
