@@ -1,7 +1,8 @@
+package day08;
+
 import java.util.Scanner;
 
 public class main {
-
     public static long fib1(int n) {
         if (n < 2) {
             return 1;
@@ -34,6 +35,5 @@ public class main {
 
         System.out.println("N1: " + N1 + ", time: " + (t1 - t0));
         System.out.println("N2: " + N2 + ", time: " + (t2 - t1));
-
     }
 }

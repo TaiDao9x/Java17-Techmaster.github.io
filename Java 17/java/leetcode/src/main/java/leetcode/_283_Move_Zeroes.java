@@ -14,3 +14,6 @@ public class _283_Move_Zeroes {
         }
     }
 }
+
+// Vòng for 1 chạy n lần, vòng for 2 với worst case khi k=0 -> vòng for này sẽ chạy n lần
+// => độ phức tạp là: n + n = 2n -> O(n)

@@ -6,31 +6,29 @@ import java.util.Comparator;
 public class _2418_Sort_the_People {
 
     // PHÂN TÍCH ĐỀ BÀI:
+    // Sử dụng 2 vòng for để kiểm tra và sắp xếp
+    // Sau khi sắp xếp xong chiều cao -> ta dựa vào các chỉ số vừa thay đổi để sắp xếp lại tên
+
 
     public static String[] sortPeople(String[] names, int[] heights) {
         int n = names.length;
 
-        // Sử dụng mảng làm trung gian để chuyển vị trí bên mảng name
-        Integer[] index = new Integer[n];
-        for (int i = 0; i < n; i++) {
-            index[i] = i;
-        }
+        // Sử dụng vòng for để sắp xếp
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (heights[i] < heights[j]) {
+                    int temp = heights[i];
+                    heights[i] = heights[j];
+                    heights[j] = temp;
 
-        // Sắp xếp mảng index theo sự sắp xếp của mảng height
-        Arrays.sort(index, new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return heights[o2] - heights[o1];
+                    String swap = names[i];
+                    names[i] = names[j];
+                    names[j] = swap;
+
+                }
             }
-        });
-
-        String[] rs = new String[n];
-
-        // Dựa vào mảng index để thêm vào mảng rs như mong muốn
-        for (int i = 0; i < n; i++) {
-            rs[i] = names[index[i]];
         }
-        return rs;
+        return names;
     }
 
     public static void main(String[] args) {
