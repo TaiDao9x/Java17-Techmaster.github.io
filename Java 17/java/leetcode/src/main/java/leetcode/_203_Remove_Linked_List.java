@@ -27,6 +27,8 @@ public class _203_Remove_Linked_List {
                 currentNode.next = currentNode.next.next;
                 continue; // after link to the new node, keep the currentNode to check new node
             }
+
+            // not change any node move to next node
             currentNode = currentNode.next;
         }
         return head;

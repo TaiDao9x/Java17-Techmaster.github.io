@@ -4,15 +4,15 @@ public class _21_Merge_Two_Sorted_Lists {
 
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 
-        // Creat a new node to link after compare (list1.val vs list2.val)
+        // Create a new node to link after compare (list1.val vs list2.val)
         ListNode rs = new ListNode();
 
-        // Creat currentNode to move from head to last linked list rs
+        // Create currentNode to move from head to last of linkedList rs
         ListNode currentNode = rs;
 
         while (list1 != null && list2 != null) {
 
-            // Compare two val of list1, list2 -> Find smaller val -> link to rs, move list to next node
+            // Compare two val of list1, list2 -> Find smaller val -> link node
             if (list1.val < list2.val) {
                 currentNode.next = list1;
                 list1 = list1.next;
