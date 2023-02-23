@@ -18,5 +18,6 @@ public class Main {
         doublyLinkedList.removeAt(2);
         System.out.println(doublyLinkedList.toString());
 
+
     }
 }

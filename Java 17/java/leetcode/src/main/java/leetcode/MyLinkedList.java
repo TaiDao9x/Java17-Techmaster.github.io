@@ -1,7 +1,5 @@
 package leetcode;
 
-import org.w3c.dom.Node;
-
 public class MyLinkedList {
 
     int size;
