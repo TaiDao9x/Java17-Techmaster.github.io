@@ -3,52 +3,44 @@ package leetcode;
 import java.util.Stack;
 
 public class MinStack {
-    Stack<Integer> st;
-    Stack<Integer> minSt;
+    Stack<Integer> stack; // Create stack to contain value
+
+    Stack<Integer> min; // Crete min to contain min value
+
 
     public MinStack() {
-        st = new Stack<>();
-        minSt = new Stack<>();
+        stack = new Stack<>();
+        min = new Stack<>();
     }
 
     public void push(int val) {
-        if (!minSt.isEmpty()){
-            if (minSt.peek() >= val){
-                minSt.push(val);
+        if (stack.isEmpty()) {
+            min.push(val);
+        } else {
+            if (val <= min.peek()) {
+                min.push(val);
             }
         }
-        else minSt.push(val);
-
-        st.push(val);
+        stack.push(val);
     }
 
     public void pop() {
-        if (minSt.peek().equals(st.peek())) {
-            minSt.pop();
+        if (stack.peek().equals(min.peek())) {
+            min.pop();
         }
-        st.pop();
+        stack.pop();
     }
 
     public int top() {
-        return st.peek();
+        return stack.peek();
     }
 
     public int getMin() {
-        return minSt.peek();
+        return min.peek();
     }
 
-
-
-    public static void main(String[] args) {
-        MinStack minStack = new MinStack();
-
-
-        minStack.push(2);
-        minStack.push(0);
-        minStack.push(3);
-        minStack.push(0);
-
-
-        System.out.println();
-    }
+    //  stack   min
+    //  [-3]
+    //  [0]     [-3]
+    //  [-2]    [-2]
 }
