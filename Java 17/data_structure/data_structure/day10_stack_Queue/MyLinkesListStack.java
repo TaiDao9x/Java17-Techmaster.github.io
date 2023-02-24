@@ -44,24 +44,26 @@ public class MyLinkesListStack {
         return head == null;
     }
 
+    public static void print() {
+        Node currntNode = head;
+        while (currntNode != null) {
+            System.out.print(currntNode.val + ", ");
+            currntNode = currntNode.next;
+        }
+    }
+
     public static void main(String[] args) {
-//        push(1);
-//        push(2);
-//        push(3);
-//        System.out.println(pop());
-//        System.out.println(peek());
-//        System.out.println(pop());
-//        System.out.println(pop());
-//        System.out.println(pop());
-//        System.out.println(pop());
+        push(0);
 
+        push(-2);
+        push(0);
 
-        Stack<Integer> stack = new Stack<>();
-        stack.push(0);
-        stack.push(1);
-        stack.push(2);
+        push(-3);
+        push(3);
+        push(0);
 
-        stack.peek();
+        print();
+
     }
 
 }
