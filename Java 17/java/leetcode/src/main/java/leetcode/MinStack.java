@@ -2,7 +2,6 @@ package leetcode;
 
 import java.util.Stack;
 
-
 // Answer 1
 
 // Use 2 Stack: stack and min (save min value)
@@ -19,9 +18,7 @@ import java.util.Stack;
 public class MinStack {
 
     Stack<Integer> stack;
-
     Stack<Integer> min;
-
 
     public MinStack() {
         stack = new Stack<>();
@@ -90,9 +87,9 @@ public class MinStack2 {
 
     public void pop() {
         if (stack.pop() == min) {
-            if (stack.isEmpty()) {
-                min = Integer.MAX_VALUE;
-            } else min = stack.pop();
+            if (!stack.isEmpty()) {
+                min = stack.pop();
+            }
         }
     }
 
