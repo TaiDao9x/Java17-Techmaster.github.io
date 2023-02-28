@@ -4,7 +4,7 @@ import java.util.Stack;
 
 // Answer 1
 
-// Use 2 Stack: stack and min (save min value)
+// Use 2 Stack: stack and min (save min value)`
 // If stack is empty -> push val into both stack and min (the first element)
 // If not we compare val vs top of min -> if val<=min -> push val into min and stack
 // when call method pop(), we compare value need to pop vs value at top of min
@@ -12,8 +12,8 @@ import java.util.Stack;
 // getMin always is value at top of min
 
 //  stack   min
-//  [-3]
-//  [0]     [-3]
+//  [-3]    [-3]
+//  [0]     [-2]
 //  [-2]    [-2]
 public class MinStack {
 

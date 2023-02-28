@@ -1,13 +1,26 @@
 package leetcode;
 
-import java.util.Arrays;
+import java.util.HashSet;
 
-public class NumJewelsInStones {
-    public static void main(String[] args) {
-        System.out.println(numJewelsInStones("aA", "aAAbbbb"));
+public class _771_Jewels_and_Stones {
+
+    // Answer1: O(n)
+    public int numJewelsInStones(String jewels, String stones) {
+        HashSet<Character> map = new HashSet<>();
+        int count = 0;
+        for (int i = 0; i < jewels.length(); i++) {
+            map.add(jewels.charAt(i));
+        }
+        for (int i = 0; i < stones.length(); i++) {
+            if (map.contains(stones.charAt(i))) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    public static int numJewelsInStones(String jewels, String stones) {
+    // Answer 2: O(n^2 )
+    public int numJewelsInStones2(String jewels, String stones) {
         char[] jewelsArr = new char[jewels.length()];
         char[] stoneArr = new char[stones.length()];
 
