@@ -1,24 +1,23 @@
 package leetcode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class _387_First_Unique_Character_in_a_String {
 
     // Use Hashset  O(n)
     public static int firstUniqChar(String s) {
-        Set<Character> setUnique = new HashSet<>();
-        Set<Character> set = new HashSet<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (!set.contains(s.charAt(i))) {
-                if (setUnique.contains(s.charAt(i))) {
-                    setUnique.remove(s.charAt(i));
-                    set.add(s.charAt(i));
-                } else setUnique.add(s.charAt(i));
-            }
+        Map<Character, Integer> map = new HashMap<>();
+        for (Character c : s.toCharArray()) {
+            if (map.containsKey(c)) {
+                map.put(c, map.get(c) + 1);
+            } else map.put(c, 0);
         }
+
         for (int i = 0; i < s.length(); i++) {
-            if (setUnique.contains(s.charAt(i))) {
+            if (map.get(s.charAt(i)) == 0) {
                 return i;
             }
         }
