@@ -14,10 +14,10 @@ public class _108_Convert_Sorted_Array_to_BST {
         int mid = (x + y) / 2;
 
         TreeNode root = new TreeNode(nums[mid]);
-        // root.left is nums[mid] of left side
+        // root.left is nums[mid] of left subtree
         root.left = insertNode(x, mid, nums);
 
-        // root.right is nums[mid] of right side
+        // root.right is nums[mid] of right subtree
         root.right = insertNode(mid + 1, y, nums);
         return root;
     }
