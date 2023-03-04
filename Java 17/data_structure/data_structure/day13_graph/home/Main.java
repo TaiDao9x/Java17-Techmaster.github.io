@@ -1,48 +1,35 @@
 package day13_graph.home;
 
-import java.util.*;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
         int[][] graph = {
-                {0, 1, 0, 0, 0, 0, 0},
-                {1, 0, 1, 1, 1, 0, 0},
-                {0, 1, 0, 0, 0, 1, 0},
-                {0, 1, 1, 0, 0, 1, 1},
-                {0, 1, 0, 1, 0, 0, 1},
-                {0, 0, 1, 1, 0, 0, 0},
-                {0, 0, 0, 1, 1, 0, 0},
+                //  0  1  2  3  4  5  6
+                {0, 1, 0, 0, 0, 0, 0}, // 0
+                {1, 0, 1, 1, 1, 0, 0}, // 1
+                {0, 1, 0, 0, 0, 1, 0}, // 2
+                {0, 1, 0, 0, 0, 1, 1}, // 3
+                {0, 1, 0, 0, 0, 0, 1}, // 4
+                {0, 0, 1, 1, 0, 0, 0}, // 5
+                {0, 0, 0, 1, 1, 0, 0}  // 6
         };
-        Queue<Integer> queue = new LinkedList<>();
-        Set<Integer> daDuyet = new HashSet<>();
+//        DFS(graph);
+        Set<Integer> visited = new HashSet<>();
+        DFS(graph, visited, 0);
 
-        // Add the first element
-//        queue.add(0);
-//        daDuyet.add(0);
-//
-//        // Mark daDuyet first element
-//        while (!queue.isEmpty()) {
-//            int u = queue.poll();
-//            System.out.print(u + ", ");
-//            for (int v = 0; v < graph.length; v++) {
-//                if (graph[u][v] == 1 && !daDuyet.contains(v)) {
-//                    queue.add(v);
-//                    daDuyet.add(v);
-//                }
-//            }
-//        }
-//        System.out.println();
-        daDuyet.add(0);
-        BFS(0, graph, daDuyet);
     }
 
-    public static void BFS(int u, int[][] graph, Set<Integer> daDuyet) {
-        // process u
+    private static void DFS(int[][] graph, Set<Integer> visited, int u) {
+
         System.out.print(u + " ");
-        for (int i = 0; i < graph.length; i++) {
-            if (graph[u][i] == 1 && !daDuyet.contains(i)) {
-                daDuyet.add(i);
-                BFS(i, graph, daDuyet);
+        visited.add(u);
+        for (int v = graph.length - 1; v >= 0; v--) {
+            if (graph[u][v] != 0 && !visited.contains(v)) {
+                DFS(graph, visited, v);
             }
         }
     }

@@ -4,10 +4,9 @@ public class _98_Validate_Binary_Search_Tree {
     public boolean isValidBST(TreeNode root) {
         if (root == null) return true;
         // So sánh giá trị min, max với giá trị của root
-        if (root.left != null && findMaxLeft(root.left) > root.val) return false;
-        if (root.right != null && findMInRight(root.right) < root.val) return false;
-        if (!isValidBST(root.left) || !isValidBST(root.right)) return false;
-        return true;
+        if (root.left != null && findMaxLeft(root.left) >= root.val) return false;
+        if (root.right != null && findMInRight(root.right) <= root.val) return false;
+        return isValidBST(root.left) && isValidBST(root.right);
     }
 
     // Tìm giá trị nhỏ nhất của subtree bên phải
