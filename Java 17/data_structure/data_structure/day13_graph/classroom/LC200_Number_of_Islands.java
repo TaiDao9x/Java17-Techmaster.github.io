@@ -14,7 +14,7 @@ public class LC200_Number_of_Islands {
                     // DFS
                     count++;
 
-                    BFS(grid, visited, i, j);
+                    DFS(grid, visited, i, j);
                 }
             }
         }
@@ -26,6 +26,20 @@ public class LC200_Number_of_Islands {
 
                 || visited[x][y] || grid[x][y] == '0';
 
+    }
+
+    private void DFS(char[][] grid, boolean[][] visited, int x, int y) {
+        if (isNotValid(grid, visited, x, y)) {
+            return;
+        }
+        // process
+        visited[x][y] = true;
+
+        // lan luot xet 4 dinh xung quanh dinh hien tai, dua tren x va y
+        DFS(grid, visited, x - 1, y);
+        DFS(grid, visited, x + 1, y);
+        DFS(grid, visited, x, y - 1);
+        DFS(grid, visited, x, y + 1);
     }
 
     private void BFS(char[][] grid, boolean[][] visited, int x, int y) {
@@ -52,17 +66,5 @@ public class LC200_Number_of_Islands {
         }
     }
 
-    private void DFS(char[][] grid, boolean[][] visited, int x, int y) {
-        if (isNotValid(grid, visited, x, y)) {
-            return;
-        }
-        // process
-        visited[x][y] = true;
 
-        // lan luot xet 4 dinh xung quanh dinh hien tai, dua tren x va y
-        DFS(grid, visited, x - 1, y);
-        DFS(grid, visited, x + 1, y);
-        DFS(grid, visited, x, y - 1);
-        DFS(grid, visited, x, y + 1);
-    }
 }
