@@ -7,26 +7,25 @@ import java.util.Set;
 
 public class LengthOfLongestSubstring {
     public static void main(String[] args) {
-        String s = "abcabcbb";
-//        System.out.println(lengthOfLongestSubstring(s));
-
-        ArrayList<Integer> list = new ArrayList<>();
-        int max = 0;
-        for (int i = 0; i < s.length(); i++) {
-            int count = 0;
-            for (int j = i + 1; j < s.length(); j++) {
-                if (s.charAt(i) == s.charAt(j)) {
-                    break;
-                }else {
-                    count++;
-                }
-                list.add(count);
-            }
-        }
-        System.out.println(list);
+        String s = "abcabcbe";
+        System.out.println(lengthOfLongestSubstring(s));
     }
 
-//    public static int lengthOfLongestSubstring(String s) {
-//
-//    }
+    public static int lengthOfLongestSubstring(String s) {
+        Set<Character> rs = new HashSet<>();
+        int max = 0;
+        int left = 0, right = 0;
+        while (right < s.length()) {
+            if (!rs.contains(s.charAt(right))) {
+                rs.add(s.charAt(right));
+                right++;
+                max = Math.max(max, right - left);
+            } else {
+                rs.remove(s.charAt(left));
+                left++;
+            }
+        }
+        return max;
+    }
+
 }
