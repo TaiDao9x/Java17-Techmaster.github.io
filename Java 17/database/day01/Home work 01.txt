@@ -1,0 +1,12 @@
+1. SELECT students.*,scores.diemToan 
+FROM students,scores 
+WHERE students.id=scores.sinhVienid AND diemToan=(SELECT MAX(diemToan) FROM `scores`);
+
+2. SELECT students.*,scores.diemVan 
+FROM students,scores 
+WHERE students.id = scores.sinhVienid AND diemVan=(SELECT MIN(diemVan) FROM scores);
+
+3. SELECT students.*,scores.diemToan,scores.diemVan,scores.diemAnh 
+FROM students,scores 
+WHERE students.id=scores.sinhVienid 
+	AND (diemToan=(SELECT MIN(diemToan) FROM `scores`) OR diemVan=(SELECT MIN(diemVan) FROM scores) OR diemAnh=(SELECT MIN(diemAnh) FROM scores))
