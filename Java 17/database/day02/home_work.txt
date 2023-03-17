@@ -1,0 +1,31 @@
+1. SELECT `sinhvien_id`, MAX(`tongDiemToan` ) FROM
+
+(SELECT `tbl_diem`.`sinhvien_id`, SUM(`tbl_diem`.`diem_toan`) AS `tongDiemToan` 
+	FROM `tbl_diem`
+	GROUP BY `tbl_diem`.`sinhvien_id`
+	ORDER BY `tongDiemToan` DESC
+) AS QUERY
+----------------------------------
+2. SELECT `tbl_sinhvien`.`email` FROM `tbl_sinhvien` WHERE `tbl_sinhvien`.`id`=
+(SELECT `sinhvien_id` FROM
+	(SELECT `sinhvien_id`, MAX(`tongDiemVan` ) FROM
+		(SELECT `tbl_diem`.`sinhvien_id`, SUM(`tbl_diem`.`diem_van`) AS `tongDiemVan` 
+			FROM `tbl_diem`
+			GROUP BY `tbl_diem`.`sinhvien_id`
+			ORDER BY `tongDiemVan` DESC
+		) AS QUERY
+	) AS QUERY
+)
+---------------------------------
+3. SELECT `tbl_lop`.`ten_lop` FROM `tbl_lop` WHERE `tbl_lop`.`id` = 
+(SELECT `tbl_sinhvien`.`lop_id` FROM `tbl_sinhvien` WHERE `tbl_sinhvien`.`id`=
+	(SELECT `sinhvien_id` FROM
+       		 (SELECT `sinhvien_id`, MAX(`tongDiemAnh` ) FROM
+			(SELECT `tbl_diem`.`sinhvien_id`, SUM(`tbl_diem`.`diem_anh`) AS `tongDiemAnh` 
+				FROM `tbl_diem`
+				GROUP BY `tbl_diem`.`sinhvien_id`
+				ORDER BY `tongDiemAnh` DESC
+			) AS QUERY
+		) AS QUERY
+    	)
+)
