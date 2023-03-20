@@ -92,12 +92,12 @@ WHERE b.Madt IS NULL;
 
 11. Cho biết mã số, họ tên, tên khoa của các giảng viên hướng dẫn từ 3 sinh viên trở lên.
 
-SELECT a.Magv, a.Hotengv, b.Tenkhoa, COUNT(c.Masv) AS 'SoSVDuocHD' 
+SELECT a.Magv, a.Hotengv, b.Tenkhoa
 FROM `tblgiangvien` a 
 JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
 JOIN `tblhuongdan` c ON a.Magv = c.Magv 
 GROUP BY c.Magv 
-HAVING `SoSVDuocHD` > 2;
+HAVING COUNT(c.Masv) > 3;
 -------------
 
 12. Cho biết mã số, tên đề tài của đề tài có kinh phí cao nhất
@@ -108,11 +108,11 @@ FROM `tbldetai` a;
 
 13. Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực tập
 
-SELECT a.Madt, a.Tendt, COUNT(b.Masv) AS 'soSVThamGia' 
+SELECT a.Madt, a.Tendt
 FROM `tbldetai` a 
 LEFT JOIN `tblhuongdan` b ON a.Madt = b.Madt 
 GROUP BY b.Madt
-HAVING `soSVThamGia` > 2;
+HAVING COUNT(b.Masv) > 2;
 -------------
 
 14. Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIA LY và QLTN’
