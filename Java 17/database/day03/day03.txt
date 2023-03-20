@@ -26,7 +26,7 @@ WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
 SELECT a.Masv, a.Hotensv, (YEAR(CURRENT_TIMESTAMP) - a.Namsinh) AS 'age' 
 FROM `tblsinhvien` a 
 LEFT JOIN `tblkhoa` b ON a.Makhoa=b.Makhoa 
-WHERE b.Tenkhoa LIKE 'Toan';
+WHERE b.Tenkhoa LIKE '%Toan%';
 -------------
 
 5. Cho biết số giảng viên của khoa ‘CONG NGHE SINH HOC’
@@ -37,113 +37,117 @@ LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa
 WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
 -------------
 
-6. Cho biết thông tin về sinh viên không tham gia thực tập (Not Exist)
-CACH 1:
-SELECT * FROM `tblsinhvien` 
-WHERE NOT EXISTS (
-   SELECT * FROM `tblhuongdan` 
-   WHERE `tblsinhvien`.`Masv`=`tblhuongdan`.`Masv`);
+6. Cho biết thông tin về sinh viên không tham gia thực tập
 
-CACH 2:
-SELECT `tblsinhvien`.* 
-FROM `tblsinhvien` 
-LEFT JOIN `tblhuongdan` ON `tblsinhvien`.`Masv`=`tblhuongdan`.`Masv` 
-WHERE `tblhuongdan`.`Masv` IS NULL;
----------
+- CACH 1:
+SELECT a.* FROM `tblsinhvien` a 
+WHERE NOT EXISTS(
+    SELECT * FROM `tblsinhvien` 
+    JOIN `tblhuongdan` b ON a.Masv = b.Masv);
+
+- CACH 2:
+SELECT a.* FROM `tblsinhvien` a 
+LEFT JOIN `tblhuongdan` b ON a.Masv = b.Masv 
+WHERE b.Masv IS NULL;
+-------------
 
 7. Đưa ra mã khoa, tên khoa và số giảng viên của mỗi khoa
-SELECT `tblgiangvien`.`Makhoa`, `tblkhoa`.`Tenkhoa`, COUNT(`tblgiangvien`.`Hotengv`) AS `soGiangVienCuaKhoa` 
-FROM `tblgiangvien` 
-LEFT JOIN `tblkhoa` ON `tblgiangvien`.`Makhoa`=`tblkhoa`.`Makhoa` 
-GROUP BY `tblgiangvien`.`Makhoa`;
----------
 
-8. Cho biết số điện thoại của khoa mà sinh viên có tên ‘Le van son’ đang theo 
-học
-SELECT `tblsinhvien`.`Hotensv` , `tblkhoa`.`Tenkhoa`, `tblkhoa`.`Dienthoai`
-FROM `tblsinhvien` 
-JOIN `tblkhoa` ON `tblsinhvien`.`Makhoa`=`tblkhoa`.`Makhoa`
-WHERE `tblsinhvien`.`Hotensv`='Le Van Son';
----------
+SELECT a.Makhoa, b.Tenkhoa, COUNT(a.Magv) AS 'soGVMoiKhoa' 
+FROM `tblgiangvien` a 
+JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
+GROUP BY b.Tenkhoa;
+-------------
+
+8. Cho biết số điện thoại của khoa mà sinh viên có tên ‘Le van son’ đang theo học
+
+SELECT b.Tenkhoa, b.Dienthoai 
+FROM `tblsinhvien` a 
+JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
+WHERE a.Hotensv LIKE '%le van son%';
+-------------
 
 9. Cho biết mã số và tên của các đề tài do giảng viên ‘Tran son’ hướng dẫn
-SELECT `tblhuongdan`.`Madt`, `tbldetai`.`Tendt`, `tblgiangvien`.`Hotengv` 
-FROM `tblhuongdan` 
-LEFT JOIN `tbldetai` ON `tblhuongdan`.`Madt`=`tbldetai`.`Madt`
-JOIN `tblgiangvien` ON `tblhuongdan`.`Magv` = `tblgiangvien`.`Magv`
-WHERE `tblgiangvien`.`Hotengv` = 'Tran Son';
----------
+
+SELECT a.Madt, a.Tendt 
+FROM `tbldetai` a 
+JOIN `tblhuongdan` b ON a.Madt = b.Madt 
+JOIN `tblgiangvien` c ON b.Magv = c.Magv 
+WHERE c.Hotengv LIKE '%Tran Son%';
+-------------
 
 10. Cho biết tên đề tài không có sinh viên nào thực tập
-CACH 1: 
-SELECT * FROM `tbldetai` 
+
+- CACH 1:
+SELECT a.Tendt FROM `tbldetai` a 
 WHERE NOT EXISTS (
-    SELECT * FROM `tblhuongdan` 
-    WHERE `tbldetai`.`Madt`=`tblhuongdan`.`Madt`);
+    SELECT * FROM `tbldetai` 
+    JOIN `tblhuongdan` b ON a.Madt = b.Madt);
 
-CACH 2: 
-SELECT `tbldetai`.* FROM `tbldetai` 
-LEFT JOIN `tblhuongdan` ON `tblhuongdan`.`Madt` = `tbldetai`.`Madt` 
-WHERE`tblhuongdan`.`Madt` IS NULL
----------
+- CACH 2:
+SELECT a.Tendt FROM `tbldetai` a 
+LEFT JOIN `tblhuongdan` b ON a.Madt = b.Madt 
+WHERE b.Madt IS NULL;
+-------------
 
-11. Cho biết mã số, họ tên, tên khoa của các giảng viên hướng dẫn từ 3 sinh
-viên trở lên.
-SELECT a.`Magv`, a.`Hotengv`,c.Tenkhoa,  COUNT(b.`Masv`) AS `soSinhVien` 
+11. Cho biết mã số, họ tên, tên khoa của các giảng viên hướng dẫn từ 3 sinh viên trở lên.
+
+SELECT a.Magv, a.Hotengv, b.Tenkhoa, COUNT(c.Masv) AS 'SoSVDuocHD' 
 FROM `tblgiangvien` a 
-JOIN `tblhuongdan` b ON a.Magv= b.Magv
-JOIN `tblkhoa` c ON a.Makhoa=c.Makhoa
-GROUP BY a.`Magv` 
-HAVING `soSinhVien` > 3
----------
+JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
+JOIN `tblhuongdan` c ON a.Magv = c.Magv 
+GROUP BY c.Magv 
+HAVING `SoSVDuocHD` > 2;
+-------------
 
 12. Cho biết mã số, tên đề tài của đề tài có kinh phí cao nhất
-SELECT * FROM `tbldetai`
-WHERE `tbldetai`.`Kinhphi`=(
-    SELECT MAX(`tbldetai`.`Kinhphi`) 
-    FROM `tbldetai`);
----------
 
-13. Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực
-tập
-SELECT b.`Madt`, b.`Tendt`, COUNT(a.`Madt`) AS `soSVThucTap` 
-FROM `tblhuongdan` a 
-JOIN `tbldetai` b ON a.Madt= b.Madt 
-GROUP BY a.Madt
-HAVING `soSVThucTap` > 2;
----------
+SELECT a.Madt, a.Tendt, MAX(a.Kinhphi) AS 'kinhPhiCaoNhat' 
+FROM `tbldetai` a;
+-------------
 
-14. Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIALY và QLTN’
-SELECT `tblhuongdan`.`Masv`,`tblsinhvien`.`Hotensv`,`tblhuongdan`.`KetQua` 
-FROM `tblhuongdan` 
-JOIN `tblsinhvien` ON `tblhuongdan`.`Masv`=`tblsinhvien`.`Masv` 
-WHERE `tblsinhvien`.`Makhoa` ='Geo'
----------
+13. Cho biết mã số và tên các đề tài có nhiều hơn 2 sinh viên tham gia thực tập
+
+SELECT a.Madt, a.Tendt, COUNT(b.Masv) AS 'soSVThamGia' 
+FROM `tbldetai` a 
+LEFT JOIN `tblhuongdan` b ON a.Madt = b.Madt 
+GROUP BY b.Madt
+HAVING `soSVThamGia` > 2;
+-------------
+
+14. Đưa ra mã số, họ tên và điểm của các sinh viên khoa ‘DIA LY và QLTN’
+
+SELECT a.Masv, a.Hotensv, b.KetQua 
+FROM `tblsinhvien` a 
+JOIN `tblhuongdan` b ON a.Masv = b.Masv 
+JOIN `tblkhoa` c ON a.Makhoa = c.Makhoa 
+WHERE c.Tenkhoa LIKE '%dia ly%';
+-------------
 
 15. Đưa ra tên khoa, số lượng sinh viên của mỗi khoa
-SELECT `tblkhoa`.`Tenkhoa`, COUNT(`tblsinhvien`.`Makhoa`) AS `soSinhVienCuaKhoa` 
-FROM `tblsinhvien` 
-LEFT JOIN `tblkhoa` ON `tblsinhvien`.`Makhoa`=`tblkhoa`.`Makhoa` 
-GROUP BY `tblkhoa`.`Tenkhoa`;
----------
+
+SELECT a.Tenkhoa, COUNT(b.Masv) AS 'so_SV_Moi_Khoa'
+FROM `tblkhoa` a 
+LEFT JOIN `tblsinhvien` b ON a.Makhoa = b.Makhoa
+GROUP BY a.Tenkhoa;
+-------------
 
 16. Cho biết thông tin về các sinh viên thực tập tại quê nhà
-SELECT a.*,b.`Madt`,b.`Magv`,b.`KetQua`,c.`Noithuctap` 
-FROM `tblsinhvien` AS a
-JOIN `tblhuongdan` AS b ON a.`Masv`= b.`Masv`
-LEFT JOIN `tbldetai` AS c ON b.`Madt`= c.`Madt`
-WHERE a.`Quequan` = c.`Noithuctap`;
----------
+
+SELECT a.* FROM `tblsinhvien` a
+LEFT JOIN `tblhuongdan` b ON a.Masv = b.Masv 
+LEFT JOIN `tbldetai` c ON b.Madt = c.Madt
+WHERE a.Quequan = c.Noithuctap;
+-------------
 
 17. Hãy cho biết thông tin về những sinh viên chưa có điểm thực tập
-SELECT `tblsinhvien`.*,`tblhuongdan`.`KetQua` 
-FROM `tblsinhvien` 
-JOIN `tblhuongdan` ON `tblsinhvien`.`Masv`=`tblhuongdan`.`Masv`
-WHERE `tblhuongdan`.`KetQua` IS NULL;
----------
+
+SELECT a.* FROM `tblsinhvien` a 
+JOIN `tblhuongdan` b ON a.Masv = b.Masv 
+WHERE b.KetQua IS NULL;
+-------------
 
 18. Đưa ra danh sách gồm mã số, họ tên các sinh viên có điểm thực tập bằng 0
-SELECT `tblsinhvien`.`Masv`,`tblsinhvien`.`Hotensv`,`tblhuongdan`.`KetQua` 
-FROM `tblsinhvien` 
-JOIN `tblhuongdan` ON `tblsinhvien`.`Masv`=`tblhuongdan`.`Masv`
-WHERE `tblhuongdan`.`KetQua` = 0;
+SELECT a.* FROM `tblsinhvien` a
+JOIN `tblhuongdan` b ON a.Masv = b.Masv
+WHERE b.KetQua = 0;
