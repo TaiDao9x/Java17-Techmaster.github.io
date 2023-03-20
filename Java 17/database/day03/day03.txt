@@ -1,32 +1,41 @@
-1. Đưa ra thông tin gồm mã số, họ tên và tên khoa của tất cả các giảng viên:
-SELECT `Magv`, `Hotengv`, `Makhoa`	
-FROM `tblgiangvien`;
----------
+1. Đưa ra thông tin gồm mã số, họ tên và tên khoa của tất cả các giảng viên
 
-2. Đưa ra thông tin gồm mã số, họ tên và tên khoa của các giảng viên của khoa SE
-‘DIA LY va QLTN’:
-SELECT `Magv`, `Hotengv`, `Makhoa`	
-FROM `tblgiangvien` 
-WHERE `Makhoa`='Geo';
----------
+SELECT a.Magv, a.Hotengv, b.Tenkhoa 
+FROM `tblgiangvien` a 
+LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa;
+-------------
+
+2. Đưa ra thông tin gồm mã số, họ tên và tên khoa của các giảng viên của khoa ‘DIA LY va QLTN’
+
+SELECT a.Magv, a.Hotengv, b.Tenkhoa 
+FROM `tblgiangvien` a 
+LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa
+WHERE b.Tenkhoa LIKE '%dia ly%';
+-------------
 
 3. Cho biết số sinh viên của khoa ‘CONG NGHE SINH HOC’
-SELECT COUNT(`tblsinhvien`.`Makhoa`) AS `soSinhVienKhoaBio`
-FROM `tblsinhvien`
-WHERE `tblsinhvien`.`Makhoa`='Bio';
----------
+
+SELECT COUNT(a.Masv) AS 'soSVKhoaCNSH' 
+FROM `tblsinhvien` a 
+LEFT JOIN `tblkhoa` b ON a.Makhoa=b.Makhoa 
+WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
+-------------
 
 4. Đưa ra danh sách gồm mã số, họ tên và tuổi của các sinh viên khoa ‘TOAN’
-SELECT `Masv`, `Hotensv`, `Namsinh`
-FROM `tblsinhvien`
-WHERE `tblsinhvien`.`Makhoa`='Math';
----------
+
+SELECT a.Masv, a.Hotensv, (YEAR(CURRENT_TIMESTAMP) - a.Namsinh) AS 'age' 
+FROM `tblsinhvien` a 
+LEFT JOIN `tblkhoa` b ON a.Makhoa=b.Makhoa 
+WHERE b.Tenkhoa LIKE 'Toan';
+-------------
 
 5. Cho biết số giảng viên của khoa ‘CONG NGHE SINH HOC’
-SELECT COUNT(`tblgiangvien`.`Makhoa`) AS `soGVKhoaBio`
-FROM `tblgiangvien`
-WHERE `Makhoa`= 'Bio';
----------
+
+SELECT COUNT(a.Magv) AS 'soGVKhoaCNSH' 
+FROM `tblgiangvien` a 
+LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
+WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
+-------------
 
 6. Cho biết thông tin về sinh viên không tham gia thực tập (Not Exist)
 CACH 1:
