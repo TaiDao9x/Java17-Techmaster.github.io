@@ -10,7 +10,7 @@ LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa;
 SELECT a.Magv, a.Hotengv, b.Tenkhoa 
 FROM `tblgiangvien` a 
 LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa
-WHERE b.Tenkhoa LIKE '%dia ly%';
+WHERE b.Tenkhoa = 'DIA LY va QLTN';
 -------------
 
 3. Cho biết số sinh viên của khoa ‘CONG NGHE SINH HOC’
@@ -18,7 +18,7 @@ WHERE b.Tenkhoa LIKE '%dia ly%';
 SELECT COUNT(a.Masv) AS 'soSVKhoaCNSH' 
 FROM `tblsinhvien` a 
 LEFT JOIN `tblkhoa` b ON a.Makhoa=b.Makhoa 
-WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
+WHERE b.Tenkhoa = 'CONG NGHE SINH HOC';
 -------------
 
 4. Đưa ra danh sách gồm mã số, họ tên và tuổi của các sinh viên khoa ‘TOAN’
@@ -26,7 +26,7 @@ WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
 SELECT a.Masv, a.Hotensv, (YEAR(CURRENT_TIMESTAMP) - a.Namsinh) AS 'age' 
 FROM `tblsinhvien` a 
 LEFT JOIN `tblkhoa` b ON a.Makhoa=b.Makhoa 
-WHERE b.Tenkhoa LIKE '%Toan%';
+WHERE b.Tenkhoa = ‘TOAN’;
 -------------
 
 5. Cho biết số giảng viên của khoa ‘CONG NGHE SINH HOC’
@@ -34,7 +34,7 @@ WHERE b.Tenkhoa LIKE '%Toan%';
 SELECT COUNT(a.Magv) AS 'soGVKhoaCNSH' 
 FROM `tblgiangvien` a 
 LEFT JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
-WHERE b.Tenkhoa LIKE '%cong nghe sinh hoc%';
+WHERE b.Tenkhoa = 'CONG NGHE SINH HOC';
 -------------
 
 6. Cho biết thông tin về sinh viên không tham gia thực tập
@@ -64,7 +64,7 @@ GROUP BY b.Tenkhoa;
 SELECT b.Tenkhoa, b.Dienthoai 
 FROM `tblsinhvien` a 
 JOIN `tblkhoa` b ON a.Makhoa = b.Makhoa 
-WHERE a.Hotensv LIKE '%le van son%';
+WHERE a.Hotensv ='le van son';
 -------------
 
 9. Cho biết mã số và tên của các đề tài do giảng viên ‘Tran son’ hướng dẫn
@@ -73,7 +73,7 @@ SELECT a.Madt, a.Tendt
 FROM `tbldetai` a 
 JOIN `tblhuongdan` b ON a.Madt = b.Madt 
 JOIN `tblgiangvien` c ON b.Magv = c.Magv 
-WHERE c.Hotengv LIKE '%Tran Son%';
+WHERE c.Hotengv ='Tran Son';
 -------------
 
 10. Cho biết tên đề tài không có sinh viên nào thực tập
@@ -121,7 +121,7 @@ SELECT a.Masv, a.Hotensv, b.KetQua
 FROM `tblsinhvien` a 
 JOIN `tblhuongdan` b ON a.Masv = b.Masv 
 JOIN `tblkhoa` c ON a.Makhoa = c.Makhoa 
-WHERE c.Tenkhoa LIKE '%dia ly%';
+WHERE c.Tenkhoa ='DIA LY và QLTN';
 -------------
 
 15. Đưa ra tên khoa, số lượng sinh viên của mỗi khoa
