@@ -20,6 +20,19 @@ Tân từ: Diễn giải chi tiết trong mỗi hóa đơn gồm có những s�
 số lượng là bao nhiêu.
 ------------------------------------
 
+KHACHHANG (MAKH, HOTEN, DCHI, SODT, NGSINH, DOANHSO, NGDK) 
+customers (id, name, address, phone, birthday, doanhSo,dateRegis)
+
+NHANVIEN (MANV,HOTEN, NGVL, SODT)
+staff(staff_id, name, dayIn, phone)
+
+HOADON (SOHD, NGHD, MAKH, MANV, TRIGIA)
+invoices (invoice_id, purchase_day, customer_id, staff_id, total)
+
+CTHD (SOHD,MASP,SL)
+cthd (invoice_id, product_id, quantity)
+-------------------------------------
+
 BÀI GIẢI:
 
 20. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2006 là bao nhiêu?
