@@ -1,0 +1,119 @@
+Bài tập 1:
+Cơ sở dữ liệu quản lý bán hàng gồm có các quan hệ sau:
+KHACHHANG (MAKH, HOTEN, DCHI, SODT, NGSINH, DOANHSO, NGDK)
+Tân từ: Quan hệ khách hàng sẽ lưu trữ thông tin của khách hàng thành viên 
+gồm có các thuộc tính: mã khách hàng, họ tên, địa chỉ, số điện thoại, ngày 
+sinh, ngày đăng ký và doanh số (tổng trị giá các hóa đơn của khách hàng 
+thành viên này).
+NHANVIEN (MANV,HOTEN, NGVL, SODT)
+Tân từ: Mỗi nhân viên bán hàng cần ghi nhận họ tên, ngày vào làm, điện 
+thoại liên lạc, mỗi nhân viên phân biệt với nhau bằng mã nhân viên.
+SANPHAM (MASP,TENSP, DVT, NUOCSX, GIA)
+Tân từ: Mỗi sản phẩm có một mã số, một tên gọi, đơn vị tính, nước sản xuất 
+và một giá bán.
+HOADON (SOHD, NGHD, MAKH, MANV, TRIGIA)
+Tân từ: Khi mua hàng, mỗi khách hàng sẽ nhận một hóa đơn tính tiền, trong 
+đó sẽ có số hóa đơn, ngày mua, hân viên nào bán hàng, trị giá của hóa đơn 
+là bao nhiêu và mã số của khách hàng nếu là khách hàng thành viên.
+CTHD (SOHD,MASP,SL)
+Tân từ: Diễn giải chi tiết trong mỗi hóa đơn gồm có những sản phẩm gì với 
+số lượng là bao nhiêu.
+------------------------------------
+
+BÀI GIẢI:
+
+1. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2006 là bao nhiêu?
+
+SELECT AVG(`invoices`.`total`) AS 'Tri gia TB nam 2021' 
+FROM `invoices`
+WHERE YEAR(`invoices`.`purchase_day`) = 2021;
+
+2. Tính doanh thu bán hàng trong năm 2006.
+
+SELECT SUM(`invoices`.`total`) AS 'Doanh thu nam 2021' 
+FROM `invoices` 
+WHERE Year(`invoices`.`purchase_day`) = 2021;
+
+3. Tìm số hóa đơn có trị giá cao nhất trong năm 2006.
+
+SELECT `invoices`.`invoice_id`, `invoices`.`total`  
+FROM `invoices`
+WHERE `invoices`.`total` = (
+    SELECT MAX(`invoices`.`total`) 
+    FROM `invoices` 
+    WHERE YEAR(`invoices`.`purchase_day`) = 2021);
+
+4. Tìm họ tên khách hàng đã mua hóa đơn có trị giá cao nhất trong năm 2006.
+
+SELECT `customers`.`name` AS 'Khach hang co hoa don cao nhat 2021' 
+FROM `customers` 
+JOIN `invoices` ON `customers`.`id`=`invoices`.`customer_id` 
+WHERE `invoices`.`total` = (
+    SELECT MAX(`invoices`.`total`) 
+    FROM `invoices` 
+    WHERE YEAR(`invoices`.`purchase_day`) = 2021);
+
+5. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất.
+
+SELECT `customers`.`id`, `customers`.`name`
+FROM `customers`
+ORDER BY `customers`.`doanhSo` DESC LIMIT 3;
+
+6. In ra danh sách các sản phẩm (MASP, TENSP) có giá bán bằng 1 trong 3 mức giá cao nhất.
+
+SELECT `products`.`product_id`, `products`.`product_name` FROM `products` 
+JOIN(SELECT `products`.`product_id`, `products`.`product_name`, 
+     DENSE_RANK() Over(ORDER BY `products`.`unit_price` DESC) AS Rank 
+     FROM `products`) e
+ON e.`product_id` = `products`.`product_id`
+WHERE e.Rank <=3;
+
+7. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của tất cả các sản phẩm).
+
+SELECT `products`.`product_id`, `products`.`product_name` 
+FROM `products` 
+WHERE `products`.`country` = 'Trung Quoc' AND  `products`.`product_id` IN
+(
+    SELECT `products`.`product_id` 
+    FROM `products` 
+    JOIN
+    (
+        SELECT `products`.`product_id`, `products`.`product_name`, 
+        DENSE_RANK() Over(ORDER BY `products`.`unit_price` ASC) AS Rank 
+        FROM `products` 
+    ) e ON e.`product_id` = `products`.`product_id`
+    WHERE e.Rank <=3
+);
+
+8. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của sản phẩm do “Trung Quốc” sản xuất).
+
+SELECT `products`.`product_id`, `products`.`product_name` 
+FROM `products` 
+WHERE `products`.`country` = 'Trung Quoc' AND  `products`.`product_id` IN
+(
+    SELECT `products`.`product_id` 
+    FROM `products` 
+    JOIN
+    (
+        SELECT `products`.`product_id`, `products`.`product_name`, 
+    	DENSE_RANK() Over(ORDER BY `products`.`unit_price` ASC) AS Rank 
+    	FROM `products` 
+        WHERE `products`.`country`='Trung Quoc'
+    ) e ON e.`product_id` = `products`.`product_id`
+    WHERE e.Rank <=3
+);
+
+9. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất (sắp xếp theo kiểu xếp hạng).
+10. Tính tổng số sản phẩm do “Trung Quốc” sản xuất.
+
+SELECT COUNT(`products`.`country`) AS 'Tong so SP do Trung Quoc SX'
+FROM `products` 
+WHERE `products`.`country` = 'trung quoc';
+
+11. Tính tổng số sản phẩm của từng nước sản xuất.
+
+SELECT `products`.`country`,COUNT(`products`.`country`) AS 'Tong so SP cac nuoc SX'
+FROM `products` 
+GROUP BY `products`.`country`;
+
+
