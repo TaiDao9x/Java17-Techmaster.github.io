@@ -19,8 +19,8 @@ CTHD (SOHD,MASP,SL)
 Tân từ: Diễn giải chi tiết trong mỗi hóa đơn gồm có những sản phẩm gì với 
 số lượng là bao nhiêu.
 ------------------------------------
-(Em đặt lại tên column thầy ạ, làm xong rồi mới để ý thế này thầy sẽ khó chấm :)))
-(Em convert lại cho thầy tiện chấm nhé thầy!)
+(Mình đặt lại tên column thầy ạ, làm xong rồi mới để ý thế này thầy sẽ khó chấm :)))
+(Mình ghi chú lại cho thầy tiện chấm nhé thầy!)
 KHACHHANG (MAKH, HOTEN, DCHI, SODT, NGSINH, DOANHSO, NGDK) 
 customers (id, name, address, phone, birthday, doanhSo,dateRegis)
 
