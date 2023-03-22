@@ -36,19 +36,19 @@ cthd (invoice_id, product_id, quantity)
 
 BÀI GIẢI:
 
-20. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2006 là bao nhiêu?
+20. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2021 là bao nhiêu?
 
 SELECT AVG(`invoices`.`total`) AS 'Tri gia TB nam 2021' 
 FROM `invoices`
 WHERE YEAR(`invoices`.`purchase_day`) = 2021;
 
-21. Tính doanh thu bán hàng trong năm 2006.
+21. Tính doanh thu bán hàng trong năm 2021.
 
 SELECT SUM(`invoices`.`total`) AS 'Doanh thu nam 2021' 
 FROM `invoices` 
 WHERE Year(`invoices`.`purchase_day`) = 2021;
 
-22. Tìm số hóa đơn có trị giá cao nhất trong năm 2006.
+22. Tìm số hóa đơn có trị giá cao nhất trong năm 2021.
 
 SELECT `invoices`.`invoice_id`, `invoices`.`total`  
 FROM `invoices`
@@ -57,7 +57,7 @@ WHERE `invoices`.`total` = (
     FROM `invoices` 
     WHERE YEAR(`invoices`.`purchase_day`) = 2021);
 
-23. Tìm họ tên khách hàng đã mua hóa đơn có trị giá cao nhất trong năm 2006.
+23. Tìm họ tên khách hàng đã mua hóa đơn có trị giá cao nhất trong năm 2021.
 
 SELECT `customers`.`name` AS 'Khach hang co hoa don cao nhat 2021' 
 FROM `customers` 
