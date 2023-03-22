@@ -22,19 +22,19 @@ số lượng là bao nhiêu.
 
 BÀI GIẢI:
 
-1. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2006 là bao nhiêu?
+20. Trị giá trung bình của tất cả các hóa đơn được bán ra trong năm 2006 là bao nhiêu?
 
 SELECT AVG(`invoices`.`total`) AS 'Tri gia TB nam 2021' 
 FROM `invoices`
 WHERE YEAR(`invoices`.`purchase_day`) = 2021;
 
-2. Tính doanh thu bán hàng trong năm 2006.
+21. Tính doanh thu bán hàng trong năm 2006.
 
 SELECT SUM(`invoices`.`total`) AS 'Doanh thu nam 2021' 
 FROM `invoices` 
 WHERE Year(`invoices`.`purchase_day`) = 2021;
 
-3. Tìm số hóa đơn có trị giá cao nhất trong năm 2006.
+22. Tìm số hóa đơn có trị giá cao nhất trong năm 2006.
 
 SELECT `invoices`.`invoice_id`, `invoices`.`total`  
 FROM `invoices`
@@ -43,7 +43,7 @@ WHERE `invoices`.`total` = (
     FROM `invoices` 
     WHERE YEAR(`invoices`.`purchase_day`) = 2021);
 
-4. Tìm họ tên khách hàng đã mua hóa đơn có trị giá cao nhất trong năm 2006.
+23. Tìm họ tên khách hàng đã mua hóa đơn có trị giá cao nhất trong năm 2006.
 
 SELECT `customers`.`name` AS 'Khach hang co hoa don cao nhat 2021' 
 FROM `customers` 
@@ -53,13 +53,13 @@ WHERE `invoices`.`total` = (
     FROM `invoices` 
     WHERE YEAR(`invoices`.`purchase_day`) = 2021);
 
-5. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất.
+24. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất.
 
 SELECT `customers`.`id`, `customers`.`name`
 FROM `customers`
 ORDER BY `customers`.`doanhSo` DESC LIMIT 3;
 
-6. In ra danh sách các sản phẩm (MASP, TENSP) có giá bán bằng 1 trong 3 mức giá cao nhất.
+25. In ra danh sách các sản phẩm (MASP, TENSP) có giá bán bằng 1 trong 3 mức giá cao nhất.
 
 SELECT `products`.`product_id`, `products`.`product_name` FROM `products` 
 JOIN(SELECT `products`.`product_id`, `products`.`product_name`, 
@@ -68,7 +68,7 @@ JOIN(SELECT `products`.`product_id`, `products`.`product_name`,
 ON e.`product_id` = `products`.`product_id`
 WHERE e.Rank <=3;
 
-7. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của tất cả các sản phẩm).
+26. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của tất cả các sản phẩm).
 
 SELECT `products`.`product_id`, `products`.`product_name` 
 FROM `products` 
@@ -85,7 +85,7 @@ WHERE `products`.`country` = 'Trung Quoc' AND  `products`.`product_id` IN
     WHERE e.Rank <=3
 );
 
-8. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của sản phẩm do “Trung Quốc” sản xuất).
+27. In ra danh sách các sản phẩm (MASP, TENSP) do “Trung Quốc” sản xuất có giá bằng 1 trong 3 mức iá thấp nhất (của sản phẩm do “Trung Quốc” sản xuất).
 
 SELECT `products`.`product_id`, `products`.`product_name` 
 FROM `products` 
@@ -103,14 +103,19 @@ WHERE `products`.`country` = 'Trung Quoc' AND  `products`.`product_id` IN
     WHERE e.Rank <=3
 );
 
-9. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất (sắp xếp theo kiểu xếp hạng).
-10. Tính tổng số sản phẩm do “Trung Quốc” sản xuất.
+28. In ra danh sách 3 khách hàng (MAKH, HOTEN) có doanh số cao nhất (sắp xếp theo kiểu xếp hạng).
+
+SELECT `customers`.`id`, `customers`.`name`, 
+DENSE_RANK() OVER(ORDER BY `customers`.`doanhSo` DESC) AS Rank 
+FROM `customers` LIMIT 3;
+
+29. Tính tổng số sản phẩm do “Trung Quốc” sản xuất.
 
 SELECT COUNT(`products`.`country`) AS 'Tong so SP do Trung Quoc SX'
 FROM `products` 
 WHERE `products`.`country` = 'trung quoc';
 
-11. Tính tổng số sản phẩm của từng nước sản xuất.
+30. Tính tổng số sản phẩm của từng nước sản xuất.
 
 SELECT `products`.`country`,COUNT(`products`.`country`) AS 'Tong so SP cac nuoc SX'
 FROM `products` 
