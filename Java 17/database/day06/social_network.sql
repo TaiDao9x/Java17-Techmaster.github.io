@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2023 at 07:10 PM
+-- Generation Time: Mar 27, 2023 at 07:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -43,7 +43,10 @@ CREATE TABLE `albums` (
 
 INSERT INTO `albums` (`id`, `userID`, `typeID`, `description`, `createdAt`, `updateAt`, `deleteAt`) VALUES
 (1, 1, 1, 'Ảnh phong cảnh', '2023-03-17 09:10:32', NULL, NULL),
-(2, 1, 2, 'Để đây và không nói gì', '2023-03-18 09:10:32', NULL, NULL);
+(2, 1, 2, 'Để đây và không nói gì', '2023-03-18 09:10:32', NULL, NULL),
+(3, 1, 2, 'Cuối tuần thảnh thơi \"chơi guitar\" cho các con nhảy 😆😆😆. \r\nTuy nhà nghèo nhưng chúng tớ luôn yêu đời nhé 😍😍😍', '2023-03-20 09:10:32', NULL, NULL),
+(4, 1, 1, 'Ảnh desktop', '2023-03-21 09:15:32', NULL, NULL),
+(5, 1, 2, 'Cái tầng gì mà 9h tối hô cái là đầy đủ các thành viên ngồi chém gió luôn :D', '2023-03-25 20:41:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -74,7 +77,15 @@ INSERT INTO `comment` (`id`, `userID`, `commentID`, `photoID`, `postID`, `conten
 (2, 3, NULL, 1, NULL, 'Ảnh đâu đây a? Đẹp thế. :D', 3, 1, '2023-03-19 06:39:17', NULL, NULL),
 (3, 1, 2, 1, NULL, ':D Ảnh a lấy trên mạng :v', 3, 1, '2023-03-19 06:45:26', '2023-03-19 06:46:26', NULL),
 (4, 4, NULL, NULL, 1, 'Sao buồn thế đại ca?', 3, 2, '2023-03-19 10:39:17', NULL, NULL),
-(5, 1, 4, NULL, 1, 'Thèm rượu :v', NULL, 2, '2023-03-19 10:40:30', NULL, NULL);
+(5, 1, 4, NULL, 1, 'Thèm rượu :v', NULL, 2, '2023-03-19 10:40:30', NULL, NULL),
+(6, 3, NULL, NULL, 2, 'Cưng quá :D', 3, 2, '2023-03-20 09:11:45', NULL, NULL),
+(7, 5, NULL, NULL, 2, '2 thanh niên nhảy hơi bị ác, có nghệ sĩ nhân dân Ngọc Anh đánh đàn có khác :v', NULL, 2, '2023-03-20 09:12:40', NULL, NULL),
+(8, 7, NULL, NULL, 2, 'Gia đình hạnh phúc!', NULL, 2, '2023-03-20 09:15:40', NULL, NULL),
+(9, 6, NULL, NULL, 2, 'Chơi đàn cả remix luôn :c', NULL, 2, '2023-03-20 09:16:38', NULL, NULL),
+(10, 1, 7, NULL, 2, 'Tiếng đàn trên Sóc bom bo :v', NULL, 2, '2023-03-20 09:20:40', NULL, NULL),
+(11, 1, 9, NULL, 2, 'Loại nào a chẳng chơi được, tất cả các thể loại đàn :D', NULL, 2, '2023-03-20 09:21:35', NULL, NULL),
+(12, 4, NULL, NULL, 3, 'Thiếu tiết mục văn nghệ chào mừng bạn à :v', NULL, 2, '2023-03-25 20:42:50', NULL, NULL),
+(13, 6, NULL, NULL, 3, 'Nhà đẹp quá, bán anh em xa mua láng giềng gần :v', NULL, 2, '2023-03-25 20:44:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -155,7 +166,20 @@ INSERT INTO `like` (`id`, `userID`, `photoID`, `postID`, `emojID`, `commentID`, 
 (3, 3, 1, NULL, 3, NULL, 1, '2023-03-19 06:39:17'),
 (4, 1, 1, NULL, 1, 2, 1, '2023-03-19 06:45:26'),
 (5, 4, NULL, 1, 3, NULL, 2, '2023-03-19 10:39:17'),
-(6, 1, NULL, 1, 1, 4, 2, '2023-03-19 10:40:17');
+(6, 1, NULL, 1, 1, 4, 2, '2023-03-19 10:40:17'),
+(7, 3, NULL, 2, 3, NULL, 2, '2023-03-20 09:11:32'),
+(8, 5, NULL, 2, 2, NULL, 2, '2023-03-20 09:12:32'),
+(9, 7, NULL, 2, 2, NULL, 2, '2023-03-20 09:15:32'),
+(10, 6, NULL, 2, 4, NULL, 2, '2023-03-20 09:16:32'),
+(15, 1, NULL, 2, 1, 6, 2, '2023-03-20 09:17:32'),
+(16, 1, NULL, 2, 1, 7, 2, '2023-03-20 09:20:32'),
+(17, 1, NULL, 2, 1, 8, 2, '2023-03-20 09:21:32'),
+(18, 1, NULL, 2, 1, 9, 2, '2023-03-20 09:21:32'),
+(19, 5, 2, NULL, 1, NULL, 1, '2023-03-21 09:16:32'),
+(20, NULL, 3, NULL, 1, NULL, 1, '2023-03-21 09:16:32'),
+(21, 4, NULL, 3, 1, NULL, 2, '2023-03-25 20:42:37'),
+(22, 3, NULL, 3, 3, NULL, 2, '2023-03-25 20:43:37'),
+(23, 6, NULL, 3, 3, NULL, 2, '2023-03-25 20:43:55');
 
 -- --------------------------------------------------------
 
@@ -209,7 +233,10 @@ CREATE TABLE `photos` (
 --
 
 INSERT INTO `photos` (`id`, `albumID`, `content`, `statusID`, `locationID`, `createdAt`, `updateAt`, `deleteAt`) VALUES
-(1, 1, 'https://cdn.vjshop.vn/tin-tuc/5-cach-cai-thien-bo-cuc-anh-phong-canh-thong-qua-phoi-sang-lau/cai-thien-anh-phong-canh-bang-phuong-phap-chup-phoi-sang-lau.jpg', 8, 1, '2023-03-17 09:10:32', NULL, NULL);
+(1, 1, 'https://cdn.vjshop.vn/tin-tuc/5-cach-cai-thien-bo-cuc-anh-phong-canh-thong-qua-phoi-sang-lau/cai-thien-anh-phong-canh-bang-phuong-phap-chup-phoi-sang-lau.jpg', 8, 1, '2023-03-17 09:10:32', NULL, NULL),
+(2, 4, 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-2_043140658.jpeg\r\n\r\n', 8, 4, '2023-03-21 09:15:32', NULL, NULL),
+(3, 4, 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 8, 4, '2023-03-21 09:15:32', NULL, NULL),
+(4, 4, 'https://tophinhanhdep.com/wp-content/uploads/2021/10/Landscape-Wallpapers-1024x567.jpg', 8, 4, '2023-03-21 09:15:32', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -233,7 +260,9 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `albumID`, `statusID`, `tiltle`, `content`, `createdAt`, `updateAt`, `deleteAt`) VALUES
-(1, 2, 8, 'Để đây và không nói gì', 'https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-nen-phong-canh-tim-mong-mo_105623354.jpg', '2023-03-18 09:10:32', NULL, NULL);
+(1, 2, 8, 'Để đây và không nói gì', 'https://img.thuthuattinhoc.vn/uploads/2019/01/13/hinh-nen-phong-canh-tim-mong-mo_105623354.jpg', '2023-03-18 09:10:32', NULL, NULL),
+(2, 3, 8, 'Cuối tuần thảnh thơi \"chơi guitar\" cho các con nhảy 😆😆😆. \r\nTuy nhà nghèo nhưng chúng tớ luôn yêu đời nhé 😍😍😍', 'https://scontent.fhan17-1.fna.fbcdn.net/v/t39.30808-6/332030357_1915486171955008_2529964672038483811_n.jpg?stp=cp6_dst-jpg_p526x296&_nc_cat=107&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=id7-M4quiaYAX9sQ3t7&_nc_ht=scontent.fhan17-1.fna&oh=00_AfBIVOesKGAvraMiOJJtjZNRGOHFgHKN79gfdaGusfLGLA&oe=6426DA11\r\n', '2023-03-20 09:10:32', NULL, NULL),
+(3, 5, 8, 'Cái tầng gì mà 9h tối hô cái là đầy đủ các thành viên ngồi chém gió luôn 😍', 'https://scontent.fhan17-1.fna.fbcdn.net/v/t39.30808-6/330606189_171862528938343_6822352168899948640_n.jpg?stp=cp6_dst-jpg_s600x600&_nc_cat=100&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=rGp3-lkZ4XYAX_6NTJg&_nc_ht=scontent.fhan17-1.fna&oh=00_AfARQwY6GOMygtGyfUZ1DbaH94_K_01P3oaX_ENLfz75Xg&oe=64266BF9\r\n\r\nhttps://scontent.fhan17-1.fna.fbcdn.net/v/t39.30808-6/331393866_190133217052311_2273922186304906395_n.jpg?stp=cp6_dst-jpg_s600x600&_nc_cat=108&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=5ceUwyg3yGEAX_P59f7&_nc_ht=scontent.fhan17-1.fna&oh=00_AfB6xE10EX5ph-7cN1QvXyOzg7qAiCqD-xLoNsSXW-snsQ&oe=642717C0', '2023-03-25 20:41:37', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -483,13 +512,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `albums`
 --
 ALTER TABLE `albums`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `emoj`
@@ -507,7 +536,7 @@ ALTER TABLE `friendship`
 -- AUTO_INCREMENT for table `like`
 --
 ALTER TABLE `like`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -519,13 +548,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `relationships`
