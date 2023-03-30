@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2023 at 04:16 AM
+-- Generation Time: Mar 30, 2023 at 04:40 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -919,8 +919,8 @@ CREATE TABLE `photos` (
 --
 
 INSERT INTO `photos` (`id`, `album_id`, `status_id`, `content`, `ward_code`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 5, 'https://demoda.vn/wp-content/uploads/2022/01/hinh-nen-desktop-1.jpg', '8710', '2023-03-19 00:00:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 4, 5, 'https://thuthuatphanmem.vn/uploads/2018/06/18/hinh-nen-laptop-full-hd-mat-nuoc-trong-xanh-em-dem-cuc-dep_034807497.jpg', '00003', '2023-03-22 02:01:18', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 5, 'https://demoda.vn/wp-content/uploads/2022/01/hinh-nen-desktop-1.jpg', '00103', '2023-03-19 00:00:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 4, 5, 'https://thuthuatphanmem.vn/uploads/2018/06/18/hinh-nen-laptop-full-hd-mat-nuoc-trong-xanh-em-dem-cuc-dep_034807497.jpg', '00103', '2023-03-22 02:01:18', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1208,11 +1208,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `password`, `avatar`, `first_name`, `last_name`, `genDer`, `date_of_birth`, `phone`, `about`, `ward_code`, `relationship_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`, `email_verified_at`) VALUES
-(1, 'tai@gmail.com', 'tai123', 'https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg', 'Dao', 'Tai', 'male', '1992-11-22', '0969957697', 'A tài đẹp trai', '00001', 1, 1, '2010-03-13 09:40:24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2010-03-13 09:41:24'),
-(2, 'a@gmail.com', 'a123', 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 'A', 'Nguyen', 'male', '1993-11-22', '0223456789', 'i\'m A', '00001', 3, 1, '2013-03-13 15:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2013-03-13 15:11:32'),
-(3, 'b@gmail.com', 'b123', 'https://img.thuthuattinhoc.vn/uploads/2019/01/13/anh-nen-dep-nhat_105620947.jpeg', 'B', 'Đỗ', 'female', '1994-11-22', '0224456789', 'i am B', '00001', 2, 1, '2014-07-17 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-17 02:11:32'),
-(4, 'c@gmail.com', 'c123', 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 'C', 'Lê', 'male', '1995-11-22', '0224456489', 'i am C', '00001', 4, 1, '2014-07-18 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-18 02:11:32'),
-(5, 'd@gmail.com', 'd123', 'https://itqnu.vn/wp-content/uploads/2023/02/49861659438_e4ccb14842_o.jpg', 'D', 'Trương', 'male', '1995-11-25', '0224436489', 'i am D', '00001', 4, 1, '2014-07-19 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-19 02:11:32'),
+(1, 'tai@gmail.com', 'tai123', 'https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645-t.jpg', 'Dao', 'Tai', 'male', '1992-11-22', '0969957697', 'A tài đẹp trai', '08710', 1, 1, '2010-03-13 09:40:24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2010-03-13 09:41:24'),
+(2, 'a@gmail.com', 'a123', 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 'A', 'Nguyen', 'male', '1993-11-22', '0223456789', 'i\'m A', '00103', 3, 1, '2013-03-13 15:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2013-03-13 15:11:32'),
+(3, 'b@gmail.com', 'b123', 'https://img.thuthuattinhoc.vn/uploads/2019/01/13/anh-nen-dep-nhat_105620947.jpeg', 'B', 'Đỗ', 'female', '1994-11-22', '0224456789', 'i am B', '00106', 2, 1, '2014-07-17 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-17 02:11:32'),
+(4, 'c@gmail.com', 'c123', 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 'C', 'Lê', 'male', '1995-11-22', '0224456489', 'i am C', '00109', 4, 1, '2014-07-18 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-18 02:11:32'),
+(5, 'd@gmail.com', 'd123', 'https://itqnu.vn/wp-content/uploads/2023/02/49861659438_e4ccb14842_o.jpg', 'D', 'Trương', 'male', '1995-11-25', '0224436489', 'i am D', '00103', 4, 1, '2014-07-19 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-19 02:11:32'),
 (6, 'e@gmail.com', 'e123', 'https://thuthuatphanmem.vn/uploads/2018/08/21/hinh-nen-thien-nhien-phong-canh-dep-8_043142233.jpg', 'E', 'Cầm', 'female', '1996-11-22', '0224456459', 'i am E', '00001', 5, 1, '2014-07-19 02:10:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2014-07-19 02:11:32');
 
 -- --------------------------------------------------------
