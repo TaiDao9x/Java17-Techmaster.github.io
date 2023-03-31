@@ -1,0 +1,79 @@
+Database gồm các table: Users, Classes, Classrooms, Status, Marks, Attendances, Courses, Lessons, Subjects, Homeworks, Comments và Type_of_comments
+
+1. Users gồm các trường thông tin cá nhân cơ bản trong đó cần chú ý:
+- about: bao gồm các thông tin liên quan đến giảng viên hoặc học viên như tiểu sử, tốt nghiệp trường nào, kinh nghiệm,...
+- role: Giảng viên - Học viên - Admin
+	+ Admin có quyền tạo tài khoản, điều chỉnh các quyền của giảng viên và học viên
+	+ Giảng viên có quyền chấm bài và đăng bài giảng, nhận xét bài tập về nhà của học viên
+- Một giảng viên có thể tham gia giảng dạy nhiều lớp do vậy ta tạo thêm table `Classrooms` làm bảng trung gian giữa U2 bảng Users và Classes
+
+2. status
+- Key: user, class, lesson
+
+3. Classes chứa các thông tin liên quan đến lớp học
+- Học on hay off, địa chỉ học ở cơ sở nào và khóa học nào
+- Description có thể thêm các thông tin cần thiết nếu có
+- Có thời gian bắt đầu và kết thúc của lớp
+
+4. Marks (Chấm điểm) bao gồm các thông tin
+
+- teacher_id để biết giáo viên nào chấm bài
+- homework_id ta có thể lấy ra được thông tin của học viên cũng như bài tập hôm đó thuộc bài giảng nào. 
+  Thêm nữa, trong table `Homeworks` có thông tin về lessons nên sau này có thể truy vấn được thông tin điểm trung của từng module
+- score: Điểm số của bài tập
+- Và comment - thêm nhận xét chi tiết cho phần bài tập
+
+5. Attendaces (điểm danh học viên) gồm các thông như
+- student_id để biết là điểm danh cho học sinh nào
+- subject_id để cho biết điểm danh cho môn học nào. Sau này có thể lọc ra học viên nghỉ học cho từng module
+- is_attend chứa giá trị 1 là true (có mặt) hoặc 0 là false (vắng mặt)
+
+6. Courses (Các khóa học của trung tâm)
+- name: tên khóa học
+- infomation: Thông tin về khóa học (lộ trình, giảng viên, học phí,...)
+
+7. Lessons là phần bài giảng được giảng viên up lên
+không chứa thông tin class_id nên có thể tái sử dụng cho nhiều lớp khác nhau.
+Table này chứa các thông tin cơ bản như:
+- teacher_id: người thêm bài giảng
+- status_id: để ẩn hoặc hiện bài giảng (hoặc bài tập)
+
+8. Homeworks (học viên nộp bài tập)
+- Chứa thông tin học viên
+- Nộp cho bài học nào
+- Và thời gian nộp bài
+
+9. Comments có
+- user_id: để biết comment này thuộc về ai (có thể là giảng viên hoặc là học viên)
+- Học viên có thể  comment trong Courses(nhận xét về khóa học), comment trong Lessons
+- Giảng viên có thể comment trả lời trong Lessons
+Vì comment có mặt ở nhiều nơi nên ta tạo bảng trung gian `Type_of_comments` để cho ta biết comment ở đâu
+10. Subjects
+- Các module trong 1 khóa học
+
+
+----------------------
+Query
+
+1. Lấy ra top 3 học viên của lớp java17 có điểm module database cao nhất
+
+SELECT a.`first_name`, a.last_name, e.name AS `lop`, c.score , g.name AS `module` 
+FROM `users` a 
+JOIN `homeworks` b on a.id = b.student_id 
+JOIN `marks` c on b.id=c.homework_id
+JOIN `classrooms` d ON d.user_id = a.id
+JOIN `classes` e on d.class_id = e.id
+JOIN `lessons` f ON f.id = b.lesson_id
+JOIN `subjects` g ON g.id = f.subject_id
+WHERE e.name = 'Java17' AND g.name = 'database' 
+ORDER BY c.score DESC LIMIT 3;
+
+2. Lấy ra thông tin các học viên lớp java17 từng nghỉ học
+SELECT a.*, COUNT(b.is_attend) AS `So_buoi_nghi` 
+FROM `users` a
+JOIN `attendances` b on a.id = b.student_id
+JOIN `classrooms` c ON a.id = c.user_id
+JOIN `classes` d ON c.class_id = d.id
+WHERE b.is_attend = 0 AND d.name='java17' 
+GROUP BY a.id 
+ORDER BY `So_buoi_nghi` DESC;
