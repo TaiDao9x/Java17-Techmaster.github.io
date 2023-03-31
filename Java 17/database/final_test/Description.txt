@@ -5,13 +5,13 @@ Database gồm các table: Users, Classes, Classrooms, Status, Marks, Attendance
 - role: Giảng viên - Học viên - Admin
 	+ Admin có quyền tạo tài khoản, điều chỉnh các quyền của giảng viên và học viên
 	+ Giảng viên có quyền chấm bài và đăng bài giảng, nhận xét bài tập về nhà của học viên
-- Một giảng viên có thể tham gia giảng dạy nhiều lớp do vậy ta tạo thêm table `Classrooms` làm bảng trung gian giữa U2 bảng Users và Classes
+- Một giảng viên có thể tham gia giảng dạy nhiều lớp do vậy ta tạo thêm table `Classrooms` làm bảng trung gian giữa 2 bảng Users và Classes
 
 2. status
 - Key: user, class, lesson
 
 3. Classes chứa các thông tin liên quan đến lớp học
-- Học on hay off, địa chỉ học ở cơ sở nào và khóa học nào
+- Học on hay off, địa chỉ học ở cơ sở nào và học khóa  nào
 - Description có thể thêm các thông tin cần thiết nếu có
 - Có thời gian bắt đầu và kết thúc của lớp
 
