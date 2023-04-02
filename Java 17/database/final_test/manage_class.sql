@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2023 at 11:29 AM
+-- Generation Time: Apr 02, 2023 at 12:11 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -76,9 +76,9 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`id`, `name`, `course_id`, `description`, `status_id`, `address`, `start_at`, `end_at`) VALUES
-(1, 'Java16', 3, NULL, 10, 'Tố Hữu, Hà Nội', '2022-09-30 17:31:07', '2023-05-18 17:31:07'),
-(2, 'Java17', 3, NULL, 10, 'Dịch Vọng Hậu, Hà Nội', '2022-11-03 17:31:07', '2023-06-19 17:31:07'),
-(3, 'AWS 19', 5, NULL, 9, 'online', '2022-10-17 05:40:15', '0000-00-00 00:00:00');
+(1, 'Java16', 3, 'Học 18h30 - 21h30 thứ 2, 4, 6', 10, 'Tố Hữu, Hà Nội', '2022-09-30 17:31:07', '2023-05-18 17:31:07'),
+(2, 'Java17', 3, 'học 18h30 - 21h30 thứ 3,5,7', 10, 'Dịch Vọng Hậu, Hà Nội', '2022-11-03 17:31:07', '2023-06-19 17:31:07'),
+(3, 'AWS 19', 5, 'Học tối thứ 7, CN', 9, 'online', '2022-10-17 05:40:15', '2023-05-14 10:06:20');
 
 -- --------------------------------------------------------
 
