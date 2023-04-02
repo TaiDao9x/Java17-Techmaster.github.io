@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2023 at 08:39 PM
+-- Generation Time: Apr 02, 2023 at 11:29 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -51,7 +51,8 @@ INSERT INTO `attendances` (`id`, `student_id`, `subject_id`, `is_attend`, `creat
 (9, 10, 8, 1, '2023-03-30 18:03:55'),
 (10, 11, 8, 1, '2023-03-30 18:03:55'),
 (11, 5, 12, 0, '2023-03-31 18:03:55'),
-(12, 5, 12, 0, '2023-04-01 18:03:55');
+(12, 5, 12, 0, '2023-04-01 18:03:55'),
+(13, 8, 7, 0, '2023-03-01 19:04:39');
 
 -- --------------------------------------------------------
 
@@ -75,8 +76,9 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`id`, `name`, `course_id`, `description`, `status_id`, `address`, `start_at`, `end_at`) VALUES
-(1, 'Java16', 3, NULL, 9, 'Tố Hữu, Hà Nội', '2022-09-30 17:31:07', '2023-05-18 17:31:07'),
-(2, 'Java17', 3, NULL, 9, 'Dịch Vọng Hậu, Hà Nội', '2022-11-03 17:31:07', '2023-06-19 17:31:07');
+(1, 'Java16', 3, NULL, 10, 'Tố Hữu, Hà Nội', '2022-09-30 17:31:07', '2023-05-18 17:31:07'),
+(2, 'Java17', 3, NULL, 10, 'Dịch Vọng Hậu, Hà Nội', '2022-11-03 17:31:07', '2023-06-19 17:31:07'),
+(3, 'AWS 19', 5, NULL, 9, 'online', '2022-10-17 05:40:15', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -87,29 +89,34 @@ INSERT INTO `classes` (`id`, `name`, `course_id`, `description`, `status_id`, `a
 CREATE TABLE `classrooms` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `class_id` int(11) DEFAULT NULL
+  `class_id` int(11) DEFAULT NULL,
+  `subject_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `classrooms`
 --
 
-INSERT INTO `classrooms` (`id`, `user_id`, `class_id`) VALUES
-(1, 1, 2),
-(2, 3, 2),
-(3, 4, 2),
-(4, 5, 2),
-(5, 6, 2),
-(6, 7, 2),
-(7, 8, 2),
-(8, 9, 2),
-(9, 10, 2),
-(10, 11, 2),
-(11, 12, 2),
-(12, 13, 2),
-(13, 14, 2),
-(14, 13, 1),
-(15, 14, 1);
+INSERT INTO `classrooms` (`id`, `user_id`, `class_id`, `subject_id`) VALUES
+(1, 1, 2, NULL),
+(2, 3, 2, NULL),
+(3, 4, 2, NULL),
+(4, 5, 2, NULL),
+(5, 6, 2, NULL),
+(6, 7, 2, NULL),
+(7, 8, 2, NULL),
+(8, 9, 2, NULL),
+(9, 10, 2, NULL),
+(10, 11, 2, NULL),
+(11, 12, 2, 8),
+(12, 13, 2, 12),
+(13, 14, 2, 7),
+(14, 13, 1, 12),
+(15, 14, 1, 7),
+(16, 15, 3, NULL),
+(17, 16, 3, NULL),
+(18, 17, 3, 11),
+(19, 13, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +139,9 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `content`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Khóa học rất ok, Giảng viên cũng rất xịn xò. Giá cả thì ổn áp hơn nhiều so với các trung tâm khác', 14, '2023-03-22 18:13:26', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 1, 'Khóa học rất ok, Giảng viên cũng rất xịn xò. Giá cả thì ổn áp hơn nhiều so với các trung tâm khác', 14, '2023-03-22 18:13:26', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 15, 'Good job Techmaster!', 14, '2023-03-24 09:03:21', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 16, 'Go for it!', 14, '2023-03-24 09:03:21', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -325,7 +334,9 @@ CREATE TABLE `type_of_comments` (
 --
 
 INSERT INTO `type_of_comments` (`id`, `model_has_comment`, `type`, `comment_id`) VALUES
-(2, 3, 'Course', 1);
+(2, 3, 'Course', 1),
+(3, 5, 'Course', 2),
+(4, 5, 'Course', 3);
 
 -- --------------------------------------------------------
 
@@ -358,6 +369,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `avatar`, `first_name`, `last_name`, `genDer`, `date_of_birth`, `phone`, `about`, `address`, `status_id`, `role`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'tai@gmail.com', 'tai123', NULL, 'Dao', 'Tai', 'male', '1992-11-22', '0969957697', 'Bộ đội xuất ngũ', 'Bắc Từ Liêm, Hà Nội', 1, 'Student', '2022-10-19 07:05:38', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'admin@gmail.com', 'admin123', NULL, 'admin', 'admin', NULL, NULL, NULL, 'admin', 'Hà Nội', 1, 'Admin', '2016-04-20 19:15:43', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (3, 'Long@gmail.com', 'long123', NULL, 'Tran', 'Long', 'male', '1998-11-22', '0986372724', 'Học đại học bách khoa năm cuối', 'Hà Nội', 1, 'Student', '2022-11-20 17:14:18', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (4, 'kien@gmail.com', 'kien123', NULL, 'Nguyen', 'Kien', 'male', '1993-11-22', '0123456789', 'Nhà xa ở Đông Anh. Ngày đi làm', 'Đông Anh, Hà Nội', 1, 'Student', '2022-10-13 17:16:39', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (5, 'loc@gmail.com', 'loc123', NULL, 'Nguyen', 'Loc', 'male', '1998-11-22', '0987422726', 'Nhà xa', 'Vĩnh Tuy, HN', 1, 'Student', '2022-10-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
@@ -369,7 +381,10 @@ INSERT INTO `users` (`id`, `email`, `password`, `avatar`, `first_name`, `last_na
 (11, 'anh@gmail.com', 'anh123', NULL, 'Nguyen', 'Anh', 'male', '1998-11-22', '0123456789', 'Thông minh', 'Hà Nội', 1, 'Student', '2022-10-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (12, 'phong@gmail.com', 'phong123', NULL, 'Tran', 'Phong', 'male', '1996-11-22', '0123456789', 'Database', 'Hà Nội', 1, 'Teacher', '2022-09-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
 (13, 'HienGV@gmail.com', 'hien123', NULL, 'Nguyen', 'Hien', 'male', '1996-04-20', '0123456789', 'Java core, HTML, CSS', 'Hà Nội', 1, 'Teacher', '2021-10-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(14, 'duc@gmail.com', 'duc123', NULL, 'Tran', 'Duc', 'male', '1998-04-19', '012345678', 'data structure and algorithm', 'Hà Nội', 1, 'Teacher', '2021-10-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(14, 'duc@gmail.com', 'duc123', NULL, 'Tran', 'Duc', 'male', '1998-04-19', '012345678', 'data structure and algorithm', 'Hà Nội', 1, 'Teacher', '2021-10-14 17:17:49', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(15, 'messi@gmail.com', 'messi123', NULL, 'Leonel', 'Messi', 'male', '1987-11-22', '0123456789', 'cầu thủ đá bong muốn chuyển sang làm IT vì đam mê', 'Argentina', 1, 'student', '2022-10-24 05:35:59', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(16, 'ronaldo@gmail.com', 'ronaldo123', NULL, 'Christiano', 'Ronaldo', 'male', '1985-04-20', '0123456789', 'cầu thủ bóng đá muốn chuyển sang IT', 'Portugal', 1, 'student', '2022-11-01 05:35:59', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(17, 'Alex_Feguson@gmail.com', 'Alex_Feguson123', NULL, 'Alex', 'Feguson', 'male', '1956-11-22', '0123456789', 'Legend of AWS', 'England', 1, 'Teacher', '2021-04-08 05:46:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -396,7 +411,8 @@ ALTER TABLE `classes`
 ALTER TABLE `classrooms`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `class_id` (`class_id`);
+  ADD KEY `class_id` (`class_id`),
+  ADD KEY `fk_classroom_subject` (`subject_id`);
 
 --
 -- Indexes for table `comments`
@@ -471,25 +487,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `classrooms`
 --
 ALTER TABLE `classrooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -531,13 +547,13 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `type_of_comments`
 --
 ALTER TABLE `type_of_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -561,7 +577,8 @@ ALTER TABLE `classes`
 --
 ALTER TABLE `classrooms`
   ADD CONSTRAINT `classrooms_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `classrooms_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`);
+  ADD CONSTRAINT `classrooms_ibfk_2` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`),
+  ADD CONSTRAINT `fk_classroom_subject` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
 
 --
 -- Constraints for table `comments`

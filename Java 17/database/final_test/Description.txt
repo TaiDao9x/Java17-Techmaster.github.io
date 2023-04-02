@@ -95,3 +95,9 @@ JOIN `classes` d ON c.class_id = d.id
 WHERE b.is_attend = 0 AND d.name='java17' 
 GROUP BY a.id 
 ORDER BY `So_buoi_nghi` DESC;
+
+5. Đếm số học viên của lớp java17
+SELECT COUNT(*) AS `so_hv_lop_java17` FROM `users` a 
+JOIN `classrooms` b on a.id = b.user_id 
+JOIN `classes` c ON b.class_id = c.id 
+WHERE a.role = 'student' AND c.name='java17';
