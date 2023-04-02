@@ -6,6 +6,7 @@ Database gồm các table: Users, Classes, Classrooms, Status, Marks, Attendance
 	+ Admin có quyền tạo tài khoản, điều chỉnh các quyền của giảng viên và học viên
 	+ Giảng viên có quyền chấm bài và đăng bài giảng, nhận xét bài tập về nhà của học viên
 - Một giảng viên có thể tham gia giảng dạy nhiều lớp do vậy ta tạo thêm table `Classrooms` làm bảng trung gian giữa 2 bảng Users và Classes
+	trong bảng `Classrooms` có subject_id để biết được nếu là giáo viên sẽ dạy môn gì, nếu là học viên giá trị defaul sẽ là 'NULL'
 
 2. status
 - Key: user, class, lesson
@@ -55,7 +56,23 @@ Vì comment có mặt ở nhiều nơi nên ta tạo bảng trung gian `Type_of_
 ----------------------
 Query
 
-1. Lấy ra top 3 học viên của lớp java17 có điểm module database cao nhất
+1. Lấy ra thông tin tất cả học viên lớp java 17
+
+SELECT a.* FROM `users` a 
+JOIN `classrooms` b ON a.id=b.user_id 
+JOIN `classes` c ON b.class_id=c.id 
+WHERE c.name ='java17' AND a.role = 'student';
+
+2. Lấy ra thông tin (email, Họ tên, ngày sinh, SĐT, môn) các giảng viên của lớp java17 
+
+SELECT a.email, a.first_name, a.last_name, a.phone, d.name AS `module`
+FROM `users` a
+JOIN `classrooms` b on a.id = b.user_id 
+JOIN `classes` c  ON b.class_id = c.id 
+JOIN `subjects` d ON b.subject_id=d.id 
+WHERE a.role ='teacher' and c.name ='java17';
+
+3. Lấy ra top 3 học viên của lớp java17 có điểm module database cao nhất
 
 SELECT a.`first_name`, a.last_name, e.name AS `lop`, c.score , g.name AS `module` 
 FROM `users` a 
@@ -68,7 +85,8 @@ JOIN `subjects` g ON g.id = f.subject_id
 WHERE e.name = 'Java17' AND g.name = 'database' 
 ORDER BY c.score DESC LIMIT 3;
 
-2. Lấy ra thông tin các học viên lớp java17 từng nghỉ học
+4. Lấy ra thông tin các học viên lớp java17 từng nghỉ học
+
 SELECT a.*, COUNT(b.is_attend) AS `So_buoi_nghi` 
 FROM `users` a
 JOIN `attendances` b on a.id = b.student_id
