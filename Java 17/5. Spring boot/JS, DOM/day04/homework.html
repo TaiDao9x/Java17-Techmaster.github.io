@@ -38,7 +38,6 @@
         for (const x of get_list_li) x.style.color = 'blue'
 
         // Bài 3
-        let count_item = document.querySelectorAll('#list li').length
         let get_element_ul = document.getElementById('list')
         for (let i = 8; i <= 10; i++) get_element_ul.insertAdjacentHTML('beforeend', `<li>Item ${i}</li>`)
         get_element_ul.querySelector('li').style.color = 'red'

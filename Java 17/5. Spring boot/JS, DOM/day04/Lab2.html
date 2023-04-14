@@ -45,7 +45,7 @@
 
     <script>
         const hex_characters = '0123456789ABCDEF'
-        function get_random_color() {
+        function get_random_hexcode() {
             let hexcode = '#'
             for (let i = 0; i < 6; i++) {
                 hexcode += hex_characters[Math.floor(Math.random() * 16)]
@@ -60,8 +60,8 @@
                     #217262</p>
             </div>`
             last_box.insertAdjacentHTML('afterend',html)
-            document.getElementById(`color_${count_box+1}_code`).innerText=get_random_color()
-            document.getElementById(`color_${count_box+1}`).style.backgroundColor=get_random_color()
+            document.getElementById(`color_${count_box+1}_code`).innerText=get_random_hexcode()
+            document.getElementById(`color_${count_box+1}`).style.backgroundColor=get_random_hexcode()
         }               
     </script>
 </body>
