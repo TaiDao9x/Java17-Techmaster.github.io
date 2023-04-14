@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework day04</title>
+</head>
+
+<body>
+    <p id="text"> Homework_Day04: Bài 1</p>
+
+    <ul id="b2">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+
+    <ul id="list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+    </ul>
+    <script>
+        // Bài 1
+        let element_text = document.getElementById('text')
+        element_text.style.color = '#777'
+        element_text.style.fontSize = '2rem'
+        element_text.innerHTML = 'Tôi có thể làm <em> bất cứ điều gì </em> tôi muốn với JavaScript'
+
+        // Bài 2
+        let get_list_li = document.querySelectorAll('#b2 li')
+        for (const x of get_list_li) x.style.color = 'blue'
+
+        // Bài 3
+        let count_item = document.querySelectorAll('#list li').length
+        let get_element_ul = document.getElementById('list')
+        for (let i = 8; i <= 10; i++) get_element_ul.insertAdjacentHTML('beforeend', `<li>Item ${i}</li>`)
+        get_element_ul.querySelector('li').style.color = 'red'
+        get_element_ul.querySelector('li:nth-child(3)').style.backgroundColor = 'green'
+        let item4 = get_element_ul.querySelector('li:nth-child(4)')
+        item4.parentNode.removeChild(item4)
+    </script>
+</body>
+
+</html>
