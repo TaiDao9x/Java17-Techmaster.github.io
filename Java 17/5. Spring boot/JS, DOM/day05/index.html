@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>day05</title>
+</head>
+
+<body>
+    <h1 id="title" class=" text-2xl font-bold text-red-500 text-center mt-12 hover:text-blue-700">Hello</h1>
+    <div class="flex justify-center items-center">
+        <button class=" button text-1xl text-red-500 bg-gray-200 py-2 px-4 rounded">Random Text</button>
+    </div>
+
+    <script>
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        const characters_length = characters.length
+        function random_text() {
+            let result = ""
+            for (let i = 0; i < 16; i++)result += characters[(Math.floor(Math.random() * characters_length))]
+            return result
+        }
+        let btn = document.querySelector('button')
+        btn.addEventListener('click', function () {
+            document.getElementById('title').innerText=random_text()
+        })
+    </script>
+</body>
+
+</html>

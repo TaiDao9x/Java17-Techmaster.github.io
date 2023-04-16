@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Render boxes with Javascript</title>
+	<style>
+		.box {
+			width: 50px;
+			height: 50px;
+			margin: 5px;
+			float: left;
+		}
+		.points {
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<button onclick="addBox()">More box</button>
+    <p>Total boxes: <span class="points">0</span></p>
+
+	<div id="container"></div>
+
+	<script>
+		var container = document.getElementById("container");
+		var points = document.querySelector(".points");
+		var colors = ["red", "blue", "green", "yellow", "purple"];
+		var totalBox = 0;
+
+		function renderBox(color) {
+			var box = document.createElement("div");
+			box.className = "box";
+			box.style.background = color;
+			box.onclick = function() {
+				container.removeChild(box);
+				totalBox--;
+				points.innerHTML = totalBox;
+			};
+			container.appendChild(box);
+			totalBox++;
+			points.innerHTML = totalBox;
+		}
+
+		function addBox() {
+			for (var i = 0; i < 5; i++) {
+				renderBox(colors[i]);
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Lab1</title>
+    <style>
+        body {
+            padding-top: 100px;
+        }
+
+        .btn {
+            margin: 30px 20px;
+            padding: 20px;
+            background-color: #ABDBE3;
+            outline: none;
+            border-radius: 40px;
+            font-size: 20px;
+        }
+
+        .btn:hover {
+            background-color: #82b4c0;
+            color: #7c7c72;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 30px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <p id="text">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+        <button id="btn-1" class="btn" onclick="change_content()">Change content</button>
+        <button id="btn-2" class="btn" onclick="change_color()">Change color</button>
+        <button id="btn-3" class="btn">Change background</button>
+    </div>
+
+    <script>
+        // LAB 1
+        let text_element = document.getElementById('text')
+        // Yêu cầu 1:
+        function get_random_content(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const characters_length = characters.length;
+            let result = ""
+            for (let i = 0; i < length; i++) result += characters[Math.floor(Math.random() * characters_length)]
+            return result
+        }
+        function change_content() {
+            let random_length = Math.floor(Math.random() * 100 + 10)
+            let html = `<p id="text">${get_random_content(random_length)}</p>`
+            text_element.innerHTML = html
+        }
+
+        //Yêu cầu 2:
+        function get_random_hex_color() {
+            const characters = 'ABCDEF0123456789';
+            const characters_length = characters.length;
+            let result = "#"
+            for (let i = 0; i < 6; i++) result += characters[Math.floor(Math.random() * characters_length)]
+            return result
+        }
+        function change_color() {
+            text_element.style.color = get_random_hex_color()
+        }
+
+        //Yêu cầu 3
+        function get_random_rgb_color() {
+            return `rgb(${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)},${Math.floor(Math.random() * 255)})`
+        }
+        document.getElementById('btn-3').addEventListener('click', function () {
+            text_element.style.backgroundColor = get_random_rgb_color()
+        })
+
+        // LAB 2
+        
+    </script>
+</body>
+
+</html>
