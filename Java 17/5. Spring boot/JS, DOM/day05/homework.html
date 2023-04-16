@@ -36,7 +36,7 @@
     <body>
         <div class="wrap">
             <h1> JS DOM</h1>
-            <button id="btn" onclick="more_box()">More boxes</button>
+            <button id="btn" onclick="more_boxes()">More boxes</button>
             <h4 id="score"> Total box:<span class="points"></span></h4>
 
             <div class="boxes">
@@ -62,7 +62,7 @@
                     points.innerText = total_box
                 })
             }
-            function more_box() {
+            function more_boxes() {
                 for (let i = 0; i < 5; i++) add_box(colors[i])
             }
 
