@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Lab1</title>
+    <style>
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: #33CCCC;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .rectangle {
+            background-color: #FF9900;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        // LAB 2.1
+        document.addEventListener('click', function (event) {
+            let new_circle = document.createElement('div');
+            new_circle.className = 'circle'
+            new_circle.style.marginLeft = event.offsetX - 25 + 'px'
+            new_circle.style.marginTop = event.offsetY - 25 + 'px'
+            document.body.appendChild(new_circle);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            let new_rectangle = document.createElement('div')
+            new_rectangle.className = 'rectangle'
+            if (event.key === 'b') {
+                let width = Math.floor(Math.random() * 60 + 50)
+                let height = Math.floor(Math.random() * 30 + 20)
+                let pointX = Math.floor(Math.random() * (window.innerWidth - width))
+                let pointY = Math.floor(Math.random() * (window.innerHeight - height))
+
+                new_rectangle.style.width = width + 'px'
+                new_rectangle.style.height = height + 'px'
+                new_rectangle.style.marginLeft = pointX + 'px'
+                new_rectangle.style.marginTop = pointY + 'px'
+                document.body.appendChild(new_rectangle);
+            }
+        })
+
+        // LAB 2.2
+
+    </script>
+</body>
+
+</html>

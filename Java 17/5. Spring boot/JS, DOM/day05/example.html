@@ -1,50 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Render boxes with Javascript</title>
-	<style>
-		.box {
-			width: 50px;
-			height: 50px;
-			margin: 5px;
-			float: left;
-		}
-		.points {
-			font-weight: bold;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            display: block;
+            background-color: #be5959;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            float: left;
+            margin: 5px;
+        }
+
+        .box:hover {
+            transform: scale(.9);
+            transition-duration: .5s;
+            opacity: .8;
+            cursor: pointer;
+        }
+
+        .box:active {
+            transform: scale(1.5);
+            transition-duration: .5s;
+        }
+    </style>
 </head>
+
 <body>
-	<button onclick="addBox()">More box</button>
-    <p>Total boxes: <span class="points">0</span></p>
+    <div class="wrap">
+        <h1> JS DOM</h1>
+        <button id="btn" onclick="more_boxes()">More boxes</button>
+        <h4 id="score"> Total box:<span class="points"></span></h4>
 
-	<div id="container"></div>
+        <div class="boxes">
+        </div>
+    </div>
 
-	<script>
-		var container = document.getElementById("container");
-		var points = document.querySelector(".points");
-		var colors = ["red", "blue", "green", "yellow", "purple"];
-		var totalBox = 0;
+    <script>
+        let colors = ['#3498db', '#9b59b6', '#e74c3c', '#2c3e50', '#d35400']
+        let points = document.querySelector('.points')
+        let boxes = document.querySelector('.boxes')
+        let total_box = 0
 
-		function renderBox(color) {
-			var box = document.createElement("div");
-			box.className = "box";
-			box.style.background = color;
-			box.onclick = function() {
-				container.removeChild(box);
-				totalBox--;
-				points.innerHTML = totalBox;
-			};
-			container.appendChild(box);
-			totalBox++;
-			points.innerHTML = totalBox;
-		}
+        function add_box(color) {
+            let new_box = document.createElement('div')
+            new_box.className = 'box'
+            new_box.style.backgroundColor = color
+            boxes.insertAdjacentElement('beforeend', new_box)
+            total_box++
+            points.innerText = total_box
 
-		function addBox() {
-			for (var i = 0; i < 5; i++) {
-				renderBox(colors[i]);
-			}
-		}
-	</script>
+            new_box.addEventListener('click', function remove_box() {
+                new_box.parentNode.removeChild(new_box)
+                total_box--
+                points.innerText = total_box
+            })
+        }
+        function more_boxes() { for (let i = 0; i < 5; i++) add_box(colors[i]) }
+
+    </script>
 </body>
+
 </html>
