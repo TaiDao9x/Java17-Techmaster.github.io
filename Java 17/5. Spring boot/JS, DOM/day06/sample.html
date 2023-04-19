@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="w-full h-screen bg-blue-300 flex flex-col items-center justify-center px-4 lg:px-0 overflow-scroll">
+        <div>
+            <h1 class="text-center text-3xl font-bold text-red-500"> WEATHER INFORMATIONS</h1>
+        </div>
+        <form class="mt-8 h-16 bg-black/30 w-full max-w-[450px] rounded-full backdrop-blur-[32px] mb-8">
+            <select id="city_selector" class="h-full w-full rounded-full bg-transparent pl-6  pr-6 text-white font-light" onchange="change_city()">
+                <option value="0" class="text-black">TP Hà nội</option>
+                <option value="1" class="text-black">TP. Hồ Chí Minh</option>
+                <option value="2" class="text-black">Đà Nẵng</option>
+                <option value="3" class="text-black">Thanh Hóa</option>
+                <option value="4" class="text-black">Cà Mau</option>
+                <option value="5" class="text-black">Đảo Hải Nam</option>
+                
+            </select>
+        </form>
+
+        
+
+        <div class="w-full max-w-[450px] bg-black/20 text-white backdrop-blur-[32px] rounded-[32px] py-12 px-6">
+           <div>
+                <div class="flex items-center gap-x-5">
+                    <div class="w-32">
+                        <img class="w-full" id="weather_icon" src="http://openweathermap.org/img/wn/01n.png">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl text-white font-semibold " id="city_name" >HCM, VN</h3>
+                        <h4 class="text-xl text-white font-semibold " id="date_time">----</h3>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-center items-center">
+                        <div class="text-[144px] font-bold" id="weather_temp">30</div>
+                        <div class="text-4xl">℃</div>
+                    </div>
+                    <div class="text-center" id="weather_desc">clear</div>
+                </div>
+                <div class="flex flex-col gap-y-6 mt-6">
+                    <div class="flex justify-between">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fa-solid fa-temperature-high text-[20px]"></i>
+                            <div>
+                                Cảm nhận: <span id="weather_feels_like"> 28</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-x-4">
+                            <i class="fa-solid fa-wind text-[20px]"></i>
+                            <div>
+                                Tốc độ gió: <span id="weather_wind_speed"> 28</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="flex items-center gap-x-4">
+                            <i class="fa-solid fa-droplet text-[20px]"></i>
+                            <div>
+                                Độ ẩm: <span id="weather_humidity"> 28</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-x-4">
+                            <i class="fa-solid fa-water text-[20px]s"></i>
+                            <div>
+                                Áp lực k.khí <span class="ml-2" id="weather_pressure">10km</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script>
+        const date =  new Date();
+        document.getElementById("date_time").innerText = date.getUTCDate() +"/"+ date.getUTCMonth() +"/"+ date.getUTCFullYear();
+        let API_key = "5cfaedeb7d13b253bfb28db69e508755"
+        
+
+        Geo_coords = [
+            {name: "Hà Nội", lat: "21.0245", lon: "105.8412"},
+            {name: "Tp Hồ Chí Minh", lat: "10.75", lon: "106.6667"},
+            {name: "Đà Nẵng", lat: "21.0245", lon: "105.8412"},
+            {name: "Thanh Hóa", lat: "19.8", lon: "105.7667"},
+            {name: "Cà Mau", lat: "9.1792", lon: "105.1458"},
+            {name: "Đảo Hải Nam", lat: "19.1729", lon: "109.668377"}
+        ]
+
+        console.log( document.getElementById("weather_wind_speed").innerText)
+
+        function change_city(){
+            let city_id = document.getElementById("city_selector").value
+            console.log(city_id)
+            let url = "https://api.openweathermap.org/data/2.5/weather?lat=" +Geo_coords[city_id].lat+ "&lon=" +Geo_coords[city_id].lon+ "&units=metric&appid="+API_key;
+            $.ajax({
+            url: url,
+            type: "GET",
+            success: function (data) {
+                console.log(data)
+                document.getElementById("city_name").innerText = data["name"] +", " + data["sys"]["country"]
+                document.getElementById("weather_icon").src = "http://openweathermap.org/img/wn/"+data["weather"][0].icon+".png";
+                document.getElementById("weather_temp").innerText = data["main"]["temp"].toFixed();
+                document.getElementById("weather_desc").innerText = data["weather"][0]["description"];
+                document.getElementById("weather_wind_speed").innerText =  data["wind"]["speed"] + "Km/h";
+                document.getElementById("weather_feels_like").innerText =  data["main"]["feels_like"] + "°C";
+                document.getElementById("weather_humidity").innerText =  data["main"]["humidity"] + "%";
+                document.getElementById("weather_pressure").innerText =  data["main"]["pressure"] + "hAp";
+        
+            },
+            error: function (error) {
+                console.log(message);
+            }
+        })
+        }
+       
+
+   
+  </script>
+</body>
+</html>

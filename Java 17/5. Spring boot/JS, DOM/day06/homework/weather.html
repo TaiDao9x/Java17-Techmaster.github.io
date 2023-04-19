@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WEATHER INFORMATIONS</h1>
+        </div>
+        <div class="address-options">
+            <select id="city_selector" onchange="change_city()">
+                <option value="0" style="color: black;">TP Hà nội</option>
+                <option value="1" style="color: black;">TP. Hồ Chí Minh</option>
+                <option value="2" style="color: black;">Đà Nẵng</option>
+                <option value="3" style="color: black;">Thanh Hóa</option>
+                <option value="4" style="color: black;">Cà Mau</option>
+                <option value="5" style="color: black;">Vĩnh Phúc</option>
+                <option value="6" style="color: black;">Sơn La</option>
+                <option value="7" style="color: black;">Phú Thọ</option>
+                <option value="8" style="color: black;">Bắc Ninh</option>
+                <option value="9" style="color: black;">Hà Giang</option>
+                <option value="10" style="color: black;">Đà Lạt</option>
+            </select>
+        </div>
+        <div class="content">
+            <div class="header_content">
+                <div class="avatar">
+                    <img src="http://openweathermap.org/img/wn/01n.png" alt="icon" id="icon">
+                </div>
+                <div class="address-detail">
+                    <h3 id="city_name">TP. Hà Nội</h3>
+                    <h4 id="date_time">00/00/0000</h4>
+                </div>
+            </div>
+            <div class="body_content">
+                <div class="temperature">
+                    <div id="temp">28</div>
+                    <div style="font-size:xx-large;">℃</div>
+                </div>
+                <div id="status">clear sky</div>
+            </div>
+            <div class="footer_content">
+                <div class="left-footer">
+                    <div class=" footer_content_detail"> <i class="fa-solid fa-temperature-low"></i>
+                        Cảm nhận: <span id="feeling">32.9°C</span></div>
+                    <div class=" footer_content_detail"> <i class="fa-solid fa-droplet"></i>
+                        Độ ẩm: <span id="humidity">85%</span></div>
+                </div>
+                <div class="right-footer">
+                    <div class=" footer_content_detail"><i class="fa-solid fa-wind"></i>
+                        Tốc độ gió: <span id="wind">3.33Km/h</span></div>
+                    <div class=" footer_content_detail"><i class="fa-solid fa-water"> </i>
+                        Áp lực k.khí: <span id="atmosphere">1000hAp</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        const date = new Date();
+        document.getElementById("date_time").innerText = date.getUTCDate() + "/" + date.getUTCMonth() + "/" + date.getUTCFullYear();
+        let API_key = "677069b91e8b871c770fc4fe0f4282a7"
+
+
+        Geo_coords = [
+            { name: "Hà Nội", lat: "21.0245", lon: "105.8412" },
+            { name: "Tp Hồ Chí Minh", lat: "10.75", lon: "106.6667" },
+            { name: "Đà Nẵng", lat: "21.0245", lon: "105.8412" },
+            { name: "Thanh Hóa", lat: "19.8", lon: "105.7667" },
+            { name: "Cà Mau", lat: "9.1792", lon: "105.1458" },
+            { name: "Vĩnh Phúc", lat: "21.304166", lon: "105.616474" },
+            { name: "Sơn La", lat: "21.325601", lon: "103.913732" },
+            { name: "Phú Thọ", lat: "21.419946", lon: "105.240610" },
+            { name: "Bắc Ninh", lat: "21.169516", lon: "106.073514" },
+            { name: "Hà Giang", lat: "22.797343", lon: "104.982552" },
+            { name: "Đà Lạt", lat: "11.934096", lon: "108.450712" }
+        ]
+
+        function change_city() {
+            let city_id = document.getElementById("city_selector").value
+            let url = "https://api.openweathermap.org/data/2.5/weather?lat=" + Geo_coords[city_id].lat + "&lon=" + Geo_coords[city_id].lon + "&units=metric&appid=" + API_key;
+            $.ajax({
+                url: url,
+                type: "GET",
+                success: function (data) {
+                    document.getElementById("city_name").innerText = data["name"] + ", " + data["sys"]["country"]
+                    document.getElementById("icon").src = "http://openweathermap.org/img/wn/" + data["weather"][0].icon + ".png";
+                    document.getElementById("temp").innerText = data["main"]["temp"].toFixed();
+                    document.getElementById("status").innerText = data["weather"][0]["description"];
+                    document.getElementById("wind").innerText = data["wind"]["speed"] + "Km/h";
+                    document.getElementById("feeling").innerText = data["main"]["feels_like"] + "°C";
+                    document.getElementById("humidity").innerText = data["main"]["humidity"] + "%";
+                    document.getElementById("atmosphere").innerText = data["main"]["pressure"] + "hAp";
+                },
+                error: function (error) {
+                    console.log(message);
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

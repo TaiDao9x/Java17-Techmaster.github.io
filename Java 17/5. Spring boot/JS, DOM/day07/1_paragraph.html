@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Practice</title>
+</head>
+
+<body>
+    <h1>Thực hành DOM</h1>
+    <p>
+        Hey, you're not permitted in there. It's restricted. You'll be deactivated for sure.. Don't call me a mindless
+        philosopher, you overweight glob of grease! Now come out before somebody sees you. Secret mission? What plans?
+        What are you talking about? I'm not getting in there! I'm going to regret this. There goes another one. Hold
+        your fire. There are no life forms. It must have been short-circuited. That's funny, the damage doesn't look as
+        bad from out here. Are you sure this things safe?
+
+        What a piece of junk. She'll make point five beyond the speed of light. She may not look like much, but she's
+        got it where it counts, kid. I've added some special modifications myself. We're a little rushed, so if you'll
+        hurry aboard we'll get out of here. Hello, sir. Which way? All right, men. Load your weapons! Stop that ship!
+        Blast 'em! Chewie, get us out of here! Oh, my. I'd forgotten how much I hate space travel.
+
+        Run, Luke! Run!
+    </p>
+
+    <script>
+        const para = document.querySelector('p')
+        para.innerHTML = para.innerText
+            .split(' ')
+            .map(ele => ele.length >= 8 ? `<span style="background-color:yellow">${ele}</span>` : ele)
+            .join(" ")
+
+        let fb = document.createElement('a')
+        fb.href = 'https://www.facebook.com/'
+        fb.innerText = 'Facebook'
+        fb.target = '_blank'
+        document.body.appendChild(fb)
+
+        let word_count = para.innerText.split(' ').length
+        let word_count_html = document.createElement('div')
+        word_count_html.innerText=`Số word: ${word_count}`
+        document.body.insertBefore(word_count_html,para)
+
+        para.innerHTML = para.innerHTML.replace(/\?/g, '🤔')
+        para.innerText = para.innerText.replace(/\!/g, '😲')
+
+        console.log(word_count)
+
+    </script>
+</body>
+
+</html>
