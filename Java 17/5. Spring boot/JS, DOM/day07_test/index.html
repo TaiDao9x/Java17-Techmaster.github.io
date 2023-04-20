@@ -89,7 +89,6 @@
       { img_id: 6, img_url: "https://tecdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(72).webp" },
     ]
 
-
     function click_image(img_id) {
       // Khi click vao 1 image, thêm class "active" vào classList của thẻ img  ,mà mình click, đồng thời xóa class "active" khỏi toàn bộ thẻ img 
       let image_list = document.querySelectorAll('.container img')
@@ -98,24 +97,32 @@
       image.classList.add('active')
     }
 
-
     function add_more_image() {
       // khi click vao button More images thi add thêm ảnh vào dưới album
-      let count_image = document.querySelectorAll('.container img').length
-      console.log(count_image)
+
       // code ajax mẫu cho API này
       $.ajax({
         url: "https://dog.ceo/api/breeds/image/random",
         type: "GET",
         success: function (data) {
-          let new_image = ` <div id="img_${count_image + 1}" class="image_card flex w-1/4 flex-wrap" onclick="click_image(${count_image + 1})">
-          <div class="w-full p-1 md:p-2">
-            <img id="img_${count_image + 1}_tag" class="block h-full w-full rounded-lg object-cover object-center"
+          let new_image = document.createElement('div')
+          let count_image = document.querySelectorAll('.container img').length
+          new_image.className = "image_card flex w-1/4 flex-wrap"
+          new_image.innerHTML = `<div class="w-full p-1 md:p-2">
+            <img id="img_tag" class="block h-full w-full rounded-lg object-cover object-center"
               src="${data.message}" />
           </div>`
-          album_image.insertAdjacentHTML('beforeend', new_image)
+          album_image.appendChild(new_image)
           album.push({ img_id: (count_image + 1), img_url: data.message })
           console.log(album)
+          new_image.addEventListener('mouseup', function () {
+            let image_list = document.querySelectorAll('.container img')
+            for (const img of image_list) { if (img.classList.contains('active')) img.classList.remove('active') }
+            new_image.innerHTML = `<div class="w-full p-1 md:p-2">
+            <img id="img_tag" class="block h-full w-full rounded-lg object-cover object-center active"
+              src="${data.message}" />
+          </div>`
+          })
         },
         error: function (error) {
           console.log(message);
@@ -130,7 +137,6 @@
       album.sort(function (a, b) {
         return Math.random() - 0.5
       })
-      console.log(album)
       for (const img of album) {
         let html = `<div id="img_${img.img_id}" class="image_card flex w-1/4 flex-wrap" onclick="click_image(${img.img_id})">
           <div class="w-full p-1 md:p-2">
@@ -140,7 +146,6 @@
         album_image.insertAdjacentHTML('beforeend', html)
       }
     }
-
   </script>
 </body>
 
