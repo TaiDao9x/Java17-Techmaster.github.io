@@ -1,0 +1,24 @@
+body {
+  width: 700px;
+  height: 600px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.control {
+  flex: 1;
+  background: red;
+}
+
+.color-piker {
+  width: 100px;
+  height: 100px;
+}
+
+#draw {
+  width: 600px;
+  height: 600px;
+  cursor: pointer;
+  border-left: 1px solid black;
+}
