@@ -7,6 +7,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class InvoiceDetail {
     private Customer customer;
     private List<Service> services;
@@ -29,5 +30,13 @@ public class InvoiceDetail {
             return;
         }
         this.services = services;
+    }
+
+    @Override
+    public String toString() {
+        return "InvoiceDetail{" +
+                "customer=" + customer +
+                ", services=" + services +
+                '}';
     }
 }

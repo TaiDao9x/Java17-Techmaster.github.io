@@ -22,11 +22,11 @@ public class InvoiceController {
         for (int i = 0; i < invoiceDetailNumber; i++) {
             InvoiceDetail invoiceDetail = new InvoiceDetail();
             invoiceDetail.setCustomer(customerManagement.getCustomer(getCustomerId()));
-            System.out.println("Số lượng dịch vụ khách hàng này sử dụng:");
+            System.out.print("Số lượng dịch vụ khách hàng này sử dụng:");
             int numberService = serviceNumber();
             List<Service> services = new ArrayList<>();
             for (int j = 0; j < numberService; j++) {
-                System.out.println("Nhập id dịch vụ thứ " + i + " :");
+                System.out.println("Nhập id dịch vụ thứ " + (i + 1) + " :");
                 services.add(getService());
             }
             invoiceDetail.setServices(services);
@@ -66,7 +66,6 @@ public class InvoiceController {
         int number = 0;
         while (!checkOption) {
             try {
-                System.out.print("Nhập id khách hàng:");
                 number = Integer.parseInt(sc.nextLine());
                 if (number <= 0 || number > 5) {
                     System.out.println("1 khách hàng chỉ được sử dụng tối đa 5 dịch vụ");

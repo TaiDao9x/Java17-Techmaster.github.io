@@ -38,7 +38,6 @@ public class ServiceController implements AddInfo {
         int option = 0;
         while (!checkOption) {
             try {
-                System.out.print("Nhập lựa chọn của bạn: ");
                 option = Integer.parseInt(sc.nextLine());
                 if (option < 0) {
                     System.out.println("Giá cước phải lớn hơn 0!");
