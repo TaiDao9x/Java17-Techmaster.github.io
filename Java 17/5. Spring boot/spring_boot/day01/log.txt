@@ -1,0 +1,3 @@
+2023-04-27 22:54:44 WARN  Main:15 - Student(id=5, name=null, address=HN, dob=null, gpa=0.0)
+2023-04-27 22:54:51 WARN  Main:15 - Student(id=5, name=null, address=HN, dob=null, gpa=0.0)
+2023-04-27 22:55:14 WARN  Main:15 - Student(id=5, name=null, address=HN, dob=null, gpa=0.0)
