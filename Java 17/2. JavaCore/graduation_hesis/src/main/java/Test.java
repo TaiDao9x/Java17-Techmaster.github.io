@@ -5,4 +5,8 @@ public class Test {
         Ui ui = new Ui();
         ui.runMenu();
     }
+
+    public void test() {
+        System.out.println("tesst");
+    }
 }
