@@ -23,4 +23,11 @@ public class SubjectManagement {
     public void showSubject() {
         subjects.forEach(System.out::println);
     }
+
+    public Subject findById(int id) {
+        for (Subject sub : subjects) {
+            if (sub.getId() == id) return sub;
+        }
+        return null;
+    }
 }

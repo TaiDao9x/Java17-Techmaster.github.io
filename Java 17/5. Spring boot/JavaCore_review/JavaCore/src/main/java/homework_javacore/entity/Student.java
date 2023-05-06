@@ -11,6 +11,14 @@ public class Student extends Person {
         AUTO_ID++;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getClazz() {
         return clazz;
     }

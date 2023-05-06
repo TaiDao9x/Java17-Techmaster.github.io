@@ -27,4 +27,11 @@ public class StudentManagement {
     public void showStudent() {
         students.forEach(System.out::println);
     }
+
+    public Student findByid(int id) {
+        for (Student std : students) {
+            if (std.getId() == id) return std;
+        }
+        return null;
+    }
 }
