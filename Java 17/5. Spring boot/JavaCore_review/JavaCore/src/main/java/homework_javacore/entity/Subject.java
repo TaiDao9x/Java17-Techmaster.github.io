@@ -1,6 +1,9 @@
 package homework_javacore.entity;
 
 import homework_javacore.statics.TypeSubject;
+import homework_javacore.ultility.Ultility;
+
+import java.util.Scanner;
 
 public class Subject {
     private int id;
@@ -44,8 +47,31 @@ public class Subject {
         return "Subject{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", unit=" + unit +
+                ", số học trình=" + unit +
                 ", typeSubject=" + typeSubject +
                 '}';
+    }
+
+    Scanner sc = new Scanner(System.in);
+
+    public void inputInfo() {
+        System.out.print("Tên môn học: ");
+        this.setName(sc.nextLine());
+        System.out.print("Số đơn vị học trình: ");
+        this.setUnit(Ultility.getUnitValid());
+        getSubjectType();
+    }
+
+    private void getSubjectType() {
+        System.out.println("Chọn loại môn: ");
+        System.out.println("1. Đại cương");
+        System.out.println("2. Cơ sở ngành");
+        System.out.println("3. Chuyên ngành");
+        int option = Ultility.getSubjectTypeValid();
+        switch (option) {
+            case 1 -> this.setTypeSubject(TypeSubject.DAI_CUONG);
+            case 2 -> this.setTypeSubject(TypeSubject.CO_SO_NGANH);
+            case 3 -> this.setTypeSubject(TypeSubject.CHUYEN_NGANH);
+        }
     }
 }

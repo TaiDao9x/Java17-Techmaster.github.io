@@ -70,27 +70,13 @@ public class Worker extends Person {
             }
         } while (true);
         switch (choice) {
-            case 1:
-                this.setLevel(WorkerLevel.LEVEL_1);
-                break;
-            case 2:
-                this.setLevel(WorkerLevel.LEVEL_2);
-                break;
-            case 3:
-                this.setLevel(WorkerLevel.LEVEL_3);
-                break;
-            case 4:
-                this.setLevel(WorkerLevel.LEVEL_4);
-                break;
-            case 5:
-                this.setLevel(WorkerLevel.LEVEL_5);
-                break;
-            case 6:
-                this.setLevel(WorkerLevel.LEVEL_6);
-                break;
-            case 7:
-                this.setLevel(WorkerLevel.LEVEL_7);
-                break;
+            case 1 -> this.setLevel(WorkerLevel.LEVEL_1);
+            case 2 -> this.setLevel(WorkerLevel.LEVEL_2);
+            case 3 -> this.setLevel(WorkerLevel.LEVEL_3);
+            case 4 -> this.setLevel(WorkerLevel.LEVEL_4);
+            case 5 -> this.setLevel(WorkerLevel.LEVEL_5);
+            case 6 -> this.setLevel(WorkerLevel.LEVEL_6);
+            case 7 -> this.setLevel(WorkerLevel.LEVEL_7);
         }
     }
 

@@ -32,7 +32,8 @@ public class Student extends Person {
 
     @Override
     public void inputInfo() {
-        System.out.println("Nhập vào tên lớp: ");
+        super.inputInfo();
+        System.out.print("Nhập vào tên lớp: ");
         this.setClazz(sc.nextLine());
     }
 }

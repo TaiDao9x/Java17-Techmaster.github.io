@@ -54,11 +54,11 @@ public class Person implements InputInfo {
 
     @Override
     public void inputInfo() {
-        System.out.println("Nhập vào tên sinh viên: ");
+        System.out.print("Nhập vào tên sinh viên: ");
         this.setName(sc.nextLine());
-        System.out.println("Nhập vào địa chỉ: ");
+        System.out.print("Nhập vào địa chỉ: ");
         this.setAddress(sc.nextLine());
-        System.out.println("Nhập vào số điện thoại: ");
+        System.out.print("Nhập vào số điện thoại: ");
         this.setPhone(sc.nextLine());
     }
 }
