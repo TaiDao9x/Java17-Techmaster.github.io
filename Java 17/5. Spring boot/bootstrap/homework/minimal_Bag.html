@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Piroll</title>
+    <title>Minimal Bag - Pỉoll</title>
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,88 +26,91 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <link rel="stylesheet" href="./css/contact.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- css -->
+    <link rel="stylesheet" href="./css/minimal_bag.css">
 </head>
 
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-md bg-white navbar-white py-4">
-            <a class="navbar-brand" href="#">
-                <img src="./images/logo.svg" class="logo-img">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item ">
-                        <a class="nav-link text-secondary p-3 px-4 font-small" href="#">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary p-3 px-4 font-small" href="#">ABOUT</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary p-3 px-4 font-small" href="#">WORKS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary p-3 px-4 font-small" href="#">BLOG</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link text-secondary p-3 px-4 font-small" href="#">CONTACT</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <div class="container-fluid  p-0 map">
-        <div class="row">
-            <div class="col">
-                <iframe class=" w-100" style="height: 550px; border: none;"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48339.23782608787!2d-73.9741664688477!3d40.779565070639755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2589a018531e3%3A0xb9df1f7387a94119!2zQ8O0bmcgdmnDqm4gVHJ1bmcgdMOibQ!5e0!3m2!1svi!2s!4v1683474811225!5m2!1svi!2s"
-                    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+    <div class="container-fluid p-0 mb-4 bg-dark">
+        <div class="container p-0">
+            <nav class="navbar navbar-expand-md navbar-white  py-4">
+                <a class="navbar-brand" href="#">
+                    <img src="./images/logo-light.svg" class="logo-img">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-end" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item  ">
+                            <a class="nav-link p-3 px-4 font-small" href="#">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  p-3 px-4 font-small" href="#">ABOUT</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link  p-3 px-4 font-small" href="#">WORKS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  p-3 px-4 font-small" href="#">BLOG</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link  p-3 px-4 font-small" href="#">CONTACT</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
     </div>
-    <div class="container mt-5 py-5 contact">
-        <div class="row">
-            <div class="col-5">
-                <div class="row contact-info mb-4">Contact Info:</div>
-                <div class="row contact-detail mb-5">To give give beginning divide, cattle. Give moving won’t, there the
-                    abundantly she’d
-                    she’d brought air upon. Light hath subdue. Life days creature upon first heaven gathering dry.</div>
-                <div class="row contact-detail"><b class="mr-2">Address: </b> 10111 Santa Monica Boulevard, LA</div>
-                <div class="row contact-detail"><b class="mr-2">Phone: </b> +44 987 065 908</div>
-                <div class="row contact-detail"><b class="mr-2">Email: </b> info@Example.com</div>
-                <div class="row contact-detail"><b class="mr-2">Fax: </b> +44 987 065 909</div>
-            </div>
-            <div class="col-7">
-                <form class="ml-4">
-                    <div class="row">
-                        <div class="col pl-0">
-                            <input type="text" class="form-control" placeholder="Your Name" name="name">
-                        </div>
-                        <div class="col pr-0">
-                            <input type="password" class="form-control" placeholder="Your Email" name="pswd">
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <input type="password" class="form-control" placeholder="Your Subject" name="pswd">
-                    </div>
-                    <div class="row mt-4">
-                        <textarea class="form-control" rows="8" id="comment" placeholder="Your Message"></textarea>
-                    </div>
-                </form>
 
-                <div class="send-message mt-4 ml-2">
-                    <button class="button">SEND MESSAGE</button>
+    <div class="container py-5 mb-5">
+        <div class="row mb-3">
+            <div class="col  work-name">Minimal Bag</div>
+        </div>
+        <div class="row ">
+            <div class="col-8">
+                <div class=" work-detail mb-4">
+                    Nullam lobortis neque turpis, nec tempus sem pharetra at. Donec et quam, ullamcorper velit. Aliquam
+                    maximus ullamcorper ligula, at placerat dui hendrerit sed. Sed metus urna, bibendum id tortor,
+                    feugiat ipsum. Aliquam vehicula neque sit amet dolor malesuada pretium.
+                </div>
+                <div class=" work-detail">
+                    Curabitur tristique, felis ut mattis auctor, elit ante laoreet libero, ac lorem quam vitae libero.
+                    Suspen disse aliquet eget risus quis vehicula.
                 </div>
             </div>
-        </div>
+            <div class="col-4">
+                <div class=" work-detail mb-2"><b class="pr-2">Client: </b>Emma Morris</div>
+                <div class=" work-detail mb-2"><b class="pr-3 ">Date: </b>August 16, 2017</div>
+                <div class=" work-detail"><b class="pr-2 ">Share: </b>Facebook, Twitter, Google
+                    Plus</div>
+            </div>
 
+        </div>
     </div>
 
-    <div class="container-fluid footer text-white py-3 mt-5">
+    <div class="container-fluid mb-5">
+        <div class="row" data-video="https://vimeo.com/90621027">
+            <img src="./images/works/portfolio-single-6-1920x1282.jpg" alt="">
+        </div>
+    </div>
+
+    <div class="container dỉrectional p-0">
+        <div class="row">
+            <div class="col-5 direct-detail">
+                <span class="pr-2"><i class="fa-solid fa-angle-left"></i></span> PREVIOUS WORK
+            </div>
+            <div class="col-2"><span><i class="fa-sharp fa-solid fa-grid"></i></span> sdgfdfg</div>
+            <div class="col-5 d-flex justify-content-end direct-detail">
+                NEXT WORK <span class="pl-3"><i class="fa-solid fa-angle-right"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <div class=" container-fluid footer text-white py-3 mt-5">
         <div class="container p-0">
             <div class="row py-5 my-5">
                 <div class="col-5">
@@ -182,7 +185,6 @@
         </div>
 
     </div>
-
 </body>
 
 </html>
