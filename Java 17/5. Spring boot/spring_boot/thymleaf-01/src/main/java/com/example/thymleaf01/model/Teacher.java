@@ -3,7 +3,7 @@ package com.example.thymleaf01.model;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Locale;
+import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -13,8 +13,9 @@ import java.util.Locale;
 public class Teacher {
     int id;
     String name;
-    String address;
     String phone;
-    Locale dob;
-    String department;
+    LocalDate dob;
+    String gender;
+    String specialized;
+    String level;
 }
