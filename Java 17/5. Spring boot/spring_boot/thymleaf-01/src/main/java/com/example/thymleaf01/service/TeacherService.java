@@ -47,4 +47,8 @@ public class TeacherService {
         teacher.setSpecialized(updatedTeacher.getSpecialized());
         teacher.setLevel(updatedTeacher.getLevel());
     }
+
+    public void deleteTeacher(int teacherId) {
+        teachers.remove(getTeacherById(teacherId));
+    }
 }

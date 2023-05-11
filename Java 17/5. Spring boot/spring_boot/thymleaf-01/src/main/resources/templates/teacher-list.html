@@ -36,6 +36,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 
 <body>
@@ -68,9 +71,16 @@
                     <td class="text-center col-1">
                         <div class="d-flex justify-content-between">
 
-                            <a th:href="@{'/teachers/update/' + ${giaoVien.id}}" class="btn btn-link p-0">
+                            <a th:href="@{'/teachers/update/' + ${gv.id}}" class="btn btn-link p-0">
                                 <i class="fa-solid fa-pencil fa-lg text-primary"></i> <!-- Nút Update -->
                             </a>
+
+                            <form th:action="@{'teachers/delete/' + ${giaoVien.id}}" method="post"
+                                  onsubmit="return confirm('Bạn có chắc chắn muốn xóa giáo viên này không?');">
+                                <button type="submit" class="btn btn-link p-0 mr-2">
+                                    <span><i class="fa-solid fa-trash-can fa-lg text-danger"></i></span>
+                                </button>
+                            </form>
                         </div>
 
                     </td>

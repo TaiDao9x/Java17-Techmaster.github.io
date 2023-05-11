@@ -17,34 +17,37 @@
 </head>
 <body>
 <div class="container">
-    <div class="row mt-4">
+    <div class="row my-4">
         <div class="col">
-            <h1>Update Teacher</h1>
+            <div class="row justify-content-center">
+                <h1>Update Teacher</h1>
+            </div>
+
             <form th:action="@{'/teachers/update/' + ${teacher.id}}" method="post">
                 <input type="hidden" th:field="${teacher.id}"/>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" th:field="*{name}" class="form-control" id="name">
+                    <input type="text" th:field="*{teacher.name}" class="form-control" id="name">
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone</label>
-                    <input type="text" th:field="*{phone}" class="form-control" id="phone">
+                    <input type="text" th:field="*{teacher.phone}" class="form-control" id="phone">
                 </div>
                 <div class="form-group">
                     <label for="dob">Date Of Birth</label>
-                    <input type="date-local" th:field="*{dob}" class="form-control" id="dob">
+                    <input type="date-local" th:field="*{teacher.dob}" class="form-control" id="dob">
                 </div>
 
                 <label>Giới tính</label> <br>
                 <div class="form-check-inline">
                     <label class="form-check-label">
-                        <input type="radio" th:field="*{gender}" value="Male" class="form-check-input"
+                        <input type="radio" th:field="*{teacher.gender}" value="Male" class="form-check-input"
                                name="male">Male
                     </label>
                 </div>
                 <div class="form-check-inline mb-3">
                     <label class="form-check-label">
-                        <input type="radio" th:field="*{gender}" value="Female" class="form-check-input"
+                        <input type="radio" th:field="*{teacher.gender}" value="Female" class="form-check-input"
                                name="female">Femal
                     </label>
                 </div>
@@ -52,30 +55,28 @@
                 <div class="form-group">
                     <label for="specialized">Chuyên ngành </label>
                     <select class="form-control" id="specialized" name="specialized">
-                        <option th:field="*{specialized}" value="None">
+                        <option th:field="*{teacher.specialized}" value="None">
                             None
                         </option>
-                        <option th:field="*{specialized}" value="Khoa học tự nhiên">
+                        <option th:field="*{teacher.specialized}" value="Khoa học tự nhiên">
                             Khoa học tự nhiên
                         </option>
-                        <option th:field="*{specialized}" value="Khoa học xã hội">Khoa học xã hội</option>
+                        <option th:field="*{teacher.specialized}" value="Khoa học xã hội">Khoa học xã hội</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="level">Trình độ: </label>
                     <select class="form-control" id="level" name="level">
-                        <option th:field="*{level}" value="None">None</option>
-                        <option th:field="*{level}" value="Giáo sư">Giáo sư</option>
-                        <option th:field="*{level}" value="Tiến sĩ">Tiến sĩ</option>
-                        <option th:field="*{level}" value="Thạc sĩ">Thạc sĩ</option>
+                        <option th:field="*{teacher.level}" value="None">None</option>
+                        <option th:field="*{teacher.level}" value="Giáo sư">Giáo sư</option>
+                        <option th:field="*{teacher.level}" value="Tiến sĩ">Tiến sĩ</option>
+                        <option th:field="*{teacher.level}" value="Thạc sĩ">Thạc sĩ</option>
                     </select>
                 </div>
 
-
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a role="button" class="btn btn-secondary" th:href="@{/teachers}">Back</a>
-
             </form>
         </div>
     </div>
