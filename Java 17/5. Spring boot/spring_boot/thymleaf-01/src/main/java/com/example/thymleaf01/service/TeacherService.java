@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class TeacherService {
     private static final List<Teacher> teachers = new ArrayList<>();
+    private static int AUTO_ID = 10;
 
     static {
         for (int i = 0; i < 10; i++) {
@@ -27,6 +28,8 @@ public class TeacherService {
     }
 
     public void createNewTeacher(Teacher teacher) {
+        teacher.setId(AUTO_ID);
+        AUTO_ID++;
         teachers.add(teacher);
     }
 

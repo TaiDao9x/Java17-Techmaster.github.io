@@ -1,15 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<html xmlns:th="http:/www.thymeleaf.org">
-
-
-<head>
-    <meta charset="UTF-8">
-    <title>Danh sach giang vien</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -57,6 +47,7 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Date Of Birth</th>
+                    <th>Gender</th>
                     <th>Specialized</th>
                     <th>Level</th>
                 </tr>
@@ -66,16 +57,17 @@
                     <td th:text="${gv.name}"></td>
                     <td th:text="${gv.phone}"></td>
                     <td th:text="${gv.dob}"></td>
+                    <td th:text="${gv.gender}"></td>
                     <td th:text="${gv.specialized}"></td>
                     <td th:text="${gv.level}"></td>
                     <td class="text-center col-1">
                         <div class="d-flex justify-content-between">
 
                             <a th:href="@{'/teachers/update/' + ${gv.id}}" class="btn btn-link p-0">
-                                <i class="fa-solid fa-pencil fa-lg text-primary"></i> <!-- Nút Update -->
+                                <i class="fa-solid fa-pencil fa-lg text-primary"></i>
                             </a>
 
-                            <form th:action="@{'teachers/delete/' + ${giaoVien.id}}" method="post"
+                            <form th:action="@{'teachers/delete/' + ${gv.id}}" method="post"
                                   onsubmit="return confirm('Bạn có chắc chắn muốn xóa giáo viên này không?');">
                                 <button type="submit" class="btn btn-link p-0 mr-2">
                                     <span><i class="fa-solid fa-trash-can fa-lg text-danger"></i></span>
@@ -89,7 +81,6 @@
         </div>
     </div>
 
-</div>
 </div>
 
 </body>
