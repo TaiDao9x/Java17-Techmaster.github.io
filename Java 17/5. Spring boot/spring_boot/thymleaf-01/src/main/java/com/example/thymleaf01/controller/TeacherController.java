@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,26 +31,17 @@ public class TeacherController {
 
     @GetMapping("/create-form")
     public String fowardToCreateTeacherForm(Model model, Teacher teacher) {
-        List<LevelDto> levels = new ArrayList<>();
-        levels.add(new LevelDto(0, "None"));
-        levels.add(new LevelDto(Level.PROFESSOR.id, Level.PROFESSOR.name));
-        levels.add(new LevelDto(Level.DOCTOR.id, Level.DOCTOR.name));
-        levels.add(new LevelDto(Level.MASTER.id, Level.MASTER.name));
+        List<Level> levels = Arrays.asList(Level.values());
 
-        List<LevelDto> specializeds = new ArrayList<>();
-        specializeds.add(new LevelDto(0, "None"));
-        specializeds.add(new LevelDto(Specialized.KHOA_HOC_TU_NHIEN.id, Specialized.KHOA_HOC_TU_NHIEN.name));
-        specializeds.add(new LevelDto(Specialized.KHOA_HOC_XA_HOI.id, Specialized.KHOA_HOC_XA_HOI.name));
+        List<Specialized> specializeds = new ArrayList<>(Arrays.asList(Specialized.values()));
 
-        List<LevelDto> genders = new ArrayList<>();
-        genders.add(new LevelDto(Gender.MALE.id, Gender.MALE.name));
-        genders.add(new LevelDto(Gender.FEMALE.id, Gender.FEMALE.name));
-        genders.add(new LevelDto(Gender.OTHER.id, Gender.OTHER.name));
+        List<Gender> genders = new ArrayList<>(Arrays.asList(Gender.values()));
 
-        model.addAttribute("giangVienToiMuonTaoMoi", teacher);
         model.addAttribute("dsGender", genders);
         model.addAttribute("dsChuyennganh", specializeds);
         model.addAttribute("dsLevel", levels);
+
+        model.addAttribute("giangVienToiMuonTaoMoi", teacher);
         return "create-teacher";
     }
 
@@ -62,6 +54,7 @@ public class TeacherController {
     @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") int teacherId, Model model) {
         Teacher teacher = teacherService.getTeacherById(teacherId);
+
         model.addAttribute("teacher", teacher);
         return "update-teacher";
     }

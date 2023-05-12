@@ -44,28 +44,28 @@
                             <input type="date" th:field="*{dob}" class="form-control" id="dob">
                         </div>
 
-<!--                        <label>Giới tính</label> <br>-->
-<!--                        <div class="form-check-inline">-->
-<!--                            <label th:type="text" class="form-check-label">-->
-<!--                                <input type="radio" th:field="*{gender}" value="Male" class="form-check-input ml-3"-->
-<!--                                       name="male" th:each="g:${dsGender}" th:value="${g.getId()}"-->
-<!--                                       th:text="${g.getName()}">-->
-<!--                            </label>-->
-<!--                        </div>-->
+                        <label>Giới tính</label> <br>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" th:field="*{gender}" class="form-check-input ml-3"
+                                       name="gender" th:each="g:${dsGender}" th:value="${g}"
+                                       th:text="${g.getName()}">
+                            </label>
+                        </div>
 
 
-<!--                        <div class="form-group mt-2">-->
-<!--                            <label for="specialized">Chuyên ngành </label>-->
-<!--                            <select th:type="text" th:field="*{specialized}" class="form-control" id="specialized" placeholder="...">-->
-<!--                                <option th:each="c:${dsChuyennganh}" th:value="${c.getId()}" th:text="${c.getName()}">-->
-<!--                                </option>-->
-<!--                            </select>-->
-<!--                        </div>-->
+                        <div class="form-group mt-2">
+                            <label for="specialized">Chuyên ngành </label>
+                            <select th:field="*{specialized}" class="form-control" id="specialized">
+                                <option th:each="c:${dsChuyennganh}" th:value="${c}" th:text="${c.getName()}">
+                                </option>
+                            </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="level">Trình độ </label>
-                            <select th:field="*{level}" class="form-control" id="level" >
-                                <option th:each="lv:${dsLevel}" th:value="${lv.getName()}" th:text="${lv.getName()}">
+                            <select th:field="*{level}" class="form-control" id="level">
+                                <option th:each="lv:${dsLevel}" th:value="${lv}" th:text="${lv.getName()}">
                                 </option>
                             </select>
                         </div>

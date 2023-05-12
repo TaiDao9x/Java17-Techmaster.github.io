@@ -1,14 +1,15 @@
 package com.example.thymleaf01.statics;
 
 public enum Level {
-    PROFESSOR(1, "Professor"), DOCTOR(2, "Doctor"), MASTER(3, "Master");
+    PROFESSOR("Professor"), DOCTOR("Doctor"), MASTER("Master");
 
-    public int id;
     public String name;
 
-    Level(int id, String name) {
-        this.id = id;
+    Level(String name) {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
 }
