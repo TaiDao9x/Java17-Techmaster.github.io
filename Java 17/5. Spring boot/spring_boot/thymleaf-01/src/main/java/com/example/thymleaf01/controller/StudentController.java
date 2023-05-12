@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +35,11 @@ public class StudentController {
     @PostMapping
     public String createNewStudent(@ModelAttribute("student") Student student) {
         studentService.createNewStudent(student);
+        return "redirect:/students";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteTeacher(@PathVariable("id") Integer teacherId) {
         return "redirect:/students";
     }
 }

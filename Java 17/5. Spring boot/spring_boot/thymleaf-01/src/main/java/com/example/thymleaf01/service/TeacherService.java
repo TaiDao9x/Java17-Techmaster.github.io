@@ -17,7 +17,6 @@ public class TeacherService {
                     .id(i)
                     .name("Nguyen Van " + i)
                     .phone("09876543" + i)
-                    .specialized("Ths")
                     .build();
             teachers.add(teacher);
         }

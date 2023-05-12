@@ -43,13 +43,14 @@
         <div class="col">
             <table class="table table-bordered">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Date Of Birth</th>
-                    <th>Gender</th>
-                    <th>Specialized</th>
-                    <th>Level</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Date Of Birth</th>
+                    <th class="text-center">Gender</th>
+                    <th class="text-center">Specialized</th>
+                    <th class="text-center">Level</th>
+                    <th class="text-center">Action</th>
                 </tr>
 
                 <tr th:each="gv:${dachSachGiangVien}">
@@ -67,7 +68,7 @@
                                 <i class="fa-solid fa-pencil fa-lg text-primary"></i>
                             </a>
 
-                            <form th:action="@{'teachers/delete/' + ${gv.id}}" method="post"
+                            <form th:action="@{'teachers/delete/'+${gv.id}}" method="post"
                                   onsubmit="return confirm('Bạn có chắc chắn muốn xóa giáo viên này không?');">
                                 <button type="submit" class="btn btn-link p-0 mr-2">
                                     <span><i class="fa-solid fa-trash-can fa-lg text-danger"></i></span>
