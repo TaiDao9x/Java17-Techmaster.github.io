@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Reader</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="row justify-content-center">
+                <h1> Create New Reader </h1>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <form action="#" th:action="@{/readers}" th:object="${readerMuonTaoMoi}" method="post">
+                        <div class="form-group">
+                            <label for="name">Tên</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" th:field="*{address}" class="form-control" id="address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Điện thoại</label>
+                            <input type="number" th:field="*{phone}" class="form-control" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="readerType">Phân loại</label>
+                            <select th:field="*{readerType}" class="form-control" id="readerType">
+                                <option th:each="a:${dsLoaiReader}" th:value="${a}" th:text="${a.getName()}"></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a role="button" class="btn btn-secondary" th:href="@{/readers}">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

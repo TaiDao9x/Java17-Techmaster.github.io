@@ -1,24 +1,21 @@
 package com.example.homework_book_managerment.model;
 
 import com.example.homework_book_managerment.statics.Specialized;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
-import java.time.LocalDate;
-
+@AllArgsConstructor
+@Data
+@Builder
 public class Book {
     int id;
     String title;
     String author;
     Specialized specialized;
-    LocalDate publishDate;
+    int publishDate;
 
     public Book() {
     }
 
-    public Book(int id, String title, String author, Specialized specialized, int year) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.specialized = specialized;
-        this.publishDate = LocalDate.of(year, 1, 1);
-    }
 }

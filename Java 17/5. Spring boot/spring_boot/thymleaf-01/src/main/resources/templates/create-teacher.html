@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <label for="level">Trình độ </label>
                             <select th:field="*{level}" class="form-control" id="level">
-                                <option th:each="lv:${dsLevel}" th:value="${lv}" th:text="${lv.getName()}">
+                                <option th:each="lv:${dsLevel}" th:value="${lv}" th:text="${lv }">
                                 </option>
                             </select>
                         </div>
