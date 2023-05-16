@@ -7,6 +7,8 @@ ul {
     list-style: none;
 }
 
+
+
 .font-poppin {
     font-family: Poppins, sans-serif;
 }
@@ -42,10 +44,22 @@ ul {
     font-size: 12px;
 }
 
-.sign-up-wrapper {
-    padding-top: 215px;
-    padding-bottom: 165px;
+.shape {
+    position: absolute;
 }
+
+.main .container {
+    margin-top: 215px;
+    margin-bottom: 165px;
+}
+
+.sign-up-wrapper {
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px 0px rgba(82, 63, 105, 0.15);
+    ;
+}
+
 
 .row .bgFFEDED {
     background-color: #FFEDED;
@@ -62,9 +76,7 @@ main .shapes {
     position: relative;
 }
 
-.footer .bg-shape .shape {
-    position: absolute;
-}
+
 
 .footer .footer-detail {
     font-weight: 400;
