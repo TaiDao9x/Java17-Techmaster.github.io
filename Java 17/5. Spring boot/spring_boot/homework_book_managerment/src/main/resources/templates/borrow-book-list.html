@@ -58,8 +58,8 @@
 
                 <tr th:each="borrow:${danhSachMuonBook}">
                     <td th:text="${borrow.id}" class="px-0 text-center"></td>
-                    <td th:text="${borrow.reader}" class="px-0 text-center"></td>
-                    <td th:text="${borrow.book}" class="px-0 text-center"></td>
+                    <td th:text="${borrow.readerName}" class="px-0 text-center"></td>
+                    <td th:text="${borrow.bookName}" class="px-0 text-center"></td>
                     <td th:text="${borrow.getStatus()}" class="px-0 text-center"></td>
                     <td th:text="${borrow.getQuantity()}" class="px-0 text-center"></td>
                     <td th:text="${borrow.getDate()}" class="px-0 text-center"></td>

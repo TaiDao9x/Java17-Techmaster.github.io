@@ -3,12 +3,16 @@ package com.example.homework_book_managerment.service;
 import com.example.homework_book_managerment.entity.BookEntity;
 import com.example.homework_book_managerment.entity.BorrowBookEntity;
 import com.example.homework_book_managerment.entity.ReaderEntity;
+import com.example.homework_book_managerment.model.Book;
 import com.example.homework_book_managerment.model.BorrowBook;
+import com.example.homework_book_managerment.model.Reader;
 import com.example.homework_book_managerment.statics.ReaderType;
 import com.example.homework_book_managerment.statics.Specialized;
 import com.example.homework_book_managerment.statics.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,10 +21,13 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BorrowBookService {
     ObjectMapper objectMapper;
+    BookService bookService;
+    ReaderService readerService;
 
-    private static List<BorrowBookEntity> borrowBooks = new ArrayList<>();
+    private static final List<BorrowBookEntity> borrowBooks = new ArrayList<>();
     private static int AUTO_ID = 1;
 
     static {
@@ -37,15 +44,43 @@ public class BorrowBookService {
 
     public List<BorrowBook> getAllBorrows() {
         List<BorrowBook> rs = new ArrayList<>();
-        borrowBooks.forEach(b -> {
-            BorrowBook borrowBook = objectMapper.convertValue(b, BorrowBook.class);
+        borrowBooks.forEach(borrowBookEntity -> {
+            BorrowBook borrowBook = BorrowBook.builder()
+                    .id(borrowBookEntity.getId())
+                    .idBook(borrowBookEntity.getBook().getId())
+                    .idReader(borrowBookEntity.getReader().getId())
+                    .quantity(borrowBookEntity.getQuantity())
+                    .status(borrowBookEntity.getStatus())
+                    .date(borrowBookEntity.getDate())
+                    .bookName(borrowBookEntity.getBook().getTitle())
+                    .readerName(borrowBookEntity.getReader().getName())
+                    .build();
             rs.add(borrowBook);
         });
         return rs;
     }
 
     public void createNewBorrow(BorrowBook borrowBook) {
-        BorrowBookEntity borrowBookEntity = objectMapper.convertValue(borrowBook, BorrowBookEntity.class);
+        if (borrowBook == null) return;
+
+        int idBook = borrowBook.getIdBook();
+        Book book = bookService.getBookById(idBook);
+        if (book == null) return;
+        BookEntity bookEntity = objectMapper.convertValue(book, BookEntity.class);
+
+        int idReader = borrowBook.getIdReader();
+        Reader reader = readerService.getReaderById(idReader);
+        if (reader == null) return;
+        ReaderEntity readerEntity = objectMapper.convertValue(reader, ReaderEntity.class);
+
+        BorrowBookEntity borrowBookEntity = BorrowBookEntity.builder()
+                .book(bookEntity)
+                .reader(readerEntity)
+                .quantity(borrowBook.getQuantity())
+                .status(borrowBook.getStatus())
+                .date(borrowBook.getDate())
+                .build();
+
         borrowBookEntity.setId(AUTO_ID);
         AUTO_ID++;
         borrowBooks.add(borrowBookEntity);

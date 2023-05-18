@@ -51,16 +51,16 @@ public class BorrowBookController {
 
     @PostMapping
     public String createNewBorrow(@ModelAttribute("themLuotMuon") @Valid BorrowBook borrowBook, Errors errors, Model model) {
-//        if (errors != null && errors.getErrorCount() > 0) {
-//            List<Book> books = bookService.getAllBooks();
-//            List<Reader> readers = readerService.getAllReaders();
-//            List<Status> statusList = Arrays.asList(Status.values());
-//
-//            model.addAttribute("dsBook", books);
-//            model.addAttribute("dsReader", readers);
-//            model.addAttribute("dsStatus", statusList);
-//            return "create-borrow-book";
-//        }
+        if (errors != null && errors.getErrorCount() > 0) {
+            List<Book> books = bookService.getAllBooks();
+            List<Reader> readers = readerService.getAllReaders();
+            List<Status> statusList = Arrays.asList(Status.values());
+
+            model.addAttribute("dsBook", books);
+            model.addAttribute("dsReader", readers);
+            model.addAttribute("dsStatus", statusList);
+            return "create-borrow-book";
+        }
         borrowBookService.createNewBorrow(borrowBook);
         return "redirect:/borrows";
     }

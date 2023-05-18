@@ -1,16 +1,17 @@
 package com.example.homework_book_managerment.model;
 
 import com.example.homework_book_managerment.statics.Specialized;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 
-@AllArgsConstructor
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Book {
     int id;
 
@@ -27,8 +28,4 @@ public class Book {
     @Pattern(regexp = "\\d{4}", message = "Publish year must be 4 number characters")
     @Range(min = 1000, max = 2023, message = "Publish year should be greater than 1000 and less than 2023!")
     String publishDate;
-
-    public Book() {
-    }
-
 }
