@@ -7,8 +7,6 @@ ul {
     list-style: none;
 }
 
-
-
 .font-poppin {
     font-family: Poppins, sans-serif;
 }
@@ -60,7 +58,7 @@ ul {
 }
 
 .cicle {
-    animation: circle 20s linear 0.5s infinite alternate;
+    animation: circle 20s linear 0.5s infinite;
 }
 
 @keyframes circle {
@@ -72,7 +70,6 @@ ul {
         transform: rotate(360deg);
     }
 }
-
 
 .row .bgFFEDED {
     background-color: #FFEDED;

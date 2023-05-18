@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 class WebConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/borrows");
+        registry.addViewController("/").setViewName("forward:/books");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }

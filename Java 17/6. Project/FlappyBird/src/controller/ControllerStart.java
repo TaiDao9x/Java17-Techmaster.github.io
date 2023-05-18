@@ -59,7 +59,7 @@ public class ControllerStart {
 
 				public void mouseClicked(MouseEvent e) {
 					new ControllerGame().startGame();
-					;
+					
 					view.setVisible(false);
 
 				}

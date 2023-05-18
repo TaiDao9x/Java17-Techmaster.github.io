@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Teacher Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="row justify-content-center">
+                <h1>
+                    Create New Teacher
+                </h1>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <form action="#" th:action="@{/teachers}" th:object="${giangVienToiMuonTaoMoi}" method="post">
+
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}"
+                                 th:errors="*{name}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" th:field="*{phone}" class="form-control" id="phone">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('phone')}"
+                                 th:errors="*{phone}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date Of Birth</label>
+                            <input type="date" th:field="*{dob}" class="form-control" id="dob">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('dob')}"
+                                 th:errors="*{dob}"></div>
+                        </div>
+
+                        <label>Giới tính</label> <br>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" th:field="*{gender}" class="form-check-input ml-3"
+                                       name="gender" th:each="g:${dsGender}" th:value="${g}"
+                                       th:text="${g.getName()}">
+                                <div class="alert alert-warning" th:if="${#fields.hasErrors('gender')}"
+                                     th:errors="*{gender}"></div>
+                            </label>
+                        </div>
+
+
+                        <div class="form-group mt-2">
+                            <label for="specialized">Chuyên ngành </label>
+                            <select th:field="*{specialized}" class="form-control" id="specialized">
+                                <option th:each="c:${dsChuyennganh}" th:value="${c}" th:text="${c.getName()}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="level">Trình độ </label>
+                            <select th:field="*{level}" class="form-control" id="level">
+                                <option th:each="lv:${dsLevel}" th:value="${lv}" th:text="${lv.getName()}">
+                                </option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <a role="button" class="btn btn-secondary" th:href="@{/teachers}">Back</a>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

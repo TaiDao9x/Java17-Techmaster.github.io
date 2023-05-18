@@ -7,6 +7,11 @@ public class ScoreDetail {
     public ScoreDetail() {
     }
 
+    public ScoreDetail(Subject subject, int score) {
+        this.subject = subject;
+        this.score = score;
+    }
+
     public Subject getSubject() {
         return subject;
     }
@@ -21,5 +26,13 @@ public class ScoreDetail {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "ScoreDetail{" +
+                "subject=" + subject +
+                ", score=" + score +
+                '}';
     }
 }

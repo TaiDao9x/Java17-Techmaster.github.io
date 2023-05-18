@@ -27,6 +27,7 @@ public class MenuManagement {
                     // TODO - factoryManagement
                     break;
                 case 3:
+                    timeSheetManagement.logTimeSheet();
                     break;
                 case 4:
                     break;

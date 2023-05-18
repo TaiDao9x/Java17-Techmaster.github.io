@@ -3,12 +3,15 @@ package homework_javacore.logic_handle;
 import homework_javacore.ultility.Ultility;
 
 public class MenuManagement {
-    private StudentManagement studentManagement = new StudentManagement();
-    private SubjectManagement subjectManagement = new SubjectManagement();
+    private StudentManagement studentManagement;
+    private SubjectManagement subjectManagement;
+    private TranscriptsManagement transcriptsManagement;
 
-//    public MenuManagement() {
-//        this.studentManagement = new StudentManagement();
-//    }
+    public MenuManagement() {
+        this.studentManagement = new StudentManagement();
+        this.subjectManagement = new SubjectManagement();
+        this.transcriptsManagement = new TranscriptsManagement(studentManagement, subjectManagement);
+    }
 
     public void runMenu() {
         while (true) {
@@ -22,6 +25,7 @@ public class MenuManagement {
                     subjectManagement.inputInfo();
                     break;
                 case 3:
+                    transcriptsManagement.createScoreBoard();
                     break;
                 case 4:
                     break;
@@ -33,7 +37,6 @@ public class MenuManagement {
                     System.out.println("Lựa chọn không có. Hãy chọn lại!");
             }
         }
-
     }
 
     private void showMenu() {

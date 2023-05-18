@@ -31,13 +31,18 @@
             <div class="row mb-4">
                 <div class="col">
                     <form action="#" th:action="@{/books}" th:object="${bookMuonTaoMoi}" method="post">
+
                         <div class="form-group">
                             <label for="title">Tên sách</label>
                             <input type="text" th:field="*{title}" class="form-control" id="title">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('title')}"
+                                 th:errors="*{title}"></div>
                         </div>
                         <div class="form-group">
                             <label for="author">Tác giả</label>
                             <input type="text" th:field="*{author}" class="form-control" id="author">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('author')}"
+                                 th:errors="*{author}"></div>
                         </div>
                         <div class="form-group">
                             <label for="specialized">Chuyên ngành</label>
@@ -49,6 +54,8 @@
                         <div class="form-group">
                             <label for="publishDate">Năm xuất bản</label>
                             <input type="number" th:field="*{publishDate}" class="form-control" id="publishDate">
+                            <div class="alert alert-warning" th:if="${#fields.hasErrors('publishDate')}"
+                                 th:errors="*{publishDate}"></div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Save</button>

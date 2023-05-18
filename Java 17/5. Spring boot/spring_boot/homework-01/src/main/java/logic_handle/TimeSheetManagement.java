@@ -108,7 +108,6 @@ public class TimeSheetManagement {
             timeSheets.add(timeSheet);
         }
         showInfo();
-
     }
 
     public void showInfo() {
