@@ -49,7 +49,18 @@ public class BookService {
 
     public Book getBookById(int id) {
         for (BookEntity bookEntity : books) {
-            if (bookEntity.getId() == id) return objectMapper.convertValue(bookEntity, Book.class);
+            if (bookEntity.getId() == id) {
+                return objectMapper.convertValue(bookEntity, Book.class);
+            }
+        }
+        return null;
+    }
+
+    public BookEntity getBookEntityById(int id) {
+        for (BookEntity bookEntity : books) {
+            if (bookEntity.getId() == id) {
+                return bookEntity;
+            }
         }
         return null;
     }

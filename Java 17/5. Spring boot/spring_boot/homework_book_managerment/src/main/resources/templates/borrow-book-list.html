@@ -63,11 +63,11 @@
                     <td th:text="${borrow.getStatus()}" class="px-0 text-center"></td>
                     <td th:text="${borrow.getQuantity()}" class="px-0 text-center"></td>
                     <td th:text="${borrow.getDate()}" class="px-0 text-center"></td>
-                    <!--                    <td class="text-center d-flex justify-content-around">-->
-                    <!--                        <a role="button" th:href="@{'/borrows/update/'+${book.id}}" class="btn btn-link p-0">-->
-                    <!--                            <i class="fa-solid fa-pencil fa-lg text-primary"></i>-->
-                    <!--                        </a>-->
-                    <!--                    </td>-->
+                    <td class="text-center d-flex justify-content-around">
+                        <a role="button" th:href="@{'/borrows/update/'+${borrow.id}}" class="btn btn-link p-0">
+                            <i class="fa-solid fa-pencil fa-lg text-primary"></i>
+                        </a>
+                    </td>
                 </tr>
             </table>
         </div>

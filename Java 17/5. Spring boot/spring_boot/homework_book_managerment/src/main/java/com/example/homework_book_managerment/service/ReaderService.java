@@ -48,6 +48,13 @@ public class ReaderService {
         return null;
     }
 
+    public ReaderEntity getReaderEntityById(int id) {
+        for (ReaderEntity readerEntity : readers) {
+            if (readerEntity.getId() == id) return readerEntity;
+        }
+        return null;
+    }
+
     public void updateReader(Reader reader) {
         readers.forEach(readerUpdate -> {
             if (readerUpdate.getId() != reader.getId()) return;
