@@ -3,10 +3,48 @@
     /* color: rgb(119, 119, 119); */
 }
 
+body {
+    position: relative;
+    font-weight: 400;
+    font-size: 15px;
+    color: #777;
+    line-height: 1.8;
+}
+
+img {
+    width: 100%;
+}
+
+h1,
+h3,
+h4 {
+    font-size: 20px;
+    letter-spacing: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 0%;
+}
+
+.modal-footer .btn {
+    border-color: red;
+}
+
+.btn:hover {
+    border: 1px solid #333;
+    background-color: white;
+    color: #000;
+}
+
 .font-montserrat {
     font-family: Montserrat, sans-serif;
     font-size: 11px;
     letter-spacing: 4px;
+}
+
+.navbar {
+    opacity: 0.9;
 }
 
 .navbar-brand {
@@ -22,4 +60,47 @@
 .dropdown-item:hover {
     background-color: red;
     color: white;
+}
+
+#band img {
+    opacity: 0.7;
+    border: solid 10px white;
+    width: 66%;
+    height: auto;
+}
+
+#band img:hover {
+    border-color: #f1f1f1;
+    cursor: pointer;
+}
+
+#tour {
+    color: rgb(189, 189, 189);
+}
+
+#tour .number {
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 10px;
+    background-color: #777;
+    float: right;
+}
+
+#tour .thumbnail p {
+    color: #555;
+}
+
+#tour .thumbnail .btn {
+    font-size: 14px;
+}
+
+.modal .modal-title,
+.close {
+    font-size: 30px;
+}
+
+
+.modal label {
+    font-weight: 700;
 }

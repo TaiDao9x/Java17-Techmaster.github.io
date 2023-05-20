@@ -106,10 +106,10 @@
         </a>
     </div>
 
-    <div id="band" class="container-fluid" style="padding-top:70px;padding-bottom:70px">
+    <div id="band" class="container-fluid py-5">
         <div class="container text-center">
-            <h4>THE BAND</h4>
-            <p><i>We love music!</i></p>
+            <h4 class="pt-5">THE BAND</h4>
+            <p class="pt-3"><i>We love music!</i></p>
             <p>We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -119,13 +119,37 @@
                 do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
                 exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <div class="row">
+            <div class="row py-3 mb-4">
                 <div class="col">
-                    <p><strong>Name</strong></p>
-                    <img src="./images/bandmember.jpg" class="btn rounded-circle" data-toggle="collapse"
-                        data-target="#band1" alt="">
+                    <p class="pb-4"><strong>Name</strong></p>
+                    <img src="./images/bandmember.jpg" class="rounded-circle" data-toggle="collapse"
+                        data-target="#person1" alt="">
 
-                    <div id="band1" class="collapse">
+                    <div id="person1" class="collapse">
+                        <p>Guitarist and Lead Vocalist</p>
+                        <p>Loves long walks on the beach</p>
+                        <p>Member since 1988</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <p class="pb-4"><strong>Name</strong></p>
+                    <img src="./images/bandmember.jpg" class="rounded-circle" data-toggle="collapse"
+                        data-target="#person2" alt="">
+
+                    <div id="person2" class="collapse">
+                        <p>Guitarist and Lead Vocalist</p>
+                        <p>Loves long walks on the beach</p>
+                        <p>Member since 1988</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <p class="pb-4"><strong>Name</strong></p>
+                    <img src="./images/bandmember.jpg" class="rounded-circle" data-toggle="collapse"
+                        data-target="#person3" alt="">
+
+                    <div id="person3" class="collapse">
                         <p>Guitarist and Lead Vocalist</p>
                         <p>Loves long walks on the beach</p>
                         <p>Member since 1988</p>
@@ -137,22 +161,21 @@
         </div>
     </div>
 
-    <div id="tour" class="bg-dark">
-        <div class="container">
-            <h4>THE BAND</h4>
-            <p><i>Lorem ipsum we'll play you some music.</i></p>
-            <p><i>Remember to book your tickets!</i></p>
-            <ul class="list-group">
-                <li class="list-group-item "> September <span class="badge badge-danger">Sold out!</span></li>
+    <div id="tour" class="bg-dark py-5">
+        <div class="container py-5">
+            <h4 class="text-light text-center">TOUR DATES</h4>
+            <p class="text-center"><i>Lorem ipsum we'll play you some music. <br>Remember to book your tickets!</i></p>
+            <ul class="list-group pb-1">
+                <li class="list-group-item"> September <span class="badge badge-danger">Sold out!</span></li>
                 <li class="list-group-item "> October <span class="badge badge-danger">Sold out!</span></li>
-                <li class="list-group-item">November <span class="badge badge-dark">3</span></li>
+                <li class="list-group-item">November <span class="badge number text-light">3</span></li>
             </ul>
 
-            <div class="row text-center">
+            <div class="row text-center mt-3">
                 <div class="col">
-                    <div class="thumbnail d-block bg-light">
+                    <div class="thumbnail d-block bg-light pb-3">
                         <img src="./images/paris.jpg" alt="">
-                        <p><b><i>Paris</i></b></p>
+                        <p class="pt-3"><b><i>Paris</i></b></p>
                         <p><i>Friday 27 November 2015</i></p>
                         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">
                             Buy Tickets
@@ -161,21 +184,22 @@
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-content ">
 
                                     <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h1 class="modal-title"><i class="fa-solid fa-lock"></i>Tickets</h1>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <div class="modal-header  bg-dark text-light p-5">
+                                        <h1 class="modal-title"><i class="fa-solid fa-lock"></i> Tickets</h1>
+                                        <button type="button" class="close text-light"
+                                            data-dismiss="modal">&times;</button>
                                     </div>
 
                                     <!-- Modal body -->
-                                    <div class="modal-body">
+                                    <div class="modal-body text-left p-5">
                                         <form action="/action_page.php">
                                             <div class="form-group">
                                                 <label for="count"><i class="fa-solid fa-cart-shopping"></i>Tickets, $
                                                     per person</label>
-                                                <input type="number" class="form-control" id="count">
+                                                <input type="number" class="form-control" placeholder="0" id="count">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email"><i class="fa-solid fa-user"></i> Send To</label>
@@ -183,7 +207,7 @@
                                                     id="email">
                                             </div>
 
-                                            <button type="submit" class="btn btn-dark">Pay<i
+                                            <button type="submit" class="btn btn-dark w-100">Pay <i
                                                     class="fa-solid fa-check"></i></button>
                                         </form>
                                     </div>
@@ -191,7 +215,113 @@
                                     <!-- Modal footer -->
                                     <div class="modal-footer d-flex justify-content-between">
                                         <button type="button" class="btn btn-dark" data-dismiss="modal"><i
-                                                class="fa-solid fa-xmark"></i> Close</button>
+                                                class="fa-solid fa-xmark"></i> Cancel</button>
+                                        <span><i>Need <a href="#">help?</a></i></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="thumbnail d-block bg-light pb-3">
+                        <img src="./images/newyork.jpg" alt="">
+                        <p class="pt-3"><b><i>New York</i></b></p>
+                        <p><i>Saturday 28 November 2015</i></p>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">
+                            Buy Tickets
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content ">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header  bg-dark text-light p-5">
+                                        <h1 class="modal-title"><i class="fa-solid fa-lock"></i> Tickets</h1>
+                                        <button type="button" class="close text-light"
+                                            data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body text-left p-5">
+                                        <form action="/action_page.php">
+                                            <div class="form-group">
+                                                <label for="count"><i class="fa-solid fa-cart-shopping"></i>Tickets, $
+                                                    per person</label>
+                                                <input type="number" class="form-control" placeholder="0" id="count">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email"><i class="fa-solid fa-user"></i> Send To</label>
+                                                <input type="password" class="form-control" placeholder="Enter email"
+                                                    id="email">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-dark w-100">Pay <i
+                                                    class="fa-solid fa-check"></i></button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal"><i
+                                                class="fa-solid fa-xmark"></i> Cancel</button>
+                                        <span><i>Need <a href="#">help?</a></i></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="thumbnail d-block bg-light pb-3">
+                        <img src="./images/sanfran.jpg" alt="">
+                        <p class="pt-3"><b><i>San Francisco</i></b></p>
+                        <p><i>Sunday 29 November 2015</i></p>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">
+                            Buy Tickets
+                        </button>
+
+                        <!-- The Modal -->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content ">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header  bg-dark text-light p-5">
+                                        <h1 class="modal-title"><i class="fa-solid fa-lock"></i> Tickets</h1>
+                                        <button type="button" class="close text-light"
+                                            data-dismiss="modal">&times;</button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body text-left p-5">
+                                        <form action="/action_page.php">
+                                            <div class="form-group">
+                                                <label for="count"><i class="fa-solid fa-cart-shopping"></i>Tickets, $
+                                                    per person</label>
+                                                <input type="number" class="form-control" placeholder="0" id="count">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email"><i class="fa-solid fa-user"></i> Send To</label>
+                                                <input type="password" class="form-control" placeholder="Enter email"
+                                                    id="email">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-dark w-100">Pay <i
+                                                    class="fa-solid fa-check"></i></button>
+                                        </form>
+                                    </div>
+
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer d-flex justify-content-between">
+                                        <button type="button" class="btn btn-dark" data-dismiss="modal"><i
+                                                class="fa-solid fa-xmark"></i> Cancel</button>
                                         <span><i>Need <a href="#">help?</a></i></span>
                                     </div>
 
