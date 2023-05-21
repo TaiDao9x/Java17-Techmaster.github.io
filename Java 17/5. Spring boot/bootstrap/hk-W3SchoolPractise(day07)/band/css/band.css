@@ -25,6 +25,7 @@ h4 {
 .btn {
     padding: 10px 20px;
     border-radius: 0%;
+    font-size: 14px;
 }
 
 .modal-footer .btn {
@@ -91,16 +92,20 @@ h4 {
     color: #555;
 }
 
-#tour .thumbnail .btn {
-    font-size: 14px;
-}
-
 .modal .modal-title,
 .close {
     font-size: 30px;
 }
 
-
 .modal label {
     font-weight: 700;
+}
+
+#contact .nav-link {
+    color: rgb(73, 80, 87);
+}
+
+.footer a:hover {
+    color: #777;
+    text-decoration: none;
 }

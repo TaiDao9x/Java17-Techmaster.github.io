@@ -34,6 +34,7 @@
 
 <body data-spy="scroll" data-target=".navbar" data-offset="50">
 
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top d-flex justify-content-between">
         <!-- Brand/logo -->
         <a class="navbar-brand font-montserrat" href="#">Logo</a>
@@ -69,6 +70,7 @@
         </ul>
     </nav>
 
+    <!-- home -->
     <div id="home" class="carousel slide" data-ride="carousel">
         <ul class="carousel-indicators">
             <li data-target="#home" data-slide-to="0" class="active"></li>
@@ -106,6 +108,7 @@
         </a>
     </div>
 
+    <!-- band -->
     <div id="band" class="container-fluid py-5">
         <div class="container text-center">
             <h4 class="pt-5">THE BAND</h4>
@@ -161,6 +164,7 @@
         </div>
     </div>
 
+    <!-- tour -->
     <div id="tour" class="bg-dark py-5">
         <div class="container py-5">
             <h4 class="text-light text-center">TOUR DATES</h4>
@@ -334,19 +338,20 @@
         </div>
     </div>
 
+    <!-- contact -->
     <div id="contact">
-        <div class="container">
-            <h4>Contact</h4>
-            <p><i>We love our fans!</i></p>
+        <div class="container py-5 mt-3">
+            <h4 class="py-4  text-center">Contact</h4>
+            <p class="text-center"><i>We love our fans!</i></p>
             <div class="row">
                 <div class="col-4">
                     <p>Fan? Drop a note.</p>
-                    <p><span><i class="fa-solid fa-location-dot"></i></span>Chicago, US</p>
-                    <p><span><i class="fa-solid fa-mobile-screen-button"></i></span>Phone: +00 1515151515</p>
-                    <p><span><i class="fa-solid fa-envelope"></i></span>Email: mail@mail.com</p>
+                    <p><span><i class="fa-solid fa-location-dot"></i></span> Chicago, US</p>
+                    <p><span><i class="fa-solid fa-mobile-screen-button"></i></span> Phone: +00 1515151515</p>
+                    <p><span><i class="fa-solid fa-envelope"></i></span> Email: mail@mail.com</p>
                 </div>
                 <div class="col-8">
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col"><input type="text" class="form-control" placeholder="Name" id="name">
                         </div>
                         <div class="col"><input type="email" class="form-control" placeholder="Email" id="email">
@@ -355,19 +360,19 @@
                     <div class="form-group">
                         <textarea class="form-control" rows="4" id="comment" placeholder="Comment"></textarea>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-dark">Dark</button>
+                    <div class="row py-3">
+                        <div class="col d-flex justify-content-end">
+                            <button type="button" class="btn btn-dark">Send</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h4>From The Blog</h4>
+            <h4 class="text-center pt-5">From The Blog</h4>
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs pt-2">
                 <li class="nav-item">
-                    <a class="nav-link font-montserrat active" data-toggle="tab" href="#Mike">Mike</a>
+                    <a class="nav-link active" data-toggle="tab" href="#Mike">Mike</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#Chandler">Chandler</a>
@@ -378,17 +383,17 @@
             </ul>
 
             <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane container active" id="Mike">
+            <div class="tab-content py-3">
+                <div class="tab-pane container active p-0" id="Mike">
                     <h2>Mike Ross, Manager</h2>
                     <p>Man, we've been on the road for some time now. Looking forward to lorem ipsum.</p>
                 </div>
-                <div class="tab-pane container fade" id="Chandler">
+                <div class="tab-pane container fade p-0" id="Chandler">
                     <h2>Chandler Bing, Guitarist</h2>
                     <p>Always a pleasure people! Hope you enjoyed it as much as I did. Could I BE.. any more pleased?
                     </p>
                 </div>
-                <div class="tab-pane container fade" id="Peter">
+                <div class="tab-pane container fade p-0" id="Peter">
                     <h2>Peter Griffin, Bass player</h2>
                     <p>I mean, sometimes I enjoy the show, but other times I enjoy other things.</p>
                 </div>
@@ -396,12 +401,15 @@
         </div>
     </div>
 
-    <img src="./images/map.jpg" class="w-100" alt="">
+    <!-- map -->
+    <img src="./images/map.jpg" class="w-100 pt-3" alt="">
 
-    <div class="footer text-center bg-dark text-light">
-        <a href="#home" data-toggle="tooltip" data-placement="top" title="TO TOP"><i
-                class="fa-solid fa-chevron-up  btn-dark"></i></a>
-        <p>Bootstrap Theme Made By <a href="#" data-toggle="tooltip" data-placement="top" title="Visit w3schools">
+    <!-- footer -->
+    <div class="footer text-center bg-dark text-light py-4">
+        <a href="#home" data-toggle="tooltip" data-placement="top" title="TO TOP" class="m-5"> <b><i
+                    class="fa-solid fa-chevron-up btn-dark"></i></b></a>
+        <p class="pt-4 pb-3">Bootstrap Theme Made By <a href="#" data-toggle="tooltip" data-placement="top"
+                title="Visit w3schools" class="text-light">
                 www.w3schools.com</a></p>
     </div>
 
