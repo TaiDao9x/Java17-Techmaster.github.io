@@ -1,4 +1,4 @@
-package com.example.homework_book_managerment.configuration;
+package com.example.homeworkdriver.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

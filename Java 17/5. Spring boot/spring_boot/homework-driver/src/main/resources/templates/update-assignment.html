@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Assignment</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mt-3">UPDATE ASSIGNMENT</h1>
+
+    <form action="#" th:action="@{/assignments}" th:object="${assignmentMuonSua}" method="post">
+
+        <div class="form-group">
+            <input type="hidden" th:field="*{id}" class="form-control" id="id">
+        </div>
+        <div class="form-group">
+            <label for="driverId">lái xe</label>
+            <select th:field="*{driverId}" class="form-control" id="driverId">
+                <option th:each="driver:${danhSachDriver}" th:value="${driver.id}"
+                        th:text="${driver.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="routeId">Tuyến</label>
+            <select th:field="*{routeId}" class="form-control" id="routeId">
+                <option th:each="route:${danhSachRoute}" th:value="${route.id}"
+                        th:text="${route.name}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="numberOfTurn">Số điểm dừng</label>
+            <input type="number" th:field="*{numberOfTurn}" class="form-control" id="numberOfTurn">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('numberOfTurn')}"
+                 th:errors="*{numberOfTurn}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfAssignment">Ngày chạy</label>
+            <input type="date" th:field="*{dateOfAssignment}" class="form-control" id="dateOfAssignment">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('dateOfAssignment')}"
+                 th:errors="*{dateOfAssignment}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a role="button" class="btn btn-secondary" th:href="@{/assignments}">Back</a>
+    </form>
+</div>
+
+</body>
+</html>

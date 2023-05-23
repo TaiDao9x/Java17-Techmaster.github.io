@@ -42,7 +42,6 @@ public class BookController {
             List<Specialized> specializeds = new ArrayList<>(Arrays.asList(Specialized.values()));
             model.addAttribute("dsChuyenNganh", specializeds);
             return "create-book";
-
         }
         bookService.createNewBook(book);
         return "redirect:/books";
