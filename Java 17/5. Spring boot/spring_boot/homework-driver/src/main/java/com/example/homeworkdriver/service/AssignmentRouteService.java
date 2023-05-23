@@ -65,6 +65,7 @@ public class AssignmentRouteService {
         for (AssignmentRoute assignment : assignmentRouteList) {
             if (assignment.getId() == id) {
                 return AssignmentRouteModel.builder()
+                        .id(assignment.getId())
                         .driverId(assignment.getDriver().getId())
                         .driverName(assignment.getDriver().getName())
                         .routeId(assignment.getRoute().getId())

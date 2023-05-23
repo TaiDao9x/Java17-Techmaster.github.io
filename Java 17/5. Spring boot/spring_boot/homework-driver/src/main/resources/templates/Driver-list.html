@@ -23,7 +23,11 @@
 
 <body>
 <div class="container">
-    <a class="btn btn-primary mt-5" href="/drivers/create-form">Tạo mới</a>
+    <div class="row pb-5">
+        <div class="col" th:replace="navbar.html :: navbar"></div>
+    </div>
+    <h4 class="text-center  mt-5">DRIVERS</h4>
+    <a class="btn btn-primary mt-2" href="/drivers/create-form">Tạo mới</a>
     <table class="table table-bordered table-hover mt-5">
         <tr>
             <th class="text-center">ID</th>

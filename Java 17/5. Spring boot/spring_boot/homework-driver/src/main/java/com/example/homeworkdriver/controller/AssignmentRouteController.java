@@ -49,8 +49,8 @@ public class AssignmentRouteController {
 
     @GetMapping("/update/{id}")
     public String forwardToUpdateAssignment(@PathVariable int id, Model model) {
-        getDriverAndRoute(model);
         AssignmentRouteModel assignmentRouteModel = assignmentRouteService.findAssignmentRouteModelbyId(id);
+        getDriverAndRoute(model);
         model.addAttribute("assignmentMuonSua", assignmentRouteModel);
         return "update-assignment";
     }
