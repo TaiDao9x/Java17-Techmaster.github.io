@@ -38,9 +38,9 @@ public class AssignmentRouteController {
     }
 
     @PostMapping
-    public String createNewAssignment(@ModelAttribute("taoPhanCongMoi") @Valid AssignmentRouteModel assignmentRouteModel, Model model, Errors errors) {
+    public String createNewAssignment(@ModelAttribute("taoPhanCongMoi") @Valid AssignmentRouteModel assignmentRouteModel, Errors errors) {
         if (errors != null && errors.getErrorCount() > 0) {
-            getDriverAndRoute(model);
+//            getDriverAndRoute(model);
             return "create-assignment";
         }
         assignmentRouteService.createNewAssignment(assignmentRouteModel);

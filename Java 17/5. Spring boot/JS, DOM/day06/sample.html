@@ -115,8 +115,7 @@
                 document.getElementById("weather_wind_speed").innerText =  data["wind"]["speed"] + "Km/h";
                 document.getElementById("weather_feels_like").innerText =  data["main"]["feels_like"] + "°C";
                 document.getElementById("weather_humidity").innerText =  data["main"]["humidity"] + "%";
-                document.getElementById("weather_pressure").innerText =  data["main"]["pressure"] + "hAp";
-        
+                document.getElementById("weather_pressure").innerText =  data["main"]["pressure"] + "hAp";        
             },
             error: function (error) {
                 console.log(message);
