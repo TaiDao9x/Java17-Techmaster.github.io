@@ -49,8 +49,7 @@ public class DriverService {
             throw new ObjectNotFoundException("Không tìm thấy lái xe mang mã " + id);
         }
         Driver driver = driverOptional.get();
-        DriverResponse driverResponse = objectMapper.convertValue(driver, DriverResponse.class);
-        return driverResponse;
+        return objectMapper.convertValue(driver, DriverResponse.class);
     }
 
     public void updateDriver(DriverUpdateRequest driverUpdateRequest) {
@@ -65,5 +64,12 @@ public class DriverService {
 
     public void deleteDriver(int id) {
         driverList.removeIf(driver -> driver.getId() == id);
+    }
+
+    public Driver findDriverByid(int id) {
+        for (Driver driver : driverList) {
+            if (driver.getId() == id) return driver;
+        }
+        return null;
     }
 }

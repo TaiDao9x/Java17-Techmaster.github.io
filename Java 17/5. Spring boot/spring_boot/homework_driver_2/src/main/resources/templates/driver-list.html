@@ -235,7 +235,47 @@
                     toastr.warning(data.responseJSON.message);
                 }
             })
-
         });
+
+
+        $("#driver-create-modal-form").validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 255
+                },
+                "address": {
+                    required: true,
+                    maxlength: 255
+                },
+                "phone": {
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
+                }
+            },
+            messages: {
+                "name": {
+                    required: "Bắt buộc nhập tên sinh viên",
+                    maxlength: "Hãy nhập tối đa 255 ký tự"
+                },
+                "address": {
+                    required: "Bắt buộc nhập địa chỉ sinh viên",
+                    maxlength: "Hãy nhập tối đa 255 ký tự"
+                },
+                "phone": {
+                    required: "Bắt buộc nhập điện thoại sinh viên",
+                    minlength: "Yêu cầu số điện thoại là 10 số"
+                }
+            }
+        });
+
+        $('#submit-create-driver').click(() => {
+            $('#driver-create-modal-form').valid();
+        })
+
     });
 </script>

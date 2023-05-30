@@ -208,6 +208,44 @@
             });
         });
 
+
+        $("#route-create-modal-form").validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 255
+                },
+                "distance": {
+                    required: true,
+                    min: 5
+                },
+                "numberOfStop": {
+                    required: true,
+                    min: 5
+                }
+            },
+            messages: {
+                "name": {
+                    required: "Bắt buộc nhập tên sinh viên",
+                    maxlength: "Hãy nhập tối đa 255 ký tự"
+                },
+                "distance": {
+                    required: "Bắt buộc nhập địa chỉ sinh viên",
+                    min: "Khoảng cách ít nhât 5km"
+                },
+                "numberOfStop": {
+                    required: "Bắt buộc nhập địa chỉ sinh viên",
+                    min: "Điểm dừng ít nhất 5 điểm"
+                }
+            }
+        })
+        $('#submit-create-modal').click(() => {
+            const isValidForm = $('#route-create-modal-form').valid();
+        })
+
     });
 </script>
 

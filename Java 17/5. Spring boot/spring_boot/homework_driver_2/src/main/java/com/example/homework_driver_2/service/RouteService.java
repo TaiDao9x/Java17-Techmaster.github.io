@@ -20,7 +20,7 @@ import java.util.Optional;
 public class RouteService {
     ObjectMapper objectMapper;
     List<Route> routes;
-    private static int AUTO_ID = 1;
+    private static int AUTO_ID = 100;
 
     public List<RouteResponse> getAllRouteResponse() {
         List<RouteResponse> routeResponses = new ArrayList<>();
@@ -60,5 +60,12 @@ public class RouteService {
 
     public void deleteRoute(int id) {
         routes.removeIf(route -> route.getId() == id);
+    }
+
+    public Route findRouteById(int id) {
+        for (Route route : routes) {
+            if (route.getId() == id) return route;
+        }
+        return null;
     }
 }
