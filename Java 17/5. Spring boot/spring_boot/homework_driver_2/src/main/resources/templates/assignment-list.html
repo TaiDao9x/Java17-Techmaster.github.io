@@ -111,6 +111,10 @@
             }
         })
 
+        $('#submit-create-assignment').click(() => {
+            $('#assignment-create-modal-form').valid();
+        })
+
         $(".update-assignment").click(async event => {
             const assignmentId = $(event.currentTarget).attr("assignment-id")
             console.log(assignmentId)
@@ -139,9 +143,6 @@
             $("#assignment-update-modal").modal('show')
         })
 
-        $('#submit-create-assignment').click(() => {
-            $('#assignment-create-modal-form').valid();
-        })
 
         $('#assignment-update-modal-form').validate({
             onfocusout: false,
@@ -169,7 +170,7 @@
             }
         })
 
-        $('#submit-update-modal').click(() => {
+        $('#submit-update-assignment').click(() => {
             const isValidForm = $('#assignment-update-modal-form').valid();
             if (!isValidForm) return;
             const assignmentId = $('#assignment-update-modal #submit-update-modal').attr('assignment-id')
