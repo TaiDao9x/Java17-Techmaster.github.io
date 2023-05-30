@@ -40,9 +40,16 @@ public class AssignmentController {
         return "redirect:/assignments";
     }
 
-    @GetMapping("/api/assignment/{id}")
+    @GetMapping("/api/assignments/{id}")
     public ResponseEntity<?> getAssignment(@PathVariable int id) {
         return ResponseEntity.ok(assignmentService.findByIdVer2(id));
+    }
+
+    @PutMapping("/api/assignments/{id}")
+    public ResponseEntity<?> updateAssignment(@PathVariable int id, @RequestBody @Valid AssignementRequest assignementRequest) {
+        assignementRequest.setId(id);
+        assignmentService.updateAssignment(assignementRequest);
+        return ResponseEntity.ok(null);
     }
 
     private void getDriverAndRoute(Model model) {

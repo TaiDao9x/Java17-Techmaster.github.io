@@ -72,4 +72,23 @@ public class AssignmentService {
 
         return assignementResponse;
     }
+
+    public Assignement findById(int id) {
+        for (Assignement assignment : assignements) {
+            if (assignment.getId() == id) return assignment;
+        }
+        return null;
+    }
+
+    public void updateAssignment(AssignementRequest assignmentRequest) {
+        Assignement assignement = findById(assignmentRequest.getId());
+        Driver driver = driverService.findDriverByid(assignmentRequest.getDriverId());
+        Route route = routeService.findRouteById(assignmentRequest.getRouteId());
+
+        assignement.setDriver(driver);
+        assignement.setRoute(route);
+        assignement.setNumberOfTurn(assignmentRequest.getNumberOfTurn());
+        assignement.setDateOfAssignment(assignmentRequest.getDateOfAssignment());
+
+    }
 }

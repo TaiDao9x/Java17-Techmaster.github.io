@@ -84,12 +84,39 @@
 <script>
 
     $(document).ready(function () {
+
+        $('#assignment-create-modal-form').validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "numberOfTurn": {
+                    required: true,
+                    min: 1,
+                    max: 15
+                },
+                "dateOfAssignment": {
+                    required: true,
+                }
+            },
+            messages: {
+                "numberOfTurn": {
+                    required: "Bắt buộc nhập số lượt",
+                    min: "Hãy nhập ít nhất 1 lượt",
+                    max: "Tối đa là 15 lượt"
+                },
+                "dateOfAssignment": {
+                    required: "Ngày chạy không được trống",
+                }
+            }
+        })
+
         $(".update-assignment").click(async event => {
             const assignmentId = $(event.currentTarget).attr("assignment-id")
-
+            console.log(assignmentId)
             let currentAssignment = null;
             await $.ajax({
-                url: "/api/assignment/" + assignmentId,
+                url: "/api/assignments/" + assignmentId,
                 type: 'GET',
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
@@ -107,10 +134,73 @@
             $('#assignment-update-modal #numberOfTurn').val(currentAssignment.numberOfTurn)
             $('#assignment-update-modal #dateOfAssignment').val(currentAssignment.dateOfAssignment)
 
-            $('#assignment-update-modal #submit-update-modal').attr('assignmentId', assignmentId)
+            $('#assignment-update-modal #submit-update-modal').attr('assignment-id', assignmentId)
 
             $("#assignment-update-modal").modal('show')
         })
+
+        $('#submit-create-assignment').click(() => {
+            $('#assignment-create-modal-form').valid();
+        })
+
+        $('#assignment-update-modal-form').validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            rules: {
+                "numberOfTurn": {
+                    required: true,
+                    min: 1,
+                    max: 15
+                },
+                "dateOfAssignment": {
+                    required: true,
+                }
+            },
+            messages: {
+                "numberOfTurn": {
+                    required: "Bắt buộc nhập số lượt",
+                    min: "Hãy nhập ít nhất 1 lượt",
+                    max: "Tối đa là 15 lượt"
+                },
+                "dateOfAssignment": {
+                    required: "Ngày chạy không được trống",
+                }
+            }
+        })
+
+        $('#submit-update-modal').click(() => {
+            const isValidForm = $('#assignment-update-modal-form').valid();
+            if (!isValidForm) return;
+            const assignmentId = $('#assignment-update-modal #submit-update-modal').attr('assignment-id')
+            const formData = $('#assignment-update-modal-form').serializeArray();
+            console.log(formData)
+            if (!formData || formData.length === 0) {
+                return;
+            }
+
+            const requestData = {}
+            for (let i = 0; i < formData.length; i++) {
+                requestData[formData[i].name] = formData[i].value;
+            }
+
+            $.ajax({
+                url: '/api/assignments/' + assignmentId,
+                type: 'PUT',
+                data: JSON.stringify(requestData),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    toastr.success("Cập nhật thành công");
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (data) {
+                    toastr.warning(data.responseJSON.message);
+                }
+            })
+        })
+
 
     })
 
