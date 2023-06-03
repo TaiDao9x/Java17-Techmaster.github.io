@@ -122,6 +122,18 @@ $(document).ready(() => {
     })
 
 // close modal -> clear form + reset form, delete action-type attribute at submit button
+    $(".close-modal").click(() => {
+            $("#task-modal #save-task").attr("action-type", "");
+            $("#task-modal #save-task").attr("task-id", "");
+            $('#task-modal-form').trigger("reset");
+
+        }
+    )
+    if (!$("#task-modal").hasClass('show')) {
+        $("#task-modal #save-task").attr("action-type", "");
+        $("#task-modal #save-task").attr("task-id", "");
+        $('#task-modal-form').trigger("reset");
+    }
 
 // create or update a task
     $('#save-task').click(event => {
@@ -184,7 +196,10 @@ $(document).ready(() => {
     })
 
 // open delete confirmation modal
-
+    $('.delete-btn').click(event => {
+        console.log("just clcik delete")
+        $('.task-delete-confirmation-modal').modal('show')
+    })
 
 // do delete task
 

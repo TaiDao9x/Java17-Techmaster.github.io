@@ -87,5 +87,4 @@ public class TaskService {
         return objectMapper.convertValue(task, TaskDetailResponse.class);
     }
 
-
 }
