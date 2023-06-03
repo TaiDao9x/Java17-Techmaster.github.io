@@ -19,9 +19,8 @@
 
 <ul>
     <li th:each="todo:${todos}" th:id="|id-${todo.id}|">
-        <input type="checkbox" th:checked="${todo.status}">
+        <input type="checkbox" th:checked="${todo.status}" th:onchange="|changeStatus(${todo.id})|">
         <span th:text="${todo.title}" th:class="${todo.status}?'active':''"></span>
-        <!--        <div th:text="${todo.title}"></div>-->
         <button th:onclick="|editTodo(${todo.id})|">Edit</button>
         <button th:onclick="|deleteTodo(${todo.id})|">Delete</button>
     </li>
@@ -48,8 +47,68 @@
                 }
             });
         }
-
     }
+
+    // edit todo (title)
+
+    function editTodo(id) {
+        console.log("edit")
+        let newTitle = prompt("Nhập tiêu đề mới: ")
+        // let todoStatus = $('input[type="checkbox"]').prop('checked');
+        let todoStatus = $(`#id-${id} input`).prop('checked');
+        console.log(todoStatus)
+        //kiểm tra title
+        if (newTitle.trim().length === 0) {
+            alert("Tiêu đề không được để trống!")
+            return
+        }
+
+        const request = {title: newTitle, status: todoStatus}
+        console.log(request)
+        $.ajax({
+            url: "/api/v1/todos/" + id,
+            type: 'PUT',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(request),
+            success:
+                function (data) {
+                    $(`ul #id-${id} span`).text(newTitle)
+                },
+            error: function (data) {
+                console.log(data)
+            }
+        });
+    }
+
+    // Thay đổi status
+    
+    function changeStatus(id) {
+
+        let todoStatus = $(`#id-${id} input`).prop('checked');
+        console.log(todoStatus)
+        $.get("/api/v1/todos/" + id, function (data) {
+            let requestBody = {title: data.title, status: todoStatus};
+            console.log(requestBody)
+            $.ajax({
+                url: "/api/v1/todos/" + id,
+                type: 'PUT',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(requestBody),
+                success:
+                    function () {
+                        if (todoStatus) {
+                            $(`#id-${id} span`).addClass('active')
+                        } else {
+                            $(`#id-${id} span`).removeClass('active')
+                        }
+                    },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        })
+    }
+
 
     // Thêm todo
     $('#btn-add').click(() => {
@@ -84,6 +143,8 @@
                 console.log(data)
             }
         });
+
+
     })
 
 </script>

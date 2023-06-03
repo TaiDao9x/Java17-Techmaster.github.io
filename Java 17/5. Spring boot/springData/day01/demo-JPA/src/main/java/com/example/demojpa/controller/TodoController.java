@@ -54,4 +54,9 @@ public class TodoController {
         todoRepository.delete(todo);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/api/v1/todos/{id}")
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        return ResponseEntity.ok(todoRepository.findById(id));
+    }
 }
