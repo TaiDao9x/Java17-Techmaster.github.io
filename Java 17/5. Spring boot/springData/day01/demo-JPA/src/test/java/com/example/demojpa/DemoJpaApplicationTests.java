@@ -20,6 +20,7 @@ class DemoJpaApplicationTests {
     private EmployeeRepository employeeRepository;
 
 
+
     @Test
     void save_user() {
         User user = new User(null, "Tai", "tai@gmail.com", LocalDate.now().plusYears(30), true);
@@ -103,7 +104,7 @@ class DemoJpaApplicationTests {
         System.out.println("4. Tìm kiếm tất cả các employee trong tên có chứa 1 keyword được chỉ định (không phân biệt hoa thường):");
         employeeList4.forEach(System.out::println);
 
-        List<Employee> employeeList5 = employeeRepository.findAllByNameStartsWithUsingNativeQuery("A");
+        List<Employee> employeeList5 = employeeRepository.findAllByNameStartsWithUsingNativeQuery("b");
         System.out.println("5. Tìm kiếm tất cả các employee có tên được bắt đầu với 1 chuỗi (prefix) được chỉ định:");
         employeeList5.forEach(System.out::println);
 
@@ -111,9 +112,9 @@ class DemoJpaApplicationTests {
         System.out.println("6.Tìm kiếm tất cả các employee có salary nằm trong khoảng chỉ định:");
         employeeList6.forEach(System.out::println);
 
-//        List<Employee> employeeList7 = employeeRepository.countByDepartmentUsingNativeQuery("hcns");
-//        System.out.println("7. Đếm số lượng employee thuộc 1 phòng ban được chỉ định:");
-//        employeeList7.forEach(System.out::println);
+        long employeeList7 = employeeRepository.countByDepartmentUsingNativeQuery("hcns");
+        System.out.println("7. Đếm số lượng employee thuộc 1 phòng ban được chỉ định:");
+        System.out.println(employeeList7);
 
         List<Employee> employeeList8 = employeeRepository.findAllByNameContainingAndDepartmentUsingNativeQuery("b", "hcns");
         System.out.println("8. Tìm kiếm tất cả các employee trong tên có chứa 1 keyword được chỉ định và thuộc 1 phòng ban được chỉ định:");

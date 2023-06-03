@@ -42,18 +42,18 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(nativeQuery = true, value = "select * from employee e where e.name=:name")
     List<Employee> findAllByNameUsingNativeQuery(@Param("name") String name);
 
-    @Query(nativeQuery = true, value = "select * from employee e where e.name like %?1%")
+    @Query(nativeQuery = true, value = "select * from employee e where e.name like %:keyword%")
     List<Employee> findAllByNameContainingUsingNativeQuery(@Param("keyword") String keyword);
 
     // TODO: không dùng được @Param
-    @Query(nativeQuery = true, value = "select * from employee e where e.name like ?1%")
+    @Query(nativeQuery = true, value = "select * from employee e where e.name like :prefix%")
     List<Employee> findAllByNameStartsWithUsingNativeQuery(@Param("prefix") String prefix);
 
-    @Query(nativeQuery = true, value = "select * from employee e where e.salary between ?1 and ?2 ")
+    @Query(nativeQuery = true, value = "select * from employee e where e.salary between :min and :max ")
     List<Employee> findAllBySalaryBetweenUsingNativeQuery(@Param("min") long min, @Param("max") long max);
 
     @Query(nativeQuery = true, value = "select count(*) from employee e where e.department=:department")
-    List<Employee> countByDepartmentUsingNativeQuery(@Param("department") String department);
+    long countByDepartmentUsingNativeQuery(@Param("department") String department);
 
     @Query(nativeQuery = true, value = "select * from employee e where e.name like ?1% and e.department=?2")
     List<Employee> findAllByNameContainingAndDepartmentUsingNativeQuery(@Param("keyword") String keyword, @Param("department") String department);
