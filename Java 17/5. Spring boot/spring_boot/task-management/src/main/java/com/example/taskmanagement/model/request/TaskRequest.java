@@ -30,7 +30,7 @@ public class TaskRequest {
 
     @NotNull
     @FutureOrPresent
-    @DateTimeFormat(pattern = "yyyy-MM-dd' T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     LocalDateTime expectedEndTime;
 
 }

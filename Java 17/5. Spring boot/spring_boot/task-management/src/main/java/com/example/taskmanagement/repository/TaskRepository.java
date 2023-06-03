@@ -54,4 +54,8 @@ public class TaskRepository {
         }
         return false;
     }
+
+    public void deleteTask(Integer id) {
+        tasks.removeIf(task -> task.getId() == id);
+    }
 }

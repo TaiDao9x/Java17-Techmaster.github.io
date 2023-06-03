@@ -4,6 +4,12 @@ $(document).ready(() => {
         toastr.info('Page Loaded!');
     }, 1000);
 
+    // if (!$("#task-modal").hasClass('show')) {
+    //     $("#task-modal #save-task").attr("action-type", "");
+    //     $("#task-modal #save-task").attr("task-id", "");
+    //     $('#task-modal-form').trigger("reset");
+    // }
+
     // get task status
     $.get("/api/v1/tasks/status", (data) => {
         const statusList = $('#task-modal #status')
@@ -105,10 +111,10 @@ $(document).ready(() => {
             task = data;
             console.log(task);
         })
-        // if (!task) {
-        //     toastr.error("Có lỗi, vui lòng thử lại!")
-        // }
-        //
+        if (!task) {
+            toastr.error("Có lỗi, vui lòng thử lại!")
+        }
+
         $('#task-modal-form #name').val(task.name)
         $('#task-modal-form #status').val(task.status)
         $('#task-modal-form #expectedEndTime').val(task.expectedEndTime)
@@ -118,7 +124,7 @@ $(document).ready(() => {
         $('#task-modal #save-task').attr("task-id", taskId)
 
         $('#task-modal').modal('show');
-
+        console.log($('#task-modal'))
     })
 
 // close modal -> clear form + reset form, delete action-type attribute at submit button
@@ -129,11 +135,6 @@ $(document).ready(() => {
 
         }
     )
-    if (!$("#task-modal").hasClass('show')) {
-        $("#task-modal #save-task").attr("action-type", "");
-        $("#task-modal #save-task").attr("task-id", "");
-        $('#task-modal-form').trigger("reset");
-    }
 
 // create or update a task
     $('#save-task').click(event => {
@@ -196,13 +197,74 @@ $(document).ready(() => {
     })
 
 // open delete confirmation modal
-    $('.delete-btn').click(event => {
-        console.log("just clcik delete")
-        $('.task-delete-confirmation-modal').modal('show')
+    $('.delete-btn').click((event) => {
+        const taskId = $(event.currentTarget).attr('task-id')
+
+        $('#task-delete-confirmation-modal #delete-task').attr('task-id', taskId)
+        $('#task-delete-confirmation-modal').modal('show')
     })
 
 // do delete task
+    $('#delete-task').click((event) => {
+        const taskId = $(event.currentTarget).attr('task-id')
+        $.ajax({
+            url: '/api/v1/tasks/' + taskId,
+            type: 'DELETE',
+            success: function () {
+                toastr.success("Delete Successfully!")
+                // $('#task-delete-confirmation-modal #delete-task').attr('task-id', "")
+                $('#delete-task').modal('hide');
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+            },
+            error: function (data) {
+                toastr.warning(data.responseJSON.error);
+            }
+        })
+    })
 
+    // overdue
+    $(".card").draggable({
+        scroll: true,
+        // axis: "y",
+        containment: "body",
+        revert: true,
+        helper: "clone",
+        disable: false,
+        start: function (event, ui) {
+            console.log(ui)
+            $(ui.item).addClass("active-draggable");
+        },
+        drag: function (event, ui) {
+        },
+        stop: function (event, ui) {
+            $(ui.item).removeClass("active-draggable");
+        }
+    });
+
+    $(".container-fluid").droppable({
+        accept: "#list",
+        class: {
+            "ui-droppable-active": "ac",
+            "ui-droppable-hover": "hv"
+        },
+        acivate: function (event, ui) {
+            $(this).css('background', 'red');
+        },
+        over: function (event, ui) {
+            $(this).css('background', "yellow");
+        },
+        out: function (event, ui) {
+            $(this).css('background', 'blue');
+        },
+        drop: function (event, ui) {
+            $(this).css('background', 'white');
+        },
+        deactivate: function (event, ui) {
+            $(ui.item).css('background', 'green');
+        },
+    });
 
 })
 

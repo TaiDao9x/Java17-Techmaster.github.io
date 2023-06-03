@@ -87,4 +87,7 @@ public class TaskService {
         return objectMapper.convertValue(task, TaskDetailResponse.class);
     }
 
+    public void deleteTask(Integer id) {
+        taskRepository.deleteTask(id);
+    }
 }
