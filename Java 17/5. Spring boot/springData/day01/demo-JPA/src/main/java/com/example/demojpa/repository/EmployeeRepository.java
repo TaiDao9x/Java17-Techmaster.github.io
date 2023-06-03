@@ -45,7 +45,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(nativeQuery = true, value = "select * from employee e where e.name like %:keyword%")
     List<Employee> findAllByNameContainingUsingNativeQuery(@Param("keyword") String keyword);
 
-    // TODO: không dùng được @Param
     @Query(nativeQuery = true, value = "select * from employee e where e.name like :prefix%")
     List<Employee> findAllByNameStartsWithUsingNativeQuery(@Param("prefix") String prefix);
 
