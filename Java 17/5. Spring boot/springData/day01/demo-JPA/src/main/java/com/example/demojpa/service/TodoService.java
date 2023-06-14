@@ -20,6 +20,6 @@ public class TodoService {
     public void updateTodo(Todo todo) {
     }
 
-    public void deleteTodo(Todo todo) {
+    public void deleteTodo(Todo todoUs) {
     }
 }

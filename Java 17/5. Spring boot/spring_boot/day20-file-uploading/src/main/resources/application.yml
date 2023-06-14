@@ -1,0 +1,5 @@
+application:
+  firebase:
+    bucket-name: day20-file-upload.appspot.com
+    download-url: https://firebasestorage.googleapis.com/v0/b/day20-file-upload.appspot.com/o/%s?alt=media
+    config-json: \Users\WIN 10\OneDrive - QUANG TRUNG COLLEGE\BO DEP ZAI\Coding Techmaster\TaiDao9x.github.io\Java 17\5. Spring boot\spring_boot\upload-avatar-fireBase\day20-file-upload-firebase-adminsdk-6ccqc-6dcef157bf.json

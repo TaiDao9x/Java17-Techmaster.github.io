@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Danh sách user</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5 mb-3">Danh sách user</h2>
+
+    <div class="row">
+        <div class="col-4">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td><a th:href="@{|/users/${user.id}/files|}" class="detail-user" th:attr="user-id=${user.id}">Xem
+                        chi tiết</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>-->
+
+<!--&lt;!&ndash; Popper JS &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>-->
+
+<!--&lt;!&ndash; Latest compiled JavaScript &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>-->
+<!---->
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $(".detail-user").click((event) => {-->
+<!--            console.log(event)-->
+<!--            const userId = $(event.currentTarget).attr("user-id")-->
+<!--            console.log(userId)-->
+
+<!--            $.ajax({-->
+<!--                url: `/users/${userId}/files`,-->
+<!--                type: "GET",-->
+<!--                contentType: "application/json; charset=utf-8",-->
+<!--                success: function (data) {-->
+<!--                    console.log(data)-->
+<!--                },-->
+<!--                error: function (data) {-->
+<!--                    console.log(data)-->
+<!--                }-->
+<!--            })-->
+
+<!--        })-->
+
+<!--    })-->
+<!--</script>-->

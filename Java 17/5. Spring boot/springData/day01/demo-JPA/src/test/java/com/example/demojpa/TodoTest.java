@@ -6,6 +6,7 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.Random;
 
@@ -28,5 +29,20 @@ public class TodoTest {
 
             todoRepository.save(todo);
         }
+    }
+
+//    @Rollback(value = false)
+    @Test
+    void updateTodo() {
+        todoRepository.updateTodo(15, "update 123", true);
+    }
+
+    @Test
+    void deleteTodo() {
+        todoRepository.deleteTodo(17);
+    }
+    @Test
+    void deleteTodo2() {
+        todoRepository.deleteById(17);
     }
 }
