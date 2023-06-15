@@ -99,5 +99,33 @@
             }
         )
 
+        $("#input-file").change(event => {
+            let url = window.location.href;
+            const userId = url.substring(url.lastIndexOf('users/') + 6, url.lastIndexOf('/'))
+
+            const chosenFile = event.currentTarget.files[0]
+            if (!chosenFile) return
+            console.log(chosenFile)
+
+            const formData = new FormData();
+            formData.append("file", chosenFile)
+
+            console.log(formData.get("file").type)
+
+            $.ajax({
+                url: `/api/v1/files/${userId}`,
+                data: formData,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    $('<tbody>').append()
+                },
+                error: function (errorData) {
+                    console.log(errorData)
+                }
+            })
+        })
+
     })
 </script>
