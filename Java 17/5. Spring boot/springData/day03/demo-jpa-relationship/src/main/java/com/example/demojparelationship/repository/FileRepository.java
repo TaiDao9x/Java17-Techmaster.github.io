@@ -10,4 +10,7 @@ public interface FileRepository extends JpaRepository<Image, Integer> {
 
     @Query(nativeQuery = true, value = "select * from image i where i.user_id=?1")
     List<Image> findAllImageByUserId(Integer id);
+
+    @Query(nativeQuery = true, value = "select path from image i where i.id=?1")
+    String getFilePathById(Integer id);
 }

@@ -30,14 +30,17 @@ public class UserController {
     @GetMapping("/users/{userId}/files")
     public String getFilesPage(Model model, @PathVariable Integer userId) {
         model.addAttribute("files", fileService.findFileByUserId(userId));
-
+        model.addAttribute("userId", userId);
         return "file";
     }
 
-//    @GetMapping("/api/v1/files/{id}")
-//    public ResponseEntity<?> readFile(@PathVariable Integer id) {
-//
-//    }
+    @GetMapping("/api/v1/files/{id}")
+    public ResponseEntity<?> readFile(@PathVariable Integer id) {
+        Image image = fileService.readFile(id);
+        return ResponseEntity.ok(image);
+//                .contentType(MediaType.parseMediaType(image.getType()))
+//                .body(image.getData());
+    }
 
     @DeleteMapping("/api/v1/files/{fileId}")
     public ResponseEntity<?> deleteFile(@PathVariable Integer fileId) {
@@ -47,7 +50,7 @@ public class UserController {
 
     @PostMapping(value = "/api/v1/files/{userId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> uploadFile(@RequestPart("file") MultipartFile multipartFile, @PathVariable Integer userId) throws IOException {
-        fileService.uploadFile(multipartFile, userId);
-        return ResponseEntity.ok(null);
+        Image image = fileService.uploadFile(multipartFile, userId);
+        return ResponseEntity.ok(image);
     }
 }

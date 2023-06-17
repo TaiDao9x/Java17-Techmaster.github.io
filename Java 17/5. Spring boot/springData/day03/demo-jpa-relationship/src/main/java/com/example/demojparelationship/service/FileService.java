@@ -30,17 +30,24 @@ public class FileService {
         fileRepository.deleteById(fileId);
     }
 
-    public void uploadFile(MultipartFile multipartFile, Integer userId) throws IOException {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            Image image = Image.builder()
-                    .createdAt(LocalDateTime.now())
-                    .data(multipartFile.getBytes())
-                    .type(multipartFile.getContentType())
-                    .user(user.get())
-                    .build();
-            fileRepository.save(image);
-        }
+    public Image uploadFile(MultipartFile multipartFile, Integer userId) throws IOException {
+        User user = userRepository.findById(userId).orElseThrow(() -> {
+            throw new RuntimeException("User not found");
+        });
+        Image image = Image.builder()
+                .createdAt(LocalDateTime.now())
+                .data(multipartFile.getBytes())
+                .type(multipartFile.getContentType())
+                .user(user)
+                .build();
+        fileRepository.save(image);
+        return image;
+    }
 
+    public Image readFile(Integer id) {
+        //        Optional<Image> image = fileRepository.findById(id);
+        return fileRepository.findById(id).orElseThrow(() -> {
+            throw new RuntimeException("file not find");
+        });
     }
 }

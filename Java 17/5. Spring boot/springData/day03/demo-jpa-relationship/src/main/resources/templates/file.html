@@ -16,7 +16,7 @@
 <div class="container" id="file-list">
     <h2 class="mt-5 mb-3">Danh sách file</h2>
 
-    <input type="file" id="input-file" hidden="hidden">
+    <input type="file" id="input-file" hidden="hidden" th:attr="user-id=${userId}">
     <label for="input-file" class="btn btn-warning mb-3">Upload file</label>
 
     <div class="row">
@@ -35,9 +35,10 @@
                     <th th:text="${file.id}"></th>
                     <td th:text="${file.type}"></td>
                     <td th:text="${file.createdAt}"></td>
-                    <td><a href="#" target="_blank">Xem chi tiết</a></td>
+                    <td><a th:href="@{|/api/v1/files/${file.id}|}" target="_blank" id="detail-file"
+                           th:attr="file-id=${file.id}">Xem chi tiết</a></td>
                     <td>
-                        <button class="btn btn-danger btn-delete-file" th:attr="file-id=${file.id}">
+                        <button class="btn btn-danger btn-delete-file" th:onclick="|deleteFile(${file.id})|" th:attr="file-id=${file.id}">
                             Delete
                         </button>
 
@@ -57,51 +58,53 @@
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 <script th:inline="javascript">
+    function deleteFile(id) {
+        console.log("delete")
+        const isConfirm = window.confirm("Do you realy want to delete?")
+        if (isConfirm) {
+            $.ajax({
+                url: `/api/v1/files/${id}`,
+                type: 'DELETE',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    $(`#file-${id}`).remove()
+                    alert("Delete Success!")
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            })
+        }
+    }
     $(document).ready(function () {
         //TODO: method nay ko chay duoc su dung voi th:onclick
-        // function deleteFile(id) {
-        //     console.log("delete")
-        //     const isConfirm = window.confirm("Do you realy want to delete?")
-        //     if (isConfirm) {
-        //         $.ajax({
-        //             url: `/api/v1/files/${id}`,
-        //             type: 'DELETE',
-        //             contentType: "application/json; charset=utf-8",
-        //             success: function (data) {
-        //                 $(`#file-${file.id}`).remove()
-        //                 alert("Delete Success!")
-        //             },
-        //             error: function (data) {
-        //                 console.log(data)
-        //             }
-        //         })
-        //     }
-        // }
 
-        $(".btn-delete-file").click(event => {
-                const fileId = $(event.currentTarget).attr("file-id")
-                console.log(fileId)
-                const isConfirm = window.confirm("Do you realy want to delete?")
-                if (isConfirm) {
-                    $.ajax({
-                        url: `/api/v1/files/${fileId}`,
-                        type: 'DELETE',
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data) {
-                            $(`#file-${fileId}`).remove()
-                            alert("Delete Success!")
-                        },
-                        error: function (data) {
-                            console.log(data)
-                        }
-                    })
-                }
-            }
-        )
+
+        // $(".btn-delete-file").click(event => {
+        //         const fileId = $(event.currentTarget).attr("file-id")
+        //         console.log(fileId)
+        //         const isConfirm = window.confirm("Do you realy want to delete?")
+        //         if (isConfirm) {
+        //             $.ajax({
+        //                 url: `/api/v1/files/${fileId}`,
+        //                 type: 'DELETE',
+        //                 contentType: "application/json; charset=utf-8",
+        //                 success: function (data) {
+        //                     $(`#file-${fileId}`).remove()
+        //                     alert("Delete Success!")
+        //                 },
+        //                 error: function (data) {
+        //                     console.log(data)
+        //                 }
+        //             })
+        //         }
+        //     }
+        // )
 
         $("#input-file").change(event => {
-            let url = window.location.href;
-            const userId = url.substring(url.lastIndexOf('users/') + 6, url.lastIndexOf('/'))
+            // let url = window.location.href;
+            // const userId = url.substring(url.lastIndexOf('users/') + 6, url.lastIndexOf('/'))
+            const userId = $(event.currentTarget).attr("user-id")
 
             const chosenFile = event.currentTarget.files[0]
             if (!chosenFile) return
@@ -119,7 +122,28 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    $('<tbody>').append()
+                    alert("Success!")
+
+                    // $('<tbody>').append()
+                },
+                error: function (errorData) {
+                    console.log(errorData)
+                }
+            })
+        })
+
+        $("#detail-file").click((event) => {
+            const imageId = $(event.currentTarget).attr("file-id")
+            console.log(imageId)
+
+            $.ajax({
+                url: `/api/v1/files/${imageId}`,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    console.log(data)
+                    // $('#detail-file').attr("href", fileUrl)
                 },
                 error: function (errorData) {
                     console.log(errorData)
