@@ -1,16 +1,21 @@
 package com.example.minitestspringmvc.service;
 
+import com.example.minitestspringmvc.entity.Image;
 import com.example.minitestspringmvc.entity.Product;
 import com.example.minitestspringmvc.exception.NotFoundException;
 import com.example.minitestspringmvc.model.request.ProductRequest;
 import com.example.minitestspringmvc.model.response.AppointmentResponse;
+import com.example.minitestspringmvc.model.response.ImageResponse;
 import com.example.minitestspringmvc.model.response.ProductResponse;
 import com.example.minitestspringmvc.repository.AppointmentRepository;
+import com.example.minitestspringmvc.repository.ImageRepository;
 import com.example.minitestspringmvc.repository.ProductRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +25,7 @@ public class ProductService {
     ObjectMapper objectMapper;
     ProductRepository productRepository;
     AppointmentRepository appointmentRepository;
+    ImageRepository imageRepository;
 
     public List<ProductResponse> getAllProduct() {
         return productRepository.findAll()
@@ -42,7 +48,7 @@ public class ProductService {
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
         product.setDescription(productRequest.getDescription());
-        product.setAvatar(productRequest.getAvatar());
+        product.setImage(productRequest.getImage());
         productRepository.save(product);
 
         return objectMapper.convertValue(product, ProductResponse.class);
@@ -59,5 +65,24 @@ public class ProductService {
         Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found product"));
         return objectMapper.convertValue(product, ProductResponse.class);
 
+    }
+
+    public ImageResponse saveImage(MultipartFile file) {
+        try {
+            Image image = Image.builder()
+                    .type(file.getContentType())
+                    .data(file.getBytes())
+                    .build();
+            imageRepository.save(image);
+
+            return objectMapper.convertValue(image, ImageResponse.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public ImageResponse getImageByProductId(Integer id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("not Found"));
+        return objectMapper.convertValue(product.getImage(), ImageResponse.class);
     }
 }

@@ -454,7 +454,9 @@
         <div class="food_container">
             <div class="box" th:each="product:${products}">
                 <div class="img-box">
-                    <img src="images/f1.png" alt="">
+                    <!--                    <img src="images/f1.png" alt="">-->
+                    <img th:src="|/api/v1/image/${product.id}|" alt="">
+
                 </div>
                 <div class="detail-box">
                     <h6 th:text="${product.name}">
@@ -574,7 +576,6 @@
                     <div>
                         <form action="#" id="appointment-create-form">
                             <div>
-                                <label for="name" hidden="hidden">Name</label>
                                 <input type="text" placeholder="Full Name" id="name" name="name"/>
                             </div>
                             <div>
@@ -907,7 +908,6 @@
                 }
             })
         })
-
 
     })
 

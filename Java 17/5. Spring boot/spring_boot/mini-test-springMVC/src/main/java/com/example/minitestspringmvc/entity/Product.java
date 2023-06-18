@@ -27,7 +27,8 @@ public class Product {
     @Column(name = "description")
     String description;
 
-    @Column(name = "avatar")
-    String avatar;
+    @OneToOne
+    @JoinColumn(name = "image_id")
+    Image image;
 
 }

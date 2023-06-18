@@ -112,7 +112,7 @@
                     <td>${product.name}</td>
                     <td>${product.price}</td>
                     <td>${product.description}</td>
-                    <td>${product.avatar}</td>
+                    <td><a href="/api/v1/image/${product.id}" target="_blank"><img src="/api/v1/image/${product.id}" width="100px" alt=""></a></td>
                     <td class="text-center d-flex justify-content-around">
                         <a role="button" class="mr-3 text-primary update-product" data-product-id="${product.id}"
                          >
@@ -143,6 +143,9 @@
                 "price": {
                     required: true,
                     min: 0
+                },
+                "image": {
+                    required: true,
                 }
             },
             messages: {
@@ -153,9 +156,13 @@
                 "price": {
                     required: "Bắt buộc nhập giá",
                     min: "Giá phải lớn hơn 0"
+                },
+                "image": {
+                    required: "Hãy chọn ảnh sản phẩm",
                 }
             }
         })
+
 
         $(".create-product").click(() => {
             $("#product-create-modal").modal("show");
@@ -173,18 +180,40 @@
                 </button>
                 <button type="button" class="btn btn-danger" disabled data-dismiss="modal">Close</button>
                     `)
-            const formData = $('#product-create-modal-form').serializeArray();
-            const requestData = {}
-            for (let i = 0; i < formData.length; i++) {
-                requestData[formData[i].name] = formData[i].value;
-            }
+
+            let image = $("#image").prop("files")[0]
+
+            const formData = new FormData()
+            formData.append("image", image)
             await $.ajax({
-                url: "/api/v1/product",
+                url: "/api/v1/image",
                 type: "POST",
-                data: JSON.stringify(requestData),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    toastr.success("Thêm sản phẩm thành công!")
+                contentType: false,
+                processData: false,
+                data: formData,
+
+                success: async function (data) {
+
+                    const requestData = {
+                        "name": $('#name').val(),
+                        "price": $('#price').val(),
+                        "description": $('#description').val(),
+                        "image": data
+                    }
+                    await $.ajax({
+                        url: "/api/v1/product",
+                        type: "POST",
+                        data: JSON.stringify(requestData),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        },
+                        error: function () {
+                            toastr.warning(data.responseJSON.message)
+                        }
+                    })
                     setTimeout(() => {
                         location.reload();
                     }, 1000);
@@ -194,6 +223,7 @@
                 }
             })
         })
+
 
         $(".update-product").click(async event => {
             const productId = $(event.currentTarget).attr("data-product-id")
@@ -210,10 +240,10 @@
                 }
             })
             if (!currentProduct) return
-            $('#product-update-modal #name').val(currentProduct.name)
-            $('#product-update-modal #price').val(currentProduct.price)
-            $('#product-update-modal #description').val(currentProduct.description)
-            $('#product-update-modal #avatar').val(currentProduct.avatar)
+            $('#product-update-modal #name1').val(currentProduct.name)
+            $('#product-update-modal #price1').val(currentProduct.price)
+            $('#product-update-modal #description1').val(currentProduct.description)
+            // $('#product-update-modal #image').attr('src', currentProduct.image)
             $("#product-update-modal #submit-update-product").attr("product-id", productId)
             $("#product-update-modal").modal("show")
         })
@@ -234,6 +264,9 @@
                 "price": {
                     required: true,
                     min: 0
+                },
+                "image": {
+                    required: true,
                 }
             },
             messages: {
@@ -244,6 +277,9 @@
                 "price": {
                     required: "Bắt buộc nhập giá",
                     min: "Giá phải lớn hơn 0"
+                },
+                "image": {
+                    required: "Hãy chọn ảnh sản phẩm",
                 }
             }
         })
@@ -260,18 +296,62 @@
                 <button type="button" class="btn btn-danger" disabled data-dismiss="modal">Close</button>
                     `)
 
-            const formData = $('#product-update-modal-form').serializeArray();
-            const requestData = {}
-            for (let i = 0; i < formData.length; i++) {
-                requestData[formData[i].name] = formData[i].value;
-            }
+            // const formData = $('#product-update-modal-form').serializeArray();
+            // const requestData = {}
+            // for (let i = 0; i < formData.length; i++) {
+            //     requestData[formData[i].name] = formData[i].value;
+            // }
+            // await $.ajax({
+            //     url: "/api/v1/product/" + productId,
+            //     type: "PUT",
+            //     data: JSON.stringify(requestData),
+            //     contentType: "application/json; charset=utf-8",
+            //     success: function (data) {
+            //         toastr.success("Cập nhật sản phẩm thành công!")
+            //         setTimeout(() => {
+            //             location.reload();
+            //         }, 1000);
+            //     },
+            //     error: function () {
+            //         toastr.warning(data.responseJSON.message)
+            //     }
+            // })
+            //
+            console.log($("#image1").prop("files"))
+
+            let image = $("#image1").prop("files")[0]
+            console.log(image)
+            const formData = new FormData()
+            formData.append("image", image)
             await $.ajax({
-                url: "/api/v1/product/" + productId,
-                type: "PUT",
-                data: JSON.stringify(requestData),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    toastr.success("Cập nhật sản phẩm thành công!")
+                url: "/api/v1/image",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: formData,
+
+                success: async function (data) {
+
+                    const requestData = {
+                        "name": $('#name1').val(),
+                        "price": $('#price1').val(),
+                        "description": $('#description1').val(),
+                        "image": data
+                    }
+                    await $.ajax({
+                        url: "/api/v1/product/" + productId,
+                        type: "PUT",
+                        data: JSON.stringify(requestData),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        },
+                        error: function () {
+                            toastr.warning(data.responseJSON.message)
+                        }
+                    })
                     setTimeout(() => {
                         location.reload();
                     }, 1000);
@@ -279,8 +359,9 @@
                 error: function () {
                     toastr.warning(data.responseJSON.message)
                 }
-            })
-        })
 
+            })
+
+        })
     })
 </script>

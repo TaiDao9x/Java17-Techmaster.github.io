@@ -1,5 +1,6 @@
 package com.example.minitestspringmvc.model.response;
 
+import com.example.minitestspringmvc.entity.Image;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -18,5 +19,5 @@ public class ProductResponse {
 
     String description;
 
-    String avatar;
+    Image image;
 }
