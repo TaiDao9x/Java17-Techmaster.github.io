@@ -756,7 +756,8 @@
                 "phone": {
                     required: true,
                     number: true,
-                    length: 10
+                    minlength: 10,
+                    maxlength: 10
                 },
                 "email": {
                     required: true,
@@ -789,8 +790,8 @@
         $('#submit-buy-product').click(async event => {
 
             const productId = $('#submit-buy-product').attr('product-id')
-            // const isValidForm = $("#buy-product-modal-form").valid()
-            // if (!isValidForm) return
+            const isValidForm = $("#buy-product-modal-form").valid()
+            if (!isValidForm) return
             $('.modal-footer').html(`
                 <button class="btn btn-primary" disabled>
                    <span class="spinner-border spinner-border-sm"></span>
@@ -840,7 +841,8 @@
                 "phone": {
                     required: true,
                     number: true,
-                    length: 10
+                    minlength: 10,
+                    maxlength: 10
                 },
                 "email": {
                     required: true,
@@ -880,8 +882,8 @@
         }, "Vui lòng nhập ngày tương lai");
 
         $('.submit-create-appointment').click(async event => {
-            // const isValidForm = $("#appointment-create-form").valid()
-            // if (!isValidForm) return
+            const isValidForm = $("#appointment-create-form").valid()
+            if (!isValidForm) return
             const formData = $('#appointment-create-form').serializeArray()
             let requestData = {}
             for (let i = 0; i < formData.length; i++) {
