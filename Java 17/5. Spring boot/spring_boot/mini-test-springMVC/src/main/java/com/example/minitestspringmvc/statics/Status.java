@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Status {
-    UNCONFIRMED("Unconfirmed"),APPROVED("Approved"), REFUSE("Refuse");
+    UNCONFIRMED("Unconfirmed"), APPROVED("Approved"), REFUSED("Refused");
 
     String name;
 }

@@ -54,4 +54,10 @@ public class ProductService {
                 .map(appointment -> objectMapper.convertValue(appointment, AppointmentResponse.class))
                 .collect(Collectors.toList());
     }
+
+    public ProductResponse findProductById(Integer id) throws NotFoundException {
+        Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found product"));
+        return objectMapper.convertValue(product, ProductResponse.class);
+
+    }
 }

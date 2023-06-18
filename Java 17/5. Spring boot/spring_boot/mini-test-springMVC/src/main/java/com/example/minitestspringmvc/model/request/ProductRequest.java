@@ -16,16 +16,15 @@ import javax.validation.constraints.Size;
 public class ProductRequest {
 
     @NotBlank
-    @Size(max = 100)
+    @Size(max = 255)
     String name;
 
     @NotNull
-    @Min(0)
+    @Min(value = 0, message = "Price must be greater than 0")
     Double price;
 
     String describe;
 
-    @NotBlank
     String avatar;
 
 }

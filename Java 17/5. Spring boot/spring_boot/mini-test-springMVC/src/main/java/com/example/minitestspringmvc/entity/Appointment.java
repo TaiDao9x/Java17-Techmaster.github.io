@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,14 +25,17 @@ public class Appointment {
     @JoinColumn(name = "user_id")
     User user;
 
-    @Column(name = "description")
-    String description;
+    @Column(name = "message")
+    String message;
 
     @Column(name = "status")
     Status status;
 
     @Column(name = "created_at")
     LocalDateTime createdAt;
+
+    @Column(name = "appointment_at")
+    LocalDate appointmentAt;
 
     @Column(name = "confirm_at")
     LocalDateTime confirmAt;

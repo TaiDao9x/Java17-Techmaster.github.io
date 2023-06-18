@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-light navbar-light" th:fragment="nav">
+    <!-- Brand/logo -->
+    <a class="navbar-brand ml-3" href="#"> <img src="images/logo.png" alt=""></a>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-5">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin}">Products</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/appointments}">Appointments</a>
+        </li>
+    </ul>
+</nav>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script>
+
+</script>
+</body>
+</html>

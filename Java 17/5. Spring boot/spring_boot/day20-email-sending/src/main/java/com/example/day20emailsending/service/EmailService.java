@@ -71,7 +71,7 @@ public class EmailService {
             mimeMessageHelper.setText("Email có đính kèm file");
             mimeMessageHelper.setSubject("[DEMO MAIL] Gửi mail kèm file");
 
-            FileSystemResource file = new FileSystemResource("/Users/WIN 10/OneDrive - QUANG TRUNG COLLEGE/BO DEP ZAI/Coding Techmaster/TaiDao9x.github.io/Java 17/" + emailDetails.getAttachment());
+            FileSystemResource file = new FileSystemResource("/Users/WIN 10/OneDrive - QUANG TRUNG COLLEGE/BO DEP ZAI/Coding Techmaster/TaiDao9x.github.io/Java 17/" +@S emailDetails.getAttachment());
             mimeMessageHelper.addAttachment(file.getFilename(), file);
 
             javaMailSender.send(mimeMessage);

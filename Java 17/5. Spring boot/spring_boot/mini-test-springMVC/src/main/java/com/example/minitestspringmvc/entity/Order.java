@@ -4,7 +4,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -12,19 +12,26 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "oder")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     Integer id;
 
-    //One user can order many time(but now we assume one user only can oder one time)
     @OneToOne
     @JoinColumn(name = "user_id")
     User user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<OrderDetail> orderDetails;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    Product product;
 
+    @Column(name = "create_at")
+    LocalDateTime createAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createAt = LocalDateTime.now();
+    }
 }

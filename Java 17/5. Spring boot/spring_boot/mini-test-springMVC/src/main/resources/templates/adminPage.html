@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Site Metas -->
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Drool Admin- Products</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet"/>
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet"/>
+    <!-- font-awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="css/index.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container-fluid p-0">
+
+    <div th:insert="fragments/nav::nav"></div>
+
+    <div class="row mt-3 ml-3">
+        <div class="col">
+            <button type="button" class="btn btn-primary create-product">
+                Create
+            </button>
+        </div>
+    </div>
+
+    <div th:insert="fragments/product-create-modal :: product-create-modal"></div>
+
+    <div class="row mt-4 mx-3">
+        <div class="col">
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Name Of Product</th>
+                    <th class="text-center">Price</th>
+                    <th class="text-center">Describe</th>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--                <tr th:each="product: ${products}">-->
+                <!--                    <td th:text="${product.id}"/>-->
+                <!--                    <td th:text="${product.name}"/>-->
+                <!--                    <td th:text="${product.price}"/>-->
+                <!--                    <td th:text="${product.describe}"/>-->
+                <!--                    <td th:text="${product.avatar}"/>-->
+                <!--                    <td class="text-center d-flex justify-content-around">-->
+                <!--                        <a role="button" class="mr-3 text-primary update-product "-->
+                <!--                           th:attr="product-id=${product.id}">-->
+                <!--                            <i class="fas fa-pencil-alt "></i>-->
+                <!--                        </a>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div th:insert="fragments/product-update-modal :: product-update-modal"></div>
+
+</div>
+
+</body>
+</html>
+
+<!-- jQuery library -->
+<!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        let productList = [[${products}]]
+
+        //Render product
+        const renderProduct = (productList) => {
+            $("tbody").html("");
+            let html = ""
+            for (let i = 0; i < productList.length; i++) {
+                const product = productList[i];
+                html += `
+                <tr>
+                    <td>${product.id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.describe}</td>
+                    <td>${product.avatar}</td>
+                    <td class="text-center d-flex justify-content-around">
+                        <a role="button" class="mr-3 text-primary update-product" data-product-id="${product.id}"
+                         >
+                            <i class="fas fa-pencil-alt "></i>
+                        </a>
+
+                    </td>
+                </tr>`
+            }
+            $("tbody").html(html)
+        }
+
+        renderProduct(productList)
+
+        $("#product-create-modal-form").validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            errorPlacement: function (error, element) {
+                error.addClass("error-message");
+                error.insertAfter(element);
+            },
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 255
+                },
+                "price": {
+                    required: true,
+                    min: 0
+                },
+                messages: {
+                    "name": {
+                        required: "Bắt buộc nhập tên sản phẩm",
+                        maxlength: "Hãy nhập tối đa 255 ký tự"
+                    },
+                    "price": {
+                        required: "Bắt buộc nhập giá",
+                        min: "Giá phải lớn hơn 0"
+                    }
+                }
+            }
+        })
+
+        $(".create-product").click(() => {
+            $("#product-create-modal").modal("show");
+        })
+
+        $('#submit-create-product').click(async event => {
+            const isValidForm = $('#product-create-modal-form').valid();
+            if (!isValidForm) {
+                return;
+            }
+            const formData = $('#product-create-modal-form').serializeArray();
+            const requestData = {}
+            for (let i = 0; i < formData.length; i++) {
+                requestData[formData[i].name] = formData[i].value;
+            }
+            await $.ajax({
+                url: "/api/v1/product",
+                type: "POST",
+                data: JSON.stringify(requestData),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    toastr.success("Thêm sản phẩm thành công!")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function () {
+                    toastr.warning(data.responseJSON.message)
+                }
+            })
+        })
+
+        $(".update-product").click(async event => {
+            const productId = $(event.currentTarget).attr("data-product-id")
+            let currentProduct = null
+            await $.ajax({
+                url: "/api/v1/product/" + productId,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    currentProduct = data;
+                },
+                error: function (data) {
+                    toastr.warning(data.responseJSON.message)
+                }
+            })
+            if (!currentProduct) return
+            $('#product-update-modal #name').val(currentProduct.name)
+            $('#product-update-modal #price').val(currentProduct.price)
+            $('#product-update-modal #describe').val(currentProduct.describe)
+            $('#product-update-modal #avatar').val(currentProduct.avatar)
+            $("#product-update-modal #submit-update-product").attr("product-id", productId)
+            $("#product-update-modal").modal("show")
+        })
+
+        $("#product-update-modal-form").validate({
+            onfocusout: false,
+            onkeyup: false,
+            onclick: false,
+            errorPlacement: function (error, element) {
+                error.addClass("error-message");
+                error.insertAfter(element);
+            },
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 255
+                },
+                "price": {
+                    required: true,
+                    min: 0
+                },
+                messages: {
+                    "name": {
+                        required: "Bắt buộc nhập tên sản phẩm",
+                        maxlength: "Hãy nhập tối đa 255 ký tự"
+                    },
+                    "price": {
+                        required: "Bắt buộc nhập giá",
+                        min: "Giá phải lớn hơn 0"
+                    }
+                }
+            }
+        })
+
+        $('#submit-update-product').click(async event => {
+            const productId = $(event.currentTarget).attr("product-id")
+            const isValidForm = $('#product-update-modal-form').valid();
+            if (!isValidForm) return
+            const formData = $('#product-update-modal-form').serializeArray();
+            const requestData = {}
+            for (let i = 0; i < formData.length; i++) {
+                requestData[formData[i].name] = formData[i].value;
+            }
+            await $.ajax({
+                url: "/api/v1/product/" + productId,
+                type: "PUT",
+                data: JSON.stringify(requestData),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    toastr.success("Cập nhật sản phẩm thành công!")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function () {
+                    toastr.warning(data.responseJSON.message)
+                }
+            })
+        })
+
+    })
+</script>

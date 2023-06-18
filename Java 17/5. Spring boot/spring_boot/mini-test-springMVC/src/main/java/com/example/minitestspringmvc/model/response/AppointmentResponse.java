@@ -5,6 +5,7 @@ import com.example.minitestspringmvc.statics.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,11 +19,13 @@ public class AppointmentResponse {
 
     User user;
 
-    String description;
+    String message;
 
     Status status;
 
     LocalDateTime createdAt;
+
+    LocalDate appointmentAt;
 
     LocalDateTime confirmAt;
 
