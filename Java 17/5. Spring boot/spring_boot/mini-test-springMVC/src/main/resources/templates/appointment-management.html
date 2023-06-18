@@ -107,9 +107,9 @@
             $(".modal-footer").html(`
             <button class="btn btn-primary" disabled>
                    <span class="spinner-border spinner-border-sm"></span>
-                                         Loading..
+                                         Loading...
             </button>
-             <button type="button" class="btn btn-danger close-modal disabled" data-dismiss="modal">Cancel</button>
+             <button type="button" class="btn btn-danger close-modal" disabled data-dismiss="modal">Cancel</button>
             `)
             const appointmentId = $(event.currentTarget).attr("appointment-id")
             let requestData = {

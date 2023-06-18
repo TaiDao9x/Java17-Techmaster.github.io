@@ -166,6 +166,13 @@
             if (!isValidForm) {
                 return;
             }
+            $('.modal-footer').html(`
+                <button class="btn btn-primary" disabled>
+                   <span class="spinner-border spinner-border-sm"></span>
+                                         Loading...
+                </button>
+                <button type="button" class="btn btn-danger" disabled data-dismiss="modal">Close</button>
+                    `)
             const formData = $('#product-create-modal-form').serializeArray();
             const requestData = {}
             for (let i = 0; i < formData.length; i++) {
@@ -245,6 +252,14 @@
             const productId = $(event.currentTarget).attr("product-id")
             const isValidForm = $('#product-update-modal-form').valid();
             if (!isValidForm) return
+            $('.modal-footer').html(`
+                <button class="btn btn-primary" disabled>
+                   <span class="spinner-border spinner-border-sm"></span>
+                                         Loading...
+                </button>
+                <button type="button" class="btn btn-danger" disabled data-dismiss="modal">Close</button>
+                    `)
+
             const formData = $('#product-update-modal-form').serializeArray();
             const requestData = {}
             for (let i = 0; i < formData.length; i++) {

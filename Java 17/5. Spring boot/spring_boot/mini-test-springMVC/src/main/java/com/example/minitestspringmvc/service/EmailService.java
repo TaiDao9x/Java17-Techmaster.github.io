@@ -33,7 +33,9 @@ public class EmailService {
         simpleMailMessage.setFrom(sender);
         simpleMailMessage.setTo(orderRequest.getEmail());
         simpleMailMessage.setSubject("[DROOL] Confirm Order");
-        simpleMailMessage.setText("Bạn đã đặt sản phẩm: " + product.getName()
+        simpleMailMessage.setText("Bạn đã đặt sản phẩm: \n - Tên sản phẩm: " + product.getName()
+                + "\n - Giá sản phẩm: $" + product.getPrice()
+                + "\n - Mô tả: " + product.getDescribe()
                 + "\n\nThông tin người đặt: \n - Name: " + orderRequest.getName()
                 + "\n - Email: " + orderRequest.getEmail()
                 + "\n - Phone: " + orderRequest.getPhone()

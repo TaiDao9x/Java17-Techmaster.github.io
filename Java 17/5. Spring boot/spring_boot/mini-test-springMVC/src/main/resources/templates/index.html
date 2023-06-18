@@ -468,39 +468,6 @@
                     </a>
                 </div>
             </div>
-            <!--            <div class="box">-->
-            <!--                <div class="img-box">-->
-            <!--                    <img src="images/f2.png" alt="">-->
-            <!--                </div>-->
-            <!--                <div class="detail-box">-->
-            <!--                    <h6>-->
-            <!--                        Medium-->
-            <!--                    </h6>-->
-            <!--                    <h3>-->
-            <!--                        <span>$</span>200-->
-            <!--                    </h3>-->
-            <!--                    <a href="">-->
-            <!--                        Buy Now-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="box">-->
-            <!--                <div class="img-box">-->
-            <!--                    <img src="images/f3.png" alt="">-->
-            <!--                </div>-->
-            <!--                <div class="detail-box">-->
-            <!--                    <h6>-->
-            <!--                        Standard-->
-            <!--                    </h6>-->
-            <!--                    <h3>-->
-            <!--                        <span>$</span>300-->
-            <!--                    </h3>-->
-            <!--                    <a href="">-->
-            <!--                        Buy Now-->
-            <!--                    </a>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            -->
         </div>
     </div>
 </section>
@@ -766,7 +733,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 
 <!--<script type="text/javascript" src="js/bootstrap.js"></script>-->
-<script>
+<script th:inline="javascript">
     function openNav() {
         document.getElementById("myNav").classList.toggle("menu_width")
         document.querySelector(".custom_menu-btn").classList.toggle("menu_btn-style")
@@ -821,9 +788,17 @@
         })
 
         $('#submit-buy-product').click(async event => {
+
             const productId = $('#submit-buy-product').attr('product-id')
             // const isValidForm = $("#buy-product-modal-form").valid()
             // if (!isValidForm) return
+            $('.modal-footer').html(`
+                <button class="btn btn-primary" disabled>
+                   <span class="spinner-border spinner-border-sm"></span>
+                                         Loading...
+                </button>
+                <button type="button" class="btn btn-danger" disabled data-dismiss="modal">Close</button>
+                    `)
             const formData = $("#buy-product-modal-form").serializeArray()
             const requestData = {}
             for (let i = 0; i < formData.length; i++) {
@@ -837,8 +812,10 @@
                 data: JSON.stringify(requestData),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    toastr.success("Thêm sản phẩm thành công!")
-                    $('#buy-product-modal').modal('hide')
+                    toastr.success("Order sản phẩm thành công!")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
                     console.log(data)
                 },
                 error: function () {
@@ -904,18 +881,29 @@
         }, "Vui lòng nhập ngày tương lai");
 
         $('.submit-create-appointment').click(async event => {
-            console.log("here")
-            const isValidForm = $("#appointment-create-form").valid()
-            if (!isValidForm) return
+            // const isValidForm = $("#appointment-create-form").valid()
+            // if (!isValidForm) return
             const formData = $('#appointment-create-form').serializeArray()
-            console.log(formData)
-
-            // let requestData = {}
-            // for (let i = 0; i < formData.length; i++) {
-            //     requestData[formData[i].name] = formData[i].value
-            // }
-            // console.log(requestData)
-            // await $.ajax({})
+            let requestData = {}
+            for (let i = 0; i < formData.length; i++) {
+                requestData[formData[i].name] = formData[i].value
+            }
+            console.log(requestData)
+            await $.ajax({
+                url: "/api/v1/appointment",
+                type: "POST",
+                data: JSON.stringify(requestData),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    toastr.success("Order sản phẩm thành công!")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (data) {
+                    toastr.warning(data.responseJSON.message);
+                }
+            })
         })
 
 
