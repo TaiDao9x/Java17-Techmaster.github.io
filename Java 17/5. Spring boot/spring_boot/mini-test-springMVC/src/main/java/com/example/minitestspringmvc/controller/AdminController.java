@@ -1,7 +1,7 @@
 package com.example.minitestspringmvc.controller;
 
 import com.example.minitestspringmvc.exception.NotFoundException;
-import com.example.minitestspringmvc.model.request.AppointmentResquest;
+import com.example.minitestspringmvc.model.request.AppointmentRequest;
 import com.example.minitestspringmvc.model.request.ProductRequest;
 import com.example.minitestspringmvc.model.response.AppointmentResponse;
 import com.example.minitestspringmvc.model.response.ProductResponse;
@@ -63,8 +63,8 @@ public class AdminController {
 
     // confirm lịch khám
     @PutMapping("/api/v1/appointment/{id}")
-    public ResponseEntity<?> updateAppointment(@PathVariable Integer id, @RequestBody AppointmentResquest appointmentResquest) throws NotFoundException {
-        AppointmentResponse appointmentResponse = appointmentService.updateAppointment(id, appointmentResquest);
+    public ResponseEntity<?> updateAppointment(@PathVariable Integer id, @RequestBody AppointmentRequest appointmentRequest) throws NotFoundException {
+        AppointmentResponse appointmentResponse = appointmentService.updateAppointment(id, appointmentRequest);
         return ResponseEntity.ok(appointmentResponse);
     }
 }

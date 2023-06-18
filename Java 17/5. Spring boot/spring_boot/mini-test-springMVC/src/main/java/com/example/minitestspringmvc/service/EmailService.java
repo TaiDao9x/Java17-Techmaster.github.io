@@ -3,7 +3,6 @@ package com.example.minitestspringmvc.service;
 import com.example.minitestspringmvc.entity.Appointment;
 import com.example.minitestspringmvc.entity.Product;
 import com.example.minitestspringmvc.exception.NotFoundException;
-import com.example.minitestspringmvc.model.request.AppointmentResquest;
 import com.example.minitestspringmvc.model.request.OrderRequest;
 import com.example.minitestspringmvc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;

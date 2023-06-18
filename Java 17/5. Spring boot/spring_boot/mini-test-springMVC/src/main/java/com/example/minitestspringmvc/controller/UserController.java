@@ -1,7 +1,7 @@
 package com.example.minitestspringmvc.controller;
 
 import com.example.minitestspringmvc.exception.NotFoundException;
-import com.example.minitestspringmvc.model.request.AppointmentResquest;
+import com.example.minitestspringmvc.model.request.AppointmentRequest;
 import com.example.minitestspringmvc.model.request.OrderRequest;
 import com.example.minitestspringmvc.model.response.AppointmentResponse;
 import com.example.minitestspringmvc.service.AppointmentService;
@@ -45,8 +45,8 @@ public class UserController {
 
     // Tạo appointment
     @PostMapping("/api/v1/appointment")
-    public ResponseEntity<?> createAppointment(@RequestBody @Valid AppointmentResquest appointmentResquest) {
-        AppointmentResponse appointmentResponse = appointmentService.createAppointment(appointmentResquest);
+    public ResponseEntity<?> createAppointment(@RequestBody @Valid AppointmentRequest appointmentRequest) {
+        AppointmentResponse appointmentResponse = appointmentService.createAppointment(appointmentRequest);
         return new ResponseEntity<>(appointmentResponse, HttpStatus.CREATED);
     }
 

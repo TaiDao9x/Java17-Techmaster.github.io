@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AppointmentResquest {
+public class AppointmentRequest {
 
     @Size(max = 100, message = "Name cannot over 100 characters")
     @NotBlank(message = "Teacher name cannot be blank!")

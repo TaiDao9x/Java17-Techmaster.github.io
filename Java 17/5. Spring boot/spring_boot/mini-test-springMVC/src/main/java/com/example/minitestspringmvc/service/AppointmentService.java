@@ -3,7 +3,7 @@ package com.example.minitestspringmvc.service;
 import com.example.minitestspringmvc.entity.Appointment;
 import com.example.minitestspringmvc.entity.User;
 import com.example.minitestspringmvc.exception.NotFoundException;
-import com.example.minitestspringmvc.model.request.AppointmentResquest;
+import com.example.minitestspringmvc.model.request.AppointmentRequest;
 import com.example.minitestspringmvc.model.response.AppointmentResponse;
 import com.example.minitestspringmvc.repository.AppointmentRepository;
 import com.example.minitestspringmvc.repository.UserRepository;
@@ -19,37 +19,37 @@ public class AppointmentService {
     EmailService emailService;
     UserRepository userRepository;
 
-    public AppointmentResponse updateAppointment(Integer id, AppointmentResquest appointmentResquest) throws NotFoundException {
+    public AppointmentResponse updateAppointment(Integer id, AppointmentRequest appointmentRequest) throws NotFoundException {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Not found appointment!"));
 
-        appointment.setStatus(appointmentResquest.getStatus());
+        appointment.setStatus(appointmentRequest.getStatus());
         appointmentRepository.save(appointment);
         emailService.sendEmailConfirmAppointment(appointment);
         return objectMapper.convertValue(appointment, AppointmentResponse.class);
     }
 
-    public AppointmentResponse createAppointment(AppointmentResquest appointmentResquest) {
+    public AppointmentResponse createAppointment(AppointmentRequest appointmentRequest) {
         Appointment appointment;
-        User user = userRepository.findByEmail(appointmentResquest.getEmail());
+        User user = userRepository.findByEmail(appointmentRequest.getEmail());
         if (user == null) {
             User newUser = User.builder()
-                    .name(appointmentResquest.getName())
-                    .email(appointmentResquest.getEmail())
-                    .phone(appointmentResquest.getPhone())
+                    .name(appointmentRequest.getName())
+                    .email(appointmentRequest.getEmail())
+                    .phone(appointmentRequest.getPhone())
                     .build();
             userRepository.save(newUser);
             appointment = Appointment.builder()
                     .user(newUser)
-                    .appointmentAt(appointmentResquest.getAppointmentAt())
-                    .message(appointmentResquest.getMessage())
+                    .appointmentAt(appointmentRequest.getAppointmentAt())
+                    .message(appointmentRequest.getMessage())
                     .build();
             appointmentRepository.save(appointment);
         } else {
             appointment = Appointment.builder()
                     .user(user)
-                    .message(appointmentResquest.getMessage())
-                    .appointmentAt(appointmentResquest.getAppointmentAt())
+                    .message(appointmentRequest.getMessage())
+                    .appointmentAt(appointmentRequest.getAppointmentAt())
                     .build();
             appointmentRepository.save(appointment);
         }
