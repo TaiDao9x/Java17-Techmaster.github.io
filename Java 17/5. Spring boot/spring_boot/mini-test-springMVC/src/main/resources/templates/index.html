@@ -851,27 +851,28 @@
                 "appointmentAt": {
                     required: true,
                     greaterThanToday: true
+                }
+            },
+            messages: {
+                "name": {
+                    required: "Bắt buộc nhập tên của bạn",
+                    maxlength: "Chỉ tối đa được 255 ký tự"
                 },
-                messages: {
-                    "name": {
-                        required: "Bắt buộc nhập tên của bạn",
-                        maxlength: "Chỉ tối đa được 255 ký tự"
-                    },
-                    "phone": {
-                        required: "Bắt buộc nhập số điện thoại",
-                        number: "Hãy nhập số hợp lệ",
-                        length: "Độ dài hợp lệ là 10 số"
-                    },
-                    "email": {
-                        required: "Bắt buộc nhập email",
-                        email: "Định dạnh email không hợp lệ"
-                    },
-                    "appointmentAt": {
-                        required: "Vui lòng chọn ngày!",
-                        greaterThanToday: "Vui lòng nhập ngày tương lai"
-                    }
+                "phone": {
+                    required: "Bắt buộc nhập số điện thoại",
+                    number: "Hãy nhập số hợp lệ",
+                    length: "Độ dài hợp lệ là 10 số"
+                },
+                "email": {
+                    required: "Bắt buộc nhập email",
+                    email: "Định dạnh email không hợp lệ"
+                },
+                "appointmentAt": {
+                    required: "Vui lòng chọn ngày!",
+                    greaterThanToday: "Vui lòng nhập ngày tương lai"
                 }
             }
+
         })
 
         $.validator.addMethod("greaterThanToday", function (value) {
