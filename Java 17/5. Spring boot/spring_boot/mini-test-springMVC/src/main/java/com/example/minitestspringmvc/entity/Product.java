@@ -22,10 +22,10 @@ public class Product {
     String name;
 
     @Column(name = "price")
-    Double price;
+    double price;
 
-    @Column(name = "describe")
-    String describe;
+    @Column(name = "description")
+    String description;
 
     @Column(name = "avatar")
     String avatar;

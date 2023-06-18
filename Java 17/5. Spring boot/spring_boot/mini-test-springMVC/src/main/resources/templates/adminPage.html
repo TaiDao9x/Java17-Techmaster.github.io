@@ -52,7 +52,7 @@
                     <th class="text-center">ID</th>
                     <th class="text-center">Name Of Product</th>
                     <th class="text-center">Price</th>
-                    <th class="text-center">Describe</th>
+                    <th class="text-center">Description</th>
                     <th class="text-center">Image</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -62,7 +62,7 @@
                 <!--                    <td th:text="${product.id}"/>-->
                 <!--                    <td th:text="${product.name}"/>-->
                 <!--                    <td th:text="${product.price}"/>-->
-                <!--                    <td th:text="${product.describe}"/>-->
+                <!--                    <td th:text="${product.description}"/>-->
                 <!--                    <td th:text="${product.avatar}"/>-->
                 <!--                    <td class="text-center d-flex justify-content-around">-->
                 <!--                        <a role="button" class="mr-3 text-primary update-product "-->
@@ -111,7 +111,7 @@
                     <td>${product.id}</td>
                     <td>${product.name}</td>
                     <td>${product.price}</td>
-                    <td>${product.describe}</td>
+                    <td>${product.description}</td>
                     <td>${product.avatar}</td>
                     <td class="text-center d-flex justify-content-around">
                         <a role="button" class="mr-3 text-primary update-product" data-product-id="${product.id}"
@@ -212,7 +212,7 @@
             if (!currentProduct) return
             $('#product-update-modal #name').val(currentProduct.name)
             $('#product-update-modal #price').val(currentProduct.price)
-            $('#product-update-modal #describe').val(currentProduct.describe)
+            $('#product-update-modal #description').val(currentProduct.description)
             $('#product-update-modal #avatar').val(currentProduct.avatar)
             $("#product-update-modal #submit-update-product").attr("product-id", productId)
             $("#product-update-modal").modal("show")

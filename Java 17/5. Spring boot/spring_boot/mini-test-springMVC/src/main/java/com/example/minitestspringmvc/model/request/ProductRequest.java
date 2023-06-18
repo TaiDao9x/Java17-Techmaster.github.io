@@ -23,7 +23,7 @@ public class ProductRequest {
     @Min(value = 0, message = "Price must be greater than 0")
     Double price;
 
-    String describe;
+    String description;
 
     String avatar;
 
