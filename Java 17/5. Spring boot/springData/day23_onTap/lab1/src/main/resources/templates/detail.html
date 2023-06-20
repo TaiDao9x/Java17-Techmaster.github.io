@@ -23,13 +23,13 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-start align-items-center">
             <div class="logo">
-                <a href="./course-list.html">
+                <a th:href="@{/}">
                     <img src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png" alt="logo">
                 </a>
             </div>
             <div class="menu">
-                <a class="text-white text-uppercase ms-5" href="./course-onlab-list.html">Phòng lab</a>
-                <a class="text-white text-uppercase ms-3" href="./course-online-list.html">Trực tuyến</a>
+                <a class="text-white text-uppercase ms-5" th:href="@{/khoa-hoc/onlab}">Phòng lab</a>
+                <a class="text-white text-uppercase ms-3" th:href="@{/khoa-hoc/online}">Trực tuyến</a>
             </div>
         </div>
     </div>
@@ -43,14 +43,15 @@
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="./course-list.html">Khóa học</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Lập trình di động IOS Swift online
+                            <li class="breadcrumb-item active" aria-current="page" th:text="${courseDetails.name}">
                             </li>
                         </ol>
                     </nav>
                 </div>
 
                 <div class="main p-4 shadow-sm">
-                    <h2 class="course-title fs-5">Lập trình di động IOS Swift online</h2>
+                    <h2 class="course-title fs-5" th:text="${courseDetails.name}">Lập trình di động IOS Swift
+                        online</h2>
 
                     <hr>
 
@@ -62,15 +63,15 @@
                         <div class="supporter-info">
                             <p>
                                 <b>Tư vấn viên :</b>
-                                Phạm Thị Mẫn
+                                <span th:text="${courseDetails.supporter.name}"></span>
                             </p>
                             <p>
                                 <b>Email :</b>
-                                manpham@gmail.com
+                                <span th:text="${courseDetails.supporter.email}"></span>
                             </p>
                             <p>
                                 <b>Số điện thoại :</b>
-                                0987654321
+                                <span th:text="${courseDetails.supporter.phone}"></span>
                             </p>
                         </div>
                     </div>

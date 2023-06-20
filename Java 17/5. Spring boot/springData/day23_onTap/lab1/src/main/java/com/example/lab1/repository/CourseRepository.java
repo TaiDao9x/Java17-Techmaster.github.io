@@ -13,4 +13,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 
     @Query("select c from Course c where c.typeStudy=?1")
     List<Course> findAllCourseByType(TypeStudy online);
+
+    @Query("select c from Course c join c.topics t where t.id = ?1")
+    List<Course> findAllCourseById(Integer id);
 }

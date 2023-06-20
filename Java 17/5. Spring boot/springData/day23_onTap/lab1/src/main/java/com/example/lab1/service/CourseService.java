@@ -31,8 +31,16 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
-    public CourseResponse findAllCourseById(Integer id) {
+    public CourseResponse findCourseById(Integer id) {
         Course course = courseRepository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
         return objectMapper.convertValue(course, CourseResponse.class);
+    }
+
+
+    public List<CourseResponse> findAllCourseById(Integer id) {
+        return courseRepository.findAllCourseById(id)
+                .stream().map(course -> objectMapper.convertValue(course, CourseResponse.class))
+                .collect(Collectors.toList());
+
     }
 }
