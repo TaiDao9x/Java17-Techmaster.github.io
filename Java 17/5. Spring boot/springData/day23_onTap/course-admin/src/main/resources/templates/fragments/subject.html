@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="topic-item input-group d-flex align-items-center mb-1" th:fragment="subject(topic)">
+    <input type="radio" th:value="${topic.name}" class="filter-topic" th:id="|topic-${topic.id}|"
+           th:attr="topic-id=${topic.id}" name="topic">
+    <label th:for="|topic-${topic.id}|" class="ms-2 fs-5" th:text="${topic.name}"></label>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/layout::main-layout(~{::title},~{::#css},~{::.course-container},~{::#javascript})">
+
+<head>
+    <title>Danh sách khóa học phòng lab</title>
+    <th:block id="css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.6.0/pagination.min.css"
+              integrity="sha512-K1k7jSn9RDKEcn/ugqVVvWYu0bcS3q1w6m/5pQSnrj0bCfIqF6Wk49lkmckSb4wglvTP9V17LtS0q0XxYccXbg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    </th:block>
+</head>
+
+<body>
+
+<div class="course-container mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h2 class="fs-5 mb-4">Chủ đề</h2>
+                <th:block th:each="topic:${topics}">
+                    <div th:replace="fragments/subject::subject(${topic})"></div>
+                </th:block>
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="seach-form d-flex align-items-center rounded shadow-sm mb-4 pe-3">
+                            <input type="text" placeholder="Tìm kiếm khóa học"
+                                   class="form-control border-0 seach-form-input">
+                            <span class="text-black-50 seach-form-button"><i
+                                    class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-list row">
+
+                </div>
+
+                <div id="pagination-container" class="d-flex justify-content-center mb-5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block id="javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.6.0/pagination.min.js"
+            integrity="sha512-GzbaI5EsNzdEUq6/2XLYpr1y9CUZRIVsUeWTAFgULtQa5jZ3Nug8i0nZKM6jp9NffBCZhymPPQFcF0DK+JkRpw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script th:inline="javascript">
+        let courseList = [[${coursesOnlab}]]
+
+        $('#pagination-container').pagination({
+            dataSource: courseList,
+            pageSize: 6,
+            callback: function (data, pagination) {
+                let html = '';
+                $.each(data, function (index, course) {
+                    html += `
+                        <div class="col-md-4">
+                            <a href="/khoa-hoc/${course.id}">
+                                <div class="course-item shadow-sm rounded mb-4">
+                                    <div class="course-item-image">
+                                        <img src="${course.thumbnail}"
+                                            alt="khoa hoc">
+                                    </div>
+                                    <div class="course-item-info p-3">
+                                        <h2 class="fs-5 mb-3 text-dark">${course.name}</h2>
+                                        <p class="type fw-light text-black-50">${course.typeStudy === "Online" ? "Trực tuyến" : "Phòng lab"}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        `;
+                });
+                $('.course-list').html(html);
+            }
+        });
+    </script>
+
+</th:block>
+
+</body>
+
+</html>

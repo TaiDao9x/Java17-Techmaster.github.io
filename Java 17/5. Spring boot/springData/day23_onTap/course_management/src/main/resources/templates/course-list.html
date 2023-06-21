@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+      th:replace="layout/layout::main-layout(~{::title},~{},~{::.course-container},~{::script})">
+
+<head>
+    <title>Danh sách khóa học</title>
+</head>
+
+<body>
+
+<div class="course-container mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h2 class="fs-5 mb-4">Chủ đề</h2>
+                <th:block th:each="topic:${topics}">
+                    <div th:replace="fragments/subject::subject(${topic})"></div>
+                </th:block>
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="seach-form d-flex align-items-center rounded shadow-sm mb-4 pe-3">
+                            <input type="text" placeholder="Tìm kiếm khóa học"
+                                   class="form-control border-0 seach-form-input">
+                            <span class="text-black-50 seach-form-button"><i
+                                    class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-list row">
+                    <th:block th:each="course:${courses}">
+                        <div th:replace="fragments/card::card(${course})"></div>
+                    </th:block>
+                </div>
+
+                <ul class="pagination d-flex justify-content-center">
+                    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/?page={page} (page=${currentPage-1})}">Previous</a>
+                    </li>
+                    <li class="page-item" th:each="page:${#numbers.sequence(1,courses.getTotalPages())}"
+                        th:classappend="${currentPage == page ? 'active' : '' }  ">
+                        <a class="page-link" th:href="@{/(page=${page}) }"><span
+                                th:text="${page}"></span></a>
+                    </li>
+
+                    <li class="page-item" th:classappend="${currentPage == courses.getTotalPages() ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/(page=${currentPage+1})}">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
