@@ -15,16 +15,16 @@
     <title>Drool</title>
 
     <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
 
     <!-- fonts style -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins:400,700&display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet"/>
+    <link th:href="@{/css/responsive.css}" rel="stylesheet"/>
 
-    <link href="css/index.css" rel="stylesheet"/>
+    <link th:href="@{/css/index.css}" rel="stylesheet"/>
 
 </head>
 
@@ -34,7 +34,7 @@
     <header class="header_section">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container">
-                <a class="navbar-brand" th:href="@{/index}">
+                <a class="navbar-brand" th:href="@{/}">
                     <img src="images/logo.png" alt="">
                 </a>
                 <div class="" id="">

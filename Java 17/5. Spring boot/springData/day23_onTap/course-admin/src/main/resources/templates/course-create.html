@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -32,21 +32,8 @@
 
 <body>
 <!--HEADER-->
-<div class="header d-flex align-items-center">
-    <div class="container-fluid">
-        <div class="d-flex justify-content-start align-items-center">
-            <div class="logo">
-                <a href="./course-list.html">
-                    <img src="https://techmaster.vn/resources/image/logo-techmaster/white/white_200x74.png" alt="logo">
-                </a>
-            </div>
-            <div class="menu">
-                <a class="text-white ms-5" href="./course-list.html">Danh sách khóa học</a>
-                <a class="text-white ms-3" href="./course-create.html">Tạo khóa học</a>
-            </div>
-        </div>
-    </div>
-</div>
+<th:block th:replace="fragments/header:: .header"></th:block>
+
 
 <!-- BODY -->
 <div class="course-list mt-4 mb-4">
@@ -56,7 +43,7 @@
                 <span><i class="fa-solid fa-plus"></i></span>
                 Tạo
             </button>
-            <a href="./course-list.html" class="btn-custom btn-refresh">
+            <a href="/admin/courses" class="btn-custom btn-refresh">
                 <span><i class="fa-solid fa-angle-left"></i></span>
                 Quay lại
             </a>
@@ -67,17 +54,17 @@
                 <div class="col-md-8">
                     <div class="mb-3">
                         <label for="course-name" class="form-label fw-bold">Tên khóa học</label>
-                        <input type="text" class="form-control" id="course-name">
+                        <input type="text" class="form-control" id="course-name" name="name">
                     </div>
                     <div class="mb-3">
                         <label for="course-description" class="form-label fw-bold">Mô tả</label>
-                        <textarea class="form-control" id="course-description" rows="10"></textarea>
+                        <textarea class="form-control" id="course-description" name="description" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="mb-3">
                         <label for="course-type" class="form-label fw-bold">Hình thức học</label>
-                        <select class="form-control" id="course-type">
+                        <select class="form-control" id="course-type" name="typeStudy">
                             <option hidden>- Chọn hình thức học</option>
                             <option value="online">Online</option>
                             <option value="onlab">Onlab</option>
@@ -85,22 +72,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="course-topic" class="form-label fw-bold">Chủ đề</label>
-                        <select class="form-control" id="course-topic" multiple="multiple">
-                            <option value="1">Backend</option>
-                            <option value="2">Frontend</option>
-                            <option value="3">Mobile</option>
-                            <option value="4">Lập trình web</option>
-                            <option value="5">Database</option>
-                            <option value="6">Devops</option>
+                        <select class="form-control" id="course-topic" name="topicIds" multiple="multiple">
+                            <option th:each="topic:${topicList}" th:text="${topic.name}" th:value="${topic.id}">
+                                Backend
+                            </option>
+
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="course-supporter" class="form-label fw-bold">Tư vấn viên</label>
-                        <select class="form-control" id="course-supporter">
+                        <select class="form-control" id="course-supporter" name="supporterId">
                             <option hidden>- Chọn tư vấn viên</option>
-                            <option value="1">Nguyễn Văn A</option>
-                            <option value="2">Trần Văn B</option>
-                            <option value="3">Ngô Thị C</option>
+                            <option th:each="supporter:${supporterList}" th:text="${supporter.name}"
+                                    th:value="${supporter.id}">Nguyễn Văn A
+                            </option>
+
                         </select>
                     </div>
                 </div>
@@ -113,6 +99,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
 
 <!-- axios -->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -120,13 +108,82 @@
 <!-- select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script>
+<script th:inline="javascript">
     const courseTopic = $("#course-topic");
 
     // Kích hoạt select2
     courseTopic.select2({
         placeholder: "- Chọn chủ đề",
     });
+
+    $(".course-list-inner").validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        errorPlacement: function (error, element) {
+            error.addClass("error-message");
+            error.insertAfter(element);
+        },
+        rules: {
+            "name": {
+                required: true,
+                maxlength: 255
+            },
+            "price": {
+                required: true,
+                min: 0
+            },
+            "image": {
+                required: true,
+            }
+        },
+        messages: {
+            "name": {
+                required: "Bắt buộc nhập tên sản phẩm",
+                maxlength: "Hãy nhập tối đa 255 ký tự"
+            },
+            "price": {
+                required: "Bắt buộc nhập giá",
+                min: "Giá phải lớn hơn 0"
+            },
+            "image": {
+                required: "Hãy chọn ảnh sản phẩm",
+            }
+        }
+    })
+    $('.btn-create-course').click((event) => {
+        // const isValidForm = $(".course-list-inner").valid()
+        // if (!isValidForm) return
+
+        let courseName = $('#course-name').val()
+        let courseDescription = $('#course-description').val()
+        let courseType = $('#course-type').val()
+        let courseSupporter = $('#course-supporter').val()
+        let courseTopic = $('#course-topic').val()
+
+        let requestData = {
+            'name': courseName,
+            'description': courseDescription,
+            'typeStudy': courseType,
+            'supporterId': courseSupporter,
+            'topicIds': courseTopic,
+        }
+        console.log(requestData)
+        $.ajax({
+            url: "/api/v1/admin/courses",
+            type: "POST",
+            data: JSON.stringify(requestData),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                window.location.href = '/admin/courses'
+            },
+            error: function () {
+                window.confirm(this.error)
+            }
+        })
+
+    })
+
 </script>
 </body>
 

@@ -74,7 +74,7 @@ class CourseAdminApplicationTests {
             Course course = Course.builder()
                     .name(faker.book().title())
                     .description(faker.lorem().sentence(20))
-                    .typeStudy(random.nextInt(2) == 0 ? "Online" : "Onlab")
+                    .typeStudy(random.nextInt(2) == 0 ? "online" : "onlab")
                     .thumbnail(faker.company().logo())
                     .supporter(randSp)
                     .topics(randTopics)
