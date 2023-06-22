@@ -83,4 +83,13 @@ public class CourseService {
     }
 
 
+    public CourseRequest findCourseRequestById(Integer id) {
+        Course course = findCourseById(id);
+        Set<Integer> topicIds = new LinkedHashSet<>();
+        course.getTopics().forEach(topic -> topicIds.add(topic.getId()));
+        CourseRequest courseRequest = objectMapper.convertValue(course, CourseRequest.class);
+        courseRequest.setTopicIds(topicIds);
+        courseRequest.setSupporterId(course.getSupporter().getId());
+        return courseRequest;
+    }
 }

@@ -32,9 +32,9 @@ public class CourseController {
     }
 
     @GetMapping("/admin/courses/{id}")
-    public String saveUpdateCourse(@PathVariable Integer id, Model model) {
-        CourseResponse courseResponse = courseService.findCourseResponseById(id);
-        model.addAttribute("khoaHocMuonSua", courseResponse);
+    public String updateCoursePage(@PathVariable Integer id, Model model) {
+        CourseRequest courseRequest = courseService.findCourseRequestById(id);
+        model.addAttribute("khoaHocMuonSua", courseRequest);
         return "course-edit";
     }
 
@@ -42,19 +42,19 @@ public class CourseController {
     @PostMapping("/api/v1/admin/courses")
     public ResponseEntity<?> saveNewCourse(@ModelAttribute("khoaHocMuonTaoMoi") @Valid CourseRequest newCourse) {
         CourseResponse courseResponse = courseService.saveNewCourse(newCourse);
-        return null;
+        return ResponseEntity.ok(courseResponse);
     }
 
     @PutMapping("/api/v1/admin/courses/{id}")
     public ResponseEntity<?> updateCourse(@PathVariable Integer id, @ModelAttribute("khoaHocMuonSua") @Valid CourseRequest courseRequest) {
         CourseResponse courseResponse = courseService.updateCourse(id, courseRequest);
 
-        return null;
+        return ResponseEntity.ok(courseResponse);
     }
 
     @DeleteMapping("/api/v1/admin/courses/{id}")
     public ResponseEntity<?> deleteCourse(@PathVariable Integer id) {
         courseService.deleteCourse(id);
-        return null;
+        return ResponseEntity.ok(null);
     }
 }
