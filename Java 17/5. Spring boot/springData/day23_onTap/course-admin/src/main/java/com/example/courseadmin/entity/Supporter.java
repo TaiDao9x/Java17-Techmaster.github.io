@@ -21,7 +21,7 @@ public class Supporter {
     @Column(name = "name", nullable = false)
     String name;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     String email;
 
     @Column(name = "phone", nullable = false, unique = true)
