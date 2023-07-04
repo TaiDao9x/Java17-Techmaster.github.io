@@ -36,16 +36,4 @@ public class SupporterController {
         return ResponseEntity.ok(supporter);
     }
 
-    @PutMapping("/admin/topics/{id}")
-    public ResponseEntity<?> updateTopic(@PathVariable Integer id, @RequestBody UpdateSupporterRequest supporterRequest) {
-        Supporter supporter = supporterService.updateSupporter(id, supporterRequest);
-        return ResponseEntity.ok(supporter);
-    }
-
-    @DeleteMapping("/api/v1/topics/{id}")
-    public ResponseEntity<?> deleteSupporter(@PathVariable Integer id) {
-        supporterService.deleteSupporter(id);
-        return ResponseEntity.ok(HttpEntity.EMPTY);
-    }
-
 }

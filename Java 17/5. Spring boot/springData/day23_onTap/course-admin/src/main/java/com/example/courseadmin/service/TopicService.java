@@ -5,6 +5,9 @@ import com.example.courseadmin.model.request.TopicRequest;
 import com.example.courseadmin.repository.TopicRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +17,6 @@ import java.util.List;
 public class TopicService {
     TopicRepository topicRepository;
     ObjectMapper objectMapper;
-
-    public List<Topic> getAllTopic() {
-        return topicRepository.findAll();
-    }
 
     public Topic createTopic(TopicRequest topicRequest) {
         Topic topic = Topic.builder().name(topicRequest.getName()).build();
@@ -38,4 +37,12 @@ public class TopicService {
         topicRepository.deleteById(id);
     }
 
+    public Page<Topic> getAllTopic(Integer page, Integer pageSize) {
+        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+        return topicRepository.findAll(pageRequest);
+    }
+
+    public List<Topic> getAllTopic() {
+        return topicRepository.findAll();
+    }
 }

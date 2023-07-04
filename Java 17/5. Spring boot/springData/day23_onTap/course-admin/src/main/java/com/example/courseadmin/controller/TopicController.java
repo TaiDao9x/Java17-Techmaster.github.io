@@ -8,6 +8,7 @@ import com.example.courseadmin.service.CourseService;
 import com.example.courseadmin.service.SupporterService;
 import com.example.courseadmin.service.TopicService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,11 @@ public class TopicController {
 
     // Topic
     @GetMapping("/admin/topics")
-    public String findAllCourses(Model model) {
-        model.addAttribute("topicList", topicService.getAllTopic());
+    public String findAllCourses(@RequestParam(required = false, defaultValue = "1") Integer page,
+                                 @RequestParam(required = false, defaultValue = "5") Integer pageSize,
+                                 Model model) {
+        Page<Topic> topics = topicService.getAllTopic(page,pageSize);
+        model.addAttribute("topicList", topics);
         return "topic-list";
     }
 

@@ -32,11 +32,12 @@ public class Course {
     @Column(name = "thumbnail")
     String thumbnail;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "supporter_id")
     Supporter supporter;
 
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "topic_course",
             joinColumns = @JoinColumn(name = "course_id"),
