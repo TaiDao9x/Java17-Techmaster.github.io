@@ -1,9 +1,12 @@
 package com.example.goodreads_finalproject.entity;
 
+import com.example.goodreads_finalproject.statics.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,10 +20,12 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends BaseEntity {
 
-    String username;
+    String email;
 
     String password;
 
+    @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
     boolean activated;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -33,6 +38,15 @@ public class User extends BaseEntity {
 
     LocalDateTime deletedDateTime;
 
-//    String refreshToken;
+    String fullName;
+
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+
+    LocalDate dob;
+
+    String phone;
+
+    String address;
 
 }
