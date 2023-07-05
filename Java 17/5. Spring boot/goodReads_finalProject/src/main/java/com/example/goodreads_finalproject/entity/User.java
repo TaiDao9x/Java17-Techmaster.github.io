@@ -34,8 +34,6 @@ public class User extends BaseEntity {
 
     String avatar;
 
-    LocalDateTime deletedDateTime;
-
     String fullName;
 
     @Enumerated(EnumType.STRING)
@@ -47,4 +45,5 @@ public class User extends BaseEntity {
 
     String address;
 
+    LocalDateTime deletedDateTime;
 }
