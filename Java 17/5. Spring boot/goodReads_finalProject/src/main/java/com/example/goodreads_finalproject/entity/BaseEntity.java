@@ -31,7 +31,6 @@ public class BaseEntity {
     String createdBy;
 
     @LastModifiedDate
-//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     LocalDateTime lastModifiedDateTime;
 
     @LastModifiedBy

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db-goodReads-final-project?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/db-goodReads-finalProject?createDatabaseIfNotExist=true
     username: root
     password: 123
 

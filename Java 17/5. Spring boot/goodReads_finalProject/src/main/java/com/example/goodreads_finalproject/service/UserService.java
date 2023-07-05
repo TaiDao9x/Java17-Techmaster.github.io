@@ -46,10 +46,10 @@ public class UserService {
 
     final RefreshTokenRepository refreshTokenRepository;
 
+    final JwtUtils jwtUtils;
+
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
-
-    final JwtUtils jwtUtils;
 
     public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository,
                        RoleRepository roleRepository, ObjectMapper objectMapper,

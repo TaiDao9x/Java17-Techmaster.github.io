@@ -3,7 +3,6 @@ package com.example.goodreads_finalproject.entity;
 import com.example.goodreads_finalproject.statics.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,8 +23,7 @@ public class User extends BaseEntity {
 
     String password;
 
-    @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(nullable = false, columnDefinition = "BOOLEAN default false")
     boolean activated;
 
     @ManyToMany(fetch = FetchType.EAGER)
