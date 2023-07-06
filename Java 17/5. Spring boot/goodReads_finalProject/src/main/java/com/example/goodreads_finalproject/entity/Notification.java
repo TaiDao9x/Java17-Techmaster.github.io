@@ -28,7 +28,7 @@ public class Notification {
     String content;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN default false")
-    boolean isRead;
+    boolean seen;
 
     @CreatedDate
     LocalDateTime createdDateTime;

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "interested_in")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InterestedIn {
     @Id

@@ -3,16 +3,14 @@ package com.example.goodreads_finalproject.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "categories")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Category {
     @Id

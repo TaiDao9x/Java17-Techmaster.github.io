@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "otps")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Otp {
     @Id

@@ -4,10 +4,7 @@ import com.example.goodreads_finalproject.statics.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,17 +12,18 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "comments")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Comment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "book_id")
     Book book;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "review_id")
     Review review;
 

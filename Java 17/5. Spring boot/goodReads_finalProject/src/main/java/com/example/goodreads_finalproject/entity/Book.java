@@ -19,8 +19,11 @@ public class Book extends BaseEntity {
 
     String title;
 
-    @OneToMany
-    @JoinColumn(name = "category_id")
+    @ManyToMany
+    @JoinTable(name = "book_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     Set<Category> categories;
 
     String author;

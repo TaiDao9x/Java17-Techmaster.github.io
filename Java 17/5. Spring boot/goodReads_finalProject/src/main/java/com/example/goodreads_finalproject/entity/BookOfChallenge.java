@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "book_Of_Challenge")
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookOfChallenge {
     @Id
