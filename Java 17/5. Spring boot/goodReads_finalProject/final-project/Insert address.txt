@@ -1,0 +1,494 @@
+INSERT INTO provinces (code,name,name_en,full_name,full_name_en,code_name) VALUES
+	 ('01','Hà N?i','Ha Noi','Thành ph? Hà N?i','Ha Noi City','ha_noi'),
+	 ('26','Vinh Phúc','Vinh Phuc','T?nh Vinh Phúc','Vinh Phuc Province','vinh_phuc')
+
+
+
+
+INSERT INTO districts (code,name,name_en,full_name,full_name_en,code_name,province_code) VALUES
+	 ('001','Ba Ðình','Ba Dinh','Qu?n Ba Ðình','Ba Dinh District','ba_dinh','01'),
+	 ('002','Hoàn Ki?m','Hoan Kiem','Qu?n Hoàn Ki?m','Hoan Kiem District','hoan_kiem','01'),
+	 ('003','Tây H?','Tay Ho','Qu?n Tây H?','Tay Ho District','tay_ho','01'),
+	 ('004','Long Biên','Long Bien','Qu?n Long Biên','Long Bien District','long_bien','01'),
+	 ('005','C?u Gi?y','Cau Giay','Qu?n C?u Gi?y','Cau Giay District','cau_giay','01'),
+	 ('006','Ð?ng Ða','Dong Da','Qu?n Ð?ng Ða','Dong Da District','dong_da','01'),
+	 ('007','Hai Bà Trung','Hai Ba Trung','Qu?n Hai Bà Trung','Hai Ba Trung District','hai_ba_trung','01'),
+	 ('008','Hoàng Mai','Hoang Mai','Qu?n Hoàng Mai','Hoang Mai District','hoang_mai','01'),
+	 ('009','Thanh Xuân','Thanh Xuan','Qu?n Thanh Xuân','Thanh Xuan District','thanh_xuan','01');
+
+INSERT INTO districts (code,name,name_en,full_name,full_name_en,code_name,province_code) VALUES
+	 ('016','Sóc Son','Soc Son','Huy?n Sóc Son','Soc Son District','soc_son','01'),
+	 ('017','Ðông Anh','Dong Anh','Huy?n Ðông Anh','Dong Anh District','dong_anh','01'),
+	 ('018','Gia Lâm','Gia Lam','Huy?n Gia Lâm','Gia Lam District','gia_lam','01'),
+	 ('019','Nam T? Liêm','Nam Tu Liem','Qu?n Nam T? Liêm','Nam Tu Liem District','nam_tu_liem','01'),
+	 ('020','Thanh Trì','Thanh Tri','Huy?n Thanh Trì','Thanh Tri District','thanh_tri','01'),
+	 ('021','B?c T? Liêm','Bac Tu Liem','Qu?n B?c T? Liêm','Bac Tu Liem District','bac_tu_liem','01'),
+	 ('250','Mê Linh','Me Linh','Huy?n Mê Linh','Me Linh District','me_linh','01'),
+	 ('268','Hà Ðông','Ha Dong','Qu?n Hà Ðông','Ha Dong District','ha_dong','01'),
+	 ('269','Son Tây','Son Tay','Th? xã Son Tây','Son Tay Town','son_tay','01'),
+	 ('271','Ba Vì','Ba Vi','Huy?n Ba Vì','Ba Vi District','ba_vi','01');
+
+INSERT INTO districts (code,name,name_en,full_name,full_name_en,code_name,province_code) VALUES
+	 ('272','Phúc Th?','Phuc Tho','Huy?n Phúc Th?','Phuc Tho District','phuc_tho','01'),
+	 ('273','Ðan Phu?ng','Dan Phuong','Huy?n Ðan Phu?ng','Dan Phuong District','dan_phuong','01'),
+	 ('274','Hoài Ð?c','Hoai Duc','Huy?n Hoài Ð?c','Hoai Duc District','hoai_duc','01'),
+	 ('275','Qu?c Oai','Quoc Oai','Huy?n Qu?c Oai','Quoc Oai District','quoc_oai','01'),
+	 ('276','Th?ch Th?t','Thach That','Huy?n Th?ch Th?t','Thach That District','thach_that','01'),
+	 ('277','Chuong M?','Chuong My','Huy?n Chuong M?','Chuong My District','chuong_my','01'),
+	 ('278','Thanh Oai','Thanh Oai','Huy?n Thanh Oai','Thanh Oai District','thanh_oai','01'),
+	 ('279','Thu?ng Tín','Thuong Tin','Huy?n Thu?ng Tín','Thuong Tin District','thuong_tin','01'),
+	 ('280','Phú Xuyên','Phu Xuyen','Huy?n Phú Xuyên','Phu Xuyen District','phu_xuyen','01'),
+	 ('281','?ng Hòa','Ung Hoa','Huy?n ?ng Hòa','Ung Hoa District','ung_hoa','01');
+
+INSERT INTO districts (code,name,name_en,full_name,full_name_en,code_name,province_code) VALUES
+	 ('282','M? Ð?c','My Duc','Huy?n M? Ð?c','My Duc District','my_duc','01')
+
+INSERT INTO districts (code,name,name_en,full_name,full_name_en,code_name,province_code) VALUES
+	 ('243','Vinh Yên','Vinh Yen','Thành ph? Vinh Yên','Vinh Yen City','vinh_yen','26'),
+	 ('244','Phúc Yên','Phuc Yen','Thành ph? Phúc Yên','Phuc Yen City','phuc_yen','26'),
+	 ('246','L?p Th?ch','Lap Thach','Huy?n L?p Th?ch','Lap Thach District','lap_thach','26'),
+	 ('247','Tam Duong','Tam Duong','Huy?n Tam Duong','Tam Duong District','tam_duong','26'),
+	 ('248','Tam Ð?o','Tam Dao','Huy?n Tam Ð?o','Tam Dao District','tam_dao','26'),
+	 ('249','Bình Xuyên','Binh Xuyen','Huy?n Bình Xuyên','Binh Xuyen District','binh_xuyen','26'),
+	 ('251','Yên L?c','Yen Lac','Huy?n Yên L?c','Yen Lac District','yen_lac','26'),
+	 ('252','Vinh Tu?ng','Vinh Tuong','Huy?n Vinh Tu?ng','Vinh Tuong District','vinh_tuong','26'),
+	 ('253','Sông Lô','Song Lo','Huy?n Sông Lô','Song Lo District','song_lo','26');
+
+
+
+
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00001','Phúc Xá','Phuc Xa','Phu?ng Phúc Xá','Phuc Xa Ward','phuc_xa','001'),
+	 ('00004','Trúc B?ch','Truc Bach','Phu?ng Trúc B?ch','Truc Bach Ward','truc_bach','001'),
+	 ('00006','Vinh Phúc','Vinh Phuc','Phu?ng Vinh Phúc','Vinh Phuc Ward','vinh_phuc','001'),
+	 ('00007','C?ng V?','Cong Vi','Phu?ng C?ng V?','Cong Vi Ward','cong_vi','001'),
+	 ('00008','Li?u Giai','Lieu Giai','Phu?ng Li?u Giai','Lieu Giai Ward','lieu_giai','001'),
+	 ('00010','Nguy?n Trung Tr?c','Nguyen Trung Truc','Phu?ng Nguy?n Trung Tr?c','Nguyen Trung Truc Ward','nguyen_trung_truc','001'),
+	 ('00013','Quán Thánh','Quan Thanh','Phu?ng Quán Thánh','Quan Thanh Ward','quan_thanh','001');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00016','Ng?c Hà','Ngoc Ha','Phu?ng Ng?c Hà','Ngoc Ha Ward','ngoc_ha','001'),
+	 ('00019','Ði?n Biên','Dien Bien','Phu?ng Ði?n Biên','Dien Bien Ward','dien_bien','001'),
+	 ('00022','Ð?i C?n','Doi Can','Phu?ng Ð?i C?n','Doi Can Ward','doi_can','001'),
+	 ('00025','Ng?c Khánh','Ngoc Khanh','Phu?ng Ng?c Khánh','Ngoc Khanh Ward','ngoc_khanh','001'),
+	 ('00028','Kim Mã','Kim Ma','Phu?ng Kim Mã','Kim Ma Ward','kim_ma','001'),
+	 ('00031','Gi?ng Võ','Giang Vo','Phu?ng Gi?ng Võ','Giang Vo Ward','giang_vo','001'),
+	 ('00034','Thành Công','Thanh Cong','Phu?ng Thành Công','Thanh Cong Ward','thanh_cong','001'),
+	 ('00037','Phúc Tân','Phuc Tan','Phu?ng Phúc Tân','Phuc Tan Ward','phuc_tan','002'),
+	 ('00040','Ð?ng Xuân','Dong Xuan','Phu?ng Ð?ng Xuân','Dong Xuan Ward','dong_xuan','002'),
+	 ('00043','Hàng Mã','Hang Ma','Phu?ng Hàng Mã','Hang Ma Ward','hang_ma','002');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00046','Hàng Bu?m','Hang Buom','Phu?ng Hàng Bu?m','Hang Buom Ward','hang_buom','002'),
+	 ('00049','Hàng Ðào','Hang Dao','Phu?ng Hàng Ðào','Hang Dao Ward','hang_dao','002'),
+	 ('00052','Hàng B?','Hang Bo','Phu?ng Hàng B?','Hang Bo Ward','hang_bo','002'),
+	 ('00055','C?a Ðông','Cua Dong','Phu?ng C?a Ðông','Cua Dong Ward','cua_dong','002'),
+	 ('00058','Lý Thái T?','Ly Thai To','Phu?ng Lý Thái T?','Ly Thai To Ward','ly_thai_to','002'),
+	 ('00061','Hàng B?c','Hang Bac','Phu?ng Hàng B?c','Hang Bac Ward','hang_bac','002'),
+	 ('00064','Hàng Gai','Hang Gai','Phu?ng Hàng Gai','Hang Gai Ward','hang_gai','002'),
+	 ('00067','Chuong Duong','Chuong Duong','Phu?ng Chuong Duong','Chuong Duong Ward','chuong_duong','002'),
+	 ('00070','Hàng Tr?ng','Hang Trong','Phu?ng Hàng Tr?ng','Hang Trong Ward','hang_trong','002'),
+	 ('00073','C?a Nam','Cua Nam','Phu?ng C?a Nam','Cua Nam Ward','cua_nam','002');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00076','Hàng Bông','Hang Bong','Phu?ng Hàng Bông','Hang Bong Ward','hang_bong','002'),
+	 ('00079','Tràng Ti?n','Trang Tien','Phu?ng Tràng Ti?n','Trang Tien Ward','trang_tien','002'),
+	 ('00082','Tr?n Hung Ð?o','Tran Hung Dao','Phu?ng Tr?n Hung Ð?o','Tran Hung Dao Ward','tran_hung_dao','002'),
+	 ('00085','Phan Chu Trinh','Phan Chu Trinh','Phu?ng Phan Chu Trinh','Phan Chu Trinh Ward','phan_chu_trinh','002'),
+	 ('00088','Hàng Bài','Hang Bai','Phu?ng Hàng Bài','Hang Bai Ward','hang_bai','002'),
+	 ('00091','Phú Thu?ng','Phu Thuong','Phu?ng Phú Thu?ng','Phu Thuong Ward','phu_thuong','003'),
+	 ('00094','Nh?t Tân','Nhat Tan','Phu?ng Nh?t Tân','Nhat Tan Ward','nhat_tan','003'),
+	 ('00097','T? Liên','Tu Lien','Phu?ng T? Liên','Tu Lien Ward','tu_lien','003'),
+	 ('00100','Qu?ng An','Quang An','Phu?ng Qu?ng An','Quang An Ward','quang_an','003'),
+	 ('00103','Xuân La','Xuan La','Phu?ng Xuân La','Xuan La Ward','xuan_la','003');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00106','Yên Ph?','Yen Phu','Phu?ng Yên Ph?','Yen Phu Ward','yen_phu','003'),
+	 ('00109','Bu?i','Buoi','Phu?ng Bu?i','Buoi Ward','buoi','003'),
+	 ('00112','Th?y Khuê','Thuy Khue','Phu?ng Th?y Khuê','Thuy Khue Ward','thuy_khue','003'),
+	 ('00115','Thu?ng Thanh','Thuong Thanh','Phu?ng Thu?ng Thanh','Thuong Thanh Ward','thuong_thanh','004'),
+	 ('00118','Ng?c Th?y','Ngoc Thuy','Phu?ng Ng?c Th?y','Ngoc Thuy Ward','ngoc_thuy','004'),
+	 ('00121','Giang Biên','Giang Bien','Phu?ng Giang Biên','Giang Bien Ward','giang_bien','004'),
+	 ('00124','Ð?c Giang','Duc Giang','Phu?ng Ð?c Giang','Duc Giang Ward','duc_giang','004'),
+	 ('00127','Vi?t Hung','Viet Hung','Phu?ng Vi?t Hung','Viet Hung Ward','viet_hung','004'),
+	 ('00130','Gia Th?y','Gia Thuy','Phu?ng Gia Th?y','Gia Thuy Ward','gia_thuy','004'),
+	 ('00133','Ng?c Lâm','Ngoc Lam','Phu?ng Ng?c Lâm','Ngoc Lam Ward','ngoc_lam','004');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00136','Phúc L?i','Phuc Loi','Phu?ng Phúc L?i','Phuc Loi Ward','phuc_loi','004'),
+	 ('00139','B? Ð?','Bo De','Phu?ng B? Ð?','Bo De Ward','bo_de','004'),
+	 ('00142','Sài Ð?ng','Sai Dong','Phu?ng Sài Ð?ng','Sai Dong Ward','sai_dong','004'),
+	 ('00145','Long Biên','Long Bien','Phu?ng Long Biên','Long Bien Ward','long_bien','004'),
+	 ('00148','Th?ch Bàn','Thach Ban','Phu?ng Th?ch Bàn','Thach Ban Ward','thach_ban','004'),
+	 ('00151','Phúc Ð?ng','Phuc Dong','Phu?ng Phúc Ð?ng','Phuc Dong Ward','phuc_dong','004'),
+	 ('00154','C? Kh?i','Cu Khoi','Phu?ng C? Kh?i','Cu Khoi Ward','cu_khoi','004'),
+	 ('00157','Nghia Ðô','Nghia Do','Phu?ng Nghia Ðô','Nghia Do Ward','nghia_do','005'),
+	 ('00160','Nghia Tân','Nghia Tan','Phu?ng Nghia Tân','Nghia Tan Ward','nghia_tan','005'),
+	 ('00163','Mai D?ch','Mai Dich','Phu?ng Mai D?ch','Mai Dich Ward','mai_dich','005');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00166','D?ch V?ng','Dich Vong','Phu?ng D?ch V?ng','Dich Vong Ward','dich_vong','005'),
+	 ('00167','D?ch V?ng H?u','Dich Vong Hau','Phu?ng D?ch V?ng H?u','Dich Vong Hau Ward','dich_vong_hau','005'),
+	 ('00169','Quan Hoa','Quan Hoa','Phu?ng Quan Hoa','Quan Hoa Ward','quan_hoa','005'),
+	 ('00172','Yên Hoà','Yen Hoa','Phu?ng Yên Hoà','Yen Hoa Ward','yen_hoa','005'),
+	 ('00175','Trung Hoà','Trung Hoa','Phu?ng Trung Hoà','Trung Hoa Ward','trung_hoa','005'),
+	 ('00178','Cát Linh','Cat Linh','Phu?ng Cát Linh','Cat Linh Ward','cat_linh','006'),
+	 ('00181','Van Mi?u','Van Mieu','Phu?ng Van Mi?u','Van Mieu Ward','van_mieu','006'),
+	 ('00184','Qu?c T? Giám','Quoc Tu Giam','Phu?ng Qu?c T? Giám','Quoc Tu Giam Ward','quoc_tu_giam','006'),
+	 ('00187','Láng Thu?ng','Lang Thuong','Phu?ng Láng Thu?ng','Lang Thuong Ward','lang_thuong','006'),
+	 ('00190','Ô Ch? D?a','O Cho Dua','Phu?ng Ô Ch? D?a','O Cho Dua Ward','o_cho_dua','006');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00193','Van Chuong','Van Chuong','Phu?ng Van Chuong','Van Chuong Ward','van_chuong','006'),
+	 ('00196','Hàng B?t','Hang Bot','Phu?ng Hàng B?t','Hang Bot Ward','hang_bot','006'),
+	 ('00199','Láng H?','Lang Ha','Phu?ng Láng H?','Lang Ha Ward','lang_ha','006'),
+	 ('00202','Khâm Thiên','Kham Thien','Phu?ng Khâm Thiên','Kham Thien Ward','kham_thien','006'),
+	 ('00205','Th? Quan','Tho Quan','Phu?ng Th? Quan','Tho Quan Ward','tho_quan','006'),
+	 ('00208','Nam Ð?ng','Nam Dong','Phu?ng Nam Ð?ng','Nam Dong Ward','nam_dong','006'),
+	 ('00211','Trung Ph?ng','Trung Phung','Phu?ng Trung Ph?ng','Trung Phung Ward','trung_phung','006'),
+	 ('00214','Quang Trung','Quang Trung','Phu?ng Quang Trung','Quang Trung Ward','quang_trung','006'),
+	 ('00217','Trung Li?t','Trung Liet','Phu?ng Trung Li?t','Trung Liet Ward','trung_liet','006'),
+	 ('00220','Phuong Liên','Phuong Lien','Phu?ng Phuong Liên','Phuong Lien Ward','phuong_lien','006');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00223','Th?nh Quang','Thinh Quang','Phu?ng Th?nh Quang','Thinh Quang Ward','thinh_quang','006'),
+	 ('00226','Trung T?','Trung Tu','Phu?ng Trung T?','Trung Tu Ward','trung_tu','006'),
+	 ('00229','Kim Liên','Kim Lien','Phu?ng Kim Liên','Kim Lien Ward','kim_lien','006'),
+	 ('00232','Phuong Mai','Phuong Mai','Phu?ng Phuong Mai','Phuong Mai Ward','phuong_mai','006'),
+	 ('00235','Ngã Tu S?','Nga Tu So','Phu?ng Ngã Tu S?','Nga Tu So Ward','nga_tu_so','006'),
+	 ('00238','Khuong Thu?ng','Khuong Thuong','Phu?ng Khuong Thu?ng','Khuong Thuong Ward','khuong_thuong','006'),
+	 ('00241','Nguy?n Du','Nguyen Du','Phu?ng Nguy?n Du','Nguyen Du Ward','nguyen_du','007'),
+	 ('00244','B?ch Ð?ng','Bach Dang','Phu?ng B?ch Ð?ng','Bach Dang Ward','bach_dang','007'),
+	 ('00247','Ph?m Ðình H?','Pham Dinh Ho','Phu?ng Ph?m Ðình H?','Pham Dinh Ho Ward','pham_dinh_ho','007'),
+	 ('00256','Lê Ð?i Hành','Le Dai Hanh','Phu?ng Lê Ð?i Hành','Le Dai Hanh Ward','le_dai_hanh','007');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00259','Ð?ng Nhân','Dong Nhan','Phu?ng Ð?ng Nhân','Dong Nhan Ward','dong_nhan','007'),
+	 ('00262','Ph? Hu?','Pho Hue','Phu?ng Ph? Hu?','Pho Hue Ward','pho_hue','007'),
+	 ('00265','Ð?ng Mác','Dong Mac','Phu?ng Ð?ng Mác','Dong Mac Ward','dong_mac','007'),
+	 ('00268','Thanh Luong','Thanh Luong','Phu?ng Thanh Luong','Thanh Luong Ward','thanh_luong','007'),
+	 ('00271','Thanh Nhàn','Thanh Nhan','Phu?ng Thanh Nhàn','Thanh Nhan Ward','thanh_nhan','007'),
+	 ('00274','C?u D?n','Cau Den','Phu?ng C?u D?n','Cau Den Ward','cau_den','007'),
+	 ('00277','Bách Khoa','Bach Khoa','Phu?ng Bách Khoa','Bach Khoa Ward','bach_khoa','007'),
+	 ('00280','Ð?ng Tâm','Dong Tam','Phu?ng Ð?ng Tâm','Dong Tam Ward','dong_tam','007'),
+	 ('00283','Vinh Tuy','Vinh Tuy','Phu?ng Vinh Tuy','Vinh Tuy Ward','vinh_tuy','007'),
+	 ('00286','B?ch Mai','Bach Mai','Phu?ng B?ch Mai','Bach Mai Ward','bach_mai','007');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00289','Qu?nh Mai','Quynh Mai','Phu?ng Qu?nh Mai','Quynh Mai Ward','quynh_mai','007'),
+	 ('00292','Qu?nh Lôi','Quynh Loi','Phu?ng Qu?nh Lôi','Quynh Loi Ward','quynh_loi','007'),
+	 ('00295','Minh Khai','Minh Khai','Phu?ng Minh Khai','Minh Khai Ward','minh_khai','007'),
+	 ('00298','Truong Ð?nh','Truong Dinh','Phu?ng Truong Ð?nh','Truong Dinh Ward','truong_dinh','007'),
+	 ('00301','Thanh Trì','Thanh Tri','Phu?ng Thanh Trì','Thanh Tri Ward','thanh_tri','008'),
+	 ('00304','Vinh Hung','Vinh Hung','Phu?ng Vinh Hung','Vinh Hung Ward','vinh_hung','008'),
+	 ('00307','Ð?nh Công','Dinh Cong','Phu?ng Ð?nh Công','Dinh Cong Ward','dinh_cong','008'),
+	 ('00310','Mai Ð?ng','Mai Dong','Phu?ng Mai Ð?ng','Mai Dong Ward','mai_dong','008'),
+	 ('00313','Tuong Mai','Tuong Mai','Phu?ng Tuong Mai','Tuong Mai Ward','tuong_mai','008'),
+	 ('00316','Ð?i Kim','Dai Kim','Phu?ng Ð?i Kim','Dai Kim Ward','dai_kim','008');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00319','Tân Mai','Tan Mai','Phu?ng Tân Mai','Tan Mai Ward','tan_mai','008'),
+	 ('00322','Hoàng Van Th?','Hoang Van Thu','Phu?ng Hoàng Van Th?','Hoang Van Thu Ward','hoang_van_thu','008'),
+	 ('00325','Giáp Bát','Giap Bat','Phu?ng Giáp Bát','Giap Bat Ward','giap_bat','008'),
+	 ('00328','Linh Nam','Linh Nam','Phu?ng Linh Nam','Linh Nam Ward','linh_nam','008'),
+	 ('00331','Th?nh Li?t','Thinh Liet','Phu?ng Th?nh Li?t','Thinh Liet Ward','thinh_liet','008'),
+	 ('00334','Tr?n Phú','Tran Phu','Phu?ng Tr?n Phú','Tran Phu Ward','tran_phu','008'),
+	 ('00337','Hoàng Li?t','Hoang Liet','Phu?ng Hoàng Li?t','Hoang Liet Ward','hoang_liet','008'),
+	 ('00340','Yên S?','Yen So','Phu?ng Yên S?','Yen So Ward','yen_so','008'),
+	 ('00343','Nhân Chính','Nhan Chinh','Phu?ng Nhân Chính','Nhan Chinh Ward','nhan_chinh','009'),
+	 ('00346','Thu?ng Ðình','Thuong Dinh','Phu?ng Thu?ng Ðình','Thuong Dinh Ward','thuong_dinh','009');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00349','Khuong Trung','Khuong Trung','Phu?ng Khuong Trung','Khuong Trung Ward','khuong_trung','009'),
+	 ('00352','Khuong Mai','Khuong Mai','Phu?ng Khuong Mai','Khuong Mai Ward','khuong_mai','009'),
+	 ('00355','Thanh Xuân Trung','Thanh Xuan Trung','Phu?ng Thanh Xuân Trung','Thanh Xuan Trung Ward','thanh_xuan_trung','009'),
+	 ('00358','Phuong Li?t','Phuong Liet','Phu?ng Phuong Li?t','Phuong Liet Ward','phuong_liet','009'),
+	 ('00361','H? Ðình','Ha Dinh','Phu?ng H? Ðình','Ha Dinh Ward','ha_dinh','009'),
+	 ('00364','Khuong Ðình','Khuong Dinh','Phu?ng Khuong Ðình','Khuong Dinh Ward','khuong_dinh','009'),
+	 ('00367','Thanh Xuân B?c','Thanh Xuan Bac','Phu?ng Thanh Xuân B?c','Thanh Xuan Bac Ward','thanh_xuan_bac','009'),
+	 ('00370','Thanh Xuân Nam','Thanh Xuan Nam','Phu?ng Thanh Xuân Nam','Thanh Xuan Nam Ward','thanh_xuan_nam','009'),
+	 ('00373','Kim Giang','Kim Giang','Phu?ng Kim Giang','Kim Giang Ward','kim_giang','009'),
+	 ('00376','Sóc Son','Soc Son','Th? tr?n Sóc Son','Soc Son Township','soc_son','016');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00379','B?c Son','Bac Son','Xã B?c Son','Bac Son Commune','bac_son','016'),
+	 ('00382','Minh Trí','Minh Tri','Xã Minh Trí','Minh Tri Commune','minh_tri','016'),
+	 ('00385','H?ng K?','Hong Ky','Xã H?ng K?','Hong Ky Commune','hong_ky','016'),
+	 ('00388','Nam Son','Nam Son','Xã Nam Son','Nam Son Commune','nam_son','016'),
+	 ('00391','Trung Giã','Trung Gia','Xã Trung Giã','Trung Gia Commune','trung_gia','016'),
+	 ('00394','Tân Hung','Tan Hung','Xã Tân Hung','Tan Hung Commune','tan_hung','016'),
+	 ('00397','Minh Phú','Minh Phu','Xã Minh Phú','Minh Phu Commune','minh_phu','016'),
+	 ('00400','Phù Linh','Phu Linh','Xã Phù Linh','Phu Linh Commune','phu_linh','016'),
+	 ('00403','B?c Phú','Bac Phu','Xã B?c Phú','Bac Phu Commune','bac_phu','016'),
+	 ('00406','Tân Minh','Tan Minh','Xã Tân Minh','Tan Minh Commune','tan_minh','016');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00409','Quang Ti?n','Quang Tien','Xã Quang Ti?n','Quang Tien Commune','quang_tien','016'),
+	 ('00412','Hi?n Ninh','Hien Ninh','Xã Hi?n Ninh','Hien Ninh Commune','hien_ninh','016'),
+	 ('00415','Tân Dân','Tan Dan','Xã Tân Dân','Tan Dan Commune','tan_dan','016'),
+	 ('00418','Tiên Du?c','Tien Duoc','Xã Tiên Du?c','Tien Duoc Commune','tien_duoc','016'),
+	 ('00421','Vi?t Long','Viet Long','Xã Vi?t Long','Viet Long Commune','viet_long','016'),
+	 ('00424','Xuân Giang','Xuan Giang','Xã Xuân Giang','Xuan Giang Commune','xuan_giang','016'),
+	 ('00427','Mai Ðình','Mai Dinh','Xã Mai Ðình','Mai Dinh Commune','mai_dinh','016'),
+	 ('00430','Ð?c Hoà','Duc Hoa','Xã Ð?c Hoà','Duc Hoa Commune','duc_hoa','016'),
+	 ('00433','Thanh Xuân','Thanh Xuan','Xã Thanh Xuân','Thanh Xuan Commune','thanh_xuan','016'),
+	 ('00436','Ðông Xuân','Dong Xuan','Xã Ðông Xuân','Dong Xuan Commune','dong_xuan','016');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00439','Kim Lu','Kim Lu','Xã Kim Lu','Kim Lu Commune','kim_lu','016'),
+	 ('00442','Phú Cu?ng','Phu Cuong','Xã Phú Cu?ng','Phu Cuong Commune','phu_cuong','016'),
+	 ('00445','Phú Minh','Phu Minh','Xã Phú Minh','Phu Minh Commune','phu_minh','016'),
+	 ('00448','Phù L?','Phu Lo','Xã Phù L?','Phu Lo Commune','phu_lo','016'),
+	 ('00451','Xuân Thu','Xuan Thu','Xã Xuân Thu','Xuan Thu Commune','xuan_thu','016'),
+	 ('00454','Ðông Anh','Dong Anh','Th? tr?n Ðông Anh','Dong Anh Township','dong_anh','017'),
+	 ('00457','Xuân N?n','Xuan Non','Xã Xuân N?n','Xuan Non Commune','xuan_non','017'),
+	 ('00460','Thu? Lâm','Thuy Lam','Xã Thu? Lâm','Thuy Lam Commune','thuy_lam','017'),
+	 ('00463','B?c H?ng','Bac Hong','Xã B?c H?ng','Bac Hong Commune','bac_hong','017'),
+	 ('00466','Nguyên Khê','Nguyen Khe','Xã Nguyên Khê','Nguyen Khe Commune','nguyen_khe','017');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00469','Nam H?ng','Nam Hong','Xã Nam H?ng','Nam Hong Commune','nam_hong','017'),
+	 ('00472','Tiên Duong','Tien Duong','Xã Tiên Duong','Tien Duong Commune','tien_duong','017'),
+	 ('00475','Vân Hà','Van Ha','Xã Vân Hà','Van Ha Commune','van_ha','017'),
+	 ('00478','Uy N?','Uy No','Xã Uy N?','Uy No Commune','uy_no','017'),
+	 ('00481','Vân N?i','Van Noi','Xã Vân N?i','Van Noi Commune','van_noi','017'),
+	 ('00484','Liên Hà','Lien Ha','Xã Liên Hà','Lien Ha Commune','lien_ha','017'),
+	 ('00487','Vi?t Hùng','Viet Hung','Xã Vi?t Hùng','Viet Hung Commune','viet_hung','017'),
+	 ('00490','Kim N?','Kim No','Xã Kim N?','Kim No Commune','kim_no','017'),
+	 ('00493','Kim Chung','Kim Chung','Xã Kim Chung','Kim Chung Commune','kim_chung','017'),
+	 ('00496','D?c Tú','Duc Tu','Xã D?c Tú','Duc Tu Commune','duc_tu','017');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00499','Ð?i M?ch','Dai Mach','Xã Ð?i M?ch','Dai Mach Commune','dai_mach','017'),
+	 ('00502','Vinh Ng?c','Vinh Ngoc','Xã Vinh Ng?c','Vinh Ngoc Commune','vinh_ngoc','017'),
+	 ('00505','C? Loa','Co Loa','Xã C? Loa','Co Loa Commune','co_loa','017'),
+	 ('00508','H?i B?i','Hai Boi','Xã H?i B?i','Hai Boi Commune','hai_boi','017'),
+	 ('00511','Xuân Canh','Xuan Canh','Xã Xuân Canh','Xuan Canh Commune','xuan_canh','017'),
+	 ('00514','Võng La','Vong La','Xã Võng La','Vong La Commune','vong_la','017'),
+	 ('00517','Tàm Xá','Tam Xa','Xã Tàm Xá','Tam Xa Commune','tam_xa','017'),
+	 ('00520','Mai Lâm','Mai Lam','Xã Mai Lâm','Mai Lam Commune','mai_lam','017'),
+	 ('00523','Ðông H?i','Dong Hoi','Xã Ðông H?i','Dong Hoi Commune','dong_hoi','017'),
+	 ('00526','Yên Viên','Yen Vien','Th? tr?n Yên Viên','Yen Vien Township','yen_vien','018');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00529','Yên Thu?ng','Yen Thuong','Xã Yên Thu?ng','Yen Thuong Commune','yen_thuong','018'),
+	 ('00532','Yên Viên','Yen Vien','Xã Yên Viên','Yen Vien Commune','yen_vien','018'),
+	 ('00535','Ninh Hi?p','Ninh Hiep','Xã Ninh Hi?p','Ninh Hiep Commune','ninh_hiep','018'),
+	 ('00538','Ðình Xuyên','Dinh Xuyen','Xã Ðình Xuyên','Dinh Xuyen Commune','dinh_xuyen','018'),
+	 ('00541','Duong Hà','Duong Ha','Xã Duong Hà','Duong Ha Commune','duong_ha','018'),
+	 ('00544','Phù Ð?ng','Phu Dong','Xã Phù Ð?ng','Phu Dong Commune','phu_dong','018'),
+	 ('00547','Trung M?u','Trung Mau','Xã Trung M?u','Trung Mau Commune','trung_mau','018'),
+	 ('00550','L? Chi','Le Chi','Xã L? Chi','Le Chi Commune','le_chi','018'),
+	 ('00553','C? Bi','Co Bi','Xã C? Bi','Co Bi Commune','co_bi','018'),
+	 ('00556','Ð?ng Xá','Dang Xa','Xã Ð?ng Xá','Dang Xa Commune','dang_xa','018');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00559','Phú Th?','Phu Thi','Xã Phú Th?','Phu Thi Commune','phu_thi','018'),
+	 ('00562','Kim Son','Kim Son','Xã Kim Son','Kim Son Commune','kim_son','018'),
+	 ('00565','Trâu Qu?','Trau Quy','Th? tr?n Trâu Qu?','Trau Quy Township','trau_quy','018'),
+	 ('00568','Duong Quang','Duong Quang','Xã Duong Quang','Duong Quang Commune','duong_quang','018'),
+	 ('00571','Duong Xá','Duong Xa','Xã Duong Xá','Duong Xa Commune','duong_xa','018'),
+	 ('00574','Ðông Du','Dong Du','Xã Ðông Du','Dong Du Commune','dong_du','018'),
+	 ('00577','Ða T?n','Da Ton','Xã Ða T?n','Da Ton Commune','da_ton','018'),
+	 ('00580','Kiêu K?','Kieu Ky','Xã Kiêu K?','Kieu Ky Commune','kieu_ky','018'),
+	 ('00583','Bát Tràng','Bat Trang','Xã Bát Tràng','Bat Trang Commune','bat_trang','018'),
+	 ('00586','Kim Lan','Kim Lan','Xã Kim Lan','Kim Lan Commune','kim_lan','018');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00589','Van Ð?c','Van Duc','Xã Van Ð?c','Van Duc Commune','van_duc','018'),
+	 ('00592','C?u Di?n','Cau Dien','Phu?ng C?u Di?n','Cau Dien Ward','cau_dien','019'),
+	 ('00622','Xuân Phuong','Xuan Phuong','Phu?ng Xuân Phuong','Xuan Phuong Ward','xuan_phuong','019'),
+	 ('00623','Phuong Canh','Phuong Canh','Phu?ng Phuong Canh','Phuong Canh Ward','phuong_canh','019'),
+	 ('00625','M? Ðình 1','My Dinh 1','Phu?ng M? Ðình 1','My Dinh 1 Ward','my_dinh_1','019'),
+	 ('00626','M? Ðình 2','My Dinh 2','Phu?ng M? Ðình 2','My Dinh 2 Ward','my_dinh_2','019'),
+	 ('00628','Tây M?','Tay Mo','Phu?ng Tây M?','Tay Mo Ward','tay_mo','019'),
+	 ('00631','M? Trì','Me Tri','Phu?ng M? Trì','Me Tri Ward','me_tri','019'),
+	 ('00632','Phú Ðô','Phu Do','Phu?ng Phú Ðô','Phu Do Ward','phu_do','019'),
+	 ('00634','Ð?i M?','Dai Mo','Phu?ng Ð?i M?','Dai Mo Ward','dai_mo','019');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00637','Trung Van','Trung Van','Phu?ng Trung Van','Trung Van Ward','trung_van','019'),
+	 ('00640','Van Ði?n','Van Dien','Th? tr?n Van Ði?n','Van Dien Township','van_dien','020'),
+	 ('00643','Tân Tri?u','Tan Trieu','Xã Tân Tri?u','Tan Trieu Commune','tan_trieu','020'),
+	 ('00646','Thanh Li?t','Thanh Liet','Xã Thanh Li?t','Thanh Liet Commune','thanh_liet','020'),
+	 ('00649','T? Thanh Oai','Ta Thanh Oai','Xã T? Thanh Oai','Ta Thanh Oai Commune','ta_thanh_oai','020'),
+	 ('00652','H?u Hoà','Huu Hoa','Xã H?u Hoà','Huu Hoa Commune','huu_hoa','020'),
+	 ('00655','Tam Hi?p','Tam Hiep','Xã Tam Hi?p','Tam Hiep Commune','tam_hiep','020'),
+	 ('00658','T? Hi?p','Tu Hiep','Xã T? Hi?p','Tu Hiep Commune','tu_hiep','020'),
+	 ('00661','Yên M?','Yen My','Xã Yên M?','Yen My Commune','yen_my','020'),
+	 ('00664','Vinh Qu?nh','Vinh Quynh','Xã Vinh Qu?nh','Vinh Quynh Commune','vinh_quynh','020');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00667','Ngu Hi?p','Ngu Hiep','Xã Ngu Hi?p','Ngu Hiep Commune','ngu_hiep','020'),
+	 ('00670','Duyên Hà','Duyen Ha','Xã Duyên Hà','Duyen Ha Commune','duyen_ha','020'),
+	 ('00673','Ng?c H?i','Ngoc Hoi','Xã Ng?c H?i','Ngoc Hoi Commune','ngoc_hoi','020'),
+	 ('00676','V?n Phúc','Van Phuc','Xã V?n Phúc','Van Phuc Commune','van_phuc','020'),
+	 ('00679','Ð?i áng','Dai ang','Xã Ð?i áng','Dai ang Commune','dai_ang','020'),
+	 ('00682','Liên Ninh','Lien Ninh','Xã Liên Ninh','Lien Ninh Commune','lien_ninh','020'),
+	 ('00685','Ðông M?','Dong My','Xã Ðông M?','Dong My Commune','dong_my','020'),
+	 ('00595','Thu?ng Cát','Thuong Cat','Phu?ng Thu?ng Cát','Thuong Cat Ward','thuong_cat','021'),
+	 ('00598','Liên M?c','Lien Mac','Phu?ng Liên M?c','Lien Mac Ward','lien_mac','021'),
+	 ('00601','Ðông Ng?c','Dong Ngac','Phu?ng Ðông Ng?c','Dong Ngac Ward','dong_ngac','021');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('00602','Ð?c Th?ng','Duc Thang','Phu?ng Ð?c Th?ng','Duc Thang Ward','duc_thang','021'),
+	 ('00604','Th?y Phuong','Thuy Phuong','Phu?ng Th?y Phuong','Thuy Phuong Ward','thuy_phuong','021'),
+	 ('00607','Tây T?u','Tay Tuu','Phu?ng Tây T?u','Tay Tuu Ward','tay_tuu','021'),
+	 ('00610','Xuân Ð?nh','Xuan Dinh','Phu?ng Xuân Ð?nh','Xuan Dinh Ward','xuan_dinh','021'),
+	 ('00611','Xuân T?o','Xuan Tao','Phu?ng Xuân T?o','Xuan Tao Ward','xuan_tao','021'),
+	 ('00613','Minh Khai','Minh Khai','Phu?ng Minh Khai','Minh Khai Ward','minh_khai','021'),
+	 ('00616','C? Nhu? 1','Co Nhue 1','Phu?ng C? Nhu? 1','Co Nhue 1 Ward','co_nhue_1','021'),
+	 ('00617','C? Nhu? 2','Co Nhue 2','Phu?ng C? Nhu? 2','Co Nhue 2 Ward','co_nhue_2','021'),
+	 ('00619','Phú Di?n','Phu Dien','Phu?ng Phú Di?n','Phu Dien Ward','phu_dien','021'),
+	 ('00620','Phúc Di?n','Phuc Dien','Phu?ng Phúc Di?n','Phuc Dien Ward','phuc_dien','021');
+
+
+
+
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08707','Tích Son','Tich Son','Phu?ng Tích Son','Tich Son Ward','tich_son','243'),
+	 ('08710','Liên B?o','Lien Bao','Phu?ng Liên B?o','Lien Bao Ward','lien_bao','243'),
+	 ('08713','H?i H?p','Hoi Hop','Phu?ng H?i H?p','Hoi Hop Ward','hoi_hop','243'),
+	 ('08716','Ð?ng Ða','Dong Da','Phu?ng Ð?ng Ða','Dong Da Ward','dong_da','243'),
+	 ('08719','Ngô Quy?n','Ngo Quyen','Phu?ng Ngô Quy?n','Ngo Quyen Ward','ngo_quyen','243');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08722','Ð?ng Tâm','Dong Tam','Phu?ng Ð?ng Tâm','Dong Tam Ward','dong_tam','243'),
+	 ('08725','Ð?nh Trung','Dinh Trung','Phu?ng Ð?nh Trung','Dinh Trung Ward','dinh_trung','243'),
+	 ('08728','Khai Quang','Khai Quang','Phu?ng Khai Quang','Khai Quang Ward','khai_quang','243'),
+	 ('08731','Thanh Trù','Thanh Tru','Xã Thanh Trù','Thanh Tru Commune','thanh_tru','243'),
+	 ('08734','Trung Tr?c','Trung Trac','Phu?ng Trung Tr?c','Trung Trac Ward','trung_trac','244'),
+	 ('08737','Hùng Vuong','Hung Vuong','Phu?ng Hùng Vuong','Hung Vuong Ward','hung_vuong','244'),
+	 ('08740','Trung Nh?','Trung Nhi','Phu?ng Trung Nh?','Trung Nhi Ward','trung_nhi','244'),
+	 ('08743','Phúc Th?ng','Phuc Thang','Phu?ng Phúc Th?ng','Phuc Thang Ward','phuc_thang','244'),
+	 ('08746','Xuân Hoà','Xuan Hoa','Phu?ng Xuân Hoà','Xuan Hoa Ward','xuan_hoa','244'),
+	 ('08747','Ð?ng Xuân','Dong Xuan','Phu?ng Ð?ng Xuân','Dong Xuan Ward','dong_xuan','244');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08749','Ng?c Thanh','Ngoc Thanh','Xã Ng?c Thanh','Ngoc Thanh Commune','ngoc_thanh','244'),
+	 ('08752','Cao Minh','Cao Minh','Xã Cao Minh','Cao Minh Commune','cao_minh','244'),
+	 ('08755','Nam Viêm','Nam Viem','Phu?ng Nam Viêm','Nam Viem Ward','nam_viem','244'),
+	 ('08758','Ti?n Châu','Tien Chau','Phu?ng Ti?n Châu','Tien Chau Ward','tien_chau','244'),
+	 ('08761','L?p Th?ch','Lap Thach','Th? tr?n L?p Th?ch','Lap Thach Township','lap_thach','246'),
+	 ('08764','Quang Son','Quang Son','Xã Quang Son','Quang Son Commune','quang_son','246'),
+	 ('08767','Ng?c M?','Ngoc My','Xã Ng?c M?','Ngoc My Commune','ngoc_my','246'),
+	 ('08770','H?p Lý','Hop Ly','Xã H?p Lý','Hop Ly Commune','hop_ly','246'),
+	 ('08785','B?c Bình','Bac Binh','Xã B?c Bình','Bac Binh Commune','bac_binh','246'),
+	 ('08788','Thái Hòa','Thai Hoa','Xã Thái Hòa','Thai Hoa Commune','thai_hoa','246');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08789','Hoa Son','Hoa Son','Th? tr?n Hoa Son','Hoa Son Township','hoa_son','246'),
+	 ('08791','Li?n Son','Lien Son','Xã Li?n Son','Lien Son Commune','lien_son','246'),
+	 ('08794','Xuân Hòa','Xuan Hoa','Xã Xuân Hòa','Xuan Hoa Commune','xuan_hoa','246'),
+	 ('08797','Vân Tr?c','Van Truc','Xã Vân Tr?c','Van Truc Commune','van_truc','246'),
+	 ('08812','Liên Hòa','Lien Hoa','Xã Liên Hòa','Lien Hoa Commune','lien_hoa','246'),
+	 ('08815','T? Du','Tu Du','Xã T? Du','Tu Du Commune','tu_du','246'),
+	 ('08833','Bàn Gi?n','Ban Gian','Xã Bàn Gi?n','Ban Gian Commune','ban_gian','246'),
+	 ('08836','Xuân Lôi','Xuan Loi','Xã Xuân Lôi','Xuan Loi Commune','xuan_loi','246'),
+	 ('08839','Ð?ng Ích','Dong Ich','Xã Ð?ng Ích','Dong Ich Commune','dong_ich','246'),
+	 ('08842','Tiên L?','Tien Lu','Xã Tiên L?','Tien Lu Commune','tien_lu','246');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08845','Van Quán','Van Quan','Xã Van Quán','Van Quan Commune','van_quan','246'),
+	 ('08857','Ðình Chu','Dinh Chu','Xã Ðình Chu','Dinh Chu Commune','dinh_chu','246'),
+	 ('08863','Tri?u Ð?','Trieu De','Xã Tri?u Ð?','Trieu De Commune','trieu_de','246'),
+	 ('08866','Son Ðông','Son Dong','Xã Son Ðông','Son Dong Commune','son_dong','246'),
+	 ('08869','H?p Hòa','Hop Hoa','Th? tr?n H?p Hòa','Hop Hoa Township','hop_hoa','247'),
+	 ('08872','Hoàng Hoa','Hoang Hoa','Xã Hoàng Hoa','Hoang Hoa Commune','hoang_hoa','247'),
+	 ('08875','Ð?ng Tinh','Dong Tinh','Xã Ð?ng Tinh','Dong Tinh Commune','dong_tinh','247'),
+	 ('08878','Kim Long','Kim Long','Th? tr?n Kim Long','Kim Long Township','kim_long','247'),
+	 ('08881','Hu?ng Ð?o','Huong Dao','Xã Hu?ng Ð?o','Huong Dao Commune','huong_dao','247'),
+	 ('08884','Ð?o Tú','Dao Tu','Xã Ð?o Tú','Dao Tu Commune','dao_tu','247');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08887','An Hòa','An Hoa','Xã An Hòa','An Hoa Commune','an_hoa','247'),
+	 ('08890','Thanh Vân','Thanh Van','Xã Thanh Vân','Thanh Van Commune','thanh_van','247'),
+	 ('08893','Duy Phiên','Duy Phien','Xã Duy Phiên','Duy Phien Commune','duy_phien','247'),
+	 ('08896','Hoàng Ðan','Hoang Dan','Xã Hoàng Ðan','Hoang Dan Commune','hoang_dan','247'),
+	 ('08899','Hoàng Lâu','Hoang Lau','Xã Hoàng Lâu','Hoang Lau Commune','hoang_lau','247'),
+	 ('08902','Vân H?i','Van Hoi','Xã Vân H?i','Van Hoi Commune','van_hoi','247'),
+	 ('08905','H?p Th?nh','Hop Thinh','Xã H?p Th?nh','Hop Thinh Commune','hop_thinh','247'),
+	 ('08908','Tam Ð?o','Tam Dao','Th? tr?n Tam Ð?o','Tam Dao Township','tam_dao','248'),
+	 ('08911','H?p Châu','Hop Chau','Th? tr?n H?p Châu','Hop Chau Township','hop_chau','248'),
+	 ('08914','Ð?o Trù','Dao Tru','Xã Ð?o Trù','Dao Tru Commune','dao_tru','248');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08917','Yên Duong','Yen Duong','Xã Yên Duong','Yen Duong Commune','yen_duong','248'),
+	 ('08920','B? Lý','Bo Ly','Xã B? Lý','Bo Ly Commune','bo_ly','248'),
+	 ('08923','Ð?i Ðình','Dai Dinh','Th? tr?n Ð?i Ðình','Dai Dinh Township','dai_dinh','248'),
+	 ('08926','Tam Quan','Tam Quan','Xã Tam Quan','Tam Quan Commune','tam_quan','248'),
+	 ('08929','H? Son','Ho Son','Xã H? Son','Ho Son Commune','ho_son','248'),
+	 ('08932','Minh Quang','Minh Quang','Xã Minh Quang','Minh Quang Commune','minh_quang','248'),
+	 ('08935','Huong Canh','Huong Canh','Th? tr?n Huong Canh','Huong Canh Township','huong_canh','249'),
+	 ('08936','Gia Khánh','Gia Khanh','Th? tr?n Gia Khánh','Gia Khanh Township','gia_khanh','249'),
+	 ('08938','Trung M?','Trung My','Xã Trung M?','Trung My Commune','trung_my','249'),
+	 ('08944','Bá Hi?n','Ba Hien','Th? tr?n Bá Hi?n','Ba Hien Township','ba_hien','249');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08947','Thi?n K?','Thien Ke','Xã Thi?n K?','Thien Ke Commune','thien_ke','249'),
+	 ('08950','Huong Son','Huong Son','Xã Huong Son','Huong Son Commune','huong_son','249'),
+	 ('08953','Tam H?p','Tam Hop','Xã Tam H?p','Tam Hop Commune','tam_hop','249'),
+	 ('08956','Qu?t Luu','Quat Luu','Xã Qu?t Luu','Quat Luu Commune','quat_luu','249'),
+	 ('08959','Son Lôi','Son Loi','Xã Son Lôi','Son Loi Commune','son_loi','249'),
+	 ('08962','Ð?o Ð?c','Dao Duc','Th? tr?n Ð?o Ð?c','Dao Duc Township','dao_duc','249'),
+	 ('08965','Tân Phong','Tan Phong','Xã Tân Phong','Tan Phong Commune','tan_phong','249'),
+	 ('08968','Thanh Lãng','Thanh Lang','Th? tr?n Thanh Lãng','Thanh Lang Township','thanh_lang','249'),
+	 ('08971','Phú Xuân','Phu Xuan','Xã Phú Xuân','Phu Xuan Commune','phu_xuan','249'),
+	 ('08973','Chi Ðông','Chi Dong','Th? tr?n Chi Ðông','Chi Dong Township','chi_dong','250');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08974','Ð?i Th?nh','Dai Thinh','Xã Ð?i Th?nh','Dai Thinh Commune','dai_thinh','250'),
+	 ('08977','Kim Hoa','Kim Hoa','Xã Kim Hoa','Kim Hoa Commune','kim_hoa','250'),
+	 ('08980','Th?ch Ðà','Thach Da','Xã Th?ch Ðà','Thach Da Commune','thach_da','250'),
+	 ('08983','Ti?n Th?ng','Tien Thang','Xã Ti?n Th?ng','Tien Thang Commune','tien_thang','250'),
+	 ('08986','T? L?p','Tu Lap','Xã T? L?p','Tu Lap Commune','tu_lap','250'),
+	 ('08989','Quang Minh','Quang Minh','Th? tr?n Quang Minh','Quang Minh Township','quang_minh','250'),
+	 ('08992','Thanh Lâm','Thanh Lam','Xã Thanh Lâm','Thanh Lam Commune','thanh_lam','250'),
+	 ('08995','Tam Ð?ng','Tam Dong','Xã Tam Ð?ng','Tam Dong Commune','tam_dong','250'),
+	 ('08998','Liên M?c','Lien Mac','Xã Liên M?c','Lien Mac Commune','lien_mac','250'),
+	 ('09001','V?n Yên','Van Yen','Xã V?n Yên','Van Yen Commune','van_yen','250');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09004','Chu Phan','Chu Phan','Xã Chu Phan','Chu Phan Commune','chu_phan','250'),
+	 ('09007','Ti?n Th?nh','Tien Thinh','Xã Ti?n Th?nh','Tien Thinh Commune','tien_thinh','250'),
+	 ('09010','Mê Linh','Me Linh','Xã Mê Linh','Me Linh Commune','me_linh','250'),
+	 ('09013','Van Khê','Van Khe','Xã Van Khê','Van Khe Commune','van_khe','250'),
+	 ('09016','Hoàng Kim','Hoang Kim','Xã Hoàng Kim','Hoang Kim Commune','hoang_kim','250'),
+	 ('09019','Ti?n Phong','Tien Phong','Xã Ti?n Phong','Tien Phong Commune','tien_phong','250'),
+	 ('09022','Tráng Vi?t','Trang Viet','Xã Tráng Vi?t','Trang Viet Commune','trang_viet','250'),
+	 ('09025','Yên L?c','Yen Lac','Th? tr?n Yên L?c','Yen Lac Township','yen_lac','251'),
+	 ('09028','Ð?ng Cuong','Dong Cuong','Xã Ð?ng Cuong','Dong Cuong Commune','dong_cuong','251'),
+	 ('09031','Ð?ng Van','Dong Van','Xã Ð?ng Van','Dong Van Commune','dong_van','251');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09034','Bình Ð?nh','Binh Dinh','Xã Bình Ð?nh','Binh Dinh Commune','binh_dinh','251'),
+	 ('09037','Trung Nguyên','Trung Nguyen','Xã Trung Nguyên','Trung Nguyen Commune','trung_nguyen','251'),
+	 ('09040','T? L?','Te Lo','Xã T? L?','Te Lo Commune','te_lo','251'),
+	 ('09043','Tam H?ng','Tam Hong','Th? tr?n Tam H?ng','Tam Hong Township','tam_hong','251'),
+	 ('09046','Yên Ð?ng','Yen Dong','Xã Yên Ð?ng','Yen Dong Commune','yen_dong','251'),
+	 ('09049','Van Ti?n','Van Tien','Xã Van Ti?n','Van Tien Commune','van_tien','251'),
+	 ('09052','Nguy?t Ð?c','Nguyet Duc','Xã Nguy?t Ð?c','Nguyet Duc Commune','nguyet_duc','251'),
+	 ('09055','Yên Phuong','Yen Phuong','Xã Yên Phuong','Yen Phuong Commune','yen_phuong','251'),
+	 ('09058','H?ng Phuong','Hong Phuong','Xã H?ng Phuong','Hong Phuong Commune','hong_phuong','251'),
+	 ('09061','Trung Kiên','Trung Kien','Xã Trung Kiên','Trung Kien Commune','trung_kien','251');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09064','Liên Châu','Lien Chau','Xã Liên Châu','Lien Chau Commune','lien_chau','251'),
+	 ('09067','Ð?i T?','Dai Tu','Xã Ð?i T?','Dai Tu Commune','dai_tu','251'),
+	 ('09070','H?ng Châu','Hong Chau','Xã H?ng Châu','Hong Chau Commune','hong_chau','251'),
+	 ('09073','Trung Hà','Trung Ha','Xã Trung Hà','Trung Ha Commune','trung_ha','251'),
+	 ('09076','Vinh Tu?ng','Vinh Tuong','Th? tr?n Vinh Tu?ng','Vinh Tuong Township','vinh_tuong','252'),
+	 ('09079','Kim Xá','Kim Xa','Xã Kim Xá','Kim Xa Commune','kim_xa','252'),
+	 ('09082','Yên Bình','Yen Binh','Xã Yên Bình','Yen Binh Commune','yen_binh','252'),
+	 ('09085','Ch?n Hung','Chan Hung','Xã Ch?n Hung','Chan Hung Commune','chan_hung','252'),
+	 ('09088','Nghia Hung','Nghia Hung','Xã Nghia Hung','Nghia Hung Commune','nghia_hung','252'),
+	 ('09091','Yên L?p','Yen Lap','Xã Yên L?p','Yen Lap Commune','yen_lap','252');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09094','Vi?t Xuân','Viet Xuan','Xã Vi?t Xuân','Viet Xuan Commune','viet_xuan','252'),
+	 ('09097','B? Sao','Bo Sao','Xã B? Sao','Bo Sao Commune','bo_sao','252'),
+	 ('09100','Ð?i Ð?ng','Dai Dong','Xã Ð?i Ð?ng','Dai Dong Commune','dai_dong','252'),
+	 ('09103','Tân Ti?n','Tan Tien','Xã Tân Ti?n','Tan Tien Commune','tan_tien','252'),
+	 ('09106','Lung Hoà','Lung Hoa','Xã Lung Hoà','Lung Hoa Commune','lung_hoa','252'),
+	 ('09109','Cao Ð?i','Cao Dai','Xã Cao Ð?i','Cao Dai Commune','cao_dai','252'),
+	 ('09112','Th? Tang','Tho Tang','Th? tr?n Th? Tang','Tho Tang Township','tho_tang','252'),
+	 ('09115','Vinh Son','Vinh Son','Xã Vinh Son','Vinh Son Commune','vinh_son','252'),
+	 ('09118','Bình Duong','Binh Duong','Xã Bình Duong','Binh Duong Commune','binh_duong','252'),
+	 ('09124','Tân Phú','Tan Phu','Xã Tân Phú','Tan Phu Commune','tan_phu','252');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09127','Thu?ng Trung','Thuong Trung','Xã Thu?ng Trung','Thuong Trung Commune','thuong_trung','252'),
+	 ('09130','Vu Di','Vu Di','Xã Vu Di','Vu Di Commune','vu_di','252'),
+	 ('09133','Lý Nhân','Ly Nhan','Xã Lý Nhân','Ly Nhan Commune','ly_nhan','252'),
+	 ('09136','Tuân Chính','Tuan Chinh','Xã Tuân Chính','Tuan Chinh Commune','tuan_chinh','252'),
+	 ('09139','Vân Xuân','Van Xuan','Xã Vân Xuân','Van Xuan Commune','van_xuan','252'),
+	 ('09142','Tam Phúc','Tam Phuc','Xã Tam Phúc','Tam Phuc Commune','tam_phuc','252'),
+	 ('09145','T? Trung','Tu Trung','Th? tr?n T? Trung','Tu Trung Township','tu_trung','252'),
+	 ('09148','Ngu Kiên','Ngu Kien','Xã Ngu Kiên','Ngu Kien Commune','ngu_kien','252'),
+	 ('09151','An Tu?ng','An Tuong','Xã An Tu?ng','An Tuong Commune','an_tuong','252'),
+	 ('09154','Vinh Th?nh','Vinh Thinh','Xã Vinh Th?nh','Vinh Thinh Commune','vinh_thinh','252');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('09157','Phú Ða','Phu Da','Xã Phú Ða','Phu Da Commune','phu_da','252'),
+	 ('09160','Vinh Ninh','Vinh Ninh','Xã Vinh Ninh','Vinh Ninh Commune','vinh_ninh','252'),
+	 ('08773','Lãng Công','Lang Cong','Xã Lãng Công','Lang Cong Commune','lang_cong','253'),
+	 ('08776','Quang Yên','Quang Yen','Xã Quang Yên','Quang Yen Commune','quang_yen','253'),
+	 ('08779','B?ch Luu','Bach Luu','Xã B?ch Luu','Bach Luu Commune','bach_luu','253'),
+	 ('08782','H?i L?u','Hai Luu','Xã H?i L?u','Hai Luu Commune','hai_luu','253'),
+	 ('08800','Ð?ng Qu?','Dong Que','Xã Ð?ng Qu?','Dong Que Commune','dong_que','253'),
+	 ('08803','Nhân Ð?o','Nhan Dao','Xã Nhân Ð?o','Nhan Dao Commune','nhan_dao','253'),
+	 ('08806','Ðôn Nhân','Don Nhan','Xã Ðôn Nhân','Don Nhan Commune','don_nhan','253'),
+	 ('08809','Phuong Khoan','Phuong Khoan','Xã Phuong Khoan','Phuong Khoan Commune','phuong_khoan','253');
+INSERT INTO wards (code,name,name_en,full_name,full_name_en,code_name,district_code) VALUES
+	 ('08818','Tân L?p','Tan Lap','Xã Tân L?p','Tan Lap Commune','tan_lap','253'),
+	 ('08821','Nh?o Son','Nhao Son','Xã Nh?o Son','Nhao Son Commune','nhao_son','253'),
+	 ('08824','Tam Son','Tam Son','Th? tr?n Tam Son','Tam Son Township','tam_son','253'),
+	 ('08827','Nhu Th?y','Nhu Thuy','Xã Nhu Th?y','Nhu Thuy Commune','nhu_thuy','253'),
+	 ('08830','Yên Th?ch','Yen Thach','Xã Yên Th?ch','Yen Thach Commune','yen_thach','253'),
+	 ('08848','Ð?ng Th?nh','Dong Thinh','Xã Ð?ng Th?nh','Dong Thinh Commune','dong_thinh','253'),
+	 ('08851','T? Yên','Tu Yen','Xã T? Yên','Tu Yen Commune','tu_yen','253'),
+	 ('08854','Ð?c Bác','Duc Bac','Xã Ð?c Bác','Duc Bac Commune','duc_bac','253'),
+	 ('08860','Cao Phong','Cao Phong','Xã Cao Phong','Cao Phong Commune','cao_phong','253')

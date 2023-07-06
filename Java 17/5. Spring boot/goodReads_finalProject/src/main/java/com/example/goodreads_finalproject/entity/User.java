@@ -43,7 +43,9 @@ public class User extends BaseEntity {
 
     String phone;
 
-    String address;
+    @OneToOne
+    @JoinColumn(name = "ward_code")
+    Ward address;
 
     LocalDateTime deletedDateTime;
 }
