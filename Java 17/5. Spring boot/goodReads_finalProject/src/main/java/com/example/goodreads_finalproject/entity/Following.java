@@ -1,13 +1,11 @@
 package com.example.goodreads_finalproject.entity;
 
-import com.example.goodreads_finalproject.statics.Status;
+import com.example.goodreads_finalproject.statics.FollowingStatus;
+import com.example.goodreads_finalproject.statics.HistoryStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -27,7 +25,8 @@ public class Following extends BaseEntity {
     @JoinColumn(name = "user_accept_id")
     User userAccept;
 
-    Status status;
+    @Enumerated(EnumType.STRING)
+    FollowingStatus followingStatus;
 
     LocalDateTime acceptedDateTime;
 }

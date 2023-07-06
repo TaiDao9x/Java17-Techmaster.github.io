@@ -17,9 +17,11 @@ public class Ward {
     String code;
 
     String name;
+
     String nameEn;
 
     String fullName;
+
     String fullNameEn;
 
     String codeName;

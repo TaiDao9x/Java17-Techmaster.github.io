@@ -1,9 +1,8 @@
 package com.example.goodreads_finalproject.entity;
 
-import com.example.goodreads_finalproject.statics.Status;
+import com.example.goodreads_finalproject.statics.HistoryStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,7 +23,7 @@ public class ReadingHistory extends BaseEntity {
     Book book;
 
     @Enumerated(EnumType.STRING)
-    Status status;
+    HistoryStatus historyStatus;
 
     @Column(nullable = false)
     double readingProgress;

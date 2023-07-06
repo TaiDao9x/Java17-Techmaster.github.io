@@ -17,9 +17,11 @@ public class Province {
     String code;
 
     String name;
+
     String nameEn;
 
     String fullName;
+
     String fullNameEn;
 
     String codeName;

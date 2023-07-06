@@ -34,4 +34,6 @@ public class Book extends BaseEntity {
     double rating;
 
     LocalDate published;
+
+    String buyBook;
 }

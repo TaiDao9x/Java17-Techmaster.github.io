@@ -17,9 +17,11 @@ public class District {
     String code;
 
     String name;
+
     String nameEn;
 
     String fullName;
+
     String fullNameEn;
 
     String codeName;
