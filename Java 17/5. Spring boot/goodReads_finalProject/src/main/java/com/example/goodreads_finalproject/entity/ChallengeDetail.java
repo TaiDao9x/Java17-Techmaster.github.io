@@ -23,7 +23,7 @@ public class ChallengeDetail {
 
     @OneToMany
     @JoinColumn(name = "reading_history_id")
-    Set<ReadingHistory> readingHistories;
+    Set<ReadingBook> readingHistories;
 
     double challengeProgress;
 }

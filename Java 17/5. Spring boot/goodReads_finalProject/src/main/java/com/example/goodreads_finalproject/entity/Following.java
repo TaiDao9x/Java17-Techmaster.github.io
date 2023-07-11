@@ -1,7 +1,6 @@
 package com.example.goodreads_finalproject.entity;
 
 import com.example.goodreads_finalproject.statics.FollowingStatus;
-import com.example.goodreads_finalproject.statics.HistoryStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
