@@ -1,17 +1,18 @@
-<th:block th:fragment="header">
-    <!-- START HEADER NAVIGATION -->
+<th:block th:fragment="logined-header">
+
+    <!-- HEADER-->
     <div class="header-area">
         <div class="container">
             <div class="row upper-nav">
                 <div class=" text-left nav-logo">
-                    <a href="index-book-shop.html" class="navbar-brand"><img src="book-shop\img\logo.png" alt="img"></a>
+                    <a href="index-book-shop.html" class="navbar-brand"><img th:src="@{img/logo.png}" alt="img"></a>
                 </div>
                 <div class="ml-auto nav-mega d-flex justify-content-end align-items-center">
                     <header class="site-header" id="header">
                         <nav class="navbar navbar-expand-md  static-nav">
                             <div class="container position-relative megamenu-custom">
                                 <a class="navbar-brand center-brand" href="index-book-shop.html">
-                                    <img src="book-shop\img\logo.png" alt="logo" class="logo-scrolled">
+                                    <img th:src="@{img/logo.png}" alt="logo" class="logo-scrolled">
                                 </a>
                                 <div class="collapse navbar-collapse">
                                     <ul class="navbar-nav ml-auto">
@@ -88,11 +89,11 @@
                                                                     <div
                                                                             class="featured-megamenu-carousel owl-carousel owl-theme">
                                                                         <div class="item ">
-                                                                            <img src="book-shop\img\shop1.jpg"
+                                                                            <img th:src="@{img/shop1.jpg}"
                                                                                  alt="shop-image">
                                                                         </div>
                                                                         <div class="item">
-                                                                            <img src="book-shop\img\shop2.jpg"
+                                                                            <img th:src="@{img/shop2.jpg}"
                                                                                  alt="shop-image">
                                                                         </div>
                                                                     </div>
@@ -226,10 +227,12 @@
                                         <a class="dropdown-item" href="#">Link 3</a>
                                     </div> -->
                                 </li>
-
-                                <a href="javascript:void(0)" class="d-inline-block avatar d-block" id="sidemenu_toggle">
-                                    <img src="./book-shop/img/author1.jpg" alt="" class="rounded-circle">
+                                <a href="javascript:void(0)" class="d-inline-block avatar rounded-circle"
+                                   style="height: 35px;width: 35px; object-fit: cover; overflow: hidden;"
+                                   id="sidemenu_toggle">
+                                    <img src="img/author4.jpg" alt="">
                                 </a>
+
                             </ul>
                         </div>
                     </div>
@@ -238,7 +241,7 @@
             </div>
         </div>
     </div>
-    <!-- END HEADER NAVIGATION -->
+    <!-- END HEADER-->
 
     <!--START SEARCH AREA-->
     <div class="search-box-overlay">
@@ -265,7 +268,7 @@
                         <div class="listing-search-scroll">
                             <div class="media row">
                                 <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img src="book-shop\img\book-1.jpg"
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-1.jpg}"
                                                                       class="align-self-center" alt="cartitem"></a>
                                 </div>
                                 <div class="media-body mt-auto mb-auto col-8">
@@ -278,7 +281,7 @@
                             </div>
                             <div class="media row">
                                 <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img src="book-shop\img\book-2.jpg"
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-2.jpg}"
                                                                       class="align-self-center" alt="cartitem"></a>
                                 </div>
                                 <div class="media-body mt-auto mb-auto col-8">
@@ -291,7 +294,7 @@
                             </div>
                             <div class="media row">
                                 <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img src="book-shop\img\book-3.jpg"
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-3.jpg}"
                                                                       class="align-self-center" alt="cartitem"></a>
                                 </div>
                                 <div class="media-body mt-auto mb-auto col-8">
@@ -304,7 +307,7 @@
                             </div>
                             <div class="media row">
                                 <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img src="book-shop\img\book-2-1.jpg"
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-2-1.jpg}"
                                                                       class="align-self-center" alt="cartitem"></a>
                                 </div>
                                 <div class="media-body mt-auto mb-auto col-8">
@@ -333,7 +336,8 @@
                             <div class="brand-search-box ml-auto mr-auto">
                                 <div class="media">
                                     <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3" src="book-shop\img\author1.jpg"
+                                        <a href="javascript:void(0)"> <img class="mr-3"
+                                                                           th:src="@{img/author1.jpg}"
                                                                            alt="Generic placeholder image"></a>
                                     </div>
                                     <div class="media-body">
@@ -348,7 +352,8 @@
                             <div class="brand-search-box ml-auto mr-auto">
                                 <div class="media">
                                     <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3" src="book-shop\img\author2.jpg"
+                                        <a href="javascript:void(0)"> <img class="mr-3"
+                                                                           th:src="@{img/author2.jpg}"
                                                                            alt="Generic placeholder image"></a>
                                     </div>
                                     <div class="media-body">
@@ -359,15 +364,349 @@
                             </div>
 
                         </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END SEARCH AREA -->
+
+</th:block>
+
+<th:block th:fragment="unLogined-header">
+
+    <!-- HEADER-->
+    <div class="header-area">
+        <div class="container">
+            <div class="row upper-nav">
+                <div class=" text-left nav-logo">
+                    <a href="index-book-shop.html" class="navbar-brand"><img th:src="@{img/logo.png}" alt="img"></a>
+                </div>
+                <div class="ml-auto nav-mega d-flex justify-content-end align-items-center">
+                    <header class="site-header" id="header">
+                        <nav class="navbar navbar-expand-md  static-nav">
+                            <div class="container position-relative megamenu-custom">
+                                <a class="navbar-brand center-brand" href="index-book-shop.html">
+                                    <img th:src="@{img/logo.png}" alt="logo" class="logo-scrolled">
+                                </a>
+                                <div class="collapse navbar-collapse">
+                                    <ul class="navbar-nav ml-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="index-book-shop.html">HOME</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="index-book-shop.html">MY BOOKS</a>
+                                        </li>
+                                        <li class="nav-item dropdown static">
+                                            <a class="nav-link dropdown-toggle active" href="javascript:void(0)"
+                                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                BROWSE
+                                            </a>
+                                            <ul class="dropdown-menu megamenu flexable-megamenu">
+                                                <li>
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-lg-3 col-md-6 col-sm-12 mengmenu_border">
+                                                                <ul>
+                                                                    <h5 class="dropdown-title"></h5>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Recommendations</a>
+                                                                    </li>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Choice
+                                                                        Awards</a></li>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Lists</a>
+                                                                    </li>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Giveaways</a>
+                                                                    </li>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">New &
+                                                                        Interviews</a></li>
+
+                                                                </ul>
+
+                                                            </div>
+                                                            <div class="col-lg-3 col-md-6 col-sm-12 mengmenu_border">
+                                                                <h5 class="dropdown-title"> FAVORITE GENRES </h5>
+                                                                <ul>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Romance</a>
+                                                                    </li>
+                                                                    <li><i
+                                                                            class="lni-angle-double-right right-arrow"></i><a
+                                                                            class="dropdown-item"
+                                                                            href="book-shop\product-listing.html">Fantasy</a>
+                                                                    </li>
+
+                                                                </ul>
+
+
+                                                            </div>
+
+                                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                                <h5 class="dropdown-title text-left">NEW RELEASES
+                                                                </h5>
+                                                                <div class="carousel-menu mt-4">
+                                                                    <div
+                                                                            class="featured-megamenu-carousel owl-carousel owl-theme">
+                                                                        <div class="item ">
+                                                                            <img th:src="@{img/shop1.jpg}"
+                                                                                 alt="shop-image">
+                                                                        </div>
+                                                                        <div class="item">
+                                                                            <img th:src="@{img/shop2.jpg}"
+                                                                                 alt="shop-image">
+                                                                        </div>
+                                                                    </div>
+                                                                    <i class="lni-chevron-left ini-customPrevBtn"></i>
+                                                                    <i class="lni-chevron-right ini-customNextBtn"></i>
+                                                                </div>
+                                                                <p class="mt-4 megamenu-slider-para">Lorem Ipsum is
+                                                                    simply dummy text of the printing and typesetting
+                                                                    industry.</p>
+                                                                <a href="book-shop\product-listing.html"
+                                                                   class="btn black-border-color-yellow-gradient-btn slider-btn text-left">Find
+                                                                    More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="nav-item dropdown position-relative">
+                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                                               data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false">COMMUNITY</a>
+                                            <div class="dropdown-menu">
+                                                <ul>
+                                                    <li><i class="lni-angle-double-right right-arrow"></i><a
+                                                            class="dropdown-item"
+                                                            href="book-shop\product-listing.html">Groups</a></li>
+                                                    <li><i class="lni-angle-double-right right-arrow"></i><a
+                                                            class="dropdown-item"
+                                                            href="book-shop\product-detail.html">Discussions</a></li>
+                                                    <li><i class="lni-angle-double-right right-arrow"></i><a
+                                                            class="dropdown-item"
+                                                            href="book-shop/shop-cart.html.html">Quotes</a></li>
+                                                    <li><i class="lni-angle-double-right right-arrow"></i><a
+                                                            class="dropdown-item"
+                                                            href="book-shop/shop-cart.html.html">People</a></li>
+                                                    <li><i class="lni-angle-double-right right-arrow"></i><a
+                                                            class="dropdown-item"
+                                                            href="book-shop/shop-cart.html.html">Ask the Author</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\contact.html">CONTACT</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <!-- side menu -->
+                        <div class="side-menu opacity-0 gradient-bg hidden">
+                            <div class="inner-wrapper">
+                                <span class="btn-close btn-close-no-padding" id="btn_sideNavClose"></span>
+                                <nav class="side-nav w-100">
+                                    <ul class="navbar-nav">
+                                        <h6 class="mb-5">Xin chào, <span class="username">Tai Dao!</span></h6>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">PROFILE</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">FRIENDS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">GROUPS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">DISCUSSIONS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">COMMENTS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">READING
+                                                CHALLENGE</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">QUOTES</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">FAVORITE
+                                                GENRES</a>
+                                        </li>
+                                        <div class="dropdown-divider"></div>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">ACCOUNT
+                                                SETTINGS</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="book-shop\product-listing.html">SIGN OUT</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <div class="side-footer w-100">
+                                    <ul class="social-icons-simple white top40">
+                                        <li><a class="facebook-bg-hvr" href="javascript:void(0)"><i
+                                                class="fab fa-facebook-f"></i> </a></li>
+                                        <li><a class="twitter-bg-hvr" href="javascript:void(0)"><i
+                                                class="fab fa-twitter"></i> </a></li>
+                                        <li><a class="instagram-bg-hvr" href="javascript:void(0)"><i
+                                                class="fab fa-instagram"></i> </a></li>
+                                    </ul>
+                                    <p class="whitecolor">&copy; <span id="year"></span> 2023 DT'books</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="close_side_menu" class="tooltip"></div>
+                        <!-- End side menu -->
+                    </header>
+                    <div class="nav-utility">
+                        <div class="manage-icons d-inline-block">
+                            <ul class="d-flex justify-content-center align-items-center">
+                                <li class="d-inline-block">
+                                    <a id="add_search_box">
+                                        <i class="lni lni-search search-sidebar-hover"></i>
+                                    </a>
+                                </li>
+                                <li class="d-inline-block">
+                                    <div class="btn-group btn-group-regis">
+                                        <button type="button" src="/login" class="btn btn-regis-signin">SIGN IN</button>
+                                        <button type="button" src="/signup" class="btn btn-regis-signup">SIGN UP</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--START SEARCH AREA-->
+    <div class="search-box-overlay">
+        <a><i class="fas fa-times cross-sign" id="close-window"></i></a>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 search-col">
+                    <form action="javascript:void(0)">
+                        <div class="input-group search-box-form">
+                            <input type="text" class="form-control" placeholder="Search Here" aria-label="Search Here">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" type="submit" id="basic-addon1"><i
+                                        class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="search-listing row">
+                    <div class="col-12 mb-4">
+                        <h4 class="">Filtered Items</h4>
+                    </div>
+                    <div class="col-12">
+                        <div class="listing-search-scroll">
+                            <div class="media row">
+                                <div class="img-holder ml-1 mr-2 col-4">
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-1.jpg}"
+                                                                      class="align-self-center" alt="cartitem"></a>
+                                </div>
+                                <div class="media-body mt-auto mb-auto col-8">
+                                    <h5 class="name"><a href="javascript:void(0)">So Sad Today</a></h5>
+                                    <p class="category">Award Winning Book</p>
+                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
+                                            class="fas fa-shopping-bag"></i></a>
+                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                            <div class="media row">
+                                <div class="img-holder ml-1 mr-2 col-4">
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-2.jpg}"
+                                                                      class="align-self-center" alt="cartitem"></a>
+                                </div>
+                                <div class="media-body mt-auto mb-auto col-8">
+                                    <h5 class="name"><a href="javascript:void(0)">As I Lay Dying</a></h5>
+                                    <p class="category">Award Winning Book</p>
+                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
+                                            class="fas fa-shopping-bag"></i></a>
+                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                            <div class="media row">
+                                <div class="img-holder ml-1 mr-2 col-4">
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-3.jpg}"
+                                                                      class="align-self-center" alt="cartitem"></a>
+                                </div>
+                                <div class="media-body mt-auto mb-auto col-8">
+                                    <h5 class="name"><a href="javascript:void(0)">Love Does</a></h5>
+                                    <p class="category">Award Winning Book</p>
+                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
+                                            class="fas fa-shopping-bag"></i></a>
+                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                            <div class="media row">
+                                <div class="img-holder ml-1 mr-2 col-4">
+                                    <a href="javascript:void(0)"><img th:src="@{img/book-2-1.jpg}"
+                                                                      class="align-self-center" alt="cartitem"></a>
+                                </div>
+                                <div class="media-body mt-auto mb-auto col-8">
+                                    <h5 class="name"><a href="javascript:void(0)">The Last Stand</a></h5>
+                                    <p class="category">Award Winning Book</p>
+                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
+                                            class="fas fa-shopping-bag"></i></a>
+                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <hr>
+                </div>
+
+                <div class="col-12">
+                    <h4 class="outlet-title text-center"> - Author - </h4>
+                </div>
+
+                <div class="col-12">
+                    <div class="search-box-meida-items owl-carousel owl-theme">
+
                         <div class="item">
                             <div class="brand-search-box ml-auto mr-auto">
                                 <div class="media">
                                     <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3" src="book-shop\img\author3.jpg"
+                                        <a href="javascript:void(0)"> <img class="mr-3"
+                                                                           th:src="@{img/author1.jpg}"
                                                                            alt="Generic placeholder image"></a>
                                     </div>
                                     <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)">Alan Yang</a></h5>
+                                        <h5 class="mt-0"><a href="javascript:void(0)"> Eva Smith</a></h5>
                                         <p> Cras sit amet nibh libero.</p>
                                     </div>
                                 </div>
@@ -378,11 +717,12 @@
                             <div class="brand-search-box ml-auto mr-auto">
                                 <div class="media">
                                     <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"><img class="mr-3" src="book-shop\img\author4.jpg"
-                                                                          alt="Generic placeholder image"></a>
+                                        <a href="javascript:void(0)"> <img class="mr-3"
+                                                                           th:src="@{img/author2.jpg}"
+                                                                           alt="Generic placeholder image"></a>
                                     </div>
                                     <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)">Kam John</a></h5>
+                                        <h5 class="mt-0"><a href="javascript:void(0)">Rosa Parks</a></h5>
                                         <p> Cras sit amet nibh libero.</p>
                                     </div>
                                 </div>
@@ -391,9 +731,11 @@
                         </div>
 
                     </div>
+
+
                 </div>
             </div>
         </div>
     </div>
-    <!--END SEARCH AREA -->
+
 </th:block>

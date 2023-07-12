@@ -596,7 +596,6 @@ a.dropdown-toggle::after {
     -o-transition: all .3s linear;
     transition: all .3s linear;
     width: 36px;
-    padding: 2px;
     margin-right: 1rem;
     margin-top: 1px;
     right: 0;

@@ -221,15 +221,25 @@ h2 {
     font-size: 36px;
 }
 
+.sign-in, .signup {
+    position: relative;
+    z-index: 3;
+}
+
 .main {
     padding-top: 50px;
     padding-bottom: 0;
-    background: #f8f8f8 url("../images/tan-bg-texture.jpg");
+    height: 100%;
+    min-height: 100vh;
+    background: #f8f8f8 url("../img/tan-bg-texture.jpg");
 }
 
 .footer-main {
     height: 60px;
-    background-image: url("../images/bookrow.jpg");
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-image: url("../img/bookrow.jpg");
 }
 
 .clear {
@@ -353,13 +363,13 @@ figure {
     margin-top: 16px;
 }
 
-.signup-image-link {
+.link {
     font-size: 14px;
     color: #222;
     display: block;
 }
 
-.signup-image-link:hover {
+.link:hover {
     color: #F7941D;
 }
 
@@ -511,7 +521,7 @@ label {
 
 label.error {
     position: relative;
-    background: url("../images/unchecked.gif") no-repeat;
+    background: url("../img/unchecked.gif") no-repeat;
     background-position-y: 3px;
     padding-left: 20px;
     display: block;

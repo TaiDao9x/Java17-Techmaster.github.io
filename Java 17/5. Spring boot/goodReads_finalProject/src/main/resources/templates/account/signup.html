@@ -16,51 +16,49 @@
     <link rel="stylesheet" th:href="@{account/css/style.css}">
 </head>
 
-<body class="m-0">
+<body class="main m-0">
 
-<div class="main">
 
-    <!-- Sign up form -->
-    <section class="signup mb-5">
-        <div class="container">
-            <div class="signup-content">
+<!-- Sign up form -->
+<section class="signup mb-5">
+    <div class="container">
+        <div class="signup-content">
 
-                <div class="signup-form">
-                    <h2 class="form-title">Sign up</h2>
-                    <form method="POST" class="register-form" id="register-form">
-                        <div class="form-group">
-                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="name" id="name" placeholder="Your Name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" placeholder="Your Email"/>
-                        </div>
+            <div class="signup-form">
+                <h2 class="form-title">Sign up</h2>
+                <form method="POST" class="register-form" id="register-form">
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="name" id="name" placeholder="Your Name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                        <input type="email" name="email" id="email" placeholder="Your Email"/>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="pass" id="pass" placeholder="Password"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="re-pass" id="re-pass" placeholder="Repeat your password"/>
-                        </div>
-                        <div class="form-group form-button">
-                            <input type="submit" name="signup" id="signup" class="form-submit" value="Submit"/>
-                        </div>
+                    <div class="form-group">
+                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="pass" id="pass" placeholder="Password"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                        <input type="password" name="re-pass" id="re-pass" placeholder="Repeat your password"/>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signup" id="signup" class="form-submit w-100" value="Submit"/>
+                    </div>
 
-                    </form>
-                </div>
-                <div class="signup-image">
-                    <figure><img src="account/images/signup-image.jpg" alt="sing up image"></figure>
-                    <a href="/login" class="signup-image-link">I am already member</a>
-                </div>
-
+                </form>
             </div>
+            <div class="signup-image text-center">
+                <figure><img src="account/img/signup-image.jpg" alt="sing up image"></figure>
+                <a href="/login" class="link signup-image-link">I am already member</a>
+            </div>
+
         </div>
-    </section>
-    <div class="footer-main">
     </div>
+</section>
+<div class="footer-main">
 </div>
 
 <!-- JS -->
