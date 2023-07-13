@@ -36,6 +36,10 @@
     <link rel="stylesheet" href="css\settings.css">
     <!-- Mega Menu  -->
     <link rel="stylesheet" href="css\megamenu.css">
+    <!--    Toastr-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+          integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- StyleSheet  -->
     <link rel="stylesheet" href="css\style.css">
 
@@ -51,7 +55,7 @@
 </div>
 
 <!-- HEADER  -->
-<th:block th:replace="~{fragments/header :: unLogined-header}"></th:block>
+<th:block th:replace="${header} ?: ~{}"></th:block>
 
 <!--CONTENT-->
 <th:block th:replace="${contentResources} ?: ~{}"></th:block>
@@ -81,6 +85,9 @@
 <script src="vendor\js\extensions\revolution.extension.parallax.min.js"></script>
 <script src="vendor\js\extensions\revolution.extension.slideanims.min.js"></script>
 <script src="vendor\js\extensions\revolution.extension.video.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 

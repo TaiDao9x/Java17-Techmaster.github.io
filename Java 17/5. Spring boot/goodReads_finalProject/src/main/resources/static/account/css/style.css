@@ -741,3 +741,13 @@ label.valid:after {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.error-message {
+    color: red;
+}
+
+.toast-center {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}

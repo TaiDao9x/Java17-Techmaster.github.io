@@ -15,4 +15,6 @@ public class CreateUserRequest {
     @Email(message = "Yêu cầu nhập đúng định dạng email")
     String email;
 
+    @NotBlank
+    String password;
 }

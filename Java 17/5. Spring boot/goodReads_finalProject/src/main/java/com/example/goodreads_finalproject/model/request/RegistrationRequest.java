@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RegistrationRequest {
+    String fullName;
 
     @NotBlank
     @Email

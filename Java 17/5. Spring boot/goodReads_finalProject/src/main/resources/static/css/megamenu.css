@@ -205,13 +205,13 @@ ul.links li a::before,
 }
 
 
-.header-area.fixednavbar .nav-mega .site-header {
-    width: 100%
-}
+/*.header-area.fixednavbar .nav-mega .site-header {*/
+/*    width: 100%*/
+/*}*/
 
-.header-area.fixednavbar .nav-mega .site-header {
-    width: 100%
-}
+/*.header-area.fixednavbar .nav-mega .site-header {*/
+/*    width: 100%*/
+/*}*/
 
 .header-area.fixednavbar nav .dropdown-menu {
     order: 3;

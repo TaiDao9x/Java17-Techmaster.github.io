@@ -63,14 +63,18 @@
 
 <script th:inline="javascript">
     $(document).ready(function () {
+        toastr.options = {
+            positionClass: 'toast-center',
+            timeOut: 1500
+        }
         $("#login-form").validate({
             onfocusout: false,
             onkeyup: false,
             onclick: false,
-            // errorPlacement: function (error, element) {
-            //     error.addClass("error-message");
-            //     error.insertAfter(element);
-            // },
+            errorPlacement: function (error, element) {
+                error.addClass("error-message");
+                error.insertAfter(element);
+            },
             rules: {
                 "email": {
                     required: true,
@@ -78,17 +82,18 @@
                 },
                 "password": {
                     required: true,
+                }
+            },
+            messages: {
+                "email": {
+                    required: "Enter your email",
+                    email: "Incorrect email format"
                 },
-                messages: {
-                    "email": {
-                        required: "Hãy nhập email của bạn",
-                        email: "Không đúng định dạng email"
-                    },
-                    "password": {
-                        required: "Hãy nhập password của bạn"
-                    }
+                "password": {
+                    required: "Enter your password"
                 }
             }
+
         })
 
         $("#signin").click((key, value) => {
@@ -115,11 +120,14 @@
                         userId: data.id
                     }
                     localStorage.setItem('userInfomation', JSON.stringify(userInfomation))
-                    toastr.success("Đăng nhập thành công");
-                    window.location.href = 'http://localhost:8080/'
+
+                    toastr.success("Login Success");
+                    setTimeout(function () {
+                        window.location.href = 'http://localhost:8080/'
+                    }, 1000)
                 },
                 error: function (data) {
-                    toastr.error("Đăng nhập không thành công!")
+                    toastr.warning("Password or Email not correct!")
                 },
             })
         })

@@ -887,9 +887,9 @@ END scroll-top-arrow
 }
 
 .manage-icons li a {
-    -webkit-transition: .8s ease;
-    -o-transition: .8s ease;
-    transition: .8s ease;
+    -webkit-transition: .2s ease;
+    -o-transition: .2s ease;
+    transition: .2s ease;
 }
 
 .manage-icons li a:hover .search-sidebar-hover {
@@ -908,12 +908,12 @@ END scroll-top-arrow
     color: #f7941d;
 }
 
-.manage-icons ul li a {
-    cursor: pointer;
-    font-size: 22px;
-    color: #000000;
-    font-weight: bold;
-}
+/*.manage-icons ul li a {*/
+/*    cursor: pointer;*/
+/*    font-size: 22px;*/
+/*    color: #000000;*/
+/*    font-weight: bold;*/
+/*}*/
 
 .manage-icons li .count-notification {
     font-weight: 500;
@@ -3646,7 +3646,7 @@ textarea:focus {
 /*Tự CSS*/
 .btn-group-regis {
     border: solid 2px var(--theme-color-green);
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
 .btn-regis-signin, .btn-regis-signup {

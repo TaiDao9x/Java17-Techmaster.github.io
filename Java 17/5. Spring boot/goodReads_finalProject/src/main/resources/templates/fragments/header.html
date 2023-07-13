@@ -138,10 +138,6 @@
                                             </div>
                                         </li>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="book-shop\contact.html">CONTACT</a>
-                                        </li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -186,7 +182,7 @@
                                                 SETTINGS</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="book-shop\product-listing.html">SIGN OUT</a>
+                                            <a class="nav-link sign-out">SIGN OUT</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -205,14 +201,20 @@
                         </div>
                         <div id="close_side_menu" class="tooltip"></div>
                         <!-- End side menu -->
+
                     </header>
                     <div class="nav-utility">
                         <div class="manage-icons d-inline-block">
                             <ul class="d-flex justify-content-center align-items-center">
+
                                 <li class="d-inline-block">
-                                    <a id="add_search_box">
-                                        <i class="lni lni-search search-sidebar-hover"></i>
-                                    </a>
+                                    <div class="input-group mb-1">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-regis-signin" type="submit"><i
+                                                    class="lni lni-search search-sidebar-hover"></i></button>
+                                        </div>
+                                    </div>
                                 </li>
 
                                 <li class="d-inline-block ">
@@ -220,7 +222,12 @@
                                             data-toggle="dropdown">
                                         <i class="fa-solid fa-bell"></i>
                                     </button>
-                                    <span class="count-notification rounded-circle">3</span>
+                                    <div class="count-notification rounded-circle d-flex">
+                                        <span class="pt-1">3</span>
+                                    </div>
+                                    <!--                                    <span class="count-notification rounded-circle">-->
+                                    <!--                                       3-->
+                                    <!--                                    </span>-->
                                     <!-- <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" href="#">Link 1</a>
                                         <a class="dropdown-item" href="#">Link 2</a>
@@ -228,7 +235,7 @@
                                     </div> -->
                                 </li>
                                 <a href="javascript:void(0)" class="d-inline-block avatar rounded-circle"
-                                   style="height: 35px;width: 35px; object-fit: cover; overflow: hidden;"
+                                   style="height: 38px;width: 38px; object-fit: cover; overflow: hidden;"
                                    id="sidemenu_toggle">
                                     <img src="img/author4.jpg" alt="">
                                 </a>
@@ -242,137 +249,6 @@
         </div>
     </div>
     <!-- END HEADER-->
-
-    <!--START SEARCH AREA-->
-    <div class="search-box-overlay">
-        <a><i class="fas fa-times cross-sign" id="close-window"></i></a>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12 search-col">
-                    <form action="javascript:void(0)">
-                        <div class="input-group search-box-form">
-                            <input type="text" class="form-control" placeholder="Search Here" aria-label="Search Here">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" type="submit" id="basic-addon1"><i
-                                        class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="search-listing row">
-                    <div class="col-12 mb-4">
-                        <h4 class="">Filtered Items</h4>
-                    </div>
-                    <div class="col-12">
-                        <div class="listing-search-scroll">
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-1.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">So Sad Today</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-2.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">As I Lay Dying</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-3.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">Love Does</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-2-1.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">The Last Stand</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <hr>
-                </div>
-
-                <div class="col-12">
-                    <h4 class="outlet-title text-center"> - Author - </h4>
-                </div>
-
-                <div class="col-12">
-                    <div class="search-box-meida-items owl-carousel owl-theme">
-
-                        <div class="item">
-                            <div class="brand-search-box ml-auto mr-auto">
-                                <div class="media">
-                                    <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3"
-                                                                           th:src="@{img/author1.jpg}"
-                                                                           alt="Generic placeholder image"></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)"> Eva Smith</a></h5>
-                                        <p> Cras sit amet nibh libero.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="item">
-                            <div class="brand-search-box ml-auto mr-auto">
-                                <div class="media">
-                                    <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3"
-                                                                           th:src="@{img/author2.jpg}"
-                                                                           alt="Generic placeholder image"></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)">Rosa Parks</a></h5>
-                                        <p> Cras sit amet nibh libero.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--END SEARCH AREA -->
 
 </th:block>
 
@@ -516,10 +392,6 @@
                                             </div>
                                         </li>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="book-shop\contact.html">CONTACT</a>
-                                        </li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -588,14 +460,18 @@
                         <div class="manage-icons d-inline-block">
                             <ul class="d-flex justify-content-center align-items-center">
                                 <li class="d-inline-block">
-                                    <a id="add_search_box">
-                                        <i class="lni lni-search search-sidebar-hover"></i>
-                                    </a>
+                                    <div class="input-group mb-1">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-regis-signin" type="submit"><i
+                                                    class="lni lni-search search-sidebar-hover"></i></button>
+                                        </div>
+                                    </div>
                                 </li>
-                                <li class="d-inline-block">
+                                <li class="d-inline-block ml-3">
                                     <div class="btn-group btn-group-regis">
-                                        <button type="button" src="/login" class="btn btn-regis-signin">SIGN IN</button>
-                                        <button type="button" src="/signup" class="btn btn-regis-signup">SIGN UP</button>
+                                        <a type="button" href="/login" class="btn btn-regis-signin">SIGN IN</a>
+                                        <a type="button" href="/signup" class="btn btn-regis-signup">SIGN UP</a>
                                     </div>
                                 </li>
                             </ul>
@@ -604,136 +480,6 @@
 
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-    <!--START SEARCH AREA-->
-    <div class="search-box-overlay">
-        <a><i class="fas fa-times cross-sign" id="close-window"></i></a>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12 search-col">
-                    <form action="javascript:void(0)">
-                        <div class="input-group search-box-form">
-                            <input type="text" class="form-control" placeholder="Search Here" aria-label="Search Here">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" type="submit" id="basic-addon1"><i
-                                        class="fas fa-search"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="search-listing row">
-                    <div class="col-12 mb-4">
-                        <h4 class="">Filtered Items</h4>
-                    </div>
-                    <div class="col-12">
-                        <div class="listing-search-scroll">
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-1.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">So Sad Today</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-2.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">As I Lay Dying</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-3.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">Love Does</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="media row">
-                                <div class="img-holder ml-1 mr-2 col-4">
-                                    <a href="javascript:void(0)"><img th:src="@{img/book-2-1.jpg}"
-                                                                      class="align-self-center" alt="cartitem"></a>
-                                </div>
-                                <div class="media-body mt-auto mb-auto col-8">
-                                    <h5 class="name"><a href="javascript:void(0)">The Last Stand</a></h5>
-                                    <p class="category">Award Winning Book</p>
-                                    <a class="btn black-sm-btn" href="book-shop\shop-cart.html"><i
-                                            class="fas fa-shopping-bag"></i></a>
-                                    <a class="btn black-sm-btn" href="javascript:void(0)"><i class="fas fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <hr>
-                </div>
-
-                <div class="col-12">
-                    <h4 class="outlet-title text-center"> - Author - </h4>
-                </div>
-
-                <div class="col-12">
-                    <div class="search-box-meida-items owl-carousel owl-theme">
-
-                        <div class="item">
-                            <div class="brand-search-box ml-auto mr-auto">
-                                <div class="media">
-                                    <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3"
-                                                                           th:src="@{img/author1.jpg}"
-                                                                           alt="Generic placeholder image"></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)"> Eva Smith</a></h5>
-                                        <p> Cras sit amet nibh libero.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="item">
-                            <div class="brand-search-box ml-auto mr-auto">
-                                <div class="media">
-                                    <div class="brand-box-holder">
-                                        <a href="javascript:void(0)"> <img class="mr-3"
-                                                                           th:src="@{img/author2.jpg}"
-                                                                           alt="Generic placeholder image"></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="mt-0"><a href="javascript:void(0)">Rosa Parks</a></h5>
-                                        <p> Cras sit amet nibh libero.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
             </div>
         </div>
     </div>

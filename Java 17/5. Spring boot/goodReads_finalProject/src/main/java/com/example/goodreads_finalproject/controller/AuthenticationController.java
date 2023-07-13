@@ -99,4 +99,9 @@ public class AuthenticationController {
         return ResponseEntity.ok(null);
     }
 
+//    @PostMapping("/password-reset")
+//
+//    @PutMapping("/password-change")
+//
+//    @PostMapping("/otp")
 }
