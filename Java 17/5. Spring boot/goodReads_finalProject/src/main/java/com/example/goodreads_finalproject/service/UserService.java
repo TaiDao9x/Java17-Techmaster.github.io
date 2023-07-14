@@ -1,14 +1,16 @@
 package com.example.goodreads_finalproject.service;
 
+import com.example.goodreads_finalproject.entity.Otp;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.entity.User;
-import com.example.goodreads_finalproject.exception.ExistedUserException;
-import com.example.goodreads_finalproject.exception.RefreshTokenNotFoundException;
+import com.example.goodreads_finalproject.exception.*;
+import com.example.goodreads_finalproject.model.request.ChangePasswordRequest;
 import com.example.goodreads_finalproject.model.request.CreateUserRequest;
 import com.example.goodreads_finalproject.model.request.RefreshTokenRequest;
 import com.example.goodreads_finalproject.model.request.RegistrationRequest;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
+import com.example.goodreads_finalproject.repository.OtpRepository;
 import com.example.goodreads_finalproject.repository.RefreshTokenRepository;
 import com.example.goodreads_finalproject.repository.RoleRepository;
 import com.example.goodreads_finalproject.repository.UserRepository;
@@ -19,7 +21,9 @@ import com.example.goodreads_finalproject.statics.Roles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,18 +39,22 @@ import java.util.stream.Collectors;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserService {
-
+    @Autowired
     final PasswordEncoder passwordEncoder;
-
+    @Autowired
     final UserRepository userRepository;
-
+    @Autowired
     final RoleRepository roleRepository;
-
+    @Autowired
     final ObjectMapper objectMapper;
-
+    @Autowired
     final RefreshTokenRepository refreshTokenRepository;
-
+    @Autowired
     final JwtUtils jwtUtils;
+    @Autowired
+    OtpService otpService;
+    @Autowired
+    OtpRepository otpRepository;
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
@@ -134,9 +142,31 @@ public class UserService {
 
         User user = User.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode("123"))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .roles(roles)
                 .build();
         userRepository.save(user);
+    }
+
+    public void sendOtp(String email) {
+        otpService.sendOtp(email);
+    }
+
+    public void resetPassword(String email, ChangePasswordRequest changePasswordRequest) throws OtpExpiredException {
+        Otp otp = otpRepository.findByOtpCode(changePasswordRequest.getOtpCode()).orElseThrow(() -> new NotFoundException("Not found Otp"));
+        if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
+            throw new OtpExpiredException();
+        }
+        userRepository.findByEmail(email).get().setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+    }
+
+    public void changePassword(String email, ChangePasswordRequest changePasswordRequest) throws BadRequestException {
+        User user = userRepository.findByEmail(email).get();
+        if (passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+            userRepository.save(user);
+        } else {
+            throw new BadRequestException();
+        }
     }
 }

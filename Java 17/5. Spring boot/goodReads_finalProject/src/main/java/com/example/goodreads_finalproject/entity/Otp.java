@@ -23,10 +23,11 @@ public class Otp {
     @JoinColumn(name = "user_id")
     User user;
 
-    Integer otpCode;
+    String otpCode;
 
     @CreatedDate
     LocalDateTime createdDateTime;
 
     LocalDateTime expiredAt;
+
 }

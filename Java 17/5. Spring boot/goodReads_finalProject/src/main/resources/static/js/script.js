@@ -82,8 +82,21 @@ $(window).on("load", function () {
     $(".owl-prev").html('<div class="navigation-link-prev"><a class="prev-btn"><i class="lni-chevron-left"></i> </a></div>');
     $(".owl-next").html('<div class="navigation-link-next"><a class="next-btn"><i class="lni-chevron-right"></i> </a></div>');
 
-    let jwtToken = getJwtToken()
-    let refreshToken = getRefreshToken()
+    function checkLoggedIn() {
+        const jwtToken = localStorage.getItem("jwtToken");
+        if (!jwtToken) {
+            $("#sidemenu_toggle").empty();
+            const loginHtmlContent = "<span>Login</span>";
+            $("#sidemenu_toggle").append(loginHtmlContent);
+            return;
+        }
+        const userInfo = JSON.parse(localStorage.getItem("userInfomation"));
+        $("#sidemenu_toggle").empty();
+        const userHtmlContent = "<span>" + userInfo.email + "</span>";
+        $("#sidemenu_toggle").append(userHtmlContent);
+    }
+
+    checkLoggedIn();
 
 });
 
