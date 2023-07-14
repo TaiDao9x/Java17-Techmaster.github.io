@@ -115,12 +115,12 @@ public class AuthenticationController {
                 .orElseGet(() -> new ResponseEntity<>("Email not exist", HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/password-reset/{email}")
-    public ResponseEntity<?> resetPassword(@PathVariable String email, @RequestBody ChangePasswordRequest changePasswordRequest) {
-        return userRepository.findByEmail(email)
+    @PutMapping("/password-reset")
+    public ResponseEntity<?> resetPassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        return userRepository.findByEmail(changePasswordRequest.getEmail())
                 .map(user -> {
                     try {
-                        userService.resetPassword(email, changePasswordRequest);
+                        userService.resetPassword(changePasswordRequest);
                         return new ResponseEntity<>("Success", HttpStatus.OK);
                     } catch (OtpExpiredException e) {
                         return new ResponseEntity<>("Otp đã hết hạn", HttpStatus.BAD_REQUEST);
@@ -129,12 +129,12 @@ public class AuthenticationController {
                 .orElseGet(() -> new ResponseEntity<>("Email not exist", HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/password-change/{email}")
-    public ResponseEntity<?> changePassword(@PathVariable String email, @RequestBody ChangePasswordRequest changePasswordRequest) {
-        return userRepository.findByEmail(email)
+    @PutMapping("/password-change")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+        return userRepository.findByEmail(changePasswordRequest.getEmail())
                 .map(user -> {
                     try {
-                        userService.changePassword(email, changePasswordRequest);
+                        userService.changePassword(changePasswordRequest);
                         return new ResponseEntity<>("Change password success", HttpStatus.OK);
                     } catch (BadRequestException e) {
                         return new ResponseEntity<>("Wrong old password", HttpStatus.OK);

@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 public class ChangePasswordRequest {
     @NotBlank
     String email;
-    
+
     String otpCode;
 
     String oldPassword;

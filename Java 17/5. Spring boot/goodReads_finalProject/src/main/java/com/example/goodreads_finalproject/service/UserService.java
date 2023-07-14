@@ -152,16 +152,16 @@ public class UserService {
         otpService.sendOtp(email);
     }
 
-    public void resetPassword(String email, ChangePasswordRequest changePasswordRequest) throws OtpExpiredException {
+    public void resetPassword(ChangePasswordRequest changePasswordRequest) throws OtpExpiredException {
         Otp otp = otpRepository.findByOtpCode(changePasswordRequest.getOtpCode()).orElseThrow(() -> new NotFoundException("Not found Otp"));
         if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
             throw new OtpExpiredException();
         }
-        userRepository.findByEmail(email).get().setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+        userRepository.findByEmail(changePasswordRequest.getEmail()).get().setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
     }
 
-    public void changePassword(String email, ChangePasswordRequest changePasswordRequest) throws BadRequestException {
-        User user = userRepository.findByEmail(email).get();
+    public void changePassword(ChangePasswordRequest changePasswordRequest) throws BadRequestException {
+        User user = userRepository.findByEmail(changePasswordRequest.getEmail()).get();
         if (passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
             userRepository.save(user);
