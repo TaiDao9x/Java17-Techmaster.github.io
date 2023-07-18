@@ -48,4 +48,5 @@ public class User extends BaseEntity {
     Ward address;
 
     LocalDateTime deletedDateTime;
+
 }

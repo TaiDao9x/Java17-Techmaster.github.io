@@ -1,6 +1,7 @@
 package com.example.goodreads_finalproject.service;
 
 import com.example.goodreads_finalproject.entity.Otp;
+import com.example.goodreads_finalproject.entity.OtpVerification;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.*;
@@ -81,6 +82,7 @@ public class UserService {
                 .roles(roles)
                 .build();
         userRepository.save(user);
+        otpService.sendOtpActivedAccount(user.getEmail());
     }
 
 
@@ -134,7 +136,7 @@ public class UserService {
 
     public void createUser(CreateUserRequest request) throws ExistedUserException {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
-        if (!userOptional.isEmpty()) {
+        if (userOptional.isPresent()) {
             throw new ExistedUserException();
         }
 
@@ -148,16 +150,27 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public boolean activeAccount(String otpCode) {
+        Otp otp = otpRepository.findByOtpCode(otpCode).get();
+        User user = otp.getUser();
+        user.setActivated(true);
+        userRepository.save(user);
+        return user.isActivated();
+    }
+
     public void sendOtp(String email) {
         otpService.sendOtp(email);
     }
 
     public void resetPassword(ChangePasswordRequest changePasswordRequest) throws OtpExpiredException {
-        Otp otp = otpRepository.findByOtpCode(changePasswordRequest.getOtpCode()).orElseThrow(() -> new NotFoundException("Not found Otp"));
+        Otp otp = otpRepository.findByOtpCode(changePasswordRequest.getOtpCode()).orElseThrow(() -> new NotFoundException("Otp không chính xác."));
         if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
             throw new OtpExpiredException();
         }
-        userRepository.findByEmail(changePasswordRequest.getEmail()).get().setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+
+        User user = userRepository.findByEmail(changePasswordRequest.getEmail()).get();
+        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+        userRepository.save(user);
     }
 
     public void changePassword(ChangePasswordRequest changePasswordRequest) throws BadRequestException {
@@ -169,4 +182,6 @@ public class UserService {
             throw new BadRequestException();
         }
     }
+
+
 }

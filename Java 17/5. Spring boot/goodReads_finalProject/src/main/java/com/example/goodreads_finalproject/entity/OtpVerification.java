@@ -26,6 +26,8 @@ public class OtpVerification {
     @JoinColumn(name = "otp_id")
     Otp otp;
 
+    String otpCode;
+
     @Column(nullable = false, columnDefinition = "BOOLEAN default false")
     boolean success;
 
