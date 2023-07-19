@@ -1,11 +1,10 @@
 package com.example.goodreads_finalproject.service;
 
 import com.example.goodreads_finalproject.entity.Otp;
-import com.example.goodreads_finalproject.entity.OtpVerification;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.*;
-import com.example.goodreads_finalproject.model.request.ChangePasswordRequest;
+import com.example.goodreads_finalproject.model.request.ResetPasswordRequest;
 import com.example.goodreads_finalproject.model.request.CreateUserRequest;
 import com.example.goodreads_finalproject.model.request.RefreshTokenRequest;
 import com.example.goodreads_finalproject.model.request.RegistrationRequest;
@@ -24,7 +23,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -53,7 +51,7 @@ public class UserService {
     @Autowired
     final JwtUtils jwtUtils;
     @Autowired
-    OtpService otpService;
+    EmailService emailService;
     @Autowired
     OtpRepository otpRepository;
 
@@ -82,7 +80,7 @@ public class UserService {
                 .roles(roles)
                 .build();
         userRepository.save(user);
-        otpService.sendOtpActivedAccount(user.getEmail());
+        emailService.sendOtpActivedAccount(user.getEmail());
     }
 
 
@@ -150,38 +148,40 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public boolean activeAccount(String otpCode) {
+    public void activeAccount(String otpCode) {
         Otp otp = otpRepository.findByOtpCode(otpCode).get();
         User user = otp.getUser();
         user.setActivated(true);
         userRepository.save(user);
-        return user.isActivated();
     }
 
     public void sendOtp(String email) {
-        otpService.sendOtp(email);
+        emailService.sendOtp(email);
     }
 
-    public void resetPassword(ChangePasswordRequest changePasswordRequest) throws OtpExpiredException {
-        Otp otp = otpRepository.findByOtpCode(changePasswordRequest.getOtpCode()).orElseThrow(() -> new NotFoundException("Otp không chính xác."));
+
+    public Optional<User> findByEmailAndActivated(String email) {
+        return userRepository.findByEmailAndActivated(email, true);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public void checkOtp(String otpCode) throws OtpExpiredException {
+        Otp otp = otpRepository.findByOtpCode(otpCode).get();
         if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
             throw new OtpExpiredException();
         }
+    }
 
-        User user = userRepository.findByEmail(changePasswordRequest.getEmail()).get();
-        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+    public void resetPassword(ResetPasswordRequest resetPasswordRequest) throws OtpExpiredException {
+        Otp otp = otpRepository.findByOtpCode(resetPasswordRequest.getOtpCode()).get();
+        if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
+            throw new OtpExpiredException();
+        }
+        User user = otp.getUser();
+        user.setPassword(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
         userRepository.save(user);
     }
-
-    public void changePassword(ChangePasswordRequest changePasswordRequest) throws BadRequestException {
-        User user = userRepository.findByEmail(changePasswordRequest.getEmail()).get();
-        if (passwordEncoder.matches(changePasswordRequest.getOldPassword(), user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
-            userRepository.save(user);
-        } else {
-            throw new BadRequestException();
-        }
-    }
-
-
 }

@@ -8,12 +8,9 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class OtpVerificationRequest {
+public class EmailRequest {
     @NotBlank
     @Email
     String email;
-
-    @NotBlank
-    String otpCode;
 
 }

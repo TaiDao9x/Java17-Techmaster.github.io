@@ -1,6 +1,7 @@
 package com.example.goodreads_finalproject.controller;
 
-import com.example.goodreads_finalproject.entity.User;
+import com.example.goodreads_finalproject.exception.OtpExpiredException;
+import com.example.goodreads_finalproject.service.EmailService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -8,14 +9,14 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class HomeController {
+public class WebController {
     UserService userService;
 
     @GetMapping
@@ -59,13 +60,18 @@ public class HomeController {
     }
 
     @GetMapping("/actived")
-    public String activeAccount() {
+    public String getActivePage(@RequestParam("otpCode") String otpCode) {
+        userService.activeAccount(otpCode);
         return "anonymous/active-account";
     }
 
-    @GetMapping("/actived/{otpCode}")
-    public String getActivePage(@PathVariable String otpCode) {
-        userService.activeAccount(otpCode);
-        return "redirect:/actived";
+    @GetMapping("/check-otp-reset")
+    public String getResetPasswordPage(@RequestParam("otpCode") String otpCode) {
+        try {
+            userService.checkOtp(otpCode);
+            return "account/reset-password";
+        } catch (OtpExpiredException e) {
+            return "account/login";
+        }
     }
 }

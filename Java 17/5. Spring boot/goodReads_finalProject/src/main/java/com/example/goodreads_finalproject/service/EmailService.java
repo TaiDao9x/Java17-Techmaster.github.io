@@ -2,28 +2,25 @@ package com.example.goodreads_finalproject.service;
 
 import com.example.goodreads_finalproject.entity.Otp;
 import com.example.goodreads_finalproject.entity.User;
-import com.example.goodreads_finalproject.model.request.EmailDetails;
 import com.example.goodreads_finalproject.repository.OtpRepository;
 import com.example.goodreads_finalproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
 @Service
-public class OtpService {
+public class EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -37,32 +34,38 @@ public class OtpService {
 
     Random rd = new Random();
 
+    @Async
     public void sendOtp(String email) {
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-
-        simpleMailMessage.setFrom(sender);
-        simpleMailMessage.setTo(email);
-
-        String randomOTP = String.valueOf(rd.nextInt(100000));
-
-//        simpleMailMessage.setText("Mã OTP của bạn là: " + randomOTP + "\n Không chia sẻ mã này cho bất kỳ ai!");
-        simpleMailMessage.setText("<html><body><a href='#'>Click here</a></body></html>");
-        simpleMailMessage.setSubject("[Goodreads] OTP reset password");
-
-
-        javaMailSender.send(simpleMailMessage);
-
+        String otpCode = UUID.randomUUID().toString();
         Optional<User> emailOptional = userRepository.findByEmail(email);
 
         otpRepository.save(Otp.builder()
-                .otpCode(randomOTP)
+                .otpCode(otpCode)
                 .user(emailOptional.get())
-                .expiredAt(LocalDateTime.now().plusSeconds(120))
+                .expiredAt(LocalDateTime.now().plusMinutes(10))
                 .build());
 
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            mimeMessageHelper.setFrom(sender);
+            mimeMessageHelper.setTo(email);
+
+            mimeMessageHelper.setSubject("[Goodreads] Reset password");
+
+            String resetLink = "http://localhost:8080/check-otp-reset?otpCode=" + otpCode;
+            String htmlContent = "<html> Bạn đã quên mật khẩu? <a href=\"" + resetLink + "\">Reset password.</a> </html>\n" +
+                    "Email này chỉ có hiệu lực trong vòng 10 phút. Nếu đã quá thời gian vui lòng gửi lại yêu cầu.";
+            mimeMessageHelper.setText(htmlContent, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            System.out.println("Error while sending mail!!!");
+        }
 
     }
 
+    @Async
     public void sendOtpActivedAccount(String email) {
         String otpCode = UUID.randomUUID().toString();
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -93,7 +96,7 @@ public class OtpService {
                     "          <tr>\n" +
                     "            <td class=\"email-masthead\">\n" +
                     "              <p>Welcome to <Strong>GoodReads.</Strong></p>\n" +
-                    "              <a href=\"http://localhost:8080/actived/" + otpCode + "\" target=\"_blank\" >\n" +
+                    "              <a href=\"http://localhost:8080/actived?otpCode=" + otpCode + "\" target=\"_blank\" >\n" +
                     "                Active your Account\n" +
                     "              </a>\n" +
                     "\n" +

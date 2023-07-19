@@ -9,14 +9,9 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ChangePasswordRequest {
+public class ResetPasswordRequest {
     @NotBlank
-    @Email
-    String email;
-
     String otpCode;
-
-    String oldPassword;
 
     @NotBlank
     String newPassword;
