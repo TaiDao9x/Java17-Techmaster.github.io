@@ -16,7 +16,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -31,8 +30,6 @@ public class EmailService {
 
     @Value("${spring.mail.username}")
     private String sender;
-
-    Random rd = new Random();
 
     @Async
     public void sendOtp(String email) {

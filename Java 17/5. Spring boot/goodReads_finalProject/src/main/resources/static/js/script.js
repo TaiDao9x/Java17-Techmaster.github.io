@@ -273,7 +273,7 @@ jQuery(function ($) {
     /*===================================
               //Sticky Filter Nav
     ======================================*/
-    var sidebar = $('#product-filter-nav');
+    const sidebar = $('#product-filter-nav');
     if (sidebar.length) {
         Stickyfill.add(sidebar);
     }
@@ -317,37 +317,7 @@ jQuery(function ($) {
 
     /* ===================================
          Search Side Menu
-     ====================================== */
-
-
-    $("#add_search_box").click(function () {
-        $(".search-box-overlay").addClass("fixed-box");
-    });
-
-    $("#close-window").click(function () {
-        $(".search-box-overlay").addClass("remove-fixed-box");
-        setTimeout(function () {
-            $(".search-box-overlay").removeClass("fixed-box");
-            $(".search-box-overlay").removeClass("remove-fixed-box");
-        }, 800);
-
-
-    });
-
-
-    $("#add_cart_box").click(function () {
-        $(".cart-box-overlay").addClass("fixed-box");
-    });
-
-    $("#close-window1").click(function () {
-        $(".cart-box-overlay").addClass("remove-fixed-box");
-        setTimeout(function () {
-            $(".cart-box-overlay").removeClass("fixed-box");
-            $(".cart-box-overlay").removeClass("remove-fixed-box");
-        }, 800);
-
-
-    });
+     ===================================== */
 
 
     $('[data-fancybox]').fancybox({
@@ -607,8 +577,7 @@ jQuery(function ($) {
 
 
     $('.sign-out').click(() => {
-        console.log("click signout")
-        let jwtToken = getJwtToken()
+        let jwtToken = getJwtToken();
         if (jwtToken) {
             $.ajax({
                 url: '/api/v1/authentication/logout',
@@ -631,14 +600,44 @@ jQuery(function ($) {
         } else {
             toastr.warning("You are not log in")
         }
-    })
+    });
 
 });
 
 function getJwtToken() {
-    return localStorage.getItem('jwtToken')
+    return localStorage.getItem('jwtToken');
 }
 
 function getRefreshToken() {
-    return localStorage.getItem('refreshToken')
+    return localStorage.getItem('refreshToken');
 }
+
+function refreshToken() {
+    let jwtToken = getJwtToken();
+    if (!jwtToken) {
+        return;
+    }
+    console.log("trong refresh: " + jwtToken)
+    let refreshToken = getRefreshToken();
+    let request = {
+        refreshToken: refreshToken
+    };
+    $.ajax({
+        url: "/api/v1/authentication/refresh-token",
+        type: "POST",
+        data: JSON.stringify(request),
+        contentType: "application/json; charset=utf-8",
+        headers: {
+            'Authorization': 'Bearer' + " " + jwtToken
+        },
+        success: function (response) {
+            localStorage.setItem("jwtToken", response.jwt);
+        },
+        error: function () {
+            console.log(error);
+        }
+    })
+}
+
+setInterval(refreshToken, 29.5 * 60 * 1000);
+
