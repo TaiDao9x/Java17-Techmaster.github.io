@@ -11,8 +11,8 @@ function UserSettingToggle(){
 function darkModeON(){
     darkBtn.classList.toggle("dark-mode-on");
    document.body.classList.toggle("dark-theme");
-};
+}
 
 function LoadMoreToggle(){
     LoadMoreBackground.classList.toggle("loadMoreToggle");
-};
+}

@@ -1,7 +1,6 @@
-package com.example.goodreads_finalproject.controller;
+package com.example.goodreads_finalproject.controller.user;
 
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
-import com.example.goodreads_finalproject.service.EmailService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class WebController {
+public class WebUserController {
     UserService userService;
 
     @GetMapping
@@ -44,7 +43,7 @@ public class WebController {
         return "shop-cart";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login/user")
     public String getLoginPage(Model model) {
         return "account/login";
     }
@@ -74,4 +73,6 @@ public class WebController {
             return "account/login";
         }
     }
+
+
 }

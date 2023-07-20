@@ -1,4 +1,4 @@
-package com.example.goodreads_finalproject.controller;
+package com.example.goodreads_finalproject.controller.admin;
 
 import com.example.goodreads_finalproject.exception.ExistedUserException;
 import com.example.goodreads_finalproject.model.request.CategoryRequest;
@@ -25,17 +25,17 @@ public class AdminController {
 
     BookService bookService;
 
-//    @PostMapping("/category")
-//    public ResponseEntity<?> createCategory(@RequestBody CategoryRequest newCategoryRequest) {
-//        bookService.createCategory(newCategoryRequest);
-//        return new ResponseEntity<>(null, HttpStatus.CREATED);
-//    }
-//
-//    @PostMapping("/books")
-//    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {
-//        bookService.createBook(newBook);
-//        return new ResponseEntity<>(null, HttpStatus.CREATED);
-//    }
+    @PostMapping("/category")
+    public ResponseEntity<?> createCategory(@RequestBody CategoryRequest newCategoryRequest) {
+        bookService.createCategory(newCategoryRequest);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/book")
+    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {
+        bookService.createBook(newBook);
+        return new ResponseEntity<>(null, HttpStatus.CREATED);
+    }
 
 
 }

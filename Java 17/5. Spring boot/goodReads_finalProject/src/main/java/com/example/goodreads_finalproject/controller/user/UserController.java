@@ -1,4 +1,4 @@
-package com.example.goodreads_finalproject.controller;
+package com.example.goodreads_finalproject.controller.user;
 
 import com.example.goodreads_finalproject.exception.ExistedUserException;
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
