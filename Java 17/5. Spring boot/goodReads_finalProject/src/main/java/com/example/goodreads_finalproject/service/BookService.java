@@ -28,7 +28,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,13 +50,21 @@ public class BookService {
     ReadingBookRepository readingBookRepository;
     ObjectMapper objectMapper;
 
-    public void createBook(CreateBookRequest newBook) {
+    static String LOCAL_FOLDER = "";
+
+    public void createBook(CreateBookRequest newBook, MultipartFile file) throws IOException {
+        String filePath = "";
+        if (!ObjectUtils.isEmpty(file) && !file.isEmpty()) {
+            filePath = LOCAL_FOLDER + File.separator + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+        }
+
         Set<Long> categoryId = newBook.getCategoryId();
         Set<Category> categories = new HashSet<>();
         categoryId.forEach(id -> categories.add(categoryRepository.findById(id).get()));
 
         Book book = Book.builder()
-                .image(newBook.getImage())
+                .image(filePath)
                 .title(newBook.getTitle())
                 .author(newBook.getAuthor())
                 .buyBook(newBook.getBuyBook())
@@ -65,6 +80,18 @@ public class BookService {
                 .category(newCategoryRequest.getCategory())
                 .build();
         categoryRepository.save(category);
+    }
+
+    public void deleteCategory(Long id) throws BadRequestException {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isEmpty()) {
+            throw new NotFoundException("Not found category");
+        }
+        List<Book> bookList = bookRepository.findAllByCategories(categoryOptional.get());
+        if (bookList.size() > 0) {
+            throw new BadRequestException();
+        }
+        categoryRepository.deleteById(id);
     }
 
     public Page<ReadingBookResponse> getAllBooksUserInterested(Long userId, Integer page, Integer pageSize) {
@@ -84,6 +111,24 @@ public class BookService {
         }
 
         return new PageImpl<>(responseList, pageRequest, readingBooksPage.getTotalElements());
+    }
+
+    public void updateBook(UpdateBookRequest updateBookRequest) {
+        Book book = bookRepository.findById(updateBookRequest.getBookId()).get();
+        Set<Long> categoryIds = updateBookRequest.getCategoryId();
+        Set<Category> categories = new HashSet<>();
+
+        categoryIds.forEach(id -> categories.add(categoryRepository.findById(id).get()));
+
+        book.setImage(updateBookRequest.getImage());
+        book.setTitle(updateBookRequest.getTitle());
+        book.setAuthor(updateBookRequest.getAuthor());
+        book.setBuyBook(updateBookRequest.getBuyBook());
+        book.setCategories(categories);
+        book.setDescription(updateBookRequest.getDescription());
+        book.setPublished(updateBookRequest.getPublished());
+        book.setRating(updateBookRequest.getRating());
+        bookRepository.save(book);
     }
 }
 

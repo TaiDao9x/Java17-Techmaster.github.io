@@ -4,6 +4,7 @@ import com.example.goodreads_finalproject.entity.Category;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -32,6 +33,7 @@ public class CreateBookRequest {
     String description;
 
     @NotBlank
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
     LocalDate published;
 
     String buyBook;

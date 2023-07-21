@@ -20,12 +20,12 @@ public class WebUserController {
 
     @GetMapping
     public String getHomePage(Model model) {
-        return "anonymous/index";
+        return "user/index";
     }
 
     @GetMapping("/contact")
     public String getContactPage(Model model) {
-        return "contact";
+        return "notUse/contact";
     }
 
     @GetMapping("/product-detail")
@@ -43,7 +43,7 @@ public class WebUserController {
         return "shop-cart";
     }
 
-    @GetMapping("/login/user")
+    @GetMapping("/login")
     public String getLoginPage(Model model) {
         return "account/login";
     }
@@ -61,7 +61,7 @@ public class WebUserController {
     @GetMapping("/actived")
     public String getActivePage(@RequestParam("otpCode") String otpCode) {
         userService.activeAccount(otpCode);
-        return "anonymous/active-account";
+        return "user/active-account";
     }
 
     @GetMapping("/check-otp-reset")
