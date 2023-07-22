@@ -12,13 +12,14 @@
     <link
             href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap"
             rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"-->
+    <!--          integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="-->
+    <!--          crossorigin="anonymous" referrerpolicy="no-referrer"/>-->
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" th:href="@{admin/css/vendors.css}">
-    <link rel="stylesheet" th:href="@{admin/css/main.css}">
+    <script th:src="@{/original/js/vendor/jquery-library.js}"></script>
+    <link rel="stylesheet" th:href="@{/admin/css/vendors.css}">
+    <link rel="stylesheet" th:href="@{/admin/css/main.css}">
 
     <th:block th:replace="${cssResources} ?: ~{}"></th:block>
 
@@ -35,8 +36,8 @@
     <div data-anim="fade" class="header__container px-30 sm:px-20">
         <div class="-left-side">
             <a href="#" class="header-logo" data-x="header-logo" data-x-toggle="is-logo-dark">
-                <img th:src="@{admin/img/general/logo.png}" alt="logo icon">
-                <img th:src="@{admin/img/general/logo.png}" alt="logo icon">
+                <img th:src="@{/admin/img/general/logo.png}" alt="logo icon">
+                <img th:src="@{/admin/img/general/logo.png}" alt="logo icon">
             </a>
         </div>
 
@@ -73,7 +74,7 @@
                     </div>
 
                     <div class="pl-15">
-                        <img th:src="@{admin/img/avatars/3.png}" alt="image" class="size-50 rounded-22 object-cover">
+                        <img th:src="@{/admin/img/avatars/3.png}" alt="image" class="size-50 rounded-22 object-cover">
                     </div>
                 </div>
             </div>
@@ -434,15 +435,15 @@
 
 </div>
 
- JavaScript
-<script src="../../../cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"
-        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- JavaScript-->
+<!--<script src="../../../cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"-->
+<!--        integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ=="-->
+<!--        crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAz77U5XQuEME6TpftaMdX0bBelQxXRlM"></script>
-<script src="../../../unpkg.com/%40googlemaps/markerclusterer%402.0.13/dist/index.min.js"></script>
+<!--<script src="../../../unpkg.com/%40googlemaps/markerclusterer%402.0.13/dist/index.min.js"></script>-->
 
-<script th:src="@{admin/js/vendors.js}"></script>
-<script th:src="@{admin/js/main.js}"></script>
+<script th:src="@{/admin/js/vendors.js}"></script>
+<script th:src="@{/admin/js/main.js}"></script>
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 

@@ -51,8 +51,9 @@ public class EmailService {
             mimeMessageHelper.setSubject("[Goodreads] Reset password");
 
             String resetLink = "http://localhost:8080/check-otp-reset?otpCode=" + otpCode;
-            String htmlContent = "<html> Bạn đã quên mật khẩu? <a href=\"" + resetLink + "\">Reset password.</a> </html>\n" +
-                    "Email này chỉ có hiệu lực trong vòng 10 phút. Nếu đã quá thời gian vui lòng gửi lại yêu cầu.";
+            String htmlContent = "<html> Bạn đã quên mật khẩu? <a href=\"" + resetLink + "\">Reset password.</a>\n " +
+                    "\n" +
+                    "Email này chỉ có hiệu lực trong vòng 10 phút. Nếu đã quá thời gian vui lòng gửi lại yêu cầu.</html>";
             mimeMessageHelper.setText(htmlContent, true);
 
             javaMailSender.send(mimeMessage);

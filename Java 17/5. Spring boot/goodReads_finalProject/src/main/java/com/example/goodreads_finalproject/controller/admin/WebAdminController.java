@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WebAdminController {
 
-    @GetMapping
+    @GetMapping("/allBook")
     public String getHomePage(Model model) {
-        return "admin/all-coupon";
+        return "admin/all-book";
     }
 
+    @GetMapping("/addBook")
+    public String addBook(Model model) {
+        return "admin/add-book";
+    }
 }

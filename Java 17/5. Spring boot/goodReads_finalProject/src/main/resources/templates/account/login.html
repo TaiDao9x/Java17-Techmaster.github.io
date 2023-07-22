@@ -119,36 +119,43 @@
             let request = {
                 email: loginEmail,
                 password: loginPassword
-            }
+            };
             $.ajax({
                 url: '/api/v1/authentication/login',
                 type: 'POST',
                 data: JSON.stringify(request),
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    console.log(data)
-                    localStorage.clear()
-                    localStorage.setItem('jwtToken', data.jwt)
-                    localStorage.setItem('refreshToken', data.refreshToken)
+                    console.log(data);
+                    localStorage.clear();
+                    localStorage.setItem('jwtToken', data.jwt);
+                    localStorage.setItem('refreshToken', data.refreshToken);
                     let userInfomation = {
                         email: data.email,
                         userId: data.id,
                         avatar: data.avatar,
                         fullName: data.fullName,
                         role: data.roles
-                    }
-                    localStorage.setItem('userInfomation', JSON.stringify(userInfomation))
+                    };
+                    localStorage.setItem('userInfomation', JSON.stringify(userInfomation));
 
                     toastr.success("Login Success");
                     setTimeout(function () {
                         window.location.href = 'http://localhost:8080/'
-                    }, 700)
+                    }, 700);
                 },
                 error: function (data) {
-                    toastr.warning("Email or Password not correct!")
+                    toastr.warning("Email or Password not correct!");
                 },
-            })
-        })
+            });
+        });
+
+
+        $('#login-form input').on('keyup', function (event) {
+            if (event.key === 'Enter') {
+                $("#signin").click();
+            }
+        });
 
         $('.forgot-password-link').click(() => {
             $('#forgot-password-modal').modal('show');
@@ -182,13 +189,9 @@
                 return;
             }
             let emailReset = $(".email-reset-form #email").val();
-            console.log(emailReset)
-
             let request = {
                 email: emailReset
             };
-            console.log(request)
-
             await $.ajax({
                 url: "/api/v1/users/otp-sending",
                 type: 'POST',
@@ -203,6 +206,13 @@
                 }
             });
         })
+
+        $('#forgot-password-modal input').on('keydown', function (event) {
+            if (event.which === 13 || event.keyCode === 13) {
+                event.preventDefault();
+                $("#submit-reset-modal").click();
+            }
+        });
     })
 </script>
 </body>
