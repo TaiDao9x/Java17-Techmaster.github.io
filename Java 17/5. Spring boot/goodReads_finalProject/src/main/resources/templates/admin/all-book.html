@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{layout/layout-admin :: main-fragment(
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout-admin :: main-fragment(
                                                 ~{:: title},
                                                 ~{},
                                                 ~{:: .dashboard__main},
@@ -58,16 +59,16 @@
                                     </th>
                                     <th>Image</th>
                                     <th>Title</th>
+                                    <th>Categories</th>
                                     <th>Author</th>
                                     <th>Published</th>
-                                    <th>BuyBook</th>
                                     <th>Rating</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr>
+                                <tr th:each="book:${pageBookInfo}">
                                     <td>
                                         <div class="d-flex items-center">
                                             <div class="form-checkbox ">
@@ -78,10 +79,17 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td>Hotel castle salam</td>
-                                    <td>California, USA</td>
-                                    <td> David hoffman</td>
-                                    <td>28 Sep 2022</td>
+                                    <td><img th:src="${book.image}" width="55px" height="80px" alt="Ảnh bìa"></td>
+                                    <td th:text="${book.title}">California, USA</td>
+                                    <td th:text="${book.categories}">California, USA</td>
+                                    <td th:text="${book.author}">California, USA</td>
+                                    <td th:text="${book.published}">California, USA</td>
+                                    <td>
+                                        <div th:text="${book.rating}" class=" rounded-4 size-35 bg-blue-1 text-white
+                                        flex-center text-12 fw-600">
+                                            4.8
+                                        </div>
+                                    </td>
                                     <td><span
                                             class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span>
                                     </td>
@@ -123,66 +131,63 @@
                 </div>
             </div>
 
+
             <div class="pt-30">
                 <div class="row justify-between">
                     <div class="col-auto">
-                        <button class="button -blue-1 size-40 rounded-full border-light">
-                            <i class="icon-chevron-left text-12"></i>
-                        </button>
+
+                        <a class="page-link"
+                           th:href="@{/admin/all-book?page={page} (page=${currentPage-1})}"
+                           th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">
+                            <button class="button -blue-1 size-40 rounded-full border-light">
+                                <i class="icon-chevron-left text-12"></i>
+                            </button>
+                        </a>
+
                     </div>
+
 
                     <div class="col-auto">
                         <div class="row x-gap-20 y-gap-20 items-center">
+                            <!--                            <ul class="pagination d-flex justify-content-center">-->
+                            <!--                                <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">-->
+                            <!--                                    <a class="page-link"-->
+                            <!--                                       th:href="@{/admin/all-book?page={page} (page=${currentPage-1})}">Previous</a>-->
+                            <!--                                </li>-->
+                            <!--                                <li class="size-40 flex-center rounded-full"-->
+                            <!--                                    th:each="page:${#numbers.sequence(1,pageBookInfo.getTotalPages())}"-->
+                            <!--                                    th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }  ">-->
+                            <!--                                    <a class="page-link" th:href="@{/admin/all-book(page=${page}) }"><span-->
+                            <!--                                            th:text="${page}"></span></a>-->
+                            <!--                                </li>-->
+
+                            <!--                                <li class="page-item"-->
+                            <!--                                    th:classappend="${currentPage == pageBookInfo.getTotalPages() ? 'disabled' : ''}">-->
+                            <!--                                    <a class="page-link" th:href="@{/admin/all-book(page=${currentPage+1})}">Next</a>-->
+                            <!--                                </li>-->
+                            <!--                            </ul>-->
 
                             <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full">1</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full bg-dark-1 text-white">2</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full">3</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full bg-light-2">4</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full">5</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full">...</div>
-
-                            </div>
-
-                            <div class="col-auto">
-
-                                <div class="size-40 flex-center rounded-full">20</div>
-
+                                <a class="size-40 flex-center rounded-full"
+                                   th:href="@{/admin/all-book(page=${page}) }"
+                                   th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }"
+                                   th:each="page:${#numbers.sequence(1,pageBookInfo.getTotalPages())}">
+                                    <div th:text="${page}">
+                                    </div>
+                                </a>
                             </div>
 
                         </div>
                     </div>
 
                     <div class="col-auto">
-                        <button class="button -blue-1 size-40 rounded-full border-light">
-                            <i class="icon-chevron-right text-12"></i>
-                        </button>
+                        <a class="page-link"
+                           th:classappend="${currentPage == pageBookInfo.getTotalPages() ? 'disabled-link' : ''}"
+                           th:href="@{/admin/all-book(page=${currentPage+1})}">
+                            <button class="button -blue-1 size-40 rounded-full border-light">
+                                <i class="icon-chevron-right text-12"></i>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>

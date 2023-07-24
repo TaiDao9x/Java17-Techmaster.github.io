@@ -1,11 +1,14 @@
 package com.example.goodreads_finalproject.controller.admin;
 
+import com.example.goodreads_finalproject.entity.Book;
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
+import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.service.BookService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,12 @@ public class WebAdminController {
     @GetMapping("/allBook")
     public String allBook(Model model,
                           @RequestParam(required = false, defaultValue = "1") Integer page,
-                          @RequestParam(required = false, defaultValue = "6") Integer pageSize) {
+                          @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
 
-        Page<>
+        Page<Book> bookResponsePage = bookService.getAllBook(page, pageSize);
+        model.addAttribute("pageBookInfo", bookResponsePage);
+        model.addAttribute("currentPage", page);
+
         return "admin/all-book";
     }
 

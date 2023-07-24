@@ -3,6 +3,7 @@ package com.example.goodreads_finalproject.service;
 import com.example.goodreads_finalproject.entity.*;
 import com.example.goodreads_finalproject.exception.*;
 import com.example.goodreads_finalproject.model.request.*;
+import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
 import com.example.goodreads_finalproject.model.response.ReadingBookResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
@@ -129,6 +130,11 @@ public class BookService {
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    public Page<Book> getAllBook(Integer page, Integer pageSize) {
+        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+        return bookRepository.findAll(pageRequest);
     }
 }
 

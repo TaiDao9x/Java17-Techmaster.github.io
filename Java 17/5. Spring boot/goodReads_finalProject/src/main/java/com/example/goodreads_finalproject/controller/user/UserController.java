@@ -62,5 +62,4 @@ public class UserController {
         return new ResponseEntity<>("Change password successful", HttpStatus.OK);
     }
 
-
 }
