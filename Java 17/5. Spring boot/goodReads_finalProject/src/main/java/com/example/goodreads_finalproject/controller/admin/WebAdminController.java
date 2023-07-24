@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WebAdminController {
     BookService bookService;
 
-    @GetMapping("/allBook")
+    @GetMapping("/all-book")
     public String allBook(Model model,
                           @RequestParam(required = false, defaultValue = "1") Integer page,
                           @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
@@ -34,7 +34,7 @@ public class WebAdminController {
         return "admin/all-book";
     }
 
-    @GetMapping("/addBook")
+    @GetMapping("/add-book")
     public String addBook(Model model) {
         model.addAttribute("listAllCategories", bookService.getAllCategories());
         return "admin/add-book";
