@@ -85,19 +85,13 @@
                                     <td th:text="${book.author}">California, USA</td>
                                     <td th:text="${book.published}">California, USA</td>
                                     <td>
-                                        <div th:text="${book.rating}" class=" rounded-4 size-35 bg-blue-1 text-white
+                                        <div th:text="${book.rating}"
+                                             class=" rounded-4 size-35 bg-blue-1 text-white
                                         flex-center text-12 fw-600">
-                                            4.8
+
                                         </div>
                                     </td>
-                                    <td><span
-                                            class="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">Confirmed</span>
-                                    </td>
-                                    <td>
-                                        <div class="rounded-4 size-35 bg-blue-1 text-white flex-center text-12 fw-600">
-                                            4.8
-                                        </div>
-                                    </td>
+
                                     <td>
                                         <div class="row x-gap-10 y-gap-10 items-center">
 
@@ -135,7 +129,6 @@
             <div class="pt-30">
                 <div class="row justify-between">
                     <div class="col-auto">
-
                         <a class="page-link"
                            th:href="@{/admin/all-book?page={page} (page=${currentPage-1})}"
                            th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">
@@ -143,30 +136,10 @@
                                 <i class="icon-chevron-left text-12"></i>
                             </button>
                         </a>
-
                     </div>
-
 
                     <div class="col-auto">
                         <div class="row x-gap-20 y-gap-20 items-center">
-                            <!--                            <ul class="pagination d-flex justify-content-center">-->
-                            <!--                                <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">-->
-                            <!--                                    <a class="page-link"-->
-                            <!--                                       th:href="@{/admin/all-book?page={page} (page=${currentPage-1})}">Previous</a>-->
-                            <!--                                </li>-->
-                            <!--                                <li class="size-40 flex-center rounded-full"-->
-                            <!--                                    th:each="page:${#numbers.sequence(1,pageBookInfo.getTotalPages())}"-->
-                            <!--                                    th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }  ">-->
-                            <!--                                    <a class="page-link" th:href="@{/admin/all-book(page=${page}) }"><span-->
-                            <!--                                            th:text="${page}"></span></a>-->
-                            <!--                                </li>-->
-
-                            <!--                                <li class="page-item"-->
-                            <!--                                    th:classappend="${currentPage == pageBookInfo.getTotalPages() ? 'disabled' : ''}">-->
-                            <!--                                    <a class="page-link" th:href="@{/admin/all-book(page=${currentPage+1})}">Next</a>-->
-                            <!--                                </li>-->
-                            <!--                            </ul>-->
-
                             <div class="col-auto flex-center">
                                 <a class="size-40 flex-center rounded-full"
                                    th:href="@{/admin/all-book(page=${page}) }"
@@ -176,7 +149,6 @@
                                     </div>
                                 </a>
                             </div>
-
                         </div>
                     </div>
 
