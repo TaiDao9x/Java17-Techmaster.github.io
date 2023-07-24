@@ -37,9 +37,8 @@ public class BookAdminController {
     }
 
     @PostMapping("/book")
-    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook,
-                                        @RequestParam("file") MultipartFile multipartFile) throws IOException {
-        bookService.createBook(newBook, multipartFile);
+    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {
+        bookService.createBook(newBook);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 

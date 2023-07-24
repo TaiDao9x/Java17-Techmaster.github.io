@@ -50,21 +50,15 @@ public class BookService {
     ReadingBookRepository readingBookRepository;
     ObjectMapper objectMapper;
 
-    static String LOCAL_FOLDER = "";
-
-    public void createBook(CreateBookRequest newBook, MultipartFile file) throws IOException {
-        String filePath = "";
-        if (!ObjectUtils.isEmpty(file) && !file.isEmpty()) {
-            filePath = LOCAL_FOLDER + File.separator + file.getOriginalFilename();
-            Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
-        }
-
-        Set<Long> categoryId = newBook.getCategoryId();
+    public void createBook(CreateBookRequest newBook) {
+        Set<Long> categoryId = newBook.getCategoryId().stream()
+                .map(Long::parseLong)
+                .collect(Collectors.toSet());
         Set<Category> categories = new HashSet<>();
         categoryId.forEach(id -> categories.add(categoryRepository.findById(id).get()));
 
         Book book = Book.builder()
-                .image(filePath)
+                .image(newBook.getImage())
                 .title(newBook.getTitle())
                 .author(newBook.getAuthor())
                 .buyBook(newBook.getBuyBook())
@@ -73,25 +67,6 @@ public class BookService {
                 .published(newBook.getPublished())
                 .build();
         bookRepository.save(book);
-    }
-
-    public void createCategory(CategoryRequest newCategoryRequest) {
-        Category category = Category.builder()
-                .category(newCategoryRequest.getCategory())
-                .build();
-        categoryRepository.save(category);
-    }
-
-    public void deleteCategory(Long id) throws BadRequestException {
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if (categoryOptional.isEmpty()) {
-            throw new NotFoundException("Not found category");
-        }
-        List<Book> bookList = bookRepository.findAllByCategories(categoryOptional.get());
-        if (bookList.size() > 0) {
-            throw new BadRequestException();
-        }
-        categoryRepository.deleteById(id);
     }
 
     public Page<ReadingBookResponse> getAllBooksUserInterested(Long userId, Integer page, Integer pageSize) {
@@ -129,6 +104,31 @@ public class BookService {
         book.setPublished(updateBookRequest.getPublished());
         book.setRating(updateBookRequest.getRating());
         bookRepository.save(book);
+    }
+
+
+    //category
+    public void createCategory(CategoryRequest newCategoryRequest) {
+        Category category = Category.builder()
+                .name(newCategoryRequest.getCategory())
+                .build();
+        categoryRepository.save(category);
+    }
+
+    public void deleteCategory(Long id) throws BadRequestException {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isEmpty()) {
+            throw new NotFoundException("Not found category");
+        }
+        List<Book> bookList = bookRepository.findAllByCategories(categoryOptional.get());
+        if (bookList.size() > 0) {
+            throw new BadRequestException();
+        }
+        categoryRepository.deleteById(id);
+    }
+
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
     }
 }
 

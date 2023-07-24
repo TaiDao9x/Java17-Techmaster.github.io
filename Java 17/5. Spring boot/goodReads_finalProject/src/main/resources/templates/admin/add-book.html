@@ -44,83 +44,94 @@
                     <div class="tabs__pane -tab-item-1 is-tab-el-active">
                         <div class="col">
                             <div class="border-top-light mt-30 mb-30"></div>
-                            <div class="row x-gap-20 y-gap-20">
-                                <div class="col-6">
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Title</label>
-                                        <input type="text" name="title" id="title" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Author</label>
-                                        <input type="text" name="author" id="author" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Format</label>
-                                        <input type="text" name="format" id="format" required>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Published</label>
-                                        <input type="date" name="published" id="published" required>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">About</label>
-                                        <textarea required rows="3"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col">
-                                    <div class="row x-gap-100 y-gap-15">
-                                        <div class="col-12">
-                                            <div class="text-18 fw-500">Genres</div>
+                            <form id="create-book-form">
+                                <div class="row x-gap-20 y-gap-20">
+                                    <div class="col-12">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">Title</label>
+                                            <input type="text" name="title" id="title" required>
                                         </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">Author</label>
+                                            <input type="text" name="author" id="author" required>
+                                        </div>
+                                    </div>
 
-                                        <div class="col-lg-2 col-sm-6">
-                                            <div class="row y-gap-15">
-                                                <div class="col-12">
-                                                    <div class="d-flex items-center">
-                                                        <div class="form-checkbox ">
-                                                            <input type="checkbox" name="name">
-                                                            <div class="form-checkbox__mark">
-                                                                <div class="form-checkbox__icon icon-check"></div>
+                                    <div class="col-6">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">Published</label>
+                                            <input type="date" name="published" id="published" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">About</label>
+                                            <textarea rows="3" name="about" id="about"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+
+                                        <div class="row x-gap-100 y-gap-15">
+                                            <div class="col-12 d-flex">
+                                                <div class="text-18 fw-500 col-2">Categories</div>
+                                                <div class="col-10">
+                                                    <input type="text" id="search-category"
+                                                           placeholder=" Search ...">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-2 col-sm-6 show-genres"
+                                                 th:each="category, iterStat :${listAllCategories}">
+                                                <div class="row y-gap-15">
+                                                    <div class="col-12">
+                                                        <div class="d-flex items-center">
+                                                            <div class="form-checkbox ">
+                                                                <input type="checkbox"
+                                                                       name="category"
+                                                                       th:id="${category.id}">
+                                                                <div class="form-checkbox__mark">
+                                                                    <div class="form-checkbox__icon icon-check"></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-15 lh-11 ml-10"
+                                                                 th:text="${category.name}">
+
                                                             </div>
                                                         </div>
-                                                        <div class="text-15 lh-11 ml-10">Villa</div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
-
                                     </div>
-
                                 </div>
-                            </div>
+                            </form>
 
-                            <div class="mt-30">
+                            <div class=" mt-30">
                                 <div class="fw-500">Images</div>
 
                                 <div class="row x-gap-20 y-gap-20 pt-15">
                                     <div class="col-auto">
                                         <div class="w-200">
-                                            <div id="image-book" class="d-flex ratio ratio-1:1">
+                                            <div id="image-book"
+                                                 class="d-flex ratio ratio-1:1">
 
                                                 <button
                                                         class="btn-upload-image flex-center flex-column text-center bg-blue-2 h-full w-1/1 absolute rounded-4 border-type-1">
                                                     <div class="icon-upload-file text-40 text-blue-1 mb-10"></div>
-                                                    <div class="text-blue-1 fw-500">Upload Images</div>
+                                                    <div class="text-blue-1 fw-500">Upload
+                                                        Images
+                                                    </div>
                                                 </button>
                                             </div>
                                             <div class="text-center mt-10 text-14 text-light-1">
-                                                <input type="file" id="fileInput" style="display:none">
+                                                <input type="file" id="fileInput"
+                                                       style="display:none">
                                             </div>
                                         </div>
                                     </div>
@@ -136,11 +147,9 @@
                         </div>
 
                         <div class="d-inline-block pt-30">
-
-                            <a href="#" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">
-                                Save changes
-                            </a>
-
+                            <button id="submitBtn"
+                                    class="button h-50 px-24 -dark-1 bg-blue-1 text-white">Submit
+                            </button>
                         </div>
                     </div>
 
@@ -153,7 +162,9 @@
                 <div class="col-auto">
                     <div class="row y-gap-20 items-center">
                         <div class="col-auto">
-                            <div class="text-14 lh-14 mr-30">Copyright © 2022 All Rights Reserved</div>
+                            <div class="text-14 lh-14 mr-30">Copyright © 2022 All Rights
+                                Reserved
+                            </div>
                         </div>
                     </div>
                 </div>

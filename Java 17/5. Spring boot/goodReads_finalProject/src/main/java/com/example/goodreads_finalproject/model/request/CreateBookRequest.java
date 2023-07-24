@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class CreateBookRequest {
     String title;
 
     @NotBlank
-    Set<Long> categoryId;
+    Set<String> categoryId;
 
     @NotBlank
     String author;
@@ -34,6 +35,7 @@ public class CreateBookRequest {
 
     @NotBlank
     @DateTimeFormat(pattern = "YYYY-MM-dd")
+    @Past
     LocalDate published;
 
     String buyBook;
