@@ -9,7 +9,7 @@
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!--    <link rel="stylesheet" th:href="@{/original/css/bootstrap.min.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/original/css/bootstrap.min.css}">-->
     <link
             href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap"
             rel="stylesheet">
@@ -112,11 +112,11 @@
                             <ul class="list-disc pb-5 pl-40">
 
                                 <li>
-                                    <a href="/admin/allBook" class="text-15">All Books</a>
+                                    <a href="/admin/all-book" class="text-15">All Books</a>
                                 </li>
 
                                 <li>
-                                    <a href="/admin/addBook" class="text-15">Add Book</a>
+                                    <a href="/admin/add-book" class="text-15">Add Book</a>
                                 </li>
                             </ul>
                         </div>
@@ -451,6 +451,30 @@
 <!--<script th:src="@{/original/js/vendor/bootstrap.min.js}"></script>-->
 <script th:src="@{/admin/js/vendors.js}"></script>
 <script th:src="@{/admin/js/main.js}"></script>
+
+<!--<script type="module">-->
+<!--    // Import the functions you need from the SDKs you need-->
+<!--    import {initializeApp} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";-->
+<!--    import {getAnalytics} from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";-->
+<!--    // TODO: Add SDKs for Firebase products that you want to use-->
+<!--    // https://firebase.google.com/docs/web/setup#available-libraries-->
+
+<!--    // Your web app's Firebase configuration-->
+<!--    // For Firebase JS SDK v7.20.0 and later, measurementId is optional-->
+<!--    const firebaseConfig = {-->
+<!--        apiKey: "AIzaSyDZwCuyQHeig-aRWvDVPrxbDOArhB4Lx1A",-->
+<!--        authDomain: "final-project-&#45;&#45;goodreads.firebaseapp.com",-->
+<!--        projectId: "final-project-&#45;&#45;goodreads",-->
+<!--        storageBucket: "final-project-&#45;&#45;goodreads.appspot.com",-->
+<!--        messagingSenderId: "438803212569",-->
+<!--        appId: "1:438803212569:web:41304f80b268288b977d88",-->
+<!--        measurementId: "G-RV3X1H3MLM"-->
+<!--    };-->
+
+<!--    // Initialize Firebase-->
+<!--    const firebase = initializeApp(firebaseConfig);-->
+<!--    const analytics = getAnalytics(firebase);-->
+<!--</script>-->
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 

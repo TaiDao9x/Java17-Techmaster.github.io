@@ -82,8 +82,9 @@
                                     <td><img th:src="${book.image}" width="55px" height="80px" alt="Ảnh bìa"></td>
                                     <td th:text="${book.title}">California, USA</td>
                                     <td th:with="categories=${book.categories}">
-                                        <div th:each="category:${categories}">
-                                            <span th:text="${category.name}"></span>
+                                        <div th:each="category:${categories}" class="mb-2">
+                                            <span class="rounded-100 py-1 px-10 text-center text-12 fw-500 bg-blue-1-05 text-blue-1"
+                                                  th:text="${category.name}"></span>
                                         </div>
                                     </td>
                                     <td th:text="${book.author}">California, USA</td>

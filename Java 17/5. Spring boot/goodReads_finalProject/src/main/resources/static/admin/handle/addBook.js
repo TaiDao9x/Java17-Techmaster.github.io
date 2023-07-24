@@ -5,6 +5,16 @@ let firebaseConfig = {
     storageBucket: "fir-e9a96.appspot.com",
 };
 
+// let firebaseConfig = {
+//     apiKey: "AIzaSyDZwCuyQHeig-aRWvDVPrxbDOArhB4Lx1A",
+//     authDomain: "final-project-&#45;&#45;goodreads.firebaseapp.com",
+//     projectId: "final-project-&#45;&#45;goodreads",
+//     storageBucket: "final-project-&#45;&#45;goodreads.appspot.com",
+//     messagingSenderId: "438803212569",
+//     appId: "1:438803212569:web:41304f80b268288b977d88",
+//     measurementId: "G-RV3X1H3MLM"
+// }
+
 // Khởi tạo Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -17,7 +27,7 @@ $(document).ready(function () {
     // Tìm kiếm category
     $("#search-category").keyup(function () {
         let searchText = $(this).val().toLowerCase();
-        $("#categoryList .show-genres").each(function () {
+        $(".show-genres").each(function () {
             let categoryText = $(this).find(".text-15").text().toLowerCase();
             if (categoryText.includes(searchText)) {
                 $(this).show();
@@ -55,7 +65,7 @@ $(document).ready(function () {
         let about = $("#about").val();
 
         let selectedCategories = [];
-        $(":checkbox[name^='category-']:checked").each(function () {
+        $(":checkbox[name^='category']:checked").each(function () {
             let categoryId = $(this).attr("id");
             selectedCategories.push(categoryId);
         });
@@ -180,9 +190,11 @@ $(document).ready(function () {
 
 // Call the uploadImageAndCreateBook function when a form submit button is clicked
     $('#submitBtn').click(event => {
+        console.log("click");
         event.preventDefault();
         let isValidForm = $("#create-book-form").valid();
         if (!isValidForm) return;
+        $('#submitBtn').prop('disabled', true);
         uploadImageAndCreateBook();
     })
 
