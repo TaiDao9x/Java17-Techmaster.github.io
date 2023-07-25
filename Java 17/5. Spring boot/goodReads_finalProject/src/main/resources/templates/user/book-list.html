@@ -1,0 +1,215 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                ~{},
+                                                ~{:: #header},
+                                                ~{:: #main-content},
+                                                ~{:: #footer},
+                                                ~{}
+                                                )}">
+
+<head>
+
+    <title>Books</title>
+
+</head>
+<body>
+
+<div id="tg-wrapper" class="tg-wrapper tg-haslayout">
+    <!--************************************
+            Header Start
+    *************************************-->
+    <th:block id="header" th:replace="fragments/header :: header"></th:block>
+    <!--************************************
+            Header End
+    *************************************-->
+    <th:block id="main-content">
+        <!--************************************
+                Inner Banner Start
+        *************************************-->
+        <div class="tg-innerbanner tg-haslayout tg-parallax tg-bginnerbanner" data-z-index="-100"
+             data-appear-top-offset="600" data-parallax="scroll"
+             data-image-src="original/images/parallax/bgparallax-07.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="tg-innerbannercontent">
+                            <h1>Books</h1>
+                            <ol class="tg-breadcrumb">
+                                <li><a href="javascript:void(0);">Home</a></li>
+                                <li class="tg-active">Books</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--************************************
+                Inner Banner End
+        *************************************-->
+        <!--************************************
+                Main Start
+        *************************************-->
+        <main id="tg-main" class="tg-main tg-haslayout">
+            <!--************************************
+                    News Grid Start
+            *************************************-->
+            <div class="tg-sectionspace tg-haslayout">
+                <div class="container">
+                    <div class="row">
+                        <div id="tg-twocolumns" class="tg-twocolumns">
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 pull-right">
+                                <div id="tg-content" class="tg-content">
+                                    <div class="tg-products">
+
+                                        <div class="tg-featurebook alert" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <div class="tg-featureditm">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 hidden-sm hidden-xs">
+                                                        <figure><img src="images/img-04.png" alt="image description">
+                                                        </figure>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                                        <div class="tg-featureditmcontent">
+                                                            <div class="tg-themetagbox"><span
+                                                                    class="tg-themetag">featured</span></div>
+                                                            <div class="tg-booktitle">
+                                                                <h3><a href="javascript:void(0);">Things To Know About
+                                                                    Green
+                                                                    Flat Design</a></h3>
+                                                            </div>
+                                                            <span class="tg-bookwriter">By: <a
+                                                                    href="javascript:void(0);">Farrah Whisenhunt</a></span>
+                                                            <span class="tg-stars"><span></span></span>
+                                                            <div class="tg-priceandbtn">
+																<span class="tg-bookprice">
+																	<ins>$23.18</ins>
+																	<del>$30.20</del>
+																</span>
+                                                                <a class="tg-btn tg-btnstyletwo tg-active"
+                                                                   href="javascript:void(0);">
+                                                                    <i class="fa fa-shopping-basket"></i>
+                                                                    <em>Add To Basket</em>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tg-productgrid">
+                                            <div class="tg-refinesearch">
+                                                <span>showing 1 to 8 of 20 total</span>
+                                                <form class="tg-formtheme tg-formsortshoitems">
+                                                    <fieldset>
+                                                        <div class="form-group">
+                                                            <label>sort by:</label>
+                                                            <span class="tg-select">
+																<select>
+																	<option>name</option>
+																	<option>name</option>
+																	<option>name</option>
+																</select>
+															</span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>show:</label>
+                                                            <span class="tg-select">
+																<select>
+																	<option>8</option>
+																	<option>16</option>
+																	<option>20</option>
+																</select>
+															</span>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" th:each="book:${bookList}">
+                                                <div class="tg-postbook">
+                                                    <figure class="tg-featureimg" th:height="256px">
+                                                        <div class="tg-bookimg">
+                                                            <div class="tg-frontcover">
+                                                                <img th:src="${book.image}" alt="image description">
+                                                            </div>
+                                                            <div class="tg-backcover">
+                                                                <img th:src="${book.image}" alt="image description">
+                                                            </div>
+                                                        </div>
+                                                        <a class="tg-btnaddtowishlist" href="javascript:void(0);">
+                                                            <i class="icon-heart"></i>
+                                                            <span>Mark for interest</span>
+                                                        </a>
+                                                    </figure>
+                                                    <div class="tg-postbookcontent">
+                                                        <ul class="tg-bookscategories"
+                                                            th:with="categories=${book.categories}">
+                                                            <li th:each="category:${categories}"><a
+                                                                    href="javascript:void(0);"
+                                                                    th:text="${category.name}"></a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tg-themetagbox"><span
+                                                                class="tg-themetag">sale</span>
+                                                        </div>
+                                                        <div class="tg-booktitle">
+                                                            <h3><a href="javascript:void(0);"
+                                                                   th:text="${book.title}"></a>
+                                                            </h3>
+                                                        </div>
+                                                        <span class="tg-bookwriter">By:
+                                                            <a href="javascript:void(0);"
+                                                               th:text="${book.author}"></a></span>
+                                                        <span class="tg-stars"><span></span></span>
+                                                        <span class="tg-bookprice">
+															<ins>$25.18</ins>
+															<del>$27.20</del>
+														</span>
+                                                        <a class="tg-btn tg-btnstyletwo" href="javascript:void(0);">
+<!--                                                            <i class="fa fa-shopping-basket"></i>-->
+                                                            <em>Want to read</em>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left">
+                                <th:block id="tg-sidebar" th:replace="fragments/sidebar :: sidebar"></th:block>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--************************************
+                    News Grid End
+            *************************************-->
+        </main>
+        <!--************************************
+                Main End
+        *************************************-->
+    </th:block>
+
+    <!--************************************
+            Footer Start
+    *************************************-->
+    <th:block id="footer" th:replace="fragments/footer :: footer"></th:block>
+
+    <!--************************************
+            Footer End
+    *************************************-->
+</div>
+<!--************************************
+        Wrapper End
+*************************************-->
+
+</body>
+
+</html>

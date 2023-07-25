@@ -133,10 +133,10 @@ $(document).ready(function () {
 
     $.validator.addMethod("pastDate", function (value, element) {
         // Lấy ngày hiện tại
-        var currentDate = new Date();
+        let currentDate = new Date();
 
         // Chuyển đổi giá trị ngày nhập vào sang đối tượng Date
-        var inputDate = new Date(value);
+        let inputDate = new Date(value);
 
         // So sánh ngày nhập vào với ngày hiện tại
         return inputDate < currentDate;
@@ -195,6 +195,9 @@ $(document).ready(function () {
         let isValidForm = $("#create-book-form").valid();
         if (!isValidForm) return;
         $('#submitBtn').prop('disabled', true);
+        setTimeout(function () {
+            $('#submitBtn').prop('disabled', false);
+        }, 1500);
         uploadImageAndCreateBook();
     })
 

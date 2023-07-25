@@ -59,7 +59,7 @@ public class BookService {
         categoryId.forEach(id -> categories.add(categoryRepository.findById(id).get()));
 
         Book book = Book.builder()
-                .image(newBook.getImage())
+                .image(newBook.getImage().equals("") ? "/original/images/books/no-cover.png" : newBook.getImage())
                 .title(newBook.getTitle())
                 .author(newBook.getAuthor())
                 .buyBook(newBook.getBuyBook())
@@ -96,7 +96,12 @@ public class BookService {
 
         categoryIds.forEach(id -> categories.add(categoryRepository.findById(id).get()));
 
-        book.setImage(updateBookRequest.getImage());
+        String imageLink = updateBookRequest.getImage();
+        if (updateBookRequest.getImage().equals("")) {
+            imageLink = "/original/images/books/no-cover.png";
+        }
+
+        book.setImage(imageLink);
         book.setTitle(updateBookRequest.getTitle());
         book.setAuthor(updateBookRequest.getAuthor());
         book.setBuyBook(updateBookRequest.getBuyBook());
@@ -135,6 +140,12 @@ public class BookService {
     public Page<Book> getAllBook(Integer page, Integer pageSize) {
         Pageable pageRequest = PageRequest.of(page - 1, pageSize);
         return bookRepository.findAll(pageRequest);
+    }
+
+
+    public Page<Book> findBook(String keyWord, Integer page, Integer pageSize) {
+        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+        return bookRepository.findAllByTitleContaining(keyWord, pageRequest);
     }
 }
 

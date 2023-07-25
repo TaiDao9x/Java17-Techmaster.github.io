@@ -39,4 +39,5 @@ public class WebAdminController {
         model.addAttribute("listAllCategories", bookService.getAllCategories());
         return "admin/add-book";
     }
+
 }

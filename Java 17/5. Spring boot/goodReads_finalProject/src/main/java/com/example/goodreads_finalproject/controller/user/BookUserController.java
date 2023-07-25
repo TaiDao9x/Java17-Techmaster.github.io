@@ -14,18 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping
+@RequestMapping("/users")
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookUserController {
     BookService bookService;
 
-    @GetMapping("/users/books/{userId}")
+    @GetMapping("/books/{userId}")
     public String getAllBooks(Model model, @PathVariable Long userId,
                               @RequestParam(required = false, defaultValue = "1") Integer page,
-                              @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+                              @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
 //        model.addAttribute("allBookUserInterested", bookService.getAllBooksUserInterested(userId));
         Page<ReadingBookResponse> readingBookResponses = bookService.getAllBooksUserInterested(userId, page, pageSize);
         return "user/my-book";
+    }
+
+    @GetMapping("/books")
+    public String findBook(Model model,
+                           @RequestParam(required = false, defaultValue = "") String keyWord,
+                           @RequestParam(required = false, defaultValue = "1") Integer page,
+                           @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+        model.addAttribute("bookList", bookService.findBook(keyWord, page, pageSize));
+        return "user/book-list";
     }
 }
