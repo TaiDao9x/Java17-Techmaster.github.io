@@ -157,7 +157,8 @@
                                                                 class="tg-themetag">sale</span>
                                                         </div>
                                                         <div class="tg-booktitle">
-                                                            <h3><a href="javascript:void(0);"
+                                                            <h3>
+                                                                <a th:href="@{/users/books/{bookId} (bookId=${book.id})}"
                                                                    th:text="${book.title}"></a>
                                                             </h3>
                                                         </div>
@@ -170,7 +171,7 @@
 															<del>$27.20</del>
 														</span>
                                                         <a class="tg-btn tg-btnstyletwo" href="javascript:void(0);">
-<!--                                                            <i class="fa fa-shopping-basket"></i>-->
+                                                            <!--                                                            <i class="fa fa-shopping-basket"></i>-->
                                                             <em>Want to read</em>
                                                         </a>
                                                     </div>

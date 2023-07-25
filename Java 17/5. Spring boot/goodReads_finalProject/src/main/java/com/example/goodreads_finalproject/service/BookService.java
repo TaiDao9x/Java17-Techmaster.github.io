@@ -112,6 +112,18 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    //TODO: Ko search ra được
+    public Page<Book> findBook(String keyWord, String searchType, Integer page, Integer pageSize) {
+        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+        return switch (searchType) {
+            case "" -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(keyWord, keyWord, pageRequest);
+            case "title" -> bookRepository.findAllByTitleContainingIgnoreCase(keyWord, pageRequest);
+            case "author" -> bookRepository.findAllByAuthorContainingIgnoreCase(keyWord, pageRequest);
+            default -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(null, null, pageRequest);
+        };
+
+    }
+
 
     //category
     public void createCategory(CategoryRequest newCategoryRequest) {
@@ -143,9 +155,12 @@ public class BookService {
     }
 
 
-    public Page<Book> findBook(String keyWord, Integer page, Integer pageSize) {
-        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-        return bookRepository.findAllByTitleContaining(keyWord, pageRequest);
+    public Book findBookByBookId(Long bookId) {
+        Optional<Book> bookOptional = bookRepository.findById(bookId);
+        if (bookOptional.isEmpty()) {
+            throw new NotFoundException("Book not found!");
+        }
+        return bookOptional.get();
     }
 }
 
