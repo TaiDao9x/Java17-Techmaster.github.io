@@ -8,14 +8,16 @@ import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 
-@RestController
+@Controller
 @RequestMapping
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -59,8 +61,15 @@ public class WebController {
         }
     }
 
+    //    @GetMapping("/search")
+//    public CommonResponse<?> searchBook(BookSearchRequest request) {
+//        return bookService.searchBook(request);
+//    }
     @GetMapping("/search")
-    public CommonResponse<?> searchBook(BookSearchRequest request) {
-        return bookService.searchBook(request);
+    public ModelAndView searchBook(BookSearchRequest request) {
+        ModelAndView modelAndView = new ModelAndView("user/index");
+//        modelAndView.setViewName();
+        modelAndView.addObject("bookSearchData", bookService.searchBook(request));
+        return modelAndView;
     }
 }

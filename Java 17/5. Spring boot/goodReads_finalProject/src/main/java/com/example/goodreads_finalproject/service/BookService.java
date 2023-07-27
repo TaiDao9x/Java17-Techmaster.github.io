@@ -133,7 +133,6 @@ public class BookService {
         return bookRepository.findAll(pageRequest);
     }
 
-
     public Book findBookByBookId(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
         if (bookOptional.isEmpty()) {
@@ -143,23 +142,22 @@ public class BookService {
     }
 
     public CommonResponse<?> searchBook(BookSearchRequest request) {
-        List<BookSearchResponse> books = bookCustomRepository.searchBook(request);
-        Integer pageIndex = request.getPageIndex();
-        Integer pageSize = request.getPageSize();
+        try {
+            List<BookSearchResponse> books = bookCustomRepository.searchBook(request);
+            Integer pageIndex = request.getPageIndex();
+            Integer pageSize = request.getPageSize();
 
-        int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
+            int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
 
-        int startIndex = (pageIndex - 1) * pageSize;
-        int endIndex = pageIndex * pageSize;
-        int lastIndex = books.size() - 1;
-        if (endIndex > lastIndex) {
-            endIndex = lastIndex + 1;
+            PaginationUtils<BookSearchResponse> paginationUtils = new PaginationUtils<>();
+            books = paginationUtils.searchData(books, pageIndex, pageSize);
+
+            return CommonResponse.builder()
+                    .pageNumber(pageNumber)
+                    .data(books)
+                    .build();
+        } catch (Exception e) {
+            throw new NotFoundException("Page index out of bound");
         }
-        books = books.subList(startIndex, endIndex);
-
-        return CommonResponse.builder()
-                .pageNumber(pageNumber)
-                .data(books)
-                .build();
     }
 }

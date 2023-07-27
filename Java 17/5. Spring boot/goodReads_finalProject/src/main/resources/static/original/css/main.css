@@ -5596,3 +5596,9 @@ body.tg-comingsoonpage .tg-footerbar {
     width: 50px;
     height: 50px;
 }
+
+.toast-center {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}

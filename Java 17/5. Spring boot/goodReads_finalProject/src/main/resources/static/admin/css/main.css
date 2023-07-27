@@ -13152,3 +13152,9 @@ table.table-5 td {
     color: #999; /* Đổi màu văn bản thành màu xám */
     text-decoration: none; /* Xóa gạch chân liên kết */
 }
+
+.toast-center {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
