@@ -3,41 +3,19 @@ package com.example.goodreads_finalproject.service;
 import com.example.goodreads_finalproject.entity.*;
 import com.example.goodreads_finalproject.exception.*;
 import com.example.goodreads_finalproject.model.request.*;
-import com.example.goodreads_finalproject.model.response.BookResponse;
-import com.example.goodreads_finalproject.model.response.JwtResponse;
-import com.example.goodreads_finalproject.model.response.ReadingBookResponse;
-import com.example.goodreads_finalproject.model.response.UserResponse;
+import com.example.goodreads_finalproject.model.response.*;
 import com.example.goodreads_finalproject.repository.*;
-import com.example.goodreads_finalproject.security.CustomUserDetails;
-import com.example.goodreads_finalproject.security.JwtUtils;
-import com.example.goodreads_finalproject.security.SecurityUtils;
-import com.example.goodreads_finalproject.statics.Roles;
+import com.example.goodreads_finalproject.repository.custom.BookCustomRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,6 +28,7 @@ public class BookService {
     CategoryRepository categoryRepository;
     ReadingBookRepository readingBookRepository;
     ObjectMapper objectMapper;
+    BookCustomRepository bookCustomRepository;
 
     public void createBook(CreateBookRequest newBook) {
         Set<Long> categoryId = newBook.getCategoryId().stream()
@@ -162,5 +141,25 @@ public class BookService {
         }
         return bookOptional.get();
     }
-}
 
+    public CommonResponse<?> searchBook(BookSearchRequest request) {
+        List<BookSearchResponse> books = bookCustomRepository.searchBook(request);
+        Integer pageIndex = request.getPageIndex();
+        Integer pageSize = request.getPageSize();
+
+        int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
+
+        int startIndex = (pageIndex - 1) * pageSize;
+        int endIndex = pageIndex * pageSize;
+        int lastIndex = books.size() - 1;
+        if (endIndex > lastIndex) {
+            endIndex = lastIndex + 1;
+        }
+        books = books.subList(startIndex, endIndex);
+
+        return CommonResponse.builder()
+                .pageNumber(pageNumber)
+                .data(books)
+                .build();
+    }
+}

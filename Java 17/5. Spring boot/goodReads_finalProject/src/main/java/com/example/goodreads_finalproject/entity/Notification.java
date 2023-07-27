@@ -25,6 +25,7 @@ public class Notification {
 
     String typeOfNotification;
 
+    @Column(columnDefinition = "TEXT")
     String content;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN default false")

@@ -45,11 +45,18 @@ $(document).ready(function () {
     // show image
     let chosenFile = null;
     $('#fileInput').change(event => {
+        const maxSizeInBytes = 5242880;
         const tempFiles = event.target.files;
         if (!tempFiles || tempFiles.length === 0) {
             return;
         }
         chosenFile = tempFiles[0];
+
+        if (chosenFile && chosenFile.size > maxSizeInBytes) {
+            alert("File size exceeded the allowed limit (5MB)!");
+            this.value = '';
+            return;
+        }
         const imageBlob = new Blob([chosenFile], {type: chosenFile.type});
         const imageUrl = URL.createObjectURL(imageBlob);
         $('#image-book .btn-upload-image').empty();
@@ -121,6 +128,7 @@ $(document).ready(function () {
                 data: JSON.stringify(newBook),
                 success: function (response) {
                     toastr.success("Create book success!");
+                    $('#submitBtn').prop('disabled', false);
                     window.location.reload();
                 },
                 error: function (error) {
@@ -152,10 +160,18 @@ $(document).ready(function () {
         },
         rules: {
             "title": {
-                required: true
+                required: true,
+                maxlength: 255
             },
             "author": {
+                required: true,
+                maxlength: 255
+            },
+            "category": {
                 required: true
+            },
+            "about": {
+                maxlength: 65535
             },
             "published": {
                 required: true,
@@ -164,14 +180,22 @@ $(document).ready(function () {
         },
         messages: {
             "title": {
-                required: "*Enter title"
+                required: "* Enter title",
+                maxlength: "Cannot be longer than 255 characters"
             },
             "author": {
-                required: "*Enter author"
+                required: "* Enter author",
+                maxlength: "Cannot be longer than 255 characters"
+            },
+            "category": {
+                required: "* Select category",
+            },
+            "about": {
+                maxlength: "Cannot be longer than 65535 characters"
             },
             "published": {
-                required: "*Enter published date",
-                pastDate: "*Published date must be the past date"
+                required: "* Enter published date",
+                pastDate: "* Published date must be the past date"
             }
         },
         invalidHandler: function (form, validator) {
@@ -195,9 +219,6 @@ $(document).ready(function () {
         let isValidForm = $("#create-book-form").valid();
         if (!isValidForm) return;
         $('#submitBtn').prop('disabled', true);
-        setTimeout(function () {
-            $('#submitBtn').prop('disabled', false);
-        }, 1500);
         uploadImageAndCreateBook();
     })
 

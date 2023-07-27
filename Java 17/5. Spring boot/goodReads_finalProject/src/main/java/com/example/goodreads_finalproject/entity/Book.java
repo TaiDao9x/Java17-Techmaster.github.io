@@ -28,6 +28,7 @@ public class Book extends BaseEntity {
 
     String author;
 
+    @Column(columnDefinition = "TEXT")
     String description;
 
     @Column(nullable = false)

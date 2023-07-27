@@ -26,6 +26,7 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "review_id")
     Review review;
 
+    @Column(columnDefinition = "TEXT")
     String content;
 
     LocalDateTime deletedDateTime;

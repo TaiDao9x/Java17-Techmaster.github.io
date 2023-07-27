@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{layout/layout-admin :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: .dashboard__main},
                                                 ~{:: #jsResources}
                                                 )}">
 
 <head>
     <title>Add Book</title>
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/original/multiSelect/css/example.css}">
+
+    </th:block>
+
 </head>
 
 <body>
@@ -48,20 +53,21 @@
                                 <div class="row x-gap-20 y-gap-20">
                                     <div class="col-12">
                                         <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Title</label>
+                                            <label class="lh-1 text-16 text-light-1">Title <span class="error-message"> (*)</span></label>
                                             <input type="text" name="title" id="title" required>
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Author</label>
+                                            <label class="lh-1 text-16 text-light-1">Author <span class="error-message"> (*)</span></label>
                                             <input type="text" name="author" id="author" required>
                                         </div>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Published</label>
+                                            <label class="lh-1 text-16 text-light-1">Published <span
+                                                    class="error-message"> (*)</span></label>
                                             <input type="date" name="published" id="published" required>
                                         </div>
                                     </div>
@@ -73,40 +79,45 @@
                                         </div>
                                     </div>
 
-                                    <div class="col">
+                                    <!--                                    <div class="col">-->
 
-                                        <div class="row x-gap-100 y-gap-15">
-                                            <div class="col-12 d-flex">
-                                                <div class="text-18 fw-500 col-2">Categories</div>
-                                                <div class="col-10">
-                                                    <input type="text" id="search-category"
-                                                           placeholder=" Search ...">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-2 col-sm-6 show-genres"
-                                                 th:each="category, iterStat :${listAllCategories}">
-                                                <div class="row y-gap-15">
-                                                    <div class="col-12">
-                                                        <div class="d-flex items-center">
-                                                            <div class="form-checkbox ">
-                                                                <input type="checkbox"
-                                                                       name="category"
-                                                                       th:id="${category.id}">
-                                                                <div class="form-checkbox__mark">
-                                                                    <div class="form-checkbox__icon icon-check"></div>
-                                                                </div>
-                                                            </div>
-                                                            <label th:for="${category.id}" class="text-15 lh-11 ml-10"
-                                                                   th:text="${category.name}"></label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                    <!--                                        <div class="row x-gap-100 y-gap-15">-->
+                                    <!--                                            <div class="col-12 d-flex">-->
+                                    <div class="text-18 fw-500 col-sm-12 col-md-2">Categories <span class="error-message"> (*)</span>
+                                    </div>
+                                    <div class="col-sm-12 col-md-10">
+                                        <!--                                                    <input type="text" id="search-category"-->
+                                        <!--                                                           placeholder=" Search ...">-->
+                                        <input id="msdb-a-2" name="category" class="std-input w-100" type="text"
+                                               placeholder=" Search here ...">
 
                                     </div>
+
+                                    <!--                                            </div>-->
+                                    <!--                                            <div class="col-lg-2 col-sm-6 show-genres"-->
+                                    <!--                                                 th:each="category, iterStat :${listAllCategories}">-->
+                                    <!--                                                <div class="row y-gap-15">-->
+                                    <!--                                                    <div class="col-12">-->
+                                    <!--                                                        <div class="d-flex items-center">-->
+                                    <!--                                                            <div class="form-checkbox ">-->
+                                    <!--                                                                <input type="checkbox"-->
+                                    <!--                                                                       name="category"-->
+                                    <!--                                                                       th:id="${category.id}">-->
+                                    <!--                                                                <div class="form-checkbox__mark">-->
+                                    <!--                                                                    <div class="form-checkbox__icon icon-check"></div>-->
+                                    <!--                                                                </div>-->
+                                    <!--                                                            </div>-->
+
+                                    <!--                                                            <label th:for="${category.id}" class="text-15 lh-11 ml-10"-->
+                                    <!--                                                                   th:text="${category.name}"></label>-->
+                                    <!--                                                        </div>-->
+                                    <!--                                                    </div>-->
+                                    <!--                                                </div>-->
+                                    <!--                                            </div>-->
+
+                                    <!--                                        </div>-->
+
+                                    <!--                                    </div>-->
                                 </div>
                             </form>
 
@@ -179,6 +190,9 @@
 
 <th:block id="jsResources">
     <script th:src="@{/admin/handle/add-book.js}"></script>
+    <script th:src="@{/original/multiSelect/js/example.js}"></script>
+    <script th:src="@{/original/multiSelect/js/ex-1-custom-appear.js}"></script>
+    <script th:src="@{/original/multiSelect/js/m-select-d-box.js}"></script>
 
 </th:block>
 

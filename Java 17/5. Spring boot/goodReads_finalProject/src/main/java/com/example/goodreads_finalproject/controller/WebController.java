@@ -1,22 +1,27 @@
 package com.example.goodreads_finalproject.controller;
 
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
+import com.example.goodreads_finalproject.model.request.BookSearchRequest;
+import com.example.goodreads_finalproject.model.response.CommonResponse;
+import com.example.goodreads_finalproject.service.BookService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+
+@RestController
 @RequestMapping
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WebController {
     UserService userService;
+    BookService bookService;
 
     @GetMapping
     public String getHomePage(Model model) {
@@ -54,4 +59,8 @@ public class WebController {
         }
     }
 
+    @GetMapping("/search")
+    public CommonResponse<?> searchBook(BookSearchRequest request) {
+        return bookService.searchBook(request);
+    }
 }
