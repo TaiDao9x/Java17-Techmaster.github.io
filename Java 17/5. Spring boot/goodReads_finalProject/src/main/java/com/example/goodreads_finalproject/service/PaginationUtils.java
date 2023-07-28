@@ -13,4 +13,8 @@ public class PaginationUtils<T> {
         }
         return data.subList(startIndex, endIndex);
     }
+
+    public int getPageNumber(List<T> data, Integer pageSize) {
+        return (int) Math.ceil((float) data.size() / pageSize);
+    }
 }

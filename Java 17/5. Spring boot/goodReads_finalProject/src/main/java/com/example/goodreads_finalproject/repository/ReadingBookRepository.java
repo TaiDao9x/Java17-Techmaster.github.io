@@ -12,7 +12,8 @@ import java.util.Optional;
 
 public interface ReadingBookRepository extends JpaRepository<ReadingBook, Long> {
 
-    Page<ReadingBook> findAllByUser(User user, Pageable pageable);
+//    Page<ReadingBook> findAllByUser(User user, Pageable pageable);
 
 
+    List<ReadingBook> findAllByUser(User user);
 }

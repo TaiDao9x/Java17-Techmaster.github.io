@@ -35,15 +35,7 @@ public class UserController {
         return userService.getDetail(id);
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
-        try {
-            userService.createUser(request);
-            return ResponseEntity.ok(null);
-        } catch (ExistedUserException ex) {
-            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
-        }
-    }
+
 
     @PostMapping("/otp-sending")
     public ResponseEntity<?> sendOtp(@RequestBody @Valid EmailRequest emailRequest) {

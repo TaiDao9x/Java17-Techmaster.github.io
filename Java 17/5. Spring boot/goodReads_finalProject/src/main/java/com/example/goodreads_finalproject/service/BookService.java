@@ -6,6 +6,7 @@ import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.*;
 import com.example.goodreads_finalproject.repository.*;
 import com.example.goodreads_finalproject.repository.custom.BookCustomRepository;
+import com.example.goodreads_finalproject.statics.ReadingStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ public class BookService {
     ObjectMapper objectMapper;
     BookCustomRepository bookCustomRepository;
 
+
     public void createBook(CreateBookRequest newBook) {
         Set<Long> categoryId = newBook.getCategoryId().stream()
                 .map(Long::parseLong)
@@ -49,24 +51,24 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public Page<ReadingBookResponse> getAllBooksUserInterested(Long userId, Integer page, Integer pageSize) {
-        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isEmpty()) {
-            throw new NotFoundException("Not found user!");
-        }
-        Page<ReadingBook> readingBooksPage = readingBookRepository.findAllByUser(userOptional.get(), pageRequest);
-        if (readingBooksPage == null) {
-            throw new NotFoundException("Not found book!");
-        }
-        List<ReadingBookResponse> responseList = new ArrayList<>();
-
-        for (ReadingBook readingBook : readingBooksPage.getContent()) {
-            responseList.add(objectMapper.convertValue(readingBook, ReadingBookResponse.class));
-        }
-
-        return new PageImpl<>(responseList, pageRequest, readingBooksPage.getTotalElements());
-    }
+//    public Page<ReadingBookResponse> getAllBooksUserInterested(Long userId, Integer page, Integer pageSize) {
+//        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+//        Optional<User> userOptional = userRepository.findById(userId);
+//        if (userOptional.isEmpty()) {
+//            throw new NotFoundException("Not found user!");
+//        }
+//        Page<ReadingBook> readingBooksPage = readingBookRepository.findAllByUser(userOptional.get(), pageRequest);
+//        if (readingBooksPage == null) {
+//            throw new NotFoundException("Not found book!");
+//        }
+//        List<ReadingBookResponse> responseList = new ArrayList<>();
+//
+//        for (ReadingBook readingBook : readingBooksPage.getContent()) {
+//            responseList.add(objectMapper.convertValue(readingBook, ReadingBookResponse.class));
+//        }
+//
+//        return new PageImpl<>(responseList, pageRequest, readingBooksPage.getTotalElements());
+//    }
 
     public void updateBook(UpdateBookRequest updateBookRequest) {
         Book book = bookRepository.findById(updateBookRequest.getBookId()).get();
@@ -159,5 +161,63 @@ public class BookService {
         } catch (Exception e) {
             throw new NotFoundException("Page index out of bound");
         }
+    }
+
+    public void markBook(ReadingBookRequest request) {
+        Optional<Book> bookOptional = bookRepository.findById(request.getBookId());
+        User user = userRepository.findById(request.getUserId()).get();
+        if (bookOptional.isEmpty()) {
+            throw new NotFoundException("Book not found!");
+        }
+
+        String status = request.getReadingStatus();
+        ReadingStatus enumValue = null;
+
+        for (ReadingStatus readingStatus : ReadingStatus.values()) {
+            if (readingStatus.getName().equals(status)) {
+                enumValue = readingStatus;
+                break;
+            }
+        }
+        if (enumValue == null) {
+            throw new IllegalArgumentException("Invalid Reading Status!");
+        }
+        ReadingBook readingBook = ReadingBook.builder()
+                .book(bookOptional.get())
+                .user(user)
+                .readingStatus(enumValue)
+                .build();
+
+        readingBookRepository.save(readingBook);
+    }
+
+    public CommonResponse<?> getMyBook(ReadingBookRequest request) {
+        Optional<User> userOptional = userRepository.findById(request.getUserId());
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException("User not exist!");
+        }
+        List<ReadingBook> readingBooks = readingBookRepository.findAllByUser(userOptional.get());
+        List<ReadingBookResponse> readingBookResponses = new ArrayList<>();
+        for (ReadingBook readingBook : readingBooks) {
+            readingBookResponses.add(
+                    ReadingBookResponse.builder()
+                            .book(readingBook.getBook())
+                            .readingStatus(readingBook.getReadingStatus().getName())
+                            .readingProgress(readingBook.getReadingProgress())
+                            .startedDateTime(readingBook.getStartedDateTime())
+                            .finishedDateTime(readingBook.getFinishedDateTime())
+                            .build());
+        }
+
+        Integer pageIndex = request.getPageIndex();
+        Integer pageSize = request.getPageSize();
+        PaginationUtils<ReadingBookResponse> paginationUtils = new PaginationUtils<>();
+        int pageNumber = paginationUtils.getPageNumber(readingBookResponses, pageSize);
+        readingBookResponses = paginationUtils.searchData(readingBookResponses, pageIndex, pageSize);
+
+        return CommonResponse.builder()
+                .pageNumber(pageNumber)
+                .data(readingBookResponses)
+                .build();
     }
 }

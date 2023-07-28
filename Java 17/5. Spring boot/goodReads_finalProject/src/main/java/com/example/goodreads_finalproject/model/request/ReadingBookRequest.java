@@ -1,4 +1,4 @@
-package com.example.goodreads_finalproject.model.response;
+package com.example.goodreads_finalproject.model.request;
 
 import com.example.goodreads_finalproject.entity.BaseEntity;
 import com.example.goodreads_finalproject.entity.Book;
@@ -15,9 +15,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ReadingBookResponse{
+public class ReadingBookRequest extends BaseSearchRequest {
 
-    Book book;
+    Long userId;
+
+    Long bookId;
 
     String readingStatus;
 

@@ -12,9 +12,10 @@ $(window).on("load", function () {
                 " </div>";
             $(".tg-userlogin").append(userHtmlContent);
         } else {
-            const userHtmlContent = "<figure><a href=\"javascript:void(0);\"><img src=\"original/images/users/img-01.jpg\"\n" +
-                "                                                                       alt=\"image description\"></a></figure>\n" +
-                "                            <span>Hi, John</span>";
+            const userHtmlContent = `<figure><a href="javascript:void(0);">
+                                    <img src='https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2FavatarTai.jpg?alt=media&token=22088018-0542-404e-a979-3d0b0494342e' alt="image description"></a></figure> 
+                                            <span>Hi, John</span>
+`;
             $(".tg-userlogin").append(userHtmlContent);
         }
     }
@@ -23,9 +24,7 @@ $(window).on("load", function () {
 
 });
 
-
 jQuery(function ($) {
-
 
 });
 
