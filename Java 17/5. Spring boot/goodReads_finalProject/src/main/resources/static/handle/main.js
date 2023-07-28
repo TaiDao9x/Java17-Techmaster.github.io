@@ -1,3 +1,4 @@
+// Set header cho tất cả các request Api
 $.ajaxSetup({
     beforeSend: function (xhr) {
         let jwtToken = getJwtToken();

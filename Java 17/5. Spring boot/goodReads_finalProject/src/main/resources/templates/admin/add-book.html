@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{layout/layout-admin :: main-fragment(
                                                 ~{:: title},
-                                                ~{:: #css},
+                                                ~{},
                                                 ~{:: .dashboard__main},
                                                 ~{:: #jsResources}
                                                 )}">
@@ -9,7 +9,6 @@
 <head>
     <title>Add Book</title>
     <th:block id="css">
-        <link rel="stylesheet" th:href="@{/original/multiSelect/css/example.css}">
 
     </th:block>
 
@@ -190,9 +189,7 @@
 
 <th:block id="jsResources">
     <script th:src="@{/admin/handle/add-book.js}"></script>
-    <script th:src="@{/original/multiSelect/js/example.js}"></script>
-    <script th:src="@{/original/multiSelect/js/ex-1-custom-appear.js}"></script>
-    <script th:src="@{/original/multiSelect/js/m-select-d-box.js}"></script>
+
 
 </th:block>
 

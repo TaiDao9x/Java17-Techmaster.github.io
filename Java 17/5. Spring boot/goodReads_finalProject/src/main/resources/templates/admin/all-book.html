@@ -34,10 +34,7 @@
                                 data-tab-target=".-tab-item-1">All Books
                         </button>
                     </div>
-                    <div class="col-10">
-                        <input type="text" id="search-category"
-                               placeholder=" Search book...">
-                    </div>
+
                 </div>
 
                 <div class="tabs__content pt-30 js-tabs-content">
@@ -68,7 +65,7 @@
                                 </thead>
                                 <tbody>
 
-                                <tr th:each="book:${pageBookInfo}">
+                                <tr th:each="book:${pageBookInfo.data}">
                                     <td>
                                         <div class="d-flex items-center">
                                             <div class="form-checkbox ">
@@ -130,44 +127,8 @@
                 </div>
             </div>
 
+            <th:block th:replace="fragments/pagination::pagination(${currentPage},${pageBookInfo})"></th:block>
 
-            <div class="pt-30">
-                <div class="row justify-between">
-                    <div class="col-auto">
-                        <a class="page-link"
-                           th:href="@{/admin/all-book?page={page} (page=${currentPage-1})}"
-                           th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">
-                            <button class="button -blue-1 size-40 rounded-full border-light">
-                                <i class="icon-chevron-left text-12"></i>
-                            </button>
-                        </a>
-                    </div>
-
-                    <div class="col-auto">
-                        <div class="row x-gap-20 y-gap-20 items-center">
-                            <div class="col-auto flex-center">
-                                <a class="size-40 flex-center rounded-full"
-                                   th:href="@{/admin/all-book(page=${page}) }"
-                                   th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }"
-                                   th:each="page:${#numbers.sequence(1,pageBookInfo.getTotalPages())}">
-                                    <div th:text="${page}">
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-auto">
-                        <a class="page-link"
-                           th:classappend="${currentPage == pageBookInfo.getTotalPages() ? 'disabled-link' : ''}"
-                           th:href="@{/admin/all-book(page=${currentPage+1})}">
-                            <button class="button -blue-1 size-40 rounded-full border-light">
-                                <i class="icon-chevron-right text-12"></i>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <footer class="footer -dashboard mt-60">

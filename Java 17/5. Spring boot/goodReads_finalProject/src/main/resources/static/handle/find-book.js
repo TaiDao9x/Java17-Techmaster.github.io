@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // find book user
     $('.icon-magnifier').click(() => {
         let keyWord = $('.typeahead').val();
         let requestParam = '?' + keyWord;

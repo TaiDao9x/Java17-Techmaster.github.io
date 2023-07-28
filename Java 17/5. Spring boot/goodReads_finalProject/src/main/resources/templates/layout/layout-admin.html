@@ -19,6 +19,8 @@
 
     <!-- Stylesheets -->
     <script th:src="@{/original/js/vendor/jquery-library.js}"></script>
+    <link rel="stylesheet" th:href="@{/original/multiSelect/css/example.css}">
+
     <link rel="stylesheet" th:href="@{/admin/css/vendors.css}">
     <link rel="stylesheet" th:href="@{/admin/css/main.css}">
 
@@ -50,11 +52,14 @@
                     </button>
 
                     <div class="single-field relative d-flex items-center md:d-none ml-30">
-                        <input class="pl-50 border-light text-dark-1 h-50 rounded-8" type="email" placeholder="Search">
+                        <input class="pl-50 border-light text-dark-1 h-50 rounded-8 search-admin" type="text"
+                               placeholder="Search">
                         <button class="absolute d-flex items-center h-full">
-                            <i class="icon-search text-20 px-15 text-dark-1"></i>
+                            <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                         </button>
+
                     </div>
+
                 </div>
             </div>
 
@@ -80,6 +85,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </header>
 
@@ -112,7 +118,7 @@
                             <ul class="list-disc pb-5 pl-40">
 
                                 <li>
-                                    <a href="/admin/all-book" class="text-15">All Books</a>
+                                    <a href="/admin/books" class="text-15">All Books</a>
                                 </li>
 
                                 <li>
@@ -452,6 +458,10 @@
 <script th:src="@{/admin/js/vendors.js}"></script>
 <script th:src="@{/admin/js/main.js}"></script>
 <script th:src="@{/handle/main.js}"></script>
+
+<script th:src="@{/original/multiSelect/js/example.js}"></script>
+<script th:src="@{/original/multiSelect/js/ex-1-custom-appear.js}"></script>
+<script th:src="@{/original/multiSelect/js/m-select-d-box.js}"></script>
 
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>

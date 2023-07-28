@@ -12,5 +12,5 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class BaseSearchRequest {
     Integer pageIndex = 1;
-    Integer pageSize = 6;
+    Integer pageSize = 3;
 }

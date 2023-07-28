@@ -1,0 +1,106 @@
+<th:block th:fragment="pagination(currentPage,pageBookInfo)">
+    <div class="pt-30">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="page-link"
+                   th:href="@{/admin/books?pageIndex={page} (page=${currentPage-1})}"
+                   th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">
+                    <button class="button -blue-1 size-40 rounded-full border-light">
+                        <i class="icon-chevron-left text-12"></i>
+                    </button>
+                </a>
+            </div>
+
+            <th:block th:if="${pageBookInfo.pageNumber}<=5">
+                <div class="col-auto">
+                    <div class="row x-gap-20 y-gap-20 items-center">
+                        <div class="col-auto flex-center">
+                            <a class="size-40 flex-center rounded-full"
+                               th:each="page:${#numbers.sequence(1,pageBookInfo.pageNumber)}"
+                               th:href="@{/admin/books(pageIndex=${page}) }"
+                               th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
+                                <div th:text="${page}">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+            <th:block th:if="${pageBookInfo.pageNumber}>5">
+                <th:block th:if="${currentPage}<=3">
+                    <div class="col-auto">
+                        <div class="row x-gap-20 y-gap-20 items-center">
+                            <div class="col-auto flex-center">
+                                <a class="size-40 flex-center rounded-full"
+                                   th:each="page:${#numbers.sequence(1,5)}"
+                                   th:href="@{/admin/books(pageIndex=${page}) }"
+                                   th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
+                                    <div th:text="${page}">
+                                    </div>
+                                </a>
+                                <span>...</span>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+                <th:block th:if="${currentPage}>3">
+                    <th:block th:if="${currentPage}<${pageBookInfo.pageNumber}-2">
+                        <div class="col-auto">
+                            <div class="row x-gap-20 y-gap-20 items-center">
+                                <div class="col-auto flex-center">
+                                    <span>...</span>
+                                    <a class="size-40 flex-center rounded-full"
+                                       th:each="page:${#numbers.sequence(currentPage-2,currentPage+2)}"
+                                       th:href="@{/admin/books(pageIndex=${page}) }"
+                                       th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
+                                        <div th:text="${page}">
+                                        </div>
+                                    </a>
+                                    <span>...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${currentPage}>=${pageBookInfo.pageNumber}-2">
+                        <div class="col-auto">
+                            <div class="row x-gap-20 y-gap-20 items-center">
+                                <div class="col-auto flex-center">
+                                    <span>...</span>
+                                    <a class="size-40 flex-center rounded-full"
+                                       th:each="page:${#numbers.sequence(pageBookInfo.pageNumber-4,pageBookInfo.pageNumber)}"
+                                       th:href="@{/admin/books(pageIndex=${page}) }"
+                                       th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
+                                        <div th:text="${page}">
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </th:block>
+
+            <div class="col-auto d-flex d-inline">
+                <a class="page-link"
+                   th:classappend="${currentPage == pageBookInfo.pageNumber ? 'disabled-link' : ''}"
+                   th:href="@{/admin/books(pageIndex=${currentPage+1})}">
+                    <button class="button -blue-1 size-40 rounded-full border-light">
+                        <i class="icon-chevron-right text-12"></i>
+                    </button>
+                </a>
+                <span class="">
+                    <div class="col-auto d-flex align-items-end">
+<!--                        <input id="pageInput" type="number" class="form-control pt-0 text-12" placeholder="Chọn trang"-->
+                        <!--                               th:attr="pageNumber=${pageBookInfo.pageNumber}">-->
+                        <input id="msdb-a" class="form-control text-12" type="text"
+                               placeholder="Chọn trang..."
+                               th:attr="pageNumber=${pageBookInfo.pageNumber}">
+                    </div>
+
+                </span>
+            </div>
+        </div>
+    </div>
+
+</th:block>
