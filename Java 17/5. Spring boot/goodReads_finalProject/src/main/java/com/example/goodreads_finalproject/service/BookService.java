@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -169,10 +170,8 @@ public class BookService {
         if (bookOptional.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
-
         String status = request.getReadingStatus();
         ReadingStatus enumValue = null;
-
         for (ReadingStatus readingStatus : ReadingStatus.values()) {
             if (readingStatus.getName().equals(status)) {
                 enumValue = readingStatus;
@@ -187,7 +186,6 @@ public class BookService {
                 .user(user)
                 .readingStatus(enumValue)
                 .build();
-
         readingBookRepository.save(readingBook);
     }
 
@@ -204,6 +202,7 @@ public class BookService {
                             .book(readingBook.getBook())
                             .readingStatus(readingBook.getReadingStatus().getName())
                             .readingProgress(readingBook.getReadingProgress())
+                            .addedDateTime(LocalDate.now())
                             .startedDateTime(readingBook.getStartedDateTime())
                             .finishedDateTime(readingBook.getFinishedDateTime())
                             .build());

@@ -273,8 +273,8 @@ table > tfoot > tr > th,
 table > thead > tr > td,
 table > tbody > tr > td,
 table > tfoot > tr > td {
-    border-top: 1px solid #dbdbdb;
-    border: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    /*border: 1px solid #dbdbdb;*/
     line-height: 2.5;
     padding-left: 3px;
     text-align: center;
@@ -282,7 +282,7 @@ table > tfoot > tr > td {
 }
 
 table thead tr th {
-    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
     text-align: center;
     text-transform: capitalize;
 }
@@ -301,14 +301,14 @@ table > thead > tr > th {
     vertical-align: bottom;
 }
 
-table > caption + thead > tr:first-child > th,
-table > colgroup + thead > tr:first-child > th,
-table > thead:first-child > tr:first-child > th,
-table > caption + thead > tr:first-child > td,
-table > colgroup + thead > tr:first-child > td,
-table > thead:first-child > tr:first-child > td {
-    border-bottom: 0;
-}
+/*table > caption + thead > tr:first-child > th,*/
+/*table > colgroup + thead > tr:first-child > th,*/
+/*table > thead:first-child > tr:first-child > th,*/
+/*table > caption + thead > tr:first-child > td,*/
+/*table > colgroup + thead > tr:first-child > td,*/
+/*table > thead:first-child > tr:first-child > td {*/
+/*    border-bottom: 0;*/
+/*}*/
 
 table > tbody + tbody {
     border-top: 2px solid #dbdbdb;

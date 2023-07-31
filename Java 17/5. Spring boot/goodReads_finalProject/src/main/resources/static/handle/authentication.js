@@ -36,6 +36,10 @@ function getRefreshToken() {
     return localStorage.getItem('refreshToken');
 }
 
+function getUserInfomation() {
+    return localStorage.getItem('userInfomation');
+}
+
 function refreshToken() {
     let jwtToken = getJwtToken();
     if (!jwtToken) {
@@ -192,7 +196,11 @@ $(document).ready(function () {
             data: JSON.stringify(request),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log(data);
+
+                // console.log(document.cookie)
+                // document.cookie = "jwtToken=" + data.jwt + "; path=/;"
+                // console.log(document.cookie)
+                // console.log(data);
                 localStorage.clear();
                 localStorage.setItem('jwtToken', data.jwt);
                 localStorage.setItem('refreshToken', data.refreshToken);
@@ -293,7 +301,9 @@ $(document).ready(function () {
                     toastr.success("Log out success")
 
                     setTimeout(function () {
-                        window.location.reload();
+                        // window.location.reload();
+                        window.location.href = 'http://localhost:8080/'
+
                         // window.location.href = 'http://localhost:8080/login';
                     }, 700)
                 },

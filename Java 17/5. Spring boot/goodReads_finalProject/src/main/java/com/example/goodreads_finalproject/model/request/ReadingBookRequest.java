@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,8 +26,8 @@ public class ReadingBookRequest extends BaseSearchRequest {
 
     double readingProgress;
 
-    LocalDateTime startedDateTime;
+    LocalDate startedDateTime;
 
-    LocalDateTime finishedDateTime;
+    LocalDate finishedDateTime;
 
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,9 +29,9 @@ public class ReadingBook extends BaseEntity {
     @Column(nullable = false)
     double readingProgress;
 
-    LocalDateTime startedDateTime;
+    LocalDate addedDateTime;
 
-    LocalDateTime finishedDateTime;
+    LocalDate startedDateTime;
 
-    LocalDateTime deletedDateTime;
+    LocalDate finishedDateTime;
 }

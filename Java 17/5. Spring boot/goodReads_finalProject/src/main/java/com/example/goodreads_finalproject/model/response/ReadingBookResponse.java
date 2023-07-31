@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,8 +24,10 @@ public class ReadingBookResponse{
 
     double readingProgress;
 
-    LocalDateTime startedDateTime;
+    LocalDate addedDateTime;
 
-    LocalDateTime finishedDateTime;
+    LocalDate startedDateTime;
+
+    LocalDate finishedDateTime;
 
 }

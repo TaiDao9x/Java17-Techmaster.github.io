@@ -19,21 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1/users/books")
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookUserController {
     BookService bookService;
-
-//    @GetMapping("/books/{userId}")
-//    public String getAllBooks(Model model, @PathVariable Long userId,
-//                              @RequestParam(required = false, defaultValue = "1") Integer page,
-//                              @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
-////        model.addAttribute("allBookUserInterested", bookService.getAllBooksUserInterested(userId));
-//        Page<ReadingBookResponse> readingBookResponses = bookService.getAllBooksUserInterested(userId, page, pageSize);
-//        return "user/my-book";
-//    }
 
     // TODO: tìm kiếm sách bên user, chưa authen, thay bằng method search mới
     @GetMapping()
@@ -62,16 +53,30 @@ public class BookUserController {
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
 
+//    @GetMapping("/book-reading")
+//    public ModelAndView getMyBook() {
+//        ModelAndView modelAndView = new ModelAndView("user/my-book");
+////        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+////        if (userIdOptional.isEmpty()) {
+////            throw new UsernameNotFoundException("Tài khoản không tồn tại");
+////        }
+////        modelAndView.addObject("myBookList", bookService.getMyBook(ReadingBookRequest.builder()
+////                .userId(userId)
+////                .build()));
+//
+//        return modelAndView;
+//    }
+
     @GetMapping("/book-reading")
-    public ResponseEntity<?> getMyBook() {
+    public String getMyBook(Model model) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
         if (userIdOptional.isEmpty()) {
             throw new UsernameNotFoundException("Tài khoản không tồn tại");
         }
+        model.addAttribute("myBookList", bookService.getMyBook(ReadingBookRequest.builder()
+                .userId(userIdOptional.get())
+                .build()));
 
-        return ResponseEntity.ok(
-                bookService.getMyBook(ReadingBookRequest.builder()
-                        .userId(userIdOptional.get())
-                        .build()));
+        return "user/my-book";
     }
 }

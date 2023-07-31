@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ReadingStatus {
-    WANT_TO_READ("Want to read"), READING("Reading"), READ("Read");
+    WANT_TO_READ("To-read"), READING("Reading"), READ("Read");
 
     String name;
 
