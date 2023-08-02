@@ -189,7 +189,7 @@ public class BookService {
         readingBookRepository.save(readingBook);
     }
 
-    public CommonResponse<?> getMyBook(ReadingBookRequest request) {
+    public CommonResponse<?> getMyBookPagination(ReadingBookRequest request) {
         Optional<User> userOptional = userRepository.findById(request.getUserId());
         if (userOptional.isEmpty()) {
             throw new NotFoundException("User not exist!");
@@ -219,4 +219,30 @@ public class BookService {
                 .data(readingBookResponses)
                 .build();
     }
+
+    public List<Integer> countMyBookList(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException("User not exist!");
+        }
+        List<ReadingBook> readingBooks = readingBookRepository.findAllByUser(userOptional.get());
+        List<Integer> result = new ArrayList<>();
+        int countRead = 0;
+        int countReading = 0;
+        int countWantToRead = 0;
+        for (ReadingBook readingBook : readingBooks) {
+            switch (readingBook.getReadingStatus().getName()) {
+                case "To-read" -> countWantToRead++;
+                case "Reading" -> countReading++;
+                case "Read" -> countRead++;
+            }
+        }
+        int countAllMyBook = countRead + countReading + countWantToRead;
+        result.add(countAllMyBook);
+        result.add(countRead);
+        result.add(countReading);
+        result.add(countWantToRead);
+        return result;
+    }
 }
+

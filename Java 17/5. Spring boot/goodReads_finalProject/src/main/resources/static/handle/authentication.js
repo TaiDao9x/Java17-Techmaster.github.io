@@ -5,18 +5,117 @@ $(window).on("load", function () {
         const jwtToken = localStorage.getItem("jwtToken");
         if (!jwtToken) {
             const userInfo = JSON.parse(localStorage.getItem("userInfomation"));
-            $(".tg-userlogin").empty();
+            $(".tg-wishlistandcart").empty();
             const userHtmlContent = "<div class='btn-group btn-group-regis'>\n" +
                 "<a type=\"button\" href=\"/login\" class=\"btn btn-regis-signin\">SIGN IN</a>\n" +
                 " <a type=\"button\" href=\"/signup\" class=\"btn btn-regis-signup\">SIGN UP</a>\n" +
                 " </div>";
-            $(".tg-userlogin").append(userHtmlContent);
+            $(".tg-wishlistandcart").append(userHtmlContent);
+
         } else {
-            const userHtmlContent = `<figure><a href="javascript:void(0);">
-                                    <img src='https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2FavatarTai.jpg?alt=media&token=22088018-0542-404e-a979-3d0b0494342e' alt="image description"></a></figure> 
-                                            <span>Hi, John</span>
-`;
-            $(".tg-userlogin").append(userHtmlContent);
+            const userLoginHtml = `
+                <div class="dropdown tg-themedropdown tg-wishlistdropdown">
+                                    <a href="javascript:void(0);" id="tg-wishlisst" class="tg-btnthemedropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="tg-themebadge">3</span>
+                                        <i class="fa-regular fa-bell"></i>
+                                    </a>
+                                    <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-wishlisst">
+                                        <div class="tg-description">
+                                            <p>No products were added to the wishlist!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown tg-themedropdown tg-minicartdropdown">
+                                    <a href="javascript:void(0);" id="tg-minicart" class="tg-btnthemedropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="tg-themebadge">3</span>
+                                        <i class="fa-solid fa-people-group"></i>
+                                    </a>
+                                    <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-minicart">
+                                        <div class="tg-minicartbody">
+                                            <div class="tg-minicarproduct">
+                                                <figure>
+                                                    <img src="images/products/img-01.jpg" alt="image description">
+
+                                                </figure>
+                                                <div class="tg-minicarproductdata">
+                                                    <h5><a href="javascript:void(0);">Our State Fair Is A Great
+                                                        Function</a></h5>
+                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                </div>
+                                            </div>
+                                            <div class="tg-minicarproduct">
+                                                <figure>
+                                                    <img src="images/products/img-02.jpg" alt="image description">
+
+                                                </figure>
+                                                <div class="tg-minicarproductdata">
+                                                    <h5><a href="javascript:void(0);">Bring Me To Light</a></h5>
+                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                </div>
+                                            </div>
+                                            <div class="tg-minicarproduct">
+                                                <figure>
+                                                    <img src="images/products/img-03.jpg" alt="image description">
+
+                                                </figure>
+                                                <div class="tg-minicarproductdata">
+                                                    <h5><a href="javascript:void(0);">Have Faith In Your Soul</a>
+                                                    </h5>
+                                                    <h6><a href="javascript:void(0);">$ 12.15</a></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tg-minicartfoot">
+                                            <a class="tg-btnemptycart" href="javascript:void(0);">
+                                                <i class="fa fa-trash-o"></i>
+                                                <span>Clear Your Cart</span>
+                                            </a>
+                                            <span class="tg-subtotal">Subtotal: <strong>35.78</strong></span>
+                                            <div class="tg-btns">
+                                                <a class="tg-btn tg-active" href="javascript:void(0);">View Cart</a>
+                                                <a class="tg-btn" href="javascript:void(0);">Checkout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dropdown tg-themedropdown tg-currencydropdown">
+                                    <a href="javascript:void(0);" id="tg-currenty" class="tg-btnthemedropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span> Hi, Tai</span>
+                                        <a href="javascript:void(0);">
+                                            <img id="avatar"
+                                                 style="border-radius: 50%;height:45px;margin-left: 10px; "
+                                                 src='https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2FavatarTai.jpg?alt=media&token=22088018-0542-404e-a979-3d0b0494342e'
+                                                 alt="image description"></a>
+
+                                    </a>
+
+                                    <ul class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-currenty">
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <i>£</i>
+                                                <span>British Pound</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <i>$</i>
+                                                <span>Us Dollar</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="sign-out">
+                                                <i>€</i>
+                                                <span>Sign out</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+            `
+            $(".tg-wishlistandcart").append(userLoginHtml);
         }
     }
 
@@ -140,7 +239,7 @@ $(document).ready(function () {
                 toastr.warning("Email is existed!");
                 setTimeout(function () {
                     window.location.reload();
-                }, 700);
+                }, 1000);
             },
         });
     });
@@ -215,7 +314,11 @@ $(document).ready(function () {
 
                 toastr.success("Login Success");
                 setTimeout(function () {
-                    window.location.href = 'http://localhost:8080/'
+                    if (data.roles[0] === "USER") {
+                        window.location.href = 'http://localhost:8080/'
+                    } else if (data.roles[0] === "ADMIN") {
+                        window.location.href = 'http://localhost:8080/admin/books'
+                    }
                 }, 700);
             },
             error: function (data) {
@@ -290,7 +393,8 @@ $(document).ready(function () {
 
 
     // Sign out
-    $('.sign-out').click(() => {
+    $("#sign-out").click((event) => {
+        console.log("sign out")
         let jwtToken = getJwtToken();
         if (jwtToken) {
             $.ajax({
@@ -312,7 +416,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            toastr.warning("You are not log in")
+            toastr.warning("You are not login")
         }
     });
 })

@@ -73,10 +73,10 @@ public class BookUserController {
         if (userIdOptional.isEmpty()) {
             throw new UsernameNotFoundException("Tài khoản không tồn tại");
         }
-        model.addAttribute("myBookList", bookService.getMyBook(ReadingBookRequest.builder()
+        model.addAttribute("myBookList", bookService.getMyBookPagination(ReadingBookRequest.builder()
                 .userId(userIdOptional.get())
                 .build()));
-
+        model.addAttribute("countMyBookList", bookService.countMyBookList(userIdOptional.get()));
         return "user/my-book";
     }
 }

@@ -44,13 +44,13 @@ public class WebAdminController {
         return bookService.searchBook(request);
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
-        try {
-            userService.createUser(request);
-            return ResponseEntity.ok(null);
-        } catch (ExistedUserException ex) {
-            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
+//        try {
+//            userService.createUser(request);
+//            return ResponseEntity.ok(null);
+//        } catch (ExistedUserException ex) {
+//            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 }

@@ -150,15 +150,19 @@
                                         <h3>Bookshelves</h3>
                                     </div>
                                     <div class="tg-widgetcontent">
-                                        <ul>
-                                            <li><a href="javascript:void(0);"><span>All</span><em>28245</em></a></li>
+                                        <ul th:with="countMyBook=${countMyBookList}">
+                                            <li><a href="javascript:void(0);"><span>All</span><em
+                                                    th:text="${countMyBook[0]}">28245</em></a></li>
                                             <li><a
-                                                    href="javascript:void(0);"><span>Read</span><em>4856</em></a>
+                                                    href="javascript:void(0);"><span>Read</span><em
+                                                    th:text="${countMyBook[1]}">4856</em></a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0);"><span>Currently Reading</span><em>8654</em></a>
+                                                <a href="javascript:void(0);"><span>Currently Reading</span><em
+                                                        th:text="${countMyBook[2]}">8654</em></a>
                                             </li>
-                                            <li><a href="javascript:void(0);"><span>Wan to Read</span><em>6247</em></a>
+                                            <li><a href="javascript:void(0);"><span>Wan to Read</span><em
+                                                    th:text="${countMyBook[3]}">6247</em></a>
                                             </li>
 
                                         </ul>
