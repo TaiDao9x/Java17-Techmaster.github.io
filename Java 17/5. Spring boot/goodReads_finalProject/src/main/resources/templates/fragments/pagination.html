@@ -93,9 +93,17 @@
                     <div class="col-auto d-flex align-items-end">
 <!--                        <input id="pageInput" type="number" class="form-control pt-0 text-12" placeholder="Chọn trang"-->
                         <!--                               th:attr="pageNumber=${pageBookInfo.pageNumber}">-->
-                        <input id="msdb-a" class="form-control text-12" type="text"
-                               placeholder="Chọn trang..."
-                               th:attr="pageNumber=${pageBookInfo.pageNumber}">
+<!--                        <input id="msdb-a" class="form-control text-12" type="text"-->
+                        <!--                               placeholder="Chọn trang..."-->
+                        <!--                               th:attr="pageNumber=${pageBookInfo.pageNumber}">-->
+
+                        <select class="form-control text-12" id="choses-page"
+                                multiple="multiple">
+                                            <option th:each="page : ${#numbers.sequence(1,pageBookInfo.pageNumber)}"
+                                                    th:value="${page}"
+                                                    th:text="${page}">
+                                            </option>
+                                        </select>
                     </div>
 
                 </span>

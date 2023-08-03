@@ -14,35 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/admin")
+@RequestMapping("")
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookAdminController {
 
     BookService bookService;
 
-    @PostMapping("/category")
-    public ResponseEntity<?> createCategory(@RequestBody CategoryRequest newCategoryRequest) {
-        bookService.createCategory(newCategoryRequest);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
-    }
 
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) throws BadRequestException {
-        bookService.deleteCategory(id);
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
-
-    @PostMapping("/book")
-    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {
-        bookService.createBook(newBook);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/book")
-    public ResponseEntity<?> updateBook(@RequestBody UpdateBookRequest updateBookRequest) {
-        bookService.updateBook(updateBookRequest);
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
 
 }

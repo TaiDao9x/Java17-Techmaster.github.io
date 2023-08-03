@@ -21,7 +21,6 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("b.image, ");
         sql.append("b.title, ");
         sql.append("GROUP_CONCAT(category.name SEPARATOR ', ') categories, ");
-//        sql.append("b.categories categories, ");
         sql.append("b.author, ");
         sql.append("b.description, ");
         sql.append("b.rating, ");

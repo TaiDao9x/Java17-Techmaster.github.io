@@ -71,17 +71,14 @@ $(document).ready(function () {
         let published = $("#published").val();
         let about = $("#about").val();
 
-        let selectedCategories = [];
-        $(":checkbox[name^='category']:checked").each(function () {
-            let categoryId = $(this).attr("id");
-            selectedCategories.push(categoryId);
-        });
+        let categories = $('#book-category').val();
+        let categoryConvert = categories.map(c => String(c));
 
         // Create the Book object (newBook) based on the CreateBookRequest structure
         let newBook = {
             image: "",
             title: title,
-            categoryId: selectedCategories,
+            categoryId: categoryConvert,
             author: author,
             description: about,
             published: published,
@@ -97,7 +94,6 @@ $(document).ready(function () {
             // Tải lên ảnh lên Firebase Storage
             let uploadTask = imageRef.put(chosenFile);
 
-            // Trả về một Promise để xử lý khi tải lên ảnh thành công
             return uploadTask.then(snapshot => {
                 // Lấy URL download của ảnh
                 return snapshot.ref.getDownloadURL();
@@ -155,8 +151,13 @@ $(document).ready(function () {
         onkeyup: false,
         onclick: false,
         errorPlacement: function (error, element) {
-            error.addClass("error-message");
-            error.insertAfter(element);
+            if (element.attr("name") === "category") {
+                error.addClass("error-message");
+                error.appendTo("#category-error");
+            } else {
+                error.addClass("error-message");
+                error.insertAfter(element);
+            }
         },
         rules: {
             "title": {
