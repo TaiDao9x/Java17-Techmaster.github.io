@@ -5,16 +5,6 @@ let firebaseConfig = {
     storageBucket: "fir-e9a96.appspot.com",
 };
 
-// let firebaseConfig = {
-//     apiKey: "AIzaSyDZwCuyQHeig-aRWvDVPrxbDOArhB4Lx1A",
-//     authDomain: "final-project-&#45;&#45;goodreads.firebaseapp.com",
-//     projectId: "final-project-&#45;&#45;goodreads",
-//     storageBucket: "final-project-&#45;&#45;goodreads.appspot.com",
-//     messagingSenderId: "438803212569",
-//     appId: "1:438803212569:web:41304f80b268288b977d88",
-//     measurementId: "G-RV3X1H3MLM"
-// }
-
 // Khởi tạo Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -223,11 +213,6 @@ $(document).ready(function () {
         uploadImageAndCreateBook();
     })
 
-// $('.custom_shadow').on('keyup', function (event) {
-//     if (event.which === 13 || event.keyCode === 13) {
-//         event.preventDefault();
-//         $('#submitBtn').click();
-//     }
-// })
 
 })
+

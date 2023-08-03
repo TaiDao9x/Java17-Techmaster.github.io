@@ -39,7 +39,7 @@
                                     <input class="pl-50 border-light text-dark-1 h-50 rounded-8 search-admin"
                                            type="text"
                                            placeholder="Search">
-                                    <button class="absolute d-flex items-center h-full">
+                                    <button class="absolute d-flex items-center h-full" id="btn-search-admin">
                                         <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                                     </button>
 
@@ -165,7 +165,63 @@
     </div>
 </div>
 <th:block id="js">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <script th:inline="javascript">
+        $(document).ready(function () {
+
+            $('#pageInput').select2({});
+
+            const urlParam = new URLSearchParams(window.location.search);
+            const title = urlParam.get('title')
+            $('.search-admin').val(title)
+
+            $('#pageInput').change(() => {
+                let pageNumber = $('#pageInput').val();
+                changeUrl(pageNumber);
+            })
+
+            $('.search-admin').on('keyup', function (event) {
+                if (event.key === 'Enter') {
+                    $('#btn-search-admin').click();
+                }
+            })
+
+            $('#btn-search-admin').click(() => {
+                changeUrl(1);
+            })
+
+            $('.chose-page').click(event => {
+                let pageIndex = $(event.currentTarget).attr('page-number');
+                changeUrl(pageIndex);
+            })
+
+            $('.previous-link').click(() => {
+                const pageIndex = urlParam.get('pageIndex')
+                changeUrl(pageIndex - 1);
+            })
+
+            $('.next-link').click(() => {
+                const pageIndex = parseInt(urlParam.get('pageIndex')) || 1
+                changeUrl(pageIndex + 1);
+            })
+
+            function changeUrl(pageNumber) {
+                let keyword = checkSearchInput();
+                if (keyword !== '') {
+                    window.location.href = `/admin/books?pageIndex=${pageNumber}&title=${keyword}`;
+                } else {
+                    window.location.href = `/admin/books?pageIndex=${pageNumber}`;
+                }
+            }
+
+            function checkSearchInput() {
+                let searchKeyword = $('.search-admin').val();
+                return searchKeyword.trim();
+            }
+        })
+
+    </script>
 </th:block>
 </body>
 
