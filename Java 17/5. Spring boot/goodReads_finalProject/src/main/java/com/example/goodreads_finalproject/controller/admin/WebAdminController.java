@@ -1,21 +1,15 @@
 package com.example.goodreads_finalproject.controller.admin;
 
-import com.example.goodreads_finalproject.exception.ExistedUserException;
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
-import com.example.goodreads_finalproject.model.request.CreateUserRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.service.BookService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -31,7 +25,20 @@ public class WebAdminController {
         model.addAttribute("pageBookInfo", getBookData(request));
         model.addAttribute("currentPage", request.getPageIndex());
 
-        return "admin/all-book";
+        return "admin/all-books";
+    }
+//
+//    @GetMapping("/books")
+//    public CommonResponse<?> allBook(Model model, BookSearchRequest request) {
+//
+//        model.addAttribute("pageBookInfo", getBookData(request));
+//        model.addAttribute("currentPage", request.getPageIndex());
+//
+//        return getBookData(request);
+//    }
+
+    private CommonResponse<?> getBookData(BookSearchRequest request) {
+        return bookService.searchBook(request);
     }
 
     @GetMapping("/add-book")
@@ -40,9 +47,6 @@ public class WebAdminController {
         return "admin/add-book";
     }
 
-    private CommonResponse<?> getBookData(BookSearchRequest request) {
-        return bookService.searchBook(request);
-    }
 
 //    @PostMapping
 //    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {

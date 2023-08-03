@@ -12,7 +12,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -146,14 +145,15 @@ public class BookService {
 
     public CommonResponse<?> searchBook(BookSearchRequest request) {
         try {
-            List<BookSearchResponse> books = bookCustomRepository.searchBook(request);
+            List<BookResponse> books = bookCustomRepository.searchBook(request);
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
 
             int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
 
-            PaginationUtils<BookSearchResponse> paginationUtils = new PaginationUtils<>();
+            PaginationUtils<BookResponse> paginationUtils = new PaginationUtils<>();
             books = paginationUtils.searchData(books, pageIndex, pageSize);
+
 
             return CommonResponse.builder()
                     .pageNumber(pageNumber)

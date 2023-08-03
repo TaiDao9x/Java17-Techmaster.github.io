@@ -20,7 +20,7 @@ public class BookSearchResponse {
 
     String title;
 
-    Set<Category> categories;
+    String categories;
 
     String author;
 

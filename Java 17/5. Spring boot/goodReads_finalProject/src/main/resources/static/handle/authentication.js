@@ -26,7 +26,7 @@ $(window).on("load", function () {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dropdown tg-themedropdown tg-minicartdropdown">
+                <div class="dropdown tg-themedropdown tg-minicartdropdown">
                                     <a href="javascript:void(0);" id="tg-minicart" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="tg-themebadge">3</span>
@@ -80,7 +80,7 @@ $(window).on("load", function () {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="dropdown tg-themedropdown tg-currencydropdown">
+                <div class="dropdown tg-themedropdown tg-currencydropdown">
                                     <a href="javascript:void(0);" id="tg-currenty" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span> Hi, Tai</span>
@@ -89,7 +89,6 @@ $(window).on("load", function () {
                                                  style="border-radius: 50%;height:45px;margin-left: 10px; "
                                                  src='https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2FavatarTai.jpg?alt=media&token=22088018-0542-404e-a979-3d0b0494342e'
                                                  alt="image description"></a>
-
                                     </a>
 
                                     <ul class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-currenty">
@@ -113,18 +112,43 @@ $(window).on("load", function () {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-            `
+            `;
             $(".tg-wishlistandcart").append(userLoginHtml);
         }
     }
 
     checkLoggedIn();
 
-});
 
-jQuery(function ($) {
+    $(document).ready(function () {
+        // Sign out
+        $("#sign-out").click(() => {
+            console.log("sign out")
+            let jwtToken = getJwtToken();
+            if (jwtToken) {
+                $.ajax({
+                    url: '/api/v1/authentication/logout',
+                    type: 'POST',
+                    success: function () {
+                        localStorage.clear()
+                        toastr.success("Log out success")
 
+                        setTimeout(function () {
+                            // window.location.reload();
+                            window.location.href = 'http://localhost:8080/'
+
+                            // window.location.href = 'http://localhost:8080/login';
+                        }, 700)
+                    },
+                    error: function () {
+
+                    }
+                });
+            } else {
+                toastr.warning("You are not login")
+            }
+        });
+    })
 });
 
 function getJwtToken() {
@@ -133,10 +157,6 @@ function getJwtToken() {
 
 function getRefreshToken() {
     return localStorage.getItem('refreshToken');
-}
-
-function getUserInfomation() {
-    return localStorage.getItem('userInfomation');
 }
 
 function refreshToken() {
@@ -392,31 +412,4 @@ $(document).ready(function () {
     });
 
 
-    // Sign out
-    $("#sign-out").click((event) => {
-        console.log("sign out")
-        let jwtToken = getJwtToken();
-        if (jwtToken) {
-            $.ajax({
-                url: '/api/v1/authentication/logout',
-                type: 'POST',
-                success: function () {
-                    localStorage.clear()
-                    toastr.success("Log out success")
-
-                    setTimeout(function () {
-                        // window.location.reload();
-                        window.location.href = 'http://localhost:8080/'
-
-                        // window.location.href = 'http://localhost:8080/login';
-                    }, 700)
-                },
-                error: function () {
-
-                }
-            });
-        } else {
-            toastr.warning("You are not login")
-        }
-    });
 })
