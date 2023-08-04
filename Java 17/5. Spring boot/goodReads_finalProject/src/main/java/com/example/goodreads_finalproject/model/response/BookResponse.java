@@ -1,9 +1,7 @@
 package com.example.goodreads_finalproject.model.response;
 
 import com.example.goodreads_finalproject.entity.Category;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Column;
@@ -15,8 +13,12 @@ import java.util.Set;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookResponse {
+
+    Long id;
 
     String image;
 

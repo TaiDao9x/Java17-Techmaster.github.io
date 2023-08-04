@@ -31,6 +31,7 @@ public class AdminController {
 
         model.addAttribute("pageBookInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
+        model.addAttribute("pageSize", request.getPageSize());
 
         return "admin/book-list";
     }
@@ -39,6 +40,14 @@ public class AdminController {
     public String addBook(Model model) {
         model.addAttribute("categoryList", bookService.getAllCategories());
         return "admin/book-create";
+    }
+
+    @GetMapping("/admin/books/{bookId}")
+    public String editBook(Model model, @PathVariable Long bookId) {
+        model.addAttribute("bookDetails", bookService.findBookByBookId(bookId));
+        model.addAttribute("categoryList", bookService.getAllCategories());
+
+        return "admin/book-edit";
     }
 
 //    @PostMapping
@@ -72,6 +81,12 @@ public class AdminController {
     @PutMapping("/api/v1/admin/book")
     public ResponseEntity<?> updateBook(@RequestBody UpdateBookRequest updateBookRequest) {
         bookService.updateBook(updateBookRequest);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/v1/admin/book/{bookId}")
+    public ResponseEntity<?> deleteBook(@PathVariable Long bookId) throws BadRequestException {
+        bookService.deleteBook(bookId);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

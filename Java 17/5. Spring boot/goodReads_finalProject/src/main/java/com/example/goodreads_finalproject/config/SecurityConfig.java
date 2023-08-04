@@ -64,6 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/admin/**", "/admin/**").hasAnyAuthority(Roles.ADMIN.toString())
                 .anyRequest().permitAll()
                 .and()
+                .formLogin()
+                .loginPage("/login") // Cấu hình trang đăng nhập
+                .permitAll()
+                .and()
                 .httpBasic()
                 .and()
                 .headers().frameOptions().sameOrigin();

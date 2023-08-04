@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="pl-15">
-                        <img th:src="@{/admin/img/avatars/3.png}" alt="image" class="size-50 rounded-22 object-cover">
+                        <img th:src="@{/admin/img/avatars/3.png}" alt="image" class="size-40 rounded-22 object-cover">
                     </div>
                 </div>
             </div>
@@ -449,10 +449,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!--<script th:src="@{/original/js/vendor/bootstrap.min.js}"></script>-->
+<script th:src="@{/handle/authentication.js}"></script>
 <script th:src="@{/admin/js/vendors.js}"></script>
 <script th:src="@{/admin/js/main.js}"></script>
-<script th:src="@{/admin/handle/main.js}"></script>
-
 
 <th:block th:replace="${jsResources} ?: ~{}"></th:block>
 

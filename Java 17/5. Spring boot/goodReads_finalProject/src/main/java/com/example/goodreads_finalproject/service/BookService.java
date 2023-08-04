@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -28,6 +29,7 @@ public class BookService {
     UserRepository userRepository;
     CategoryRepository categoryRepository;
     ReadingBookRepository readingBookRepository;
+    BookOfChallengeRepository bookOfChallengeRepository;
     ObjectMapper objectMapper;
     BookCustomRepository bookCustomRepository;
 
@@ -51,25 +53,6 @@ public class BookService {
         bookRepository.save(book);
     }
 
-//    public Page<ReadingBookResponse> getAllBooksUserInterested(Long userId, Integer page, Integer pageSize) {
-//        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-//        Optional<User> userOptional = userRepository.findById(userId);
-//        if (userOptional.isEmpty()) {
-//            throw new NotFoundException("Not found user!");
-//        }
-//        Page<ReadingBook> readingBooksPage = readingBookRepository.findAllByUser(userOptional.get(), pageRequest);
-//        if (readingBooksPage == null) {
-//            throw new NotFoundException("Not found book!");
-//        }
-//        List<ReadingBookResponse> responseList = new ArrayList<>();
-//
-//        for (ReadingBook readingBook : readingBooksPage.getContent()) {
-//            responseList.add(objectMapper.convertValue(readingBook, ReadingBookResponse.class));
-//        }
-//
-//        return new PageImpl<>(responseList, pageRequest, readingBooksPage.getTotalElements());
-//    }
-
     public void updateBook(UpdateBookRequest updateBookRequest) {
         Book book = bookRepository.findById(updateBookRequest.getBookId()).get();
         Set<Long> categoryIds = updateBookRequest.getCategoryId();
@@ -77,12 +60,10 @@ public class BookService {
 
         categoryIds.forEach(id -> categories.add(categoryRepository.findById(id).get()));
 
-        String imageLink = updateBookRequest.getImage();
-        if (updateBookRequest.getImage().equals("")) {
-            imageLink = "/original/images/books/no-cover.png";
+        if (!updateBookRequest.getImage().equals("")) {
+            book.setImage(updateBookRequest.getImage());
         }
 
-        book.setImage(imageLink);
         book.setTitle(updateBookRequest.getTitle());
         book.setAuthor(updateBookRequest.getAuthor());
         book.setBuyBook(updateBookRequest.getBuyBook());
@@ -104,7 +85,6 @@ public class BookService {
         };
 
     }
-
 
     //category
     public void createCategory(CategoryRequest newCategoryRequest) {
@@ -135,12 +115,14 @@ public class BookService {
         return bookRepository.findAll(pageRequest);
     }
 
-    public Book findBookByBookId(Long bookId) {
+    public BookResponse findBookByBookId(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
         if (bookOptional.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
-        return bookOptional.get();
+        Book book = bookOptional.get();
+
+        return objectMapper.convertValue(book, BookResponse.class);
     }
 
     public CommonResponse<?> searchBook(BookSearchRequest request) {
@@ -149,9 +131,10 @@ public class BookService {
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
 
-            int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
+//            int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
 
             PaginationUtils<BookResponse> paginationUtils = new PaginationUtils<>();
+            int pageNumber = paginationUtils.getPageNumber(books, pageSize);
             books = paginationUtils.searchData(books, pageIndex, pageSize);
 
 
@@ -244,5 +227,19 @@ public class BookService {
         result.add(countWantToRead);
         return result;
     }
+
+    @Transactional
+    public void deleteBook(Long bookId) throws BadRequestException {
+        Book book = bookRepository.findById(bookId).get();
+        readingBookRepository.findAllByBook(book);
+        bookOfChallengeRepository.findAllByBook(book);
+
+        if (readingBookRepository.findAllByBook(book).isPresent() || bookOfChallengeRepository.findAllByBook(book).isPresent()) {
+            throw new BadRequestException();
+        }
+        bookCustomRepository.deleteBookCategories(bookId);
+        bookRepository.deleteById(bookId);
+    }
+
 }
 

@@ -47,6 +47,7 @@ public class BookCustomRepository extends BaseRepository {
         List<BookResponse> bookResponseList = new ArrayList<>();
         bookSearchResponses.forEach(bookSearchResponse -> {
             BookResponse bookResponse = BookResponse.builder()
+                    .id(bookSearchResponse.getId())
                     .image(bookSearchResponse.getImage())
                     .title(bookSearchResponse.getTitle())
                     .author(bookSearchResponse.getAuthor())
@@ -72,5 +73,12 @@ public class BookCustomRepository extends BaseRepository {
             }
         }
         return categorySet;
+    }
+
+    public void deleteBookCategories(Long bookId) {
+        String sql = "delete from book_category where book_id=:bookId";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("bookId", bookId);
+        getNamedParameterJdbcTemplate().update(sql, parameters);
     }
 }

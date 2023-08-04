@@ -119,7 +119,6 @@ $(window).on("load", function () {
 
     checkLoggedIn();
 
-
     $(document).ready(function () {
         // Sign out
         $("#sign-out").click(() => {
@@ -132,16 +131,12 @@ $(window).on("load", function () {
                     success: function () {
                         localStorage.clear()
                         toastr.success("Log out success")
-
                         setTimeout(function () {
-                            // window.location.reload();
-                            window.location.href = 'http://localhost:8080/'
-
-                            // window.location.href = 'http://localhost:8080/login';
+                            window.location.href = 'http://localhost:8080/login'
                         }, 700)
                     },
                     error: function () {
-
+                        toastr.warning("Error network!")
                     }
                 });
             } else {
@@ -160,6 +155,7 @@ function getRefreshToken() {
 }
 
 function refreshToken() {
+    console.log("run refreshtoken");
     let jwtToken = getJwtToken();
     if (!jwtToken) {
         return;
@@ -185,7 +181,7 @@ function refreshToken() {
     })
 }
 
-setInterval(refreshToken, 29.5 * 60 * 1000);
+setInterval(refreshToken, 23.5 * 60 * 60 * 1000);
 
 // login and signup
 $(document).ready(function () {
@@ -316,10 +312,6 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             success: function (data) {
 
-                // console.log(document.cookie)
-                // document.cookie = "jwtToken=" + data.jwt + "; path=/;"
-                // console.log(document.cookie)
-                // console.log(data);
                 localStorage.clear();
                 localStorage.setItem('jwtToken', data.jwt);
                 localStorage.setItem('refreshToken', data.refreshToken);

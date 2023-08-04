@@ -30,8 +30,12 @@
                     <div class="col">
                         <div class="row">
                             <div class="col-2">
-                                <button class="tabs__button text-18 lg:text-16 text-light-1 fw-500 pb-5 lg:pb-0 js-tabs-button is-tab-el-active"
-                                        data-tab-target=".-tab-item-1">All Books
+                                <a class="tabs__button text-18 lg:text-16 text-light-1 fw-500 pb-5 lg:pb-0 js-tabs-button is-tab-el-active"
+                                   href="/admin/books"
+                                   data-tab-target=".-tab-item-1">All Books
+                                </a>
+                                <button class="ml-20 bg-light-2 rounded-4 size-35" id="add-book">
+                                    <i class="icon-plus text-16 text-light-1"></i>
                                 </button>
                             </div>
                             <div class="col-10">
@@ -58,16 +62,7 @@
                             <table class="table-4 -border-bottom col-12">
                                 <thead class="bg-light-2">
                                 <tr>
-                                    <th>
-                                        <div class="d-flex items-center">
-                                            <div class="form-checkbox ">
-                                                <input type="checkbox" name="name">
-                                                <div class="form-checkbox__mark">
-                                                    <div class="form-checkbox__icon icon-check"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </th>
+                                    <th>STT</th>
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Categories</th>
@@ -79,19 +74,11 @@
                                 </thead>
                                 <tbody>
 
-                                <tr th:each="book:${pageBookInfo.data}">
-                                    <td>
-                                        <div class="d-flex items-center">
-                                            <div class="form-checkbox ">
-                                                <input type="checkbox" name="name">
-                                                <div class="form-checkbox__mark">
-                                                    <div class="form-checkbox__icon icon-check"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><img th:src="${book.image}" width="55px" height="80px" alt="Ảnh bìa"></td>
-                                    <td th:text="${book.title}">California, USA</td>
+                                <tr th:each="book, state :${pageBookInfo.data}">
+                                    <td th:text="${(state.index + 1) + ((currentPage-1) * pageSize)}"></td>
+                                    <td><img th:src="${book.image}" width="45px" height="65px" alt="Ảnh bìa"></td>
+                                    <td><a th:text="${book.title}"
+                                           th:href="@{/admin/books/{bookId} (bookId=${book.id})}"></a></td>
                                     <td th:with="categories=${book.categories}">
                                         <div th:each="category:${categories}" class="mb-2">
                                             <span class="rounded-100 py-1 px-10 text-center text-12 fw-500 bg-blue-1-05 text-blue-1"
@@ -118,13 +105,8 @@
                                             </div>
 
                                             <div class="col-auto">
-                                                <button class="flex-center bg-light-2 rounded-4 size-35">
-                                                    <i class="icon-edit text-16 text-light-1"></i>
-                                                </button>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <button class="flex-center bg-light-2 rounded-4 size-35">
+                                                <button class="flex-center bg-light-2 rounded-4 size-35"
+                                                        th:onclick="|deleteBook(${book.id})|">
                                                     <i class="icon-trash-2 text-16 text-light-1"></i>
                                                 </button>
                                             </div>
@@ -166,61 +148,12 @@
 </div>
 <th:block id="js">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script th:src="@{/admin/handle/pagination.js}"></script>
     <script th:inline="javascript">
-        $(document).ready(function () {
-
-            $('#pageInput').select2({});
-
-            const urlParam = new URLSearchParams(window.location.search);
-            const title = urlParam.get('title')
-            $('.search-admin').val(title)
-
-            $('#pageInput').change(() => {
-                let pageNumber = $('#pageInput').val();
-                changeUrl(pageNumber);
-            })
-
-            $('.search-admin').on('keyup', function (event) {
-                if (event.key === 'Enter') {
-                    $('#btn-search-admin').click();
-                }
-            })
-
-            $('#btn-search-admin').click(() => {
-                changeUrl(1);
-            })
-
-            $('.chose-page').click(event => {
-                let pageIndex = $(event.currentTarget).attr('page-number');
-                changeUrl(pageIndex);
-            })
-
-            $('.previous-link').click(() => {
-                const pageIndex = urlParam.get('pageIndex')
-                changeUrl(pageIndex - 1);
-            })
-
-            $('.next-link').click(() => {
-                const pageIndex = parseInt(urlParam.get('pageIndex')) || 1
-                changeUrl(pageIndex + 1);
-            })
-
-            function changeUrl(pageNumber) {
-                let keyword = checkSearchInput();
-                if (keyword !== '') {
-                    window.location.href = `/admin/books?pageIndex=${pageNumber}&title=${keyword}`;
-                } else {
-                    window.location.href = `/admin/books?pageIndex=${pageNumber}`;
-                }
-            }
-
-            function checkSearchInput() {
-                let searchKeyword = $('.search-admin').val();
-                return searchKeyword.trim();
-            }
-        })
-
+        let pageSize = [[${pageSize}]]
+        const urlParam = new URLSearchParams(window.location.search);
+        const showPageSize = urlParam.get('pageSize')
+        $('#pageNumberInput').val(showPageSize);
     </script>
 </th:block>
 </body>

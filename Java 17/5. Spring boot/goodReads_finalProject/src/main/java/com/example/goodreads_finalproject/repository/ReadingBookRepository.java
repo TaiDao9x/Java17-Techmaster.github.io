@@ -1,6 +1,7 @@
 package com.example.goodreads_finalproject.repository;
 
 
+import com.example.goodreads_finalproject.entity.Book;
 import com.example.goodreads_finalproject.entity.ReadingBook;
 import com.example.goodreads_finalproject.entity.User;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface ReadingBookRepository extends JpaRepository<ReadingBook, Long> 
 
 
     List<ReadingBook> findAllByUser(User user);
+
+    Optional<ReadingBook> findAllByBook(Book book);
 }
