@@ -21,33 +21,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping()
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AdminController {
+public class BookController {
     BookService bookService;
     UserService userService;
 
     @GetMapping("/admin/books")
     public String allBook(Model model, BookSearchRequest request) {
         CommonResponse<?> commonResponse = bookService.searchBook(request);
-
         model.addAttribute("pageBookInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
         model.addAttribute("pageSize", request.getPageSize());
-
-        return "admin/book-list";
+        return "admin/book/book-list";
     }
 
     @GetMapping("/admin/add-book")
     public String addBook(Model model) {
         model.addAttribute("categoryList", bookService.getAllCategories());
-        return "admin/book-create";
+        return "admin/book/book-create";
     }
 
     @GetMapping("/admin/books/{bookId}")
     public String editBook(Model model, @PathVariable Long bookId) {
         model.addAttribute("bookDetails", bookService.findBookByBookId(bookId));
         model.addAttribute("categoryList", bookService.getAllCategories());
-
-        return "admin/book-edit";
+        return "admin/book/book-edit";
     }
 
 //    @PostMapping
@@ -59,18 +56,6 @@ public class AdminController {
 //            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
 //        }
 //    }
-
-    @PostMapping("/api/v1/admin/category")
-    public ResponseEntity<?> createCategory(@RequestBody CategoryRequest newCategoryRequest) {
-        bookService.createCategory(newCategoryRequest);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/api/v1/admin/category/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) throws BadRequestException {
-        bookService.deleteCategory(id);
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
 
     @PostMapping("/api/v1/admin/book")
     public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {

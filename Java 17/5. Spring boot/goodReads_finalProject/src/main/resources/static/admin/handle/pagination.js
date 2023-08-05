@@ -4,13 +4,24 @@ $(document).ready(function () {
     $('#pageInput').select2({});
     $('#pageNumberInput').select2({});
 
-    $('#add-book').click(() => {
-        window.location.href = '/admin/add-book'
-    })
 
+    const currentUrl = window.location.href;
     const title = urlParam.get('title')
+    const name = urlParam.get('name')
+    const adminIndex = currentUrl.indexOf("/admin/");
+    const paramIndex = currentUrl.indexOf("?");
+    let searchBy;
+    if (paramIndex !== -1) {
+        searchBy = currentUrl.substring(adminIndex + ("/admin/".length), paramIndex);
+    } else {
+        searchBy = currentUrl.substring(adminIndex + ("/admin/".length), currentUrl.length);
+    }
 
-    $('.search-admin').val(title)
+    if (searchBy === 'books') {
+        $('.search-admin').val(title);
+    } else if (searchBy === 'categories') {
+        $('.search-admin').val(name);
+    }
 
     $('.search-admin').on('keyup', function (event) {
         if (event.key === 'Enter') {
@@ -20,6 +31,10 @@ $(document).ready(function () {
 
     $('#btn-search-admin').click(() => {
         changeUrl(1, pageSize);
+    })
+
+    $('#add-book').click(() => {
+        window.location.href = '/admin/add-book'
     })
 
     $('#pageInput').change(() => {
@@ -45,9 +60,13 @@ $(document).ready(function () {
     function changeUrl(pageNumber, pageSize) {
         let keyword = checkSearchInput();
         if (keyword !== '') {
-            window.location.href = `/admin/books?pageIndex=${pageNumber}&pageSize=${pageSize}&title=${keyword}`;
+            if (searchBy === 'books') {
+                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&title=${keyword}`;
+            } else if (searchBy === 'categories') {
+                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&name=${keyword}`;
+            }
         } else {
-            window.location.href = `/admin/books?pageIndex=${pageNumber}&pageSize=${pageSize}`;
+            window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}`;
         }
     }
 
@@ -61,6 +80,8 @@ $(document).ready(function () {
         changeUrl(1, chosenPageSize)
     })
 })
+
+
 
 
 

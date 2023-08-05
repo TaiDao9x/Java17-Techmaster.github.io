@@ -1,5 +1,6 @@
 package com.example.goodreads_finalproject.statics;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter

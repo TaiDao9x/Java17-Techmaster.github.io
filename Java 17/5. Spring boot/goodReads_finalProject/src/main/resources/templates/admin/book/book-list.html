@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout-admin :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: .dashboard__main},
                                                 ~{:: #js}
                                                 )}">
 
 <head>
     <title>All Books</title>
+
 </head>
 
 <body>
@@ -22,7 +23,6 @@
             <div class="col-auto">
             </div>
         </div>
-
 
         <div class="py-30 px-30 rounded-4 bg-white custom_shadow">
             <div class="tabs -underline-2 js-tabs">
@@ -46,12 +46,11 @@
                                     <button class="absolute d-flex items-center h-full" id="btn-search-admin">
                                         <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                                     </button>
-
+                                    <!--                                    <a type="button" class="text-13 pt-30 ml-10" id="advanced-search"> + Advanced-->
+                                    <!--                                        Search</a>-->
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -107,7 +106,7 @@
                                             <div class="col-auto">
                                                 <button class="flex-center bg-light-2 rounded-4 size-35"
                                                         th:onclick="|deleteBook(${book.id})|">
-                                                    <i class="icon-trash-2 text-16 text-light-1"></i>
+                                                    <i class="icon-trash-2 text-16 text-red-3"></i>
                                                 </button>
                                             </div>
 
@@ -149,11 +148,33 @@
 <th:block id="js">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script th:src="@{/admin/handle/pagination.js}"></script>
+
     <script th:inline="javascript">
         let pageSize = [[${pageSize}]]
         const urlParam = new URLSearchParams(window.location.search);
-        const showPageSize = urlParam.get('pageSize')
+        const showPageSize = urlParam.get('pageSize') || pageSize
         $('#pageNumberInput').val(showPageSize);
+
+        //Delete book
+        function deleteBook(bookId) {
+            const isConfirm = window.confirm("Do you really want to delete this book?")
+            if (isConfirm) {
+                $.ajax({
+                    url: '/api/v1/admin/book/' + bookId,
+                    type: 'DELETE',
+                    success: function () {
+                        toastr.success("Deleted book success!");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 800)
+                    },
+                    error: function () {
+                        toastr.warning("Deleted book not success!");
+                    }
+                })
+
+            }
+        }
     </script>
 </th:block>
 </body>

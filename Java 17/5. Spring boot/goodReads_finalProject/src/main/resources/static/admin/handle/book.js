@@ -257,7 +257,6 @@ $(document).ready(function () {
         let categories = $('#book-category').val();
         let categoryConvert = categories.map(c => String(c));
 
-        // Create the Book object (newBook) based on the CreateBookRequest structure
         let editBook = {
             bookId: bookId,
             image: "",
@@ -306,27 +305,6 @@ $(document).ready(function () {
                 toastr.warning("Update book not success!");
             }
         })
-    }
-
-    //Delete book
-    function deleteBook(bookId) {
-        const isConfirm = window.confirm("Do you really want to delete this book?")
-        if (isConfirm) {
-            $.ajax({
-                url: '/api/v1/admin/book/' + bookId,
-                type: 'DELETE',
-                success: function () {
-                    toastr.success("Delete book success!");
-                    setTimeout(function () {
-                        window.location.reload();
-                    }, 800)
-                },
-                error: function () {
-                    toastr.warning("Delete book not success!");
-                }
-            })
-
-        }
     }
 
 })

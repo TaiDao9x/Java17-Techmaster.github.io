@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class BookService {
     BookRepository bookRepository;
     UserRepository userRepository;
-    CategoryRepository categoryRepository;
+    CategoryService categoryService;
     ReadingBookRepository readingBookRepository;
     BookOfChallengeRepository bookOfChallengeRepository;
     ObjectMapper objectMapper;
@@ -39,7 +39,7 @@ public class BookService {
                 .map(Long::parseLong)
                 .collect(Collectors.toSet());
         Set<Category> categories = new HashSet<>();
-        categoryId.forEach(id -> categories.add(categoryRepository.findById(id).get()));
+        categoryId.forEach(id -> categories.add(categoryService.findById(id).get()));
 
         Book book = Book.builder()
                 .image(newBook.getImage().equals("") ? "/original/images/books/no-cover.png" : newBook.getImage())
@@ -58,7 +58,7 @@ public class BookService {
         Set<Long> categoryIds = updateBookRequest.getCategoryId();
         Set<Category> categories = new HashSet<>();
 
-        categoryIds.forEach(id -> categories.add(categoryRepository.findById(id).get()));
+        categoryIds.forEach(id -> categories.add(categoryService.findById(id).get()));
 
         if (!updateBookRequest.getImage().equals("")) {
             book.setImage(updateBookRequest.getImage());
@@ -84,35 +84,6 @@ public class BookService {
             default -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(null, null, pageRequest);
         };
 
-    }
-
-    //category
-    public void createCategory(CategoryRequest newCategoryRequest) {
-        Category category = Category.builder()
-                .name(newCategoryRequest.getCategory())
-                .build();
-        categoryRepository.save(category);
-    }
-
-    public void deleteCategory(Long id) throws BadRequestException {
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if (categoryOptional.isEmpty()) {
-            throw new NotFoundException("Not found category");
-        }
-        List<Book> bookList = bookRepository.findAllByCategories(categoryOptional.get());
-        if (bookList.size() > 0) {
-            throw new BadRequestException();
-        }
-        categoryRepository.deleteById(id);
-    }
-
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
-    }
-
-    public Page<Book> getAllBook(Integer page, Integer pageSize) {
-        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-        return bookRepository.findAll(pageRequest);
     }
 
     public BookResponse findBookByBookId(Long bookId) {
@@ -241,5 +212,8 @@ public class BookService {
         bookRepository.deleteById(bookId);
     }
 
+    public List<CategoryResponse> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
 }
 

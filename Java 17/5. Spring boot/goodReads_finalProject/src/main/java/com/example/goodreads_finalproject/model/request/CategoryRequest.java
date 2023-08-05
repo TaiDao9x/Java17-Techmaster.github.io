@@ -9,8 +9,8 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryRequest {
+public class CategoryRequest extends BaseSearchRequest{
 
     @NotBlank
-    String category;
+    String name;
 }
