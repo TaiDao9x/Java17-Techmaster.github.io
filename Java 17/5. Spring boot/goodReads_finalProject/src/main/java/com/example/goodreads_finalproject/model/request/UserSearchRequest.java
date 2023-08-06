@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class UserSearchRequest extends BaseSearchRequest {
     String email;
-    String fullname;
+    String fullName;
 }

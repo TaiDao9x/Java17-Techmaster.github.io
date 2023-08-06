@@ -62,18 +62,19 @@
                                 <thead class="bg-light-2">
                                 <tr>
                                     <th>STT</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Categories</th>
-                                    <th>Author</th>
-                                    <th>Published</th>
-                                    <th>Rating</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Role</th>
+                                    <th>Birth day</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                <tr th:each="book, state :${pageBookInfo.data}">
+                                <tr th:each="user, state :${pageUserInfo.data}">
                                     <td th:text="${(state.index + 1) + ((currentPage-1) * pageSize)}"></td>
                                     <td><img th:src="${book.image}" width="45px" height="65px" alt="Ảnh bìa"></td>
                                     <td><a th:text="${book.title}"

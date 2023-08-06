@@ -27,18 +27,18 @@ public class BookUserController {
     BookService bookService;
 
     // TODO: tìm kiếm sách bên user, chưa authen, thay bằng method search mới
-    @GetMapping()
-    public ModelAndView findBook(Model model,
-                                 @RequestParam(required = false, defaultValue = "") String search,
-                                 @RequestParam(required = false, defaultValue = "") String searchType,
-                                 @RequestParam(required = false, defaultValue = "1") Integer page,
-                                 @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
-
-        ModelAndView modelAndView = new ModelAndView("user/book-list");
-        Page<Book> book = bookService.findBook(search, searchType, page, pageSize);
-        modelAndView.addObject("bookList", book);
-        return modelAndView;
-    }
+//    @GetMapping()
+//    public ModelAndView findBook(Model model,
+//                                 @RequestParam(required = false, defaultValue = "") String search,
+//                                 @RequestParam(required = false, defaultValue = "") String searchType,
+//                                 @RequestParam(required = false, defaultValue = "1") Integer page,
+//                                 @RequestParam(required = false, defaultValue = "8") Integer pageSize) {
+//
+//        ModelAndView modelAndView = new ModelAndView("user/book-list");
+//        Page<Book> book = bookService.findBook(search, searchType, page, pageSize);
+//        modelAndView.addObject("bookList", book);
+//        return modelAndView;
+//    }
 
     @GetMapping("/{bookId}")
     public ModelAndView getBookDetail(Model model, @PathVariable Long bookId) {

@@ -189,7 +189,21 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public CommonResponse<?> searchCategory(UserSearchRequest request) {
-        List<UserResponse> users = userCustomRepository.searchUser(request);
+    public CommonResponse<?> searchUser(UserSearchRequest request) {
+        try {
+            List<UserResponse> users = userCustomRepository.searchUser(request);
+            Integer pageIndex = request.getPageIndex();
+            Integer pageSize = request.getPageSize();
+
+            PaginationUtils<UserResponse> paginationUtils = new PaginationUtils<>();
+            int pageNumber = paginationUtils.getPageNumber(users, pageSize);
+            users = paginationUtils.searchData(users, pageIndex, pageSize);
+            return CommonResponse.builder()
+                    .pageNumber(pageNumber)
+                    .data(users)
+                    .build();
+        } catch (Exception e) {
+            throw new NotFoundException("Page index out of bound!");
+        }
     }
 }

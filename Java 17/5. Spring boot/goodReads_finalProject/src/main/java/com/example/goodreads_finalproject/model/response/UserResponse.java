@@ -34,5 +34,9 @@ public class UserResponse {
 
     String phone;
 
-    String address;
+    String ward;
+
+    String district;
+
+    String province;
 }

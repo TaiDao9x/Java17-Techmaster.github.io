@@ -1,10 +1,7 @@
 package com.example.goodreads_finalproject.repository.custom;
 
 import com.example.goodreads_finalproject.entity.Category;
-import com.example.goodreads_finalproject.model.request.BookSearchRequest;
 import com.example.goodreads_finalproject.model.request.UserSearchRequest;
-import com.example.goodreads_finalproject.model.response.BookResponse;
-import com.example.goodreads_finalproject.model.response.BookSearchResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
 import com.example.goodreads_finalproject.repository.BaseRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,51 +19,36 @@ public class UserCustomRepository extends BaseRepository {
         sql.append("b.id, ");
         sql.append("b.email, ");
         sql.append("b.activated, ");
-        sql.append("r.name, ");
+        sql.append("r.name AS roles, ");
         sql.append("b.avatar, ");
-        sql.append("b.fullName, ");
-        sql.append("b.gender, ");
+        sql.append("b.full_name, ");
+        sql.append("CASE WHEN b.gender = 'MALE' THEN 'Male' WHEN b.gender = 'FEMALE' THEN 'Female' ELSE 'Undefined' END AS gender, ");
         sql.append("b.dob, ");
         sql.append("b.phone, ");
-        sql.append("w.full_name AS ward_name, ");
-        sql.append("d.full_name AS district_name, ");
-        sql.append("p.full_name AS province_name ");
+        sql.append("w.full_name AS ward, ");
+        sql.append("d.full_name AS district, ");
+        sql.append("p.full_name AS province ");
         sql.append("from users b ");
         sql.append("left join user_role AS ur ON b.id=ur.user_id ");
         sql.append("left join roles AS r ON ur.role_id=r.id ");
-        sql.append("left join wards AS w ON b.ward_code=w.code ");
-        sql.append("left join districts d AS w ON w.district_code = d.code ");
-        sql.append("left join provinces p AS w ON d.province_code = p.code ");
+        sql.append("left join wards AS w ON b.ward_code = w.code ");
+        sql.append("left join districts AS d ON w.district_code = d.code ");
+        sql.append("left join provinces AS p ON d.province_code = p.code ");
 
         sql.append("where 1=1");
 
         if (request.getEmail() != null && !request.getEmail().trim().equals("")) {
-            sql.append(" and lower(b.title) like :title");
-            parameters.put("title", "%" + request.getEmail().toLowerCase() + "%");
+            sql.append(" and lower(b.email) like :email");
+            parameters.put("email", "%" + request.getEmail().toLowerCase() + "%");
         }
-        if (request.getFullname() != null && !request.getFullname().trim().equals("")) {
-            sql.append(" and lower(b.author) like :author");
-            parameters.put("author", "%" + request.getFullname().toLowerCase() + "%");
+        if (request.getFullName() != null && !request.getFullName().trim().equals("")) {
+            sql.append(" and lower(b.full_name) like :fullName");
+            parameters.put("fullName", "%" + request.getFullName().toLowerCase() + "%");
         }
 
 //        sql.append(" group by b.id");
 
-        List<UserResponse> userResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(UserResponse.class));
-
-        return userResponses;
-    }
-
-    private Set<Category> convertCategory(String CategoryString) {
-        Set<Category> categorySet = new HashSet<>();
-        if (CategoryString != null && !CategoryString.isEmpty()) {
-            String[] categoriesArray = CategoryString.split(", ");
-            for (String c : categoriesArray) {
-                Category category = new Category();
-                category.setName(c);
-                categorySet.add(category);
-            }
-        }
-        return categorySet;
+        return getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(UserResponse.class));
     }
 
     public void deleteBookCategories(Long bookId) {

@@ -11,28 +11,28 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping()
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminController {
-    BookService bookService;
     UserService userService;
 
     @GetMapping("/admin/users")
     public String searchUser(Model model, UserSearchRequest request) {
-        CommonResponse<?> commonResponse = userService.searchCategory(request);
+        CommonResponse<?> commonResponse = userService.searchUser(request);
 
-        model.addAttribute("pageCategoryInfo", commonResponse);
+        model.addAttribute("pageUserInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
         model.addAttribute("pageSize", request.getPageSize());
 
-        return "admin/category/category-list";
+        return "admin/user/user-list";
     }
 
     @PostMapping
