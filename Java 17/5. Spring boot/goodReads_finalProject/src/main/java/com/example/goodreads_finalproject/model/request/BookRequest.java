@@ -12,7 +12,8 @@ import java.util.Set;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateBookRequest {
+public class BookRequest {
+    Long bookId;
 
     String image;
 
@@ -20,7 +21,7 @@ public class CreateBookRequest {
     String title;
 
     @NotBlank
-    Set<String> categoryId;
+    Set<Long> categoryId;
 
     @NotBlank
     String author;
@@ -33,4 +34,7 @@ public class CreateBookRequest {
     LocalDate published;
 
     String buyBook;
+
+    double rating;
+
 }

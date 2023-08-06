@@ -2,9 +2,7 @@ package com.example.goodreads_finalproject.controller.admin;
 
 import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
-import com.example.goodreads_finalproject.model.request.CategoryRequest;
-import com.example.goodreads_finalproject.model.request.CreateBookRequest;
-import com.example.goodreads_finalproject.model.request.UpdateBookRequest;
+import com.example.goodreads_finalproject.model.request.BookRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.service.BookService;
 import com.example.goodreads_finalproject.service.UserService;
@@ -26,7 +24,7 @@ public class BookController {
     UserService userService;
 
     @GetMapping("/admin/books")
-    public String allBook(Model model, BookSearchRequest request) {
+    public String searchBook(Model model, BookSearchRequest request) {
         CommonResponse<?> commonResponse = bookService.searchBook(request);
         model.addAttribute("pageBookInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
@@ -47,24 +45,15 @@ public class BookController {
         return "admin/book/book-edit";
     }
 
-//    @PostMapping
-//    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
-//        try {
-//            userService.createUser(request);
-//            return ResponseEntity.ok(null);
-//        } catch (ExistedUserException ex) {
-//            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
+    // API
     @PostMapping("/api/v1/admin/book")
-    public ResponseEntity<?> createBook(@RequestBody CreateBookRequest newBook) {
+    public ResponseEntity<?> createBook(@RequestBody BookRequest newBook) {
         bookService.createBook(newBook);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/v1/admin/book")
-    public ResponseEntity<?> updateBook(@RequestBody UpdateBookRequest updateBookRequest) {
+    public ResponseEntity<?> updateBook(@RequestBody BookRequest updateBookRequest) {
         bookService.updateBook(updateBookRequest);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('#add-category').click(() => {
         $('#myModal').css('display', 'block');
+        $('#myModal input').focus();
     })
     $('.close').click(() => {
         $('#myModal').css('display', 'none');
@@ -11,7 +12,6 @@ $(document).ready(function () {
         } else if ($(event.target).is('#edit-modal')) {
             $('#edit-modal').css('display', 'none');
         }
-
     }
 
     function createCategory() {
@@ -48,6 +48,8 @@ $(document).ready(function () {
     $('#myModal input').on('keyup', function (event) {
         if (event.key === 'Enter') {
             $('#submit-category').click();
+        } else if (event.which === 27) {
+            $('#myModal').css('display', 'none');
         }
     })
 
@@ -55,6 +57,8 @@ $(document).ready(function () {
     let categoryId = null;
     $('.edit-category').click((event) => {
         $('#edit-modal').css('display', 'block');
+        $('#edit-modal input').focus();
+
         categoryId = $(event.currentTarget).attr('category-id')
         $.ajax({
             url: '/api/v1/admin/category/' + categoryId,
@@ -76,7 +80,7 @@ $(document).ready(function () {
     function editCategory() {
         let category = $('.input-edit-category').val().trim();
         if (category === '') {
-            window.alert("Category not blank!")
+            window.alert("Category not blank!");
             return;
         }
         $('#submit-edit-category').prop('disabled', true);
@@ -108,6 +112,8 @@ $(document).ready(function () {
     $('#edit-modal input').on('keyup', function (event) {
         if (event.key === 'Enter') {
             $('#submit-edit-category').click();
+        } else if (event.which === 27) {
+            $('#edit-modal').css('display', 'none');
         }
     })
 })

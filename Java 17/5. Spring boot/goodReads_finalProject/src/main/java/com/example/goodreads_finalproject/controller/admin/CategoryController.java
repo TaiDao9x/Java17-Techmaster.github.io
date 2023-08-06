@@ -1,10 +1,7 @@
 package com.example.goodreads_finalproject.controller.admin;
 
 import com.example.goodreads_finalproject.exception.BadRequestException;
-import com.example.goodreads_finalproject.model.request.BookSearchRequest;
 import com.example.goodreads_finalproject.model.request.CategoryRequest;
-import com.example.goodreads_finalproject.model.request.CreateBookRequest;
-import com.example.goodreads_finalproject.model.request.UpdateBookRequest;
 import com.example.goodreads_finalproject.model.response.CategoryResponse;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.service.BookService;
@@ -39,6 +36,7 @@ public class CategoryController {
         return "admin/category/category-list";
     }
 
+    // API
     @GetMapping("/api/v1/admin/category/{categoryId}")
     public ResponseEntity<?> getCategory(@PathVariable Long categoryId) {
         CategoryResponse categoryResponse = categoryService.findCategory(categoryId);

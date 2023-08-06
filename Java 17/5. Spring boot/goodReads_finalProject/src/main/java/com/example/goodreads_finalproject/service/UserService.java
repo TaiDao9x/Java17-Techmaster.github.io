@@ -4,16 +4,15 @@ import com.example.goodreads_finalproject.entity.Otp;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.*;
-import com.example.goodreads_finalproject.model.request.ResetPasswordRequest;
-import com.example.goodreads_finalproject.model.request.CreateUserRequest;
-import com.example.goodreads_finalproject.model.request.RefreshTokenRequest;
-import com.example.goodreads_finalproject.model.request.RegistrationRequest;
+import com.example.goodreads_finalproject.model.request.*;
+import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
 import com.example.goodreads_finalproject.repository.OtpRepository;
 import com.example.goodreads_finalproject.repository.RefreshTokenRepository;
 import com.example.goodreads_finalproject.repository.RoleRepository;
 import com.example.goodreads_finalproject.repository.UserRepository;
+import com.example.goodreads_finalproject.repository.custom.UserCustomRepository;
 import com.example.goodreads_finalproject.security.CustomUserDetails;
 import com.example.goodreads_finalproject.security.JwtUtils;
 import com.example.goodreads_finalproject.security.SecurityUtils;
@@ -56,6 +55,8 @@ public class UserService {
     EmailService emailService;
     @Autowired
     OtpRepository otpRepository;
+    @Autowired
+    UserCustomRepository userCustomRepository;
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
@@ -85,18 +86,17 @@ public class UserService {
         emailService.sendOtpActivedAccount(user.getEmail());
     }
 
+//    public List<UserResponse> getAll() {
+//        List<User> users = userRepository.findAll();
+//        if (!CollectionUtils.isEmpty(users)) {
+//            return users.stream().map(u -> objectMapper.convertValue(u, UserResponse.class)).collect(Collectors.toList());
+//        }
+//        return Collections.emptyList();
+//    }
 
-    public List<UserResponse> getAll() {
-        List<User> users = userRepository.findAll();
-        if (!CollectionUtils.isEmpty(users)) {
-            return users.stream().map(u -> objectMapper.convertValue(u, UserResponse.class)).collect(Collectors.toList());
-        }
-        return Collections.emptyList();
-    }
-
-    public UserResponse getDetail(Long id) throws ClassNotFoundException {
-        return userRepository.findById(id).map(u -> objectMapper.convertValue(u, UserResponse.class)).orElseThrow(ClassNotFoundException::new);
-    }
+//    public UserResponse getDetail(Long id) throws ClassNotFoundException {
+//        return userRepository.findById(id).map(u -> objectMapper.convertValue(u, UserResponse.class)).orElseThrow(ClassNotFoundException::new);
+//    }
 
     public JwtResponse refreshToken(RefreshTokenRequest request, HttpServletResponse response) throws RefreshTokenNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -114,7 +114,6 @@ public class UserService {
                             return jwtUtils.generateJwtToken(authentication);
                         }))
                 .orElseThrow(() -> new UsernameNotFoundException("Tài khoản không tồn tại"));
-
 
         if (newToken == null) {
             throw new RefreshTokenNotFoundException();
@@ -139,7 +138,6 @@ public class UserService {
         }
         refreshTokenRepository.logOut(userIdOptional.get());
         SecurityContextHolder.clearContext();
-
     }
 
     public void createUser(CreateUserRequest request) throws ExistedUserException {
@@ -174,10 +172,6 @@ public class UserService {
         return userRepository.findByEmailAndActivated(email, true);
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
     public void checkOtp(String otpCode) throws OtpExpiredException {
         Otp otp = otpRepository.findByOtpCode(otpCode).get();
         if (LocalDateTime.now().isAfter(otp.getExpiredAt())) {
@@ -193,5 +187,9 @@ public class UserService {
         User user = otp.getUser();
         user.setPassword(passwordEncoder.encode(resetPasswordRequest.getNewPassword()));
         userRepository.save(user);
+    }
+
+    public CommonResponse<?> searchCategory(UserSearchRequest request) {
+        List<UserResponse> users = userCustomRepository.searchUser(request);
     }
 }

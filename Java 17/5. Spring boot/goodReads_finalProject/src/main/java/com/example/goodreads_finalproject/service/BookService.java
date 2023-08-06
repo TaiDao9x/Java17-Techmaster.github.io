@@ -34,12 +34,12 @@ public class BookService {
     BookCustomRepository bookCustomRepository;
 
 
-    public void createBook(CreateBookRequest newBook) {
-        Set<Long> categoryId = newBook.getCategoryId().stream()
-                .map(Long::parseLong)
-                .collect(Collectors.toSet());
+    public void createBook(BookRequest newBook) {
+//        Set<Long> categoryId = newBook.getCategoryId().stream()
+//                .map(Long::parseLong)
+//                .collect(Collectors.toSet());
         Set<Category> categories = new HashSet<>();
-        categoryId.forEach(id -> categories.add(categoryService.findById(id).get()));
+        newBook.getCategoryId().forEach(id -> categories.add(categoryService.findById(id).get()));
 
         Book book = Book.builder()
                 .image(newBook.getImage().equals("") ? "/original/images/books/no-cover.png" : newBook.getImage())
@@ -53,7 +53,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void updateBook(UpdateBookRequest updateBookRequest) {
+    public void updateBook(BookRequest updateBookRequest) {
         Book book = bookRepository.findById(updateBookRequest.getBookId()).get();
         Set<Long> categoryIds = updateBookRequest.getCategoryId();
         Set<Category> categories = new HashSet<>();
@@ -74,17 +74,17 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    //TODO: Ko search ra được
-    public Page<Book> findBook(String keyWord, String searchType, Integer page, Integer pageSize) {
-        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-        return switch (searchType) {
-            case "" -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(keyWord, keyWord, pageRequest);
-            case "title" -> bookRepository.findAllByTitleContainingIgnoreCase(keyWord, pageRequest);
-            case "author" -> bookRepository.findAllByAuthorContainingIgnoreCase(keyWord, pageRequest);
-            default -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(null, null, pageRequest);
-        };
-
-    }
+//    //TODO: Ko search ra được
+//    public Page<Book> findBook(String keyWord, String searchType, Integer page, Integer pageSize) {
+//        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
+//        return switch (searchType) {
+//            case "" -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(keyWord, keyWord, pageRequest);
+//            case "title" -> bookRepository.findAllByTitleContainingIgnoreCase(keyWord, pageRequest);
+//            case "author" -> bookRepository.findAllByAuthorContainingIgnoreCase(keyWord, pageRequest);
+//            default -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(null, null, pageRequest);
+//        };
+//
+//    }
 
     public BookResponse findBookByBookId(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
@@ -101,8 +101,6 @@ public class BookService {
             List<BookResponse> books = bookCustomRepository.searchBook(request);
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
-
-//            int pageNumber = (int) Math.ceil((float) books.size() / pageSize);
 
             PaginationUtils<BookResponse> paginationUtils = new PaginationUtils<>();
             int pageNumber = paginationUtils.getPageNumber(books, pageSize);

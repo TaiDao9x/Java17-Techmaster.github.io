@@ -61,10 +61,6 @@ public class WebController {
         }
     }
 
-    //    @GetMapping("/search")
-//    public CommonResponse<?> searchBook(BookSearchRequest request) {
-//        return bookService.searchBook(request);
-//    }
     @GetMapping("/search")
     public ModelAndView searchBook(BookSearchRequest request) {
         ModelAndView modelAndView = new ModelAndView("user/index");

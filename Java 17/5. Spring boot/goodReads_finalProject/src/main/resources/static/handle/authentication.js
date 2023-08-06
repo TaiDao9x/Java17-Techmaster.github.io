@@ -122,7 +122,6 @@ $(window).on("load", function () {
     $(document).ready(function () {
         // Sign out
         $("#sign-out").click(() => {
-            console.log("sign out")
             let jwtToken = getJwtToken();
             if (jwtToken) {
                 $.ajax({
