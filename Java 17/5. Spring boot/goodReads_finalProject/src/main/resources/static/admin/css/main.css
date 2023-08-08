@@ -12172,9 +12172,9 @@ table.table-3.-border-bottom tbody > tr {
 
 table.table-4 th {
     font-weight: 500;
-    padding: 20px 30px;
+    padding: 20px 20px;
     line-height: 1.2;
-    min-width: 130px
+    min-width: 50px
 }
 
 @media (max-width: 1199px) {
@@ -12201,10 +12201,10 @@ table.table-4 tbody > tr + tr {
 }
 
 table.table-4 td {
-    padding: 20px 30px;
+    padding: 20px 20px;
     font-size: 15px;
     line-height: 1.2;
-    min-width: 130px
+    min-width: 50px
 }
 
 @media (max-width: 1199px) {

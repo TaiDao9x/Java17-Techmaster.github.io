@@ -17,10 +17,13 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
+    Long id;
 
     String email;
 
     boolean activated;
+
+    boolean locked;
 
     String roles;
 

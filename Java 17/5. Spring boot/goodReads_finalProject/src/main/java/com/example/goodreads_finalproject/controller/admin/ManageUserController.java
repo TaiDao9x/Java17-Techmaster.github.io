@@ -2,6 +2,7 @@ package com.example.goodreads_finalproject.controller.admin;
 
 import com.example.goodreads_finalproject.exception.ExistedUserException;
 import com.example.goodreads_finalproject.model.request.CreateUserRequest;
+import com.example.goodreads_finalproject.model.request.UserRequest;
 import com.example.goodreads_finalproject.model.request.UserSearchRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.service.BookService;
@@ -21,7 +22,7 @@ import javax.validation.Valid;
 @RequestMapping()
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AdminController {
+public class ManageUserController {
     UserService userService;
 
     @GetMapping("/admin/users")
@@ -43,6 +44,12 @@ public class AdminController {
         } catch (ExistedUserException ex) {
             return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PutMapping("api/v1/admin/users/{userId}")
+    public ResponseEntity<?> lockedUser(@PathVariable Long userId) {
+        userService.lockedOrUnlockedUser(userId);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

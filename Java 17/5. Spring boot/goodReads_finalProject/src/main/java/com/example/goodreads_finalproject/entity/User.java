@@ -26,6 +26,9 @@ public class User extends BaseEntity {
     @Column(nullable = false, columnDefinition = "BOOLEAN default false")
     boolean activated;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN default false")
+    boolean locked;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

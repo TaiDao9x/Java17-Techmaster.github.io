@@ -8,7 +8,11 @@
                                                 )}">
 
 <head>
-    <title>All Books</title>
+    <title>All Users</title>
+
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/admin/css/customModal.css}">
+    </th:block>
 
 </head>
 
@@ -31,12 +35,12 @@
                         <div class="row">
                             <div class="col-2">
                                 <a class="tabs__button text-18 lg:text-16 text-light-1 fw-500 pb-5 lg:pb-0 js-tabs-button is-tab-el-active"
-                                   href="/admin/books"
+                                   href="/admin/users"
                                    data-tab-target=".-tab-item-1">All Users
                                 </a>
-                                <button class="ml-20 bg-light-2 rounded-4 size-35" id="add-book">
-                                    <i class="icon-plus text-16 text-light-1"></i>
-                                </button>
+                                <!--                                <button class="ml-20 bg-light-2 rounded-4 size-35" id="add-book">-->
+                                <!--                                    <i class="icon-plus text-16 text-light-1"></i>-->
+                                <!--                                </button>-->
                             </div>
                             <div class="col-10">
                                 <div class="single-field relative d-flex items-center md:d-none ml-30">
@@ -46,8 +50,7 @@
                                     <button class="absolute d-flex items-center h-full" id="btn-search-admin">
                                         <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                                     </button>
-                                    <!--                                    <a type="button" class="text-13 pt-30 ml-10" id="advanced-search"> + Advanced-->
-                                    <!--                                        Search</a>-->
+
                                 </div>
                             </div>
                         </div>
@@ -63,12 +66,12 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Email</th>
-                                    <th>Name</th>
                                     <th>Gender</th>
                                     <th>Role</th>
                                     <th>Birth day</th>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -76,45 +79,40 @@
 
                                 <tr th:each="user, state :${pageUserInfo.data}">
                                     <td th:text="${(state.index + 1) + ((currentPage-1) * pageSize)}"></td>
-                                    <td><img th:src="${book.image}" width="45px" height="65px" alt="Ảnh bìa"></td>
-                                    <td><a th:text="${book.title}"
-                                           th:href="@{/admin/books/{bookId} (bookId=${book.id})}"></a></td>
-                                    <td th:with="categories=${book.categories}">
-                                        <div th:each="category:${categories}" class="mb-2">
-                                            <span class="rounded-100 py-1 px-10 text-center text-12 fw-500 bg-blue-1-05 text-blue-1"
-                                            ><a th:href="@{/admin/categories?name={categoryName} (categoryName=${category.name})}"
-                                                th:text="${category.name}"></a></span>
-                                        </div>
-                                    </td>
-                                    <td th:text="${book.author}">California, USA</td>
-                                    <td th:text="${book.published}">California, USA</td>
-                                    <td>
-                                        <div th:text="${book.rating}"
-                                             class=" rounded-4 size-35 bg-blue-1 text-white
-                                        flex-center text-12 fw-600">
 
-                                        </div>
+                                    <td th:text="${user.email}">California, USA</td>
+                                    <td th:text="${user.gender}">California, USA</td>
+                                    <td th:text="${user.roles}">California, USA</td>
+                                    <td th:text="${user.dob}">California, USA</td>
+                                    <td th:text="${user.phone}">California, USA</td>
+                                    <td th:text="${user.ward + ', '+user.district}">California, USA</td>
+
+                                    <td><span
+                                            class="rounded-100 py-4 px-10 text-center text-13 fw-500"
+                                            th:text="${user.activated} == true ? 'Actived':'Not Actived'"
+                                            th:classappend="${user.activated} == true ? 'bg-blue-1-05 text-blue-1':'bg-yellow-4 text-yellow-3'">Confirmed</span>
                                     </td>
 
                                     <td>
                                         <div class="row x-gap-10 y-gap-10 items-center">
 
                                             <div class="col-auto">
-                                                <button class="flex-center bg-light-2 rounded-4 size-35">
-                                                    <i class="icon-eye text-16 text-light-1"></i>
+                                                <button th:attr="disabled=(${user.roles}=='ADMIN'?'disabled':null), user-id=${user.id}, account-locked=${user.locked}"
+                                                        class="flex-center bg-light-2 rounded-4 size-35 cd-popup-trigger">
+                                                    <i th:if="${user.locked}">
+                                                        <i class="fa-solid fa-user-lock text-red-1"></i>
+                                                    </i>
+                                                    <i th:unless="${user.locked}">
+                                                        <i class="fa-solid fa-user"></i>
+                                                    </i>
                                                 </button>
                                             </div>
-
-                                            <div class="col-auto">
-                                                <button class="flex-center bg-light-2 rounded-4 size-35"
-                                                        th:onclick="|deleteBook(${book.id})|">
-                                                    <i class="icon-trash-2 text-16 text-red-3"></i>
-                                                </button>
-                                            </div>
-
                                         </div>
                                     </td>
                                 </tr>
+                                <div id="unlockModal" class="cd-popup" role="alert">
+
+                                </div>
 
                                 </tbody>
                             </table>
@@ -124,7 +122,7 @@
                 </div>
             </div>
 
-            <th:block th:replace="fragments/pagination::pagination(${currentPage},${pageBookInfo})"></th:block>
+            <th:block th:replace="fragments/pagination::pagination(${currentPage},${pageUserInfo})"></th:block>
 
         </div>
 
@@ -150,6 +148,7 @@
 <th:block id="js">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script th:src="@{/admin/handle/pagination.js}"></script>
+    <script th:src="@{/admin/handle/lockedUser.js}"></script>
 
     <script th:inline="javascript">
         let pageSize = [[${pageSize}]]
@@ -157,26 +156,6 @@
         const showPageSize = urlParam.get('pageSize') || pageSize
         $('#pageNumberInput').val(showPageSize);
 
-        //Delete book
-        function deleteBook(bookId) {
-            const isConfirm = window.confirm("Do you really want to delete this book?")
-            if (isConfirm) {
-                $.ajax({
-                    url: '/api/v1/admin/book/' + bookId,
-                    type: 'DELETE',
-                    success: function () {
-                        toastr.success("Deleted book success!");
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 800)
-                    },
-                    error: function () {
-                        toastr.warning("Deleted book not success!");
-                    }
-                })
-
-            }
-        }
     </script>
 </th:block>
 </body>

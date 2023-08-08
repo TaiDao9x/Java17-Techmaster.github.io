@@ -8,6 +8,8 @@ $(document).ready(function () {
     const currentUrl = window.location.href;
     const title = urlParam.get('title')
     const name = urlParam.get('name')
+    const email = urlParam.get('email')
+
     const adminIndex = currentUrl.indexOf("/admin/");
     const paramIndex = currentUrl.indexOf("?");
     let searchBy;
@@ -21,6 +23,8 @@ $(document).ready(function () {
         $('.search-admin').val(title);
     } else if (searchBy === 'categories') {
         $('.search-admin').val(name);
+    } else if (searchBy === 'users') {
+        $('.search-admin').val(email);
     }
 
     $('.search-admin').on('keyup', function (event) {
@@ -64,6 +68,8 @@ $(document).ready(function () {
                 window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&title=${keyword}`;
             } else if (searchBy === 'categories') {
                 window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&name=${keyword}`;
+            } else if (searchBy === 'users') {
+                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&email=${keyword}`;
             }
         } else {
             window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}`;

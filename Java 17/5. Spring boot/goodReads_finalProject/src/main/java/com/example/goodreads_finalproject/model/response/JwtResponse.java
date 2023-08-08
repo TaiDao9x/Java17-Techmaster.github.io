@@ -26,4 +26,6 @@ public class JwtResponse {
 
     String fullName;
 
+    boolean locked;
+
 }

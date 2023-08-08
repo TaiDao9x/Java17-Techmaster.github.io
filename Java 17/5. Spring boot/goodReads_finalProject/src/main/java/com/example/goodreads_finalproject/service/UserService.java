@@ -206,4 +206,18 @@ public class UserService {
             throw new NotFoundException("Page index out of bound!");
         }
     }
+
+    public void lockedOrUnlockedUser(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new NotFoundException("User not found");
+        }
+        User user = userOptional.get();
+        if (user.isLocked()) {
+            user.setLocked(false);
+        } else {
+            user.setLocked(true);
+        }
+        userRepository.save(user);
+    }
 }

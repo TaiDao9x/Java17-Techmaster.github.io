@@ -119,30 +119,28 @@ $(window).on("load", function () {
 
     checkLoggedIn();
 
-    $(document).ready(function () {
-        // Sign out
-        $("#sign-out").click(() => {
-            let jwtToken = getJwtToken();
-            if (jwtToken) {
-                $.ajax({
-                    url: '/api/v1/authentication/logout',
-                    type: 'POST',
-                    success: function () {
-                        localStorage.clear()
-                        toastr.success("Log out success")
-                        setTimeout(function () {
-                            window.location.href = 'http://localhost:8080/login'
-                        }, 700)
-                    },
-                    error: function () {
-                        toastr.warning("Error network!")
-                    }
-                });
-            } else {
-                toastr.warning("You are not login")
-            }
-        });
-    })
+    // Sign out
+    $("#sign-out").click(() => {
+        let jwtToken = getJwtToken();
+        if (jwtToken) {
+            $.ajax({
+                url: '/api/v1/authentication/logout',
+                type: 'POST',
+                success: function () {
+                    localStorage.clear()
+                    toastr.success("Log out success")
+                    setTimeout(function () {
+                        window.location.href = 'http://localhost:8080/login'
+                    }, 700)
+                },
+                error: function () {
+                    toastr.warning("Error network!")
+                }
+            });
+        } else {
+            toastr.warning("You are not login")
+        }
+    });
 });
 
 function getJwtToken() {
@@ -310,6 +308,11 @@ $(document).ready(function () {
             data: JSON.stringify(request),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+
+                if (data.locked === true) {
+                    window.alert('Your account was locked!')
+                    return;
+                }
 
                 localStorage.clear();
                 localStorage.setItem('jwtToken', data.jwt);

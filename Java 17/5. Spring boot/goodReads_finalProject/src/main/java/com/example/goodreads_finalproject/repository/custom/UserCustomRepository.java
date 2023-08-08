@@ -19,6 +19,7 @@ public class UserCustomRepository extends BaseRepository {
         sql.append("b.id, ");
         sql.append("b.email, ");
         sql.append("b.activated, ");
+        sql.append("b.locked, ");
         sql.append("r.name AS roles, ");
         sql.append("b.avatar, ");
         sql.append("b.full_name, ");
@@ -46,15 +47,8 @@ public class UserCustomRepository extends BaseRepository {
             parameters.put("fullName", "%" + request.getFullName().toLowerCase() + "%");
         }
 
-//        sql.append(" group by b.id");
-
         return getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(UserResponse.class));
     }
 
-    public void deleteBookCategories(Long bookId) {
-        String sql = "delete from book_category where book_id=:bookId";
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("bookId", bookId);
-        getNamedParameterJdbcTemplate().update(sql, parameters);
-    }
+
 }

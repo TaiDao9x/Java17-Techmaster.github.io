@@ -74,6 +74,12 @@ public class AuthenticationController {
                 .build();
         refreshTokenRepository.save(refreshTokenEntity);
 
+        if (user.isLocked()) {
+            return JwtResponse.builder()
+                    .locked(user.isLocked())
+                    .build();
+        }
+
         JwtResponse jwtResponse = JwtResponse.builder()
                 .jwt(jwt)
                 .refreshToken(refreshToken)
@@ -82,6 +88,7 @@ public class AuthenticationController {
                 .roles(roles)
                 .fullName(user.getFullName())
                 .avatar(user.getAvatar())
+                .locked(user.isLocked())
                 .build();
         Cookie jwtCookie = new Cookie("jwtToken", jwtResponse.getJwt());
         jwtCookie.setPath("/");

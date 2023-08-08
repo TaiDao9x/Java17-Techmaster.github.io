@@ -17,11 +17,11 @@
 <div class="dashboard__main">
     <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
-<!--            <div class="col-auto">-->
-<!--                <h1 class="text-30 lh-14 fw-600">All Books</h1>-->
-<!--            </div>-->
-<!--            <div class="col-auto">-->
-<!--            </div>-->
+            <!--            <div class="col-auto">-->
+            <!--                <h1 class="text-30 lh-14 fw-600">All Books</h1>-->
+            <!--            </div>-->
+            <!--            <div class="col-auto">-->
+            <!--            </div>-->
         </div>
 
         <div class="py-30 px-30 rounded-4 bg-white custom_shadow">
@@ -39,18 +39,40 @@
                                 </button>
                             </div>
                             <div class="col-10">
-                                <div class="single-field relative d-flex items-center md:d-none ml-30">
+                                <div class="single-field relative d-flex flex-column md:d-none ml-30">
                                     <input class="pl-50 border-light text-dark-1 h-50 rounded-8 search-admin"
                                            type="text"
                                            placeholder="Search">
                                     <button class="absolute d-flex items-center h-full" id="btn-search-admin">
                                         <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                                     </button>
-                                    <!--                                    <a type="button" class="text-13 pt-30 ml-10" id="advanced-search"> + Advanced-->
-                                    <!--                                        Search</a>-->
+                                </div>
+                                <div class="row  mt-10 ml-20 col-12">
+                                    <div class="form-check-inline col-2 tex-13">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" value="title">title
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline col-2 tex-13">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" value="author">author
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline col-2 tex-13">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" value="category">category
+                                        </label>
+                                    </div>
+                                    <!--                                    <div class="form-check-inline col-2">-->
+                                    <!--                                        <label class="form-check-label" for="radio3">-->
+                                    <!--                                            <input type="radio" class="form-check-input" id="radio3" name="optradio"-->
+                                    <!--                                                   value="Category">Category-->
+                                    <!--                                        </label>-->
+                                    <!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
