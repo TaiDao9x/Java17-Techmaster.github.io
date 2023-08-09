@@ -39,8 +39,19 @@ public class BookCustomRepository extends BaseRepository {
             sql.append(" and lower(b.author) like :author");
             parameters.put("author", "%" + request.getAuthor().toLowerCase() + "%");
         }
+        if (request.getAll() != null && !request.getAll().trim().equals("")) {
+            sql.append(" and lower(b.author) like :author or lower(b.title) like :title");
+            parameters.put("author", "%" + request.getAll().toLowerCase() + "%");
+            parameters.put("title", "%" + request.getAll().toLowerCase() + "%");
+        }
 
         sql.append(" group by b.id");
+
+        if (request.getCategory() != null && !request.getCategory().trim().equals("")) {
+            sql.append(" having lower(GROUP_CONCAT(category.name SEPARATOR ', ')) like :category");
+            parameters.put("category", "%" + request.getCategory().toLowerCase() + "%");
+        }
+
 
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 

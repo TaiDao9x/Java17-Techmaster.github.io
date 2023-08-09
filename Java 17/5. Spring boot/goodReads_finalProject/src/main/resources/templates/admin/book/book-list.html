@@ -47,20 +47,23 @@
                                         <i id="icon-search-admin" class="icon-search text-20 px-15 text-dark-1"></i>
                                     </button>
                                 </div>
-                                <div class="row  mt-10 ml-20 col-12">
+                                <div id="search-by" class="row mt-10 ml-20 col-12">
                                     <div class="form-check-inline col-2 tex-13">
                                         <label class="form-check-label">
-                                            <input type="checkbox" checked class="form-check-input" value="title">title
+                                            <input type="checkbox" id="checkboxTitle" class="form-check-input"
+                                                   value="title">title
                                         </label>
                                     </div>
                                     <div class="form-check-inline col-2 tex-13">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="author">author
+                                            <input type="checkbox" id="checkboxAuthor" class="form-check-input"
+                                                   value="author">author
                                         </label>
                                     </div>
                                     <div class="form-check-inline col-2 tex-13">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" value="category">category
+                                            <input type="checkbox" id="checkboxCategory" class="form-check-input"
+                                                   value="category">category
                                         </label>
                                     </div>
                                     <!--                                    <div class="form-check-inline col-2">-->
@@ -198,6 +201,14 @@
 
             }
         }
+
+        // $('.search-admin, #search-by div').on('keyup', function (event) {
+        //     if (event.key === 'Enter') {
+        //         console.log('aaaaaaaaaaa')
+        //         $('#btn-search-admin').click();
+        //     }
+        // })
+
     </script>
 </th:block>
 </body>

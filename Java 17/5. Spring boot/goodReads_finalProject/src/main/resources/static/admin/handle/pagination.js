@@ -1,33 +1,11 @@
 $(document).ready(function () {
 
-
     $('#pageInput').select2({});
     $('#pageNumberInput').select2({});
 
+    let searchFrom = getPreviousSearchCriteria();
 
-    const currentUrl = window.location.href;
-    const title = urlParam.get('title')
-    const name = urlParam.get('name')
-    const email = urlParam.get('email')
-
-    const adminIndex = currentUrl.indexOf("/admin/");
-    const paramIndex = currentUrl.indexOf("?");
-    let searchBy;
-    if (paramIndex !== -1) {
-        searchBy = currentUrl.substring(adminIndex + ("/admin/".length), paramIndex);
-    } else {
-        searchBy = currentUrl.substring(adminIndex + ("/admin/".length), currentUrl.length);
-    }
-
-    if (searchBy === 'books') {
-        $('.search-admin').val(title);
-    } else if (searchBy === 'categories') {
-        $('.search-admin').val(name);
-    } else if (searchBy === 'users') {
-        $('.search-admin').val(email);
-    }
-
-    $('.search-admin').on('keyup', function (event) {
+    $('.search-admin, #search-by div').on('keyup', function (event) {
         if (event.key === 'Enter') {
             $('#btn-search-admin').click();
         }
@@ -61,18 +39,24 @@ $(document).ready(function () {
         changeUrl(pageIndex + 1, pageSize);
     })
 
+    $('#pageNumberInput').change((event) => {
+        let chosenPageSize = event.target.value;
+        changeUrl(1, chosenPageSize)
+    })
+
     function changeUrl(pageNumber, pageSize) {
         let keyword = checkSearchInput();
         if (keyword !== '') {
-            if (searchBy === 'books') {
-                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&title=${keyword}`;
-            } else if (searchBy === 'categories') {
-                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&name=${keyword}`;
-            } else if (searchBy === 'users') {
-                window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}&email=${keyword}`;
+            let searchParam = getSearchParam(keyword);
+            if (searchFrom === 'books') {
+                window.location.href = `/admin/${searchFrom}?pageIndex=${pageNumber}&pageSize=${pageSize}&${searchParam}`;
+            } else if (searchFrom === 'categories') {
+                window.location.href = `/admin/${searchFrom}?pageIndex=${pageNumber}&pageSize=${pageSize}&name=${keyword}`;
+            } else if (searchFrom === 'users') {
+                window.location.href = `/admin/${searchFrom}?pageIndex=${pageNumber}&pageSize=${pageSize}&email=${keyword}`;
             }
         } else {
-            window.location.href = `/admin/${searchBy}?pageIndex=${pageNumber}&pageSize=${pageSize}`;
+            window.location.href = `/admin/${searchFrom}?pageIndex=${pageNumber}&pageSize=${pageSize}`;
         }
     }
 
@@ -81,10 +65,61 @@ $(document).ready(function () {
         return searchKeyword.trim();
     }
 
-    $('#pageNumberInput').change((event) => {
-        let chosenPageSize = event.target.value;
-        changeUrl(1, chosenPageSize)
-    })
+    function getSearchParam(keyword) {
+        let checkedValues = [];
+        let searchParam = '';
+        $("#search-by input[type='checkbox']:checked").each(function () {
+            checkedValues.push($(this).val());
+        })
+        if (checkedValues.length > 0) {
+            checkedValues.forEach(function (value) {
+                searchParam += `${value}=${keyword}&`;
+            })
+        } else {
+            searchParam = `all=${keyword}&`;
+        }
+        return searchParam;
+    }
+
+    function getPreviousSearchCriteria() {
+        const name = urlParam.get('name')
+        const email = urlParam.get('email')
+
+        const currentUrl = window.location.href;
+        const adminIndex = currentUrl.indexOf("/admin/");
+        const paramIndex = currentUrl.indexOf("?");
+
+        let searchFrom;
+        if (paramIndex !== -1) {
+            searchFrom = currentUrl.substring(adminIndex + ("/admin/".length), paramIndex);
+        } else {
+            searchFrom = currentUrl.substring(adminIndex + ("/admin/".length), currentUrl.length);
+        }
+
+        if (searchFrom === 'books') {
+            $('.search-admin').val(checkParamsAndCheckBoxesAndGetSearchBook());
+        } else if (searchFrom === 'categories') {
+            $('.search-admin').val(name);
+        } else if (searchFrom === 'users') {
+            $('.search-admin').val(email);
+        }
+        return searchFrom;
+    }
+
+    function checkParamsAndCheckBoxesAndGetSearchBook() {
+        let searchBook;
+        const paramToCheck = ['title', 'author', 'category', 'all'];
+        paramToCheck.forEach(function (param) {
+            if (urlParam.has(param)) {
+                const checkboxId = `#checkbox${param.charAt(0).toUpperCase() + param.slice(1)}`;
+                $(checkboxId).prop('checked', true);
+            }
+            if (urlParam.get(param) !== null) {
+                searchBook = urlParam.get(param);
+            }
+        })
+        return searchBook;
+    }
 })
 
 

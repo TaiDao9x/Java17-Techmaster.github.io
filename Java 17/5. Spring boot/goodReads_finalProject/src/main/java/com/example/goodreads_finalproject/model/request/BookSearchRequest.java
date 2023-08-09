@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class BookSearchRequest extends BaseSearchRequest {
+    String all;
     String title;
     String author;
+    String category;
 }
