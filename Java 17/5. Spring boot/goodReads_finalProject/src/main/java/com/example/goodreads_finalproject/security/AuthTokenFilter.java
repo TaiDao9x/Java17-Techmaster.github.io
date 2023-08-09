@@ -55,17 +55,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7);
-        }
-
-        return null;
-    }
-
-
     private static final String JWT_COOKIE_NAME = "jwtToken";
     public String resolveToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -77,6 +66,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 }
             }
         }
+        return null;
+    }
+
+    String parseJwt(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
+            return headerAuth.substring(7);
+        }
+
         return null;
     }
 }
