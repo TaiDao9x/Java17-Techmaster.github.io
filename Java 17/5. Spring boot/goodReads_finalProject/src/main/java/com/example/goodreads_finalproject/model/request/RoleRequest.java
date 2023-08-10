@@ -4,19 +4,12 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateUserRequest {
-
-    String avatar;
+public class RoleRequest extends BaseSearchRequest{
 
     @NotBlank
-    @Email(message = "Yêu cầu nhập đúng định dạng email")
-    String email;
-
-    @NotBlank
-    String password;
+    String name;
 }

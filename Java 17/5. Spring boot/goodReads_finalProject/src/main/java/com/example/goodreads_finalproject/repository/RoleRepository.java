@@ -3,6 +3,7 @@ package com.example.goodreads_finalproject.repository;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.statics.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 

@@ -52,7 +52,11 @@ public class CategoryService {
         return result;
     }
 
-    public void createCategory(CategoryRequest newCategoryRequest) {
+    public void createCategory(CategoryRequest newCategoryRequest) throws BadRequestException {
+        Optional<Category> categoryOptional = categoryRepository.findAllByName(newCategoryRequest.getName());
+        if (categoryOptional.isPresent()) {
+            throw new BadRequestException();
+        }
         Category category = Category.builder()
                 .name(newCategoryRequest.getName())
                 .build();

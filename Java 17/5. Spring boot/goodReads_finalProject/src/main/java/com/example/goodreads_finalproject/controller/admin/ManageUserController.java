@@ -1,11 +1,15 @@
 package com.example.goodreads_finalproject.controller.admin;
 
+import com.example.goodreads_finalproject.entity.Role;
+import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.ExistedUserException;
 import com.example.goodreads_finalproject.model.request.CreateUserRequest;
+import com.example.goodreads_finalproject.model.request.RoleRequest;
 import com.example.goodreads_finalproject.model.request.UserRequest;
 import com.example.goodreads_finalproject.model.request.UserSearchRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.service.BookService;
+import com.example.goodreads_finalproject.service.RoleService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping()
@@ -24,9 +29,10 @@ import javax.validation.Valid;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ManageUserController {
     UserService userService;
+    RoleService roleService;
 
     @GetMapping("/admin/users")
-    public String searchUser(Model model, UserSearchRequest request) {
+    public String searchUsers(Model model, UserSearchRequest request) {
         CommonResponse<?> commonResponse = userService.searchUser(request);
 
         model.addAttribute("pageUserInfo", commonResponse);
@@ -36,20 +42,42 @@ public class ManageUserController {
         return "admin/user/user-list";
     }
 
-    @PostMapping
-    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest request) {
-        try {
-            userService.createUser(request);
-            return new ResponseEntity<>(null, HttpStatus.CREATED);
-        } catch (ExistedUserException ex) {
-            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
-        }
+    @GetMapping("/admin/roles")
+    public String searchRoles(Model model) {
+        List<Role> allRole = roleService.findAllRole();
+        model.addAttribute("roleList", allRole);
+//        model.addAttribute("pageUserInfo", commonResponse);
+//        model.addAttribute("currentPage", request.getPageIndex());
+//        model.addAttribute("pageSize", request.getPageSize());
+
+        return "admin/user/role-list";
     }
+
+//    @PostMapping("api/v1/admin/users")
+//    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest request) {
+//        try {
+//            userService.createUser(request);
+//            return new ResponseEntity<>(null, HttpStatus.CREATED);
+//        } catch (ExistedUserException ex) {
+//            return new ResponseEntity<>("Email existed", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @PutMapping("api/v1/admin/users/{userId}")
     public ResponseEntity<?> lockedUser(@PathVariable Long userId) {
         userService.lockedOrUnlockedUser(userId);
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @PostMapping("api/v1/admin/roles")
+    public ResponseEntity<?> createRole(@RequestBody @Valid RoleRequest request) {
+        try {
+            roleService.createRole(request);
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>("Role existed", HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 }

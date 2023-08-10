@@ -4,10 +4,7 @@ import com.example.goodreads_finalproject.statics.Roles;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -19,6 +16,7 @@ import javax.persistence.Table;
 public class Role extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
+    @Column(unique = true, nullable = false)
     Roles name;
 
 }

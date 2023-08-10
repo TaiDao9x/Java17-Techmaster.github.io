@@ -19,6 +19,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends BaseEntity {
 
+    @Column(unique = true, nullable = false)
     String email;
 
     String password;

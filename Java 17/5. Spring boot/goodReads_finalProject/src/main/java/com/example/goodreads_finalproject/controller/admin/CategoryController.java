@@ -45,8 +45,12 @@ public class CategoryController {
 
     @PostMapping("/api/v1/admin/category")
     public ResponseEntity<?> createCategory(@RequestBody CategoryRequest newCategoryRequest) {
-        categoryService.createCategory(newCategoryRequest);
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        try {
+            categoryService.createCategory(newCategoryRequest);
+            return new ResponseEntity<>(null, HttpStatus.CREATED);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>("Category existed", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/api/v1/admin/category/{categoryId}")

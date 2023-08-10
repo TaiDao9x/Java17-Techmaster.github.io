@@ -3,8 +3,18 @@ $(window).on("load", function () {
 
     function checkLoggedIn() {
         const jwtToken = localStorage.getItem("jwtToken");
+        const userInfomation = JSON.parse(localStorage.getItem('userInfomation'));
+
+        const avatar = userInfomation.avatar;
+        let avatarAdminHtml;
+        if (avatar === null) {
+            avatarAdminHtml = ` <img src="https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a" alt="image" class="size-40 rounded-22 object-cover">`
+        } else {
+            avatarAdminHtml = ` <img src="${avatar}" alt="image" class="size-40 rounded-22 object-cover">`
+        }
+        $('#avatar-admin').append(avatarAdminHtml);
+
         if (!jwtToken) {
-            const userInfo = JSON.parse(localStorage.getItem("userInfomation"));
             $(".tg-wishlistandcart").empty();
             const userHtmlContent = "<div class='btn-group btn-group-regis'>\n" +
                 "<a type=\"button\" href=\"/login\" class=\"btn btn-regis-signin\">SIGN IN</a>\n" +
@@ -84,10 +94,10 @@ $(window).on("load", function () {
                                     <a href="javascript:void(0);" id="tg-currenty" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span> Hi, Tai</span>
-                                        <a href="javascript:void(0);">
-                                            <img id="avatar"
-                                                 style="border-radius: 50%;height:45px;margin-left: 10px; "
-                                                 src='https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2FavatarTai.jpg?alt=media&token=22088018-0542-404e-a979-3d0b0494342e'
+                                        <a href="javascript:void(0);" id="avatar-user">
+                                            <img 
+                                                 style="border-radius: 50%;height:45px;margin-left: 10px; padding: 2px"
+                                                 src="${avatar}"
                                                  alt="image description"></a>
                                     </a>
 
@@ -179,6 +189,11 @@ function refreshToken() {
 }
 
 setInterval(refreshToken, 23.5 * 60 * 60 * 1000);
+
+function handleExpiredJWT() {
+    const jwtToken = getJwtToken();
+    const decodedToken = jwt_decode(jwtToken)
+}
 
 // login and signup
 $(document).ready(function () {

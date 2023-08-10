@@ -35,6 +35,12 @@ public class DatabaseInitializer implements CommandLineRunner {
             roleRepository.save(userRole);
         }
 
+        Optional<Role> roleAuthorOptional = roleRepository.findByName(Roles.AUTHOR);
+        if (roleAuthorOptional.isEmpty()) {
+            Role authorRole = Role.builder().name(Roles.AUTHOR).build();
+            roleRepository.save(authorRole);
+        }
+
         Optional<Role> roleAdminOptional = roleRepository.findByName(Roles.ADMIN);
         if (roleAdminOptional.isEmpty()) {
             Role adminRole = Role.builder().name(Roles.ADMIN).build();
