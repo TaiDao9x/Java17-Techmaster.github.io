@@ -50,5 +50,45 @@ public class UserCustomRepository extends BaseRepository {
         return getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(UserResponse.class));
     }
 
+    public UserResponse getUserById(Long userId) {
+
+        StringBuilder sql = new StringBuilder();
+        HashMap<String, Object> parameters = new HashMap<>();
+        sql.append("select ");
+        sql.append("b.id, ");
+        sql.append("b.email, ");
+        sql.append("b.activated, ");
+        sql.append("b.locked, ");
+        sql.append("r.name AS roles, ");
+        sql.append("b.avatar, ");
+        sql.append("b.full_name, ");
+        sql.append("CASE WHEN b.gender = 'MALE' THEN 'Male' WHEN b.gender = 'FEMALE' THEN 'Female' ELSE 'Undefined' END AS gender, ");
+        sql.append("b.dob, ");
+        sql.append("b.phone, ");
+        sql.append("b.about, ");
+        sql.append("w.full_name AS ward, ");
+        sql.append("d.full_name AS district, ");
+        sql.append("p.full_name AS province ");
+        sql.append("from users b ");
+        sql.append("left join user_role AS ur ON b.id=ur.user_id ");
+        sql.append("left join roles AS r ON ur.role_id=r.id ");
+        sql.append("left join wards AS w ON b.ward_code = w.code ");
+        sql.append("left join districts AS d ON w.district_code = d.code ");
+        sql.append("left join provinces AS p ON d.province_code = p.code ");
+
+        sql.append("where 1=1");
+
+        if (userId != null) {
+            sql.append(" and b.id = :id");
+            parameters.put("id", userId);
+        }
+
+        List<UserResponse> users = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(UserResponse.class));
+        if (!users.isEmpty()) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+    }
 
 }

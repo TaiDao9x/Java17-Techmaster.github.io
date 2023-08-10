@@ -2,13 +2,12 @@ package com.example.goodreads_finalproject.controller.admin;
 
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.exception.BadRequestException;
-import com.example.goodreads_finalproject.exception.ExistedUserException;
-import com.example.goodreads_finalproject.model.request.CreateUserRequest;
 import com.example.goodreads_finalproject.model.request.RoleRequest;
 import com.example.goodreads_finalproject.model.request.UserRequest;
 import com.example.goodreads_finalproject.model.request.UserSearchRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
-import com.example.goodreads_finalproject.service.BookService;
+import com.example.goodreads_finalproject.model.response.UserResponse;
+import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.RoleService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping()
@@ -53,6 +53,15 @@ public class ManageUserController {
         return "admin/user/role-list";
     }
 
+    @GetMapping("/admin/profile")
+    public String editProfile(Model model) {
+        Long userLoginId = SecurityUtils.getCurrentUserLoginId().get();
+        UserResponse userResponse = userService.findUserById(userLoginId);
+        model.addAttribute("userResponse", userResponse);
+
+        return "admin/user/profile";
+    }
+
 //    @PostMapping("api/v1/admin/users")
 //    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest request) {
 //        try {
@@ -78,6 +87,12 @@ public class ManageUserController {
             return new ResponseEntity<>("Role existed", HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @PutMapping("api/v1/admin/profile")
+    public ResponseEntity<?> updateProfile(@RequestBody @Valid UserRequest request) {
+        userService.updateUser(request);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
 }

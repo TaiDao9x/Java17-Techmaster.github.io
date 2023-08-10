@@ -37,6 +37,8 @@ public class UserResponse {
 
     String phone;
 
+    String about;
+
     String ward;
 
     String district;

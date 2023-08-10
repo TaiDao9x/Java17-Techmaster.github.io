@@ -6,6 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -14,5 +15,6 @@ public class ResetPasswordRequest {
     String otpCode;
 
     @NotBlank
+    @Size(max = 100, message = "Password cannot over 100 characters")
     String newPassword;
 }

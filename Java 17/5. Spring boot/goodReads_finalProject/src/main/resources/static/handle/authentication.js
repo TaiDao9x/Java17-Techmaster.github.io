@@ -419,6 +419,4 @@ $(document).ready(function () {
             $("#submit-reset-modal").click();
         }
     });
-
-
 })

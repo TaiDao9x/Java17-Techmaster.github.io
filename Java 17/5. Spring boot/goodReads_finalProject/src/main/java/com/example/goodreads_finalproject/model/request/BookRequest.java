@@ -5,8 +5,10 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -18,14 +20,17 @@ public class BookRequest {
     String image;
 
     @NotBlank
+    @Size(max = 100, message = "Title cannot over 100 characters")
     String title;
 
     @NotBlank
     Set<Long> categoryId;
 
     @NotBlank
+    @Size(max = 100, message = "Author cannot over 100 characters")
     String author;
 
+    @Size(max = 65535, message = "Description cannot over 65.535 characters")
     String description;
 
     @NotBlank

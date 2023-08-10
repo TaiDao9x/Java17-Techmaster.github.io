@@ -51,6 +51,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "ward_code")
     Ward address;
 
-    LocalDateTime deletedDateTime;
+    @Column(columnDefinition = "TEXT")
+    String about;
 
+    LocalDateTime deletedDateTime;
 }

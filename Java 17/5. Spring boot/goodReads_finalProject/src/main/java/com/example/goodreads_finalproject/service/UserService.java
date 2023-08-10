@@ -16,6 +16,7 @@ import com.example.goodreads_finalproject.repository.custom.UserCustomRepository
 import com.example.goodreads_finalproject.security.CustomUserDetails;
 import com.example.goodreads_finalproject.security.JwtUtils;
 import com.example.goodreads_finalproject.security.SecurityUtils;
+import com.example.goodreads_finalproject.statics.Gender;
 import com.example.goodreads_finalproject.statics.Roles;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
@@ -201,7 +202,6 @@ public class UserService {
             List<UserResponse> users = userCustomRepository.searchUser(request);
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
-
             PaginationUtils<UserResponse> paginationUtils = new PaginationUtils<>();
             int pageNumber = paginationUtils.getPageNumber(users, pageSize);
             users = paginationUtils.searchData(users, pageIndex, pageSize);
@@ -220,11 +220,25 @@ public class UserService {
             throw new NotFoundException("User not found");
         }
         User user = userOptional.get();
-        if (user.isLocked()) {
-            user.setLocked(false);
-        } else {
-            user.setLocked(true);
-        }
+        user.setLocked(!user.isLocked());
+        userRepository.save(user);
+    }
+
+    public UserResponse findUserById(Long userId) {
+        return userCustomRepository.getUserById(userId);
+    }
+
+    public void updateUser(UserRequest request) {
+        Long id = SecurityUtils.getCurrentUserLoginId().get();
+        User user = userRepository.findById(id).get();
+        Gender gender = Gender.convertGender(request.getGender());
+
+        user.setAvatar(request.getAvatar().equals("") ? user.getAvatar() : request.getAvatar());
+        user.setAbout(request.getAbout());
+        user.setFullName(request.getFullName());
+        user.setDob(request.getDob());
+        user.setGender(gender);
+        user.setPhone(request.getPhone());
         userRepository.save(user);
     }
 }

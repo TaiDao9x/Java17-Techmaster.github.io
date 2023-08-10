@@ -20,8 +20,8 @@ $(document).ready(function () {
     // show image
     let chosenFile = null;
     $('#fileInput').change(event => {
-        const maxSizeInBytes = 5242880;
         const tempFiles = event.target.files;
+        const maxSizeInBytes = 5242880;
         if (!tempFiles || tempFiles.length === 0) {
             return;
         }
@@ -306,6 +306,6 @@ $(document).ready(function () {
             }
         })
     }
-
 })
+
 
