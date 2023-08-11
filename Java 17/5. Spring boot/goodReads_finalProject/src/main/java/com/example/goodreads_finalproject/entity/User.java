@@ -22,6 +22,7 @@ public class User extends BaseEntity {
     @Column(unique = true, nullable = false)
     String email;
 
+    @Column(nullable = false)
     String password;
 
     @Column(nullable = false, columnDefinition = "BOOLEAN default false")
@@ -36,8 +37,10 @@ public class User extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @Column(nullable = false)
     String avatar;
 
+    @Column(nullable = false)
     String fullName;
 
     @Enumerated(EnumType.STRING)
@@ -45,6 +48,7 @@ public class User extends BaseEntity {
 
     LocalDate dob;
 
+    @Column(nullable = false)
     String phone;
 
     @OneToOne

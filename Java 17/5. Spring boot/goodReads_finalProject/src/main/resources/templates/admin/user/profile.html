@@ -234,57 +234,62 @@
 
                     <div class="tabs__pane -tab-item-3">
                         <div class="col-xl-9">
-                            <div class="row x-gap-20 y-gap-20">
-                                <div class="col-12">
+                            <form id="change-password-form">
+                                <div class="row x-gap-20 y-gap-20">
+                                    <div class="col-12">
 
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Current Password</label>
-                                        <input type="text" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12">
-
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">New Password</label>
-                                        <input type="text" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12">
-
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">New Password Again</label>
-                                        <input type="text" required>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="row x-gap-10 y-gap-10">
-                                        <div class="col-auto">
-
-                                            <a href="#" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">
-                                                Save Changes
-                                            </a>
-
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">Current Password</label>
+                                            <input type="password" name="current-password" id="current-password"
+                                                   required>
                                         </div>
 
-                                        <div class="col-auto">
-                                            <button class="button h-50 px-24 -blue-1 bg-blue-1-05 text-blue-1">Cancel
-                                            </button>
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">New Password</label>
+                                            <input type="password" name="new-password" id="new-password" required>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">New Password Again</label>
+                                            <input type="password" name="re-password" id="re-password" required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="row x-gap-10 y-gap-10">
+                                            <div class="col-auto">
+
+                                                <button id="change-password-btn"
+                                                        class="button h-50 px-24 -dark-1 bg-blue-1 text-white">
+                                                    Save Changes
+                                                </button>
+
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <a id="cancel-change-password-btn"
+                                                   class="button h-50 px-24 -blue-1 bg-blue-1-05 text-blue-1 pointer">
+                                                    Cancel
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <footer class="footer -dashboard mt-60">
             <div class="footer__row row y-gap-10 items-center justify-between">
@@ -307,6 +312,8 @@
 </div>
 <th:block id="js">
     <script th:src="@{/admin/handle/profile.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
 
     <script th:inline="javascript">
         let userResponse = [[${userResponse}]];
@@ -324,7 +331,118 @@
         $('#gender').val(userResponse.gender);
 
     </script>
+    <script>
+        $(document).ready(function () {
 
+            // Change Password
+            $('#change-password-form').validate({
+                onfocusout: false,
+                onkeyup: false,
+                onclick: false,
+                errorPlacement: function (error, element) {
+                    error.addClass("error-message");
+                    error.insertAfter(element);
+                },
+                rules: {
+                    "current-password": {
+                        required: true
+                    },
+                    "new-password": {
+                        required: true,
+                        minlength: 6,
+                    },
+                    "re-password": {
+                        required: true,
+                        equalTo: "#new-password"
+                    }
+                },
+                messages: {
+                    "current-password": {
+                        required: "* Enter your current password"
+                    },
+                    "new-password": {
+                        required: "* Enter your new password",
+                        minlength: "* Please enter at least 6 characters"
+                    },
+                    "re-password": {
+                        required: "* Repeat your new password",
+                        equalTo: "* Re-password incorrect"
+                    }
+                },
+                invalidHandler: function (form, validator) {
+                    let errors = validator.numberOfInvalids();
+                    if (errors) {
+                        let firstErrorElement = $(validator.errorList[0].element);
+                        $('html, body').animate({
+                            scrollTop: firstErrorElement.offset().top - 200
+                        }, 500);
+                        firstErrorElement.focus();
+                    }
+                }
+            })
+
+            $('#change-password-form input').on('keyup', function (event) {
+                if (event.key === 'Enter') {
+                    $('#change-password-btn').click();
+                } else if (event.which === 27) {
+                    $('#cancel-change-password-btn').click();
+                }
+            })
+            $('#change-password-btn').click(() => {
+                let isValidForm = $('#change-password-form').valid();
+                if (!isValidForm) {
+                    return;
+                }
+                $('#change-password-btn').prop('disabled', true);
+                // change password
+                let formData = {
+                    currentPassword: CryptoJS.MD5($('#current-password').val()).toString(),
+                    newPassword: CryptoJS.MD5($('#new-password').val()).toString(),
+                    rePassword: CryptoJS.MD5($('#re-password').val()).toString(),
+                }
+                console.log(formData)
+                changePassword(formData);
+            })
+
+            function changePassword(formData) {
+                $.ajax({
+                    url: "/api/v1/authentication/password-change",
+                    type: 'PUT',
+                    contentType: "application/json",
+                    data: JSON.stringify(formData),
+                    success: function () {
+                        // toastr.success("Changed password successfully!");
+                        setTimeout(function () {
+                            $.ajax({
+                                url: '/api/v1/authentication/logout',
+                                type: 'POST',
+                                success: function () {
+                                    localStorage.clear()
+                                    window.location.href = 'http://localhost:8080/login'
+                                },
+                                error: function () {
+                                    toastr.warning("Error network!")
+                                }
+                            });
+                        }, 700);
+
+                    },
+                    error: function () {
+                        toastr.warning("Changed password not successfully!");
+                        $('#change-password-btn').prop('disabled', false);
+                    }
+                })
+            }
+
+            $('#cancel-change-password-btn').click(() => {
+                $('#change-password-form').validate().resetForm();
+                $('#current-password').val('');
+                $('#new-password').val('');
+                $('#re-password').val('');
+            })
+        })
+
+    </script>
 
 </th:block>
 </body>

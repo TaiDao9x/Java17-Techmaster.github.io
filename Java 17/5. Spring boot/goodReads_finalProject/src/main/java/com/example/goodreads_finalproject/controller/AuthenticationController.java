@@ -3,6 +3,7 @@ package com.example.goodreads_finalproject.controller;
 import com.example.goodreads_finalproject.entity.RefreshToken;
 import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.AccountNotActiveException;
+import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.RefreshTokenNotFoundException;
 import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
@@ -113,7 +114,6 @@ public class AuthenticationController {
         jwtCookie.setMaxAge(0);
         jwtCookie.setPath("/");
         response.addCookie(jwtCookie);
-
         userService.logout();
         return ResponseEntity.ok(null);
     }
@@ -127,5 +127,13 @@ public class AuthenticationController {
         }
     }
 
-
+    @PutMapping("/password-change")
+    public ResponseEntity<?> changePassword(@RequestBody @Valid ChangePasswordRequest request) {
+        try {
+            userService.changePassword(request);
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        } catch (BadRequestException e) {
+            return new ResponseEntity<>("Thay đổi mật khẩu không thành công!", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

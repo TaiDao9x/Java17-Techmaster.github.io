@@ -82,22 +82,12 @@ public class UserService {
                 .email(registrationRequest.getEmail())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .roles(roles)
+                .avatar("https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a")
+                .phone("")
                 .build();
         userRepository.save(user);
         emailService.sendOtpActivedAccount(user.getEmail());
     }
-
-//    public List<UserResponse> getAll() {
-//        List<User> users = userRepository.findAll();
-//        if (!CollectionUtils.isEmpty(users)) {
-//            return users.stream().map(u -> objectMapper.convertValue(u, UserResponse.class)).collect(Collectors.toList());
-//        }
-//        return Collections.emptyList();
-//    }
-
-//    public UserResponse getDetail(Long id) throws ClassNotFoundException {
-//        return userRepository.findById(id).map(u -> objectMapper.convertValue(u, UserResponse.class)).orElseThrow(ClassNotFoundException::new);
-//    }
 
     public JwtResponse refreshToken(RefreshTokenRequest request, HttpServletResponse response) throws RefreshTokenNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -239,6 +229,19 @@ public class UserService {
         user.setDob(request.getDob());
         user.setGender(gender);
         user.setPhone(request.getPhone());
+        userRepository.save(user);
+    }
+
+    public void changePassword(ChangePasswordRequest request) throws BadRequestException {
+        Long currentUserLoginId = SecurityUtils.getCurrentUserLoginId().get();
+        User user = userRepository.findById(currentUserLoginId).get();
+        String newPassword = request.getNewPassword();
+        String reNewPassword = request.getRePassword();
+//        String curentPassword = passwordEncoder.encode(request.getCurrentPassword());
+        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
+            throw new BadRequestException();
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 }

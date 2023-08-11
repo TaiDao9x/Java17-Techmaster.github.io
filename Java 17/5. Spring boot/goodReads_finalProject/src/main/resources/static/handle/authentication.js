@@ -3,16 +3,6 @@ $(window).on("load", function () {
 
     function checkLoggedIn() {
         const jwtToken = localStorage.getItem("jwtToken");
-        const userInfomation = JSON.parse(localStorage.getItem('userInfomation'));
-
-        const avatar = userInfomation.avatar;
-        let avatarAdminHtml;
-        if (avatar === null) {
-            avatarAdminHtml = ` <img src="https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a" alt="image" class="size-40 rounded-22 object-cover">`
-        } else {
-            avatarAdminHtml = ` <img src="${avatar}" alt="image" class="size-40 rounded-22 object-cover">`
-        }
-        $('#avatar-admin').append(avatarAdminHtml);
 
         if (!jwtToken) {
             $(".tg-wishlistandcart").empty();
@@ -23,6 +13,20 @@ $(window).on("load", function () {
             $(".tg-wishlistandcart").append(userHtmlContent);
 
         } else {
+            // avatar ADMIN
+            const userInfomation = JSON.parse(localStorage.getItem('userInfomation'));
+
+            const avatar = userInfomation.avatar;
+            let avatarAdminHtml;
+            if (avatar === null) {
+                avatarAdminHtml = ` <img src="https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a" alt="image" class="size-40 rounded-22 object-cover">`
+            } else {
+                avatarAdminHtml = ` <img src="${avatar}" alt="image" class="size-40 rounded-22 object-cover">`
+            }
+            $('#avatar-admin').append(avatarAdminHtml);
+
+
+            // Avatar user
             const userLoginHtml = `
                 <div class="dropdown tg-themedropdown tg-wishlistdropdown">
                                     <a href="javascript:void(0);" id="tg-wishlisst" class="tg-btnthemedropdown"
@@ -218,6 +222,7 @@ $(document).ready(function () {
             },
             "password": {
                 required: true,
+                minlength: 6
             },
             "re-pass": {
                 required: true,
@@ -226,15 +231,17 @@ $(document).ready(function () {
         },
         messages: {
             "email": {
-                required: "Enter your email",
-                email: "Incorrect email format"
+                required: "* Please enter your email",
+                email: "* Incorrect email format"
             },
             "password": {
-                required: "Enter your password"
+                required: "* Please enter your password",
+                minlength: "* Please enter at least 6 characters"
+
             },
             "re-pass": {
-                required: "Repeat your password",
-                equalTo: "Re-password incorrect"
+                required: "* Repeat your password",
+                equalTo: "* Re-password incorrect"
             }
         }
     });
@@ -242,13 +249,14 @@ $(document).ready(function () {
     $("#signup").click((key, value) => {
         let isValidForm = $("#register-form").valid()
         if (!isValidForm) return
+        $("#signup").prop('disabled', true)
         let signupName = $('#name').val()
         let signupEmail = $('#email').val()
         let signupPassword = $('#password').val()
         let request = {
             fullName: signupName,
             email: signupEmail,
-            password: signupPassword
+            password: CryptoJS.MD5(signupPassword).toString()
         }
         $.ajax({
             url: '/api/v1/authentication/signup',
@@ -278,7 +286,6 @@ $(document).ready(function () {
         }
     });
 
-
     // Login
     $("#login-form").validate({
         onfocusout: false,
@@ -299,11 +306,11 @@ $(document).ready(function () {
         },
         messages: {
             "email": {
-                required: "Enter your email",
-                email: "Incorrect email format"
+                required: "* Please enter your email",
+                email: "* Incorrect email format"
             },
             "password": {
-                required: "Enter your password"
+                required: "* Pleaser enter your password"
             }
         }
     });
@@ -315,7 +322,7 @@ $(document).ready(function () {
         let loginPassword = $('#password').val();
         let request = {
             email: loginEmail,
-            password: loginPassword
+            password: CryptoJS.MD5(loginPassword).toString()
         };
         $.ajax({
             url: '/api/v1/authentication/login',
@@ -383,8 +390,8 @@ $(document).ready(function () {
         },
         messages: {
             "email": {
-                required: "Enter your email",
-                email: "Incorrect email format"
+                required: "* Please enter your email",
+                email: "* Incorrect email format"
             }
         }
     });
@@ -399,11 +406,12 @@ $(document).ready(function () {
             email: emailReset
         };
         await $.ajax({
-            url: "/api/v1/users/otp-sending",
+            url: "/api/v1/anonymous/otp-sending",
             type: 'POST',
             data: JSON.stringify(request),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
+                $(".email-reset-form #email").val('')
                 $('#forgot-password-modal').modal('hide');
                 toastr.success("Please check your email!");
             },

@@ -32,7 +32,6 @@ $(document).ready(function () {
         }
         const imageBlob = new Blob([chosenFile], {type: chosenFile.type});
         const imageUrl = URL.createObjectURL(imageBlob);
-        // $('#show-avatar').empty();
         let showImageHtml = `<img src="${imageUrl}" alt="image" class="img-ratio rounded-4">`
         $('#show-avatar').html(showImageHtml)
     });
@@ -167,6 +166,7 @@ $(document).ready(function () {
             }
         })
     }
+
 })
 
 function saveNewInformation(newInfo) {
@@ -179,5 +179,6 @@ function saveNewInformation(newInfo) {
         "role": userInfomation.role
     };
     localStorage.setItem('userInfomation', JSON.stringify(userData))
+
 }
 

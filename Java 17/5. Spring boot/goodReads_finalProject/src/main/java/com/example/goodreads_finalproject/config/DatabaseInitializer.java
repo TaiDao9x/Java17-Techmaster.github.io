@@ -51,7 +51,10 @@ public class DatabaseInitializer implements CommandLineRunner {
                 User user = new User();
                 user.setEmail("admin@gmail.com");
                 user.setActivated(true);
-                user.setPassword(passwordEncoder.encode("123")); // Encrypt the password
+                user.setAvatar("https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a");
+                user.setPhone("");
+                user.setFullName("");
+                user.setPassword(passwordEncoder.encode("e10adc3949ba59abbe56e057f20f883e")); // Encrypt the password
                 Set<Role> roles = new HashSet<>();
                 roles.add(adminRole);
                 user.setRoles(roles);
