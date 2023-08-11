@@ -61,9 +61,21 @@ $(document).ready(function () {
             setTimeout(function () {
                 $('.select2-container').css('position', 'relative');
             }, 200);
+        } else if (event.key === 'Enter') {
+            $('#unlockModal .locked-user-btn').click();
         }
     });
 
+    // $('#unlockModal').on("keyup", function (event) {
+    //     if (event.key === 'Enter') {
+    //         $('#unlockModal .locked-user-btn').click();
+    //     } else if (event.which === '27') {
+    //         $('.cd-popup').removeClass('is-visible');
+    //         setTimeout(function () {
+    //             $('.select2-container').css('position', 'relative');
+    //         }, 200);
+    //     }
+    // })
     $('#unlockModal').on('click', '.locked-user-btn', function () {
         $('.locked-user-btn').prop('disabled', true)
         lockUser(userId);
@@ -80,8 +92,7 @@ $(document).ready(function () {
                 setTimeout(function () {
                     window.location.reload();
                 }, 800)
-            }
-            ,
+            },
             error: function () {
                 toastr.warning("Not success!");
             }
