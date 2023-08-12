@@ -1,5 +1,6 @@
 package com.example.goodreads_finalproject.controller.admin;
 
+import com.example.goodreads_finalproject.entity.Province;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.model.request.RoleRequest;
@@ -57,7 +58,10 @@ public class ManageUserController {
     public String editProfile(Model model) {
         Long userLoginId = SecurityUtils.getCurrentUserLoginId().get();
         UserResponse userResponse = userService.findUserById(userLoginId);
+        List<Province> allProvince = userService.getAllProvince();
+
         model.addAttribute("userResponse", userResponse);
+        model.addAttribute("provinceList", allProvince);
 
         return "admin/user/profile";
     }

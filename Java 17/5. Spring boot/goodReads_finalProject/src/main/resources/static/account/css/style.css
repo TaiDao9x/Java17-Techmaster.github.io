@@ -751,3 +751,16 @@ label.valid:after {
     left: 50%;
     transform: translateX(-50%);
 }
+
+#show-password {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.label-of-show-pass {
+    display: inline-block;
+    -webkit-transform: translateY(-10%);
+    position: relative;
+    cursor: pointer;
+
+}

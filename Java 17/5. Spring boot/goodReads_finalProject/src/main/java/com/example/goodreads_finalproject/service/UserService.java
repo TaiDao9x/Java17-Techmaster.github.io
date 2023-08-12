@@ -1,6 +1,7 @@
 package com.example.goodreads_finalproject.service;
 
 import com.example.goodreads_finalproject.entity.Otp;
+import com.example.goodreads_finalproject.entity.Province;
 import com.example.goodreads_finalproject.entity.Role;
 import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.*;
@@ -8,10 +9,7 @@ import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
-import com.example.goodreads_finalproject.repository.OtpRepository;
-import com.example.goodreads_finalproject.repository.RefreshTokenRepository;
-import com.example.goodreads_finalproject.repository.RoleRepository;
-import com.example.goodreads_finalproject.repository.UserRepository;
+import com.example.goodreads_finalproject.repository.*;
 import com.example.goodreads_finalproject.repository.custom.UserCustomRepository;
 import com.example.goodreads_finalproject.security.CustomUserDetails;
 import com.example.goodreads_finalproject.security.JwtUtils;
@@ -29,7 +27,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +55,8 @@ public class UserService {
     OtpRepository otpRepository;
     @Autowired
     UserCustomRepository userCustomRepository;
+    @Autowired
+    ProvinceRepository provinceRepository;
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
@@ -243,5 +242,9 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
+    }
+
+    public List<Province> getAllProvince() {
+        return provinceRepository.findAll();
     }
 }

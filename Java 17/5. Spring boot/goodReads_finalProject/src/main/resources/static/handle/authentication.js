@@ -427,4 +427,15 @@ $(document).ready(function () {
             $("#submit-reset-modal").click();
         }
     });
+
+    $('#show-password').change(function () {
+        if ($(this).is(':checked')) {
+            $('#password').prop('type', 'text')
+            $('#re-pass').prop('type', 'text')
+        } else {
+            $('#password').prop('type', 'password')
+            $('#re-pass').prop('type', 'password')
+        }
+    })
+
 })

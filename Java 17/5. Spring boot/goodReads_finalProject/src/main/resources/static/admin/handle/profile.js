@@ -182,3 +182,133 @@ function saveNewInformation(newInfo) {
 
 }
 
+$(document).ready(function () {
+
+    $.validator.addMethod("notEqualTo", function (value, element, param) {
+        return this.optional(element) || value !== $(param).val();
+    }, "New password must be different from current password");
+
+    // Change Password
+    $('#change-password-form').validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        errorPlacement: function (error, element) {
+            error.addClass("error-message");
+            error.insertAfter(element);
+        },
+        rules: {
+            "current-password": {
+                required: true
+            },
+            "new-password": {
+                required: true,
+                minlength: 6,
+                notEqualTo: "#current-password"
+            },
+            "re-password": {
+                required: true,
+                equalTo: "#new-password"
+            }
+        },
+        messages: {
+            "current-password": {
+                required: "* Enter your current password"
+            },
+            "new-password": {
+                required: "* Enter your new password",
+                minlength: "* Please enter at least 6 characters",
+                notEqualTo: "* New password must be different from current password"
+            },
+            "re-password": {
+                required: "* Repeat your new password",
+                equalTo: "* Re-password incorrect"
+            }
+        },
+        invalidHandler: function (form, validator) {
+            let errors = validator.numberOfInvalids();
+            if (errors) {
+                let firstErrorElement = $(validator.errorList[0].element);
+                $('html, body').animate({
+                    scrollTop: firstErrorElement.offset().top - 200
+                }, 500);
+                firstErrorElement.focus();
+            }
+        }
+    })
+
+    $('#change-password-form input').on('keyup', function (event) {
+        if (event.key === 'Enter') {
+            $('#change-password-btn').click();
+        } else if (event.which === 27) {
+            $('#cancel-change-password-btn').click();
+        }
+    })
+    $('#change-password-btn').click(() => {
+        let isValidForm = $('#change-password-form').valid();
+        if (!isValidForm) {
+            return;
+        }
+        $('#change-password-btn').prop('disabled', true);
+        // change password
+        let formData = {
+            currentPassword: CryptoJS.MD5($('#current-password').val()).toString(),
+            newPassword: CryptoJS.MD5($('#new-password').val()).toString(),
+            rePassword: CryptoJS.MD5($('#re-password').val()).toString(),
+        }
+        changePassword(formData);
+    })
+
+    function changePassword(formData) {
+        $.ajax({
+            url: "/api/v1/authentication/password-change",
+            type: 'PUT',
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            success: function () {
+                // toastr.success("Changed password successfully!");
+                setTimeout(function () {
+                    $.ajax({
+                        url: '/api/v1/authentication/logout',
+                        type: 'POST',
+                        success: function () {
+                            localStorage.clear()
+                            window.location.href = 'http://localhost:8080/login'
+                        },
+                        error: function () {
+                            toastr.warning("Error network!")
+                        }
+                    });
+                }, 700);
+
+            },
+            error: function () {
+                toastr.warning("Changed password not successfully!");
+                $('#change-password-btn').prop('disabled', false);
+            }
+        })
+    }
+
+    $('#cancel-change-password-btn').click(() => {
+        $('#change-password-form').validate().resetForm();
+        $('#current-password').val('');
+        $('#new-password').val('');
+        $('#re-password').val('');
+    })
+
+    $('#show-password').change(function () {
+        if ($(this).is(':checked')) {
+            $('#current-password').prop('type', 'text');
+            $('#new-password').prop('type', 'text');
+            $('#re-password').prop('type', 'text');
+        } else {
+            $('#current-password').prop('type', 'password');
+            $('#new-password').prop('type', 'password');
+            $('#re-password').prop('type', 'password');
+        }
+    })
+
+    $('#current-password, #new-password, #re-password').on('keyup', function () {
+        $('#change-password-form').validate().resetForm();
+    })
+})
