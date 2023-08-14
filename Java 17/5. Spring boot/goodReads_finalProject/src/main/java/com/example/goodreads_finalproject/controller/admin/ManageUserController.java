@@ -7,6 +7,7 @@ import com.example.goodreads_finalproject.model.request.RoleRequest;
 import com.example.goodreads_finalproject.model.request.UserRequest;
 import com.example.goodreads_finalproject.model.request.UserSearchRequest;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
+import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.RoleService;
@@ -58,7 +59,7 @@ public class ManageUserController {
     public String editProfile(Model model) {
         Long userLoginId = SecurityUtils.getCurrentUserLoginId().get();
         UserResponse userResponse = userService.findUserById(userLoginId);
-        List<Province> allProvince = userService.getAllProvince();
+        List<LocationResponse> allProvince = userService.getAllProvince();
 
         model.addAttribute("userResponse", userResponse);
         model.addAttribute("provinceList", allProvince);

@@ -84,8 +84,10 @@
     $(document).ready(function () {
         console.log(CryptoJS.MD5('admin123').toString())
         console.log(CryptoJS.MD5('123456').toString())
-        $('#email, #password  ').on('keyup', function () {
-            $('#login-form').validate().resetForm();
+        $('#email, #password  ').on('keyup', function (event) {
+            if (event.key !== 'Enter') {
+                $('#login-form').validate().resetForm();
+            }
         })
     })
 </script>

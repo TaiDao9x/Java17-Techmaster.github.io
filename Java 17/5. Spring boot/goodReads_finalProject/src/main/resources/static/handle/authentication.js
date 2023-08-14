@@ -194,11 +194,6 @@ function refreshToken() {
 
 setInterval(refreshToken, 23.5 * 60 * 60 * 1000);
 
-function handleExpiredJWT() {
-    const jwtToken = getJwtToken();
-    const decodedToken = jwt_decode(jwtToken)
-}
-
 // login and signup
 $(document).ready(function () {
     // Sign up
@@ -246,6 +241,12 @@ $(document).ready(function () {
         }
     });
 
+    $('#register-form .form-group input').on('keyup', function (event) {
+        if (event.key === 'Enter') {
+            $("#signup").click();
+        }
+    })
+
     $("#signup").click((key, value) => {
         let isValidForm = $("#register-form").valid()
         if (!isValidForm) return
@@ -278,12 +279,6 @@ $(document).ready(function () {
                 }, 1000);
             },
         });
-    });
-
-    $('.container input').on('keyup', function (event) {
-        if (event.key === 'Enter') {
-            $("#signup").click();
-        }
     });
 
     // Login

@@ -55,8 +55,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "ward_code")
     Ward address;
 
-    @Column(name = "add_detail")
-    String addressDetails;
+    @Column(name = "street")
+    String street;
 
     @Column(columnDefinition = "TEXT")
     String about;

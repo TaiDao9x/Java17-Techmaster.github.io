@@ -21,6 +21,22 @@
                 border: 1px dashed #DDDDDD;
                 border-radius: 8px;
             }
+
+            .show-update-form-btn {
+                position: absolute;
+                top: 50px;
+                right: 15px;
+                color: #8c929c;
+            }
+
+            .show-update-form-btn:hover {
+                color: black;
+            }
+
+            .hide-element {
+                display: none;
+            }
+
         </style>
     </th:block>
 
@@ -165,59 +181,68 @@
                     <div class="tabs__pane -tab-item-2">
                         <div class="col-xl-9">
                             <div class="row x-gap-20 y-gap-20">
-
-
-                                <div class="col-md-6">
+                                <div class="col-12">
 
                                     <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">City</label>
+                                        <div class="form-input" id="current-address">
+
+                                        </div>
+                                        <button>
+                                            <i class="fa-solid fa-pen-to-square text-14 show-update-form-btn"></i>
+                                        </button>
                                     </div>
-                                    <select class="form-control" name="city" id="city">
-                                        <option th:each="province : ${provinceList}" th:value="${province.code}"
-                                                th:text="${province.name}">
-                                        </option>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-top-light mt-30 mb-30"></div>
+                        <div class="col-xl-9 hide-element" id="update-address-modal">
+                            <div class="row x-gap-20 y-gap-20">
+
+                                <div class="col-12">
+
+                                    <div class="form-input ">
+                                        <label class="lh-1 text-16 text-light-1">Change address:</label>
+                                    </div>
+                                    <select class="form-control" name="province" id="province">
+
                                     </select>
                                 </div>
+                                <form id="update-address-form">
 
-                                <div class="col-md-6">
+                                    <div class="col-12 district-container hide-element">
 
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">District</label>
+                                        <div class="form-input">
+                                        </div>
+                                        <select class="form-control" name="district" id="district">
+
+                                        </select>
                                     </div>
-                                    <select class="form-control" name="district" id="district">
-                                        <option th:each="province : ${provinceList}" th:value="${province.code}"
-                                                th:text="${province.name}">
-                                        </option>
-                                    </select>
-                                </div>
 
-                                <div class="col-md-6">
+                                    <div class="col-12 mt-20 ward-container hide-element">
 
-                                    <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Ward</label>
+                                        <div class="form-input ">
+                                        </div>
+                                        <select class="form-control" name="ward" id="ward">
+
+                                        </select>
                                     </div>
-                                    <select class="form-control" name="ward" id="ward">
-                                        <option th:each="province : ${provinceList}" th:value="${province.code}"
-                                                th:text="${province.name}">
-                                        </option>
-                                    </select>
-                                </div>
+                                </form>
 
-                                <div class="col-md-6">
+                                <div class="col-12 mt-20">
 
                                     <div class="form-input ">
-                                        <label class="lh-1 text-16 text-light-1">Street</label>
-                                        <input type="text">
+                                        <input type="text" id="street" placeholder="- Street...">
                                     </div>
 
                                 </div>
-
                                 <div class="col-12">
                                     <div class="d-inline-block">
 
-                                        <a href="#" class="button h-50 px-24 -dark-1 bg-blue-1 text-white">
+                                        <button class="button h-50 px-24 -dark-1 bg-blue-1 text-white"
+                                                id="update-address-btn">
                                             Save Changes
-                                        </a>
+                                        </button>
 
                                     </div>
                                 </div>
@@ -325,6 +350,9 @@
 
     <script th:inline="javascript">
         let userResponse = [[${userResponse}]];
+        let provinceList = [[${provinceList}]];
+        console.log(userResponse);
+
         $(window).on('load', function () {
             const avatar = userResponse.avatar;
             let showAvatarHtml = ` <img src="${avatar}" alt="image" class="img-ratio rounded-4">`;
@@ -338,6 +366,18 @@
         $('#about').val(userResponse.about);
         $('#gender').val(userResponse.gender);
 
+
+        $('.show-update-form-btn').click(() => {
+            $('#update-address-modal').toggleClass('hide-element');
+            $('#province').focus();
+        })
+
+        $('#street').on('keyup', function (event) {
+            if (event.key === 'Enter') {
+                $('#update-address-btn').click();
+            }
+
+        })
     </script>
 
 </th:block>

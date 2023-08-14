@@ -9,6 +9,7 @@ firebase.initializeApp(firebaseConfig);
 let storage = firebase.storage();
 let storageRef = storage.ref();
 
+// Update personal information
 $(document).ready(function () {
 
     //open chosen image form
@@ -95,7 +96,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#edit-profile-form input', '#edit-profile-form textarea').on('keyup', function (event) {
+    $('#edit-profile-form input').on('keyup', function (event) {
         if (event.key === 'Enter') {
             $('#submit-edit-personal-btn').click();
         }
@@ -166,7 +167,6 @@ $(document).ready(function () {
             }
         })
     }
-
 })
 
 function saveNewInformation(newInfo) {
@@ -179,9 +179,9 @@ function saveNewInformation(newInfo) {
         "role": userInfomation.role
     };
     localStorage.setItem('userInfomation', JSON.stringify(userData))
-
 }
 
+// Change password
 $(document).ready(function () {
 
     $.validator.addMethod("notEqualTo", function (value, element, param) {
@@ -266,7 +266,7 @@ $(document).ready(function () {
             contentType: "application/json",
             data: JSON.stringify(formData),
             success: function () {
-                // toastr.success("Changed password successfully!");
+                toastr.success("Changed password successfully!");
                 setTimeout(function () {
                     $.ajax({
                         url: '/api/v1/authentication/logout',
@@ -308,7 +308,177 @@ $(document).ready(function () {
         }
     })
 
-    $('#current-password, #new-password, #re-password').on('keyup', function () {
-        $('#change-password-form').validate().resetForm();
+    $('#current-password, #new-password, #re-password').on('keyup', function (event) {
+        if (event.key !== 'Enter') {
+            $('#change-password-form').validate().resetForm();
+        }
     })
 })
+
+// update address
+$(document).ready(function () {
+    // Kích hoạt select2
+    $('#province').select2({
+        placeholder: "- Province..."
+    });
+    $('#district').select2({
+        placeholder: "- District..."
+    });
+    $('#ward').select2({
+        placeholder: "- Ward..."
+    });
+    $('.select2-container').prop('style', 'width: 100%;')
+
+    renderAddressCurrent();
+    renderProvinceOptions();
+
+    $('#province').change(function () {
+        renderDistrictOptions();
+    })
+
+    $('#district').change(function () {
+        renderWardOptions();
+    })
+
+    $('#update-address-form').validate({
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        errorPlacement: function (error, element) {
+            error.addClass("error-message");
+            error.insertAfter(element);
+        },
+        rules: {
+            "province": {
+                required: true
+            },
+            "district": {
+                required: true
+            },
+            "ward": {
+                required: true
+            }
+        },
+        messages: {
+            "province": {
+                required: "* Please chose your province"
+            },
+            "district": {
+                required: "* Please chose your district"
+            },
+            "ward": {
+                required: "* Please chose your ward"
+            }
+        }
+    })
+
+    $('#update-address-btn').on('click', function () {
+        // let isValidForm = $('#update-address-form').valid();
+        // if (!isValidForm) {
+        //     return;
+        // }
+        let wardCode = $('#ward').val();
+        if (wardCode === null || wardCode.trim() === '') {
+            toastr.warning('Please chose your address before save')
+            return;
+        }
+        $('#update-address-btn').prop("disabled", true);
+        let formData = {
+            wardCode: wardCode,
+            street: $('#street').val()
+        }
+        updateAddress(formData);
+    })
+
+})
+
+function renderAddressCurrent() {
+    let streetCurrent = userResponse.street;
+    let provinceCurrent = userResponse.provinceFullName;
+    let districtCurrent = userResponse.districtFullName;
+    let wardCurrent = userResponse.wardFullName;
+
+    let addressParts = [streetCurrent, wardCurrent, districtCurrent].map(part => part ? part + ', ' : '').join('');
+    let provincePart = provinceCurrent ? provinceCurrent : '';
+
+    let addressHTML = `<label class="lh-1 text-16 text-light-1">Current Address: </label>
+                            <input type="text" disabled
+                                    value="${addressParts}${provincePart}">
+                       `;
+
+    $('#current-address').html(addressHTML)
+}
+
+function renderProvinceOptions() {
+    let optionProvinceHTML = '<option></option>';
+    for (let i = 0; i < provinceList.length; i++) {
+        let option = `<option value="${provinceList[i].provinceCode}">
+                                     ${provinceList[i].provinceName}
+                      </option>`;
+        optionProvinceHTML += option;
+    }
+    $('#province').html(optionProvinceHTML);
+}
+
+function renderDistrictOptions() {
+    let provinceCode = $('#province').val();
+    $.ajax({
+        url: '/api/v1/users/districts/' + provinceCode,
+        type: 'GET',
+        success: function (data) {
+            $('.district-container').show()
+            $('#district').focus();
+
+            let optionDistricHTML = `<option></option>`;
+            for (let i = 0; i < data.length; i++) {
+                let option = `<option value="${data[i].districtCode}">
+                                             ${data[i].districtName}
+                              </option>`;
+                optionDistricHTML += option;
+            }
+            $('#district').html(optionDistricHTML);
+        }, error: function () {
+            toastr.warning('Not found data')
+        }
+    })
+}
+
+function renderWardOptions() {
+    let districtCode = $('#district').val();
+    $.ajax({
+        url: '/api/v1/users/wards/' + districtCode,
+        type: 'GET',
+        success: function (data) {
+            $('.ward-container').show()
+            $('#ward').focus();
+
+            let optionWardHTML = `<option></option>`;
+            for (let i = 0; i < data.length; i++) {
+                let option = `<option value="${data[i].wardCode}">
+                                             ${data[i].wardName}
+                              </option>`;
+                optionWardHTML += option;
+            }
+            $('#ward').html(optionWardHTML);
+        }, error: function () {
+            toastr.warning('Not found data')
+        }
+    })
+}
+
+function updateAddress(formData) {
+    $.ajax({
+        url: '/api/v1/users/address',
+        type: 'PUT',
+        data: JSON.stringify(formData),
+        contentType: "application/json",
+        success: function () {
+            toastr.success("Updated address successfully");
+            setTimeout(function () {
+                window.location.reload();
+            }, 700);
+        }, error: function () {
+            toastr.warning("Updated address not successfully")
+        }
+    })
+}

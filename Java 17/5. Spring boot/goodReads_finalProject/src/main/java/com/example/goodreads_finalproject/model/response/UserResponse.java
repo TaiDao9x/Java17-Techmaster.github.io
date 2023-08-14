@@ -39,9 +39,17 @@ public class UserResponse {
 
     String about;
 
+    String wardFullName;
+
+    String districtFullName;
+
+    String provinceFullName;
+
     String ward;
 
     String district;
 
     String province;
+
+    String street;
 }

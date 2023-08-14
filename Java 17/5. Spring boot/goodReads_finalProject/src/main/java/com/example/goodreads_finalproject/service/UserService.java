@@ -1,13 +1,11 @@
 package com.example.goodreads_finalproject.service;
 
-import com.example.goodreads_finalproject.entity.Otp;
-import com.example.goodreads_finalproject.entity.Province;
-import com.example.goodreads_finalproject.entity.Role;
-import com.example.goodreads_finalproject.entity.User;
+import com.example.goodreads_finalproject.entity.*;
 import com.example.goodreads_finalproject.exception.*;
 import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.model.response.JwtResponse;
+import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.model.response.UserResponse;
 import com.example.goodreads_finalproject.repository.*;
 import com.example.goodreads_finalproject.repository.custom.UserCustomRepository;
@@ -57,6 +55,10 @@ public class UserService {
     UserCustomRepository userCustomRepository;
     @Autowired
     ProvinceRepository provinceRepository;
+    @Autowired
+    DistrictRepository districtRepository;
+    @Autowired
+    WardRepository wardRepository;
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
@@ -235,7 +237,7 @@ public class UserService {
         Long currentUserLoginId = SecurityUtils.getCurrentUserLoginId().get();
         User user = userRepository.findById(currentUserLoginId).get();
         String newPassword = request.getNewPassword();
-        String reNewPassword = request.getRePassword();
+//        String reNewPassword = request.getRePassword();
 //        String curentPassword = passwordEncoder.encode(request.getCurrentPassword());
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
             throw new BadRequestException();
@@ -244,7 +246,56 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<Province> getAllProvince() {
-        return provinceRepository.findAll();
+    public List<LocationResponse> getAllProvince() {
+        List<Province> provinces = provinceRepository.findAll();
+        List<LocationResponse> result = new ArrayList<>();
+        provinces.forEach(p -> {
+            LocationResponse locationResponse = LocationResponse.builder()
+                    .provinceCode(p.getCode())
+                    .provinceName(p.getName())
+                    .build();
+            result.add(locationResponse);
+        });
+        return result;
+    }
+
+    public List<LocationResponse> getDistricts(String provinceCode) throws BadRequestException {
+        Optional<List<District>> districtOptional = districtRepository.findAllByProvinceCode(provinceCode);
+        if (districtOptional.isEmpty()) {
+            throw new BadRequestException();
+        }
+        List<LocationResponse> result = new ArrayList<>();
+        districtOptional.get().forEach(p -> {
+            LocationResponse locationResponse = LocationResponse.builder()
+                    .districtCode(p.getCode())
+                    .districtName(p.getName())
+                    .build();
+            result.add(locationResponse);
+        });
+        return result;
+    }
+
+    public List<LocationResponse> getWards(String districtCode) throws BadRequestException {
+        Optional<List<Ward>> wardOptional = wardRepository.findAllByDistrictCode(districtCode);
+        if (wardOptional.isEmpty()) {
+            throw new BadRequestException();
+        }
+        List<LocationResponse> result = new ArrayList<>();
+        wardOptional.get().forEach(p -> {
+            LocationResponse locationResponse = LocationResponse.builder()
+                    .wardCode(p.getCode())
+                    .wardName(p.getName())
+                    .build();
+            result.add(locationResponse);
+        });
+        return result;
+    }
+
+    public void updateAddress(WardRequest wardRequest) {
+        Long id = SecurityUtils.getCurrentUserLoginId().get();
+        User user = userRepository.findById(id).get();
+        user.setAddress(wardRepository.findByCode(wardRequest.getWardCode()));
+        user.setStreet(wardRequest.getStreet());
+        userRepository.save(user);
     }
 }
