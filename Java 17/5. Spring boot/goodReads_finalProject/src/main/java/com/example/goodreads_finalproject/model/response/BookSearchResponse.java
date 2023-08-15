@@ -31,4 +31,6 @@ public class BookSearchResponse {
     LocalDate published;
 
     String buyBook;
+
+    String readingStatus;
 }

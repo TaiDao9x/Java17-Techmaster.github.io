@@ -6,9 +6,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -23,7 +21,7 @@ public class BookRequest {
     @Size(max = 100, message = "Title cannot over 100 characters")
     String title;
 
-    @NotBlank
+    @NotEmpty
     Set<Long> categoryId;
 
     @NotBlank
@@ -33,7 +31,7 @@ public class BookRequest {
     @Size(max = 65535, message = "Description cannot over 65.535 characters")
     String description;
 
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = "YYYY-MM-dd")
     @Past
     LocalDate published;

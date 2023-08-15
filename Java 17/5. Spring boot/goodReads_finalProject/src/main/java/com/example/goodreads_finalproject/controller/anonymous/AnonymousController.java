@@ -21,16 +21,6 @@ public class AnonymousController {
 
     UserService userService;
 
-//    @GetMapping
-//    public List<UserResponse> getAll() {
-//        return userService.getAll();
-//    }
-
-//    @GetMapping("/{id}")
-//    public UserResponse getDetail(@PathVariable Long id) throws ClassNotFoundException {
-//        return userService.getDetail(id);
-//    }
-
     @PostMapping("/otp-sending")
     public ResponseEntity<?> sendOtp(@RequestBody @Valid EmailRequest emailRequest) {
         return userService.findByEmailAndActivated(emailRequest.getEmail())
@@ -46,7 +36,5 @@ public class AnonymousController {
         userService.resetPassword(resetPasswordRequest);
         return new ResponseEntity<>("Change password successful", HttpStatus.OK);
     }
-
-
 
 }

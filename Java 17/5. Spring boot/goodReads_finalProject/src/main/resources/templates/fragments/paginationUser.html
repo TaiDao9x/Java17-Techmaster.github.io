@@ -2,16 +2,7 @@
     <th:block th:if="${pageBookInfo.pageNumber}>0">
         <div class="pt-30">
             <div class="row justify-content-center">
-                <div class="ml-10 col-auto d-flex align-items-end">
-                    <label for="pageNumberInput" class="text-14 text-light-1 mr-10">Per page</label>
-                    <select class="text-14" id="pageNumberInput">
-                        <option th:value="5">5</option>
-                        <option th:value="10">10</option>
-                        <option th:value="20">20</option>
-                        <option th:value="50">50</option>
-                        <option th:value="100">100</option>
-                    </select>
-                </div>
+
                 <div class="col-auto">
                     <a type="button" class="page-link previous-link"
                        th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">

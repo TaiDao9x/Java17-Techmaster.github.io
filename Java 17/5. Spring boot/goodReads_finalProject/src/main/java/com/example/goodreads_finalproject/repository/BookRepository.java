@@ -24,4 +24,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select b from Book b where lower(b.title) like :title and lower(b.author) like :author")
     Page<Book> findAllByAuthorContainingIgnoreCase1(String title, String author, Pageable pageable);
 
+    @Query("select b from Book b where b.id in :randomIds")
+    List<Book> findRandomBooks(List<Long> randomIds);
+
+    @Query("select b.id from Book b")
+    List<Long> getAllIds();
 }

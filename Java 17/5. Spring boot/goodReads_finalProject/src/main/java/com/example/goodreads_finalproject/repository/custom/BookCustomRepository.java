@@ -92,4 +92,72 @@ public class BookCustomRepository extends BaseRepository {
         parameters.put("bookId", bookId);
         getNamedParameterJdbcTemplate().update(sql, parameters);
     }
+
+    public List<BookResponse> searchBookAuthen(BookSearchRequest request, Long userId) {
+
+        StringBuilder sql = new StringBuilder();
+        HashMap<String, Object> parameters = new HashMap<>();
+        sql.append("select ");
+        sql.append("b.id, ");
+        sql.append("b.image, ");
+        sql.append("b.title, ");
+        sql.append("GROUP_CONCAT(category.name SEPARATOR ', ') categories, ");
+        sql.append("b.author, ");
+        sql.append("b.description, ");
+        sql.append("b.rating, ");
+        sql.append("b.published, ");
+        sql.append("b.buy_book buyBook, ");
+        sql.append("case  WHEN r.reading_status = 'WANT_TO_READ' THEN 'To-read' ");
+        sql.append("case  WHEN r.reading_status = 'READING' THEN 'Reading' ");
+        sql.append("case  WHEN r.reading_status = 'READ' THEN 'Read' ");
+        sql.append("Else 'NULL' ");
+        sql.append("End AS readingStatus ");
+
+        sql.append("from books b ");
+        sql.append("left join book_category AS book_cat ON b.id=book_cat.book_id ");
+        sql.append("left join categories AS category ON book_cat.category_id=category.id ");
+        sql.append("left join reading_book AS r ON b.id = r.book_id AND r.user_id = :userId ");
+        sql.append("where 1=1");
+        parameters.put("userId", userId);
+
+        if (request.getTitle() != null && !request.getTitle().trim().equals("")) {
+            sql.append(" and lower(b.title) like :title");
+            parameters.put("title", "%" + request.getTitle().toLowerCase() + "%");
+        }
+        if (request.getAuthor() != null && !request.getAuthor().trim().equals("")) {
+            sql.append(" and lower(b.author) like :author");
+            parameters.put("author", "%" + request.getAuthor().toLowerCase() + "%");
+        }
+        if (request.getAll() != null && !request.getAll().trim().equals("")) {
+            sql.append(" and lower(b.author) like :author or lower(b.title) like :title");
+            parameters.put("author", "%" + request.getAll().toLowerCase() + "%");
+            parameters.put("title", "%" + request.getAll().toLowerCase() + "%");
+        }
+
+        sql.append(" group by b.id");
+
+        if (request.getCategory() != null && !request.getCategory().trim().equals("")) {
+            sql.append(" having lower(GROUP_CONCAT(category.name SEPARATOR ', ')) like :category");
+            parameters.put("category", "%" + request.getCategory().toLowerCase() + "%");
+        }
+
+        List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
+
+        List<BookResponse> bookResponseList = new ArrayList<>();
+        bookSearchResponses.forEach(bookSearchResponse -> {
+            BookResponse bookResponse = BookResponse.builder()
+                    .id(bookSearchResponse.getId())
+                    .image(bookSearchResponse.getImage())
+                    .title(bookSearchResponse.getTitle())
+                    .author(bookSearchResponse.getAuthor())
+                    .categories(convertCategory(bookSearchResponse.getCategories()))
+                    .description(bookSearchResponse.getDescription())
+                    .buyBook(bookSearchResponse.getBuyBook())
+                    .published(bookSearchResponse.getPublished())
+                    .rating(bookSearchResponse.getRating())
+                    .build();
+            bookResponseList.add(bookResponse);
+        });
+        return bookResponseList;
+    }
 }

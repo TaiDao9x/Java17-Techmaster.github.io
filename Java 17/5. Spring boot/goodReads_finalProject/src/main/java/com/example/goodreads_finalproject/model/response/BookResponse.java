@@ -36,4 +36,5 @@ public class BookResponse {
 
     String buyBook;
 
+    String readingStatus;
 }

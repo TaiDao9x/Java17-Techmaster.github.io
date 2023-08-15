@@ -15,16 +15,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping()
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class BookController {
     BookService bookService;
-    UserService userService;
 
     @GetMapping("/admin/books")
-    public String searchBook(Model model, BookSearchRequest request) {
+    public String searchBook(Model model,@Valid BookSearchRequest request) {
         CommonResponse<?> commonResponse = bookService.searchBook(request);
         model.addAttribute("pageBookInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
@@ -47,13 +48,13 @@ public class BookController {
 
     // API
     @PostMapping("/api/v1/admin/book")
-    public ResponseEntity<?> createBook(@RequestBody BookRequest newBook) {
+    public ResponseEntity<?> createBook(@RequestBody @Valid BookRequest newBook) {
         bookService.createBook(newBook);
         return new ResponseEntity<>(null, HttpStatus.CREATED);
     }
 
     @PutMapping("/api/v1/admin/book")
-    public ResponseEntity<?> updateBook(@RequestBody BookRequest updateBookRequest) {
+    public ResponseEntity<?> updateBook(@RequestBody @Valid  BookRequest updateBookRequest) {
         bookService.updateBook(updateBookRequest);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

@@ -9,14 +9,23 @@
                         <strong class="tg-logo"><a th:href="@{/}"><img th:src="@{/original/images/logo.png}"
                                                                        alt="company name here"></a></strong>
                         <div class="tg-searchbox">
-                            <form class="tg-formtheme tg-formsearch">
+                            <!--                            <form class="tg-formtheme tg-formsearch">-->
+                            <!--                                <fieldset>-->
+                            <!--                                    <input type="text" id="search-input" name="search" class="typeahead form-control"-->
+                            <!--                                           placeholder="Search by title...">-->
+                            <!--                                    <button id="search-btn" class="tg-btn">Search</button>-->
+                            <!--                                </fieldset>-->
+                            <!--                                <a href="javascript:void(0);">+ Advanced Search</a>-->
+                            <!--                            </form>-->
+
+                            <div class="tg-formtheme tg-formsearch">
                                 <fieldset>
-                                    <input type="text" name="search" class="typeahead form-control"
-                                           placeholder="Search by title, author, keyword, ISBN...">
-                                    <button type="submit" class="tg-btn">Search</button>
+                                    <input type="text" id="search-input" name="search" class="typeahead form-control"
+                                           placeholder="Search by title...">
+                                    <button id="search-btn" class="tg-btn">Search</button>
                                 </fieldset>
                                 <a href="javascript:void(0);">+ Advanced Search</a>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -873,7 +882,7 @@
                                             </div>
                                         </li>
                                         <li><a th:href="@{/}">Home</a></li>
-                                        <li><a th:href="@{/api/v1/users/books/book-reading}">My Books</a></li>
+                                        <li><a th:href="@{/users/book-reading}">My Books</a></li>
                                         <li class="menu-item-has-children">
                                             <a href="javascript:void(0);">Browse</a>
                                             <ul class="sub-menu">

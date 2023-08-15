@@ -74,17 +74,6 @@ public class BookService {
         bookRepository.save(book);
     }
 
-//    //TODO: Ko search ra được
-//    public Page<Book> findBook(String keyWord, String searchType, Integer page, Integer pageSize) {
-//        Pageable pageRequest = PageRequest.of(page - 1, pageSize);
-//        return switch (searchType) {
-//            case "" -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(keyWord, keyWord, pageRequest);
-//            case "title" -> bookRepository.findAllByTitleContainingIgnoreCase(keyWord, pageRequest);
-//            case "author" -> bookRepository.findAllByAuthorContainingIgnoreCase(keyWord, pageRequest);
-//            default -> bookRepository.findAllByTitleOrAuthorContainingIgnoreCase(null, null, pageRequest);
-//        };
-//
-//    }
 
     public BookResponse findBookByBookId(Long bookId) {
         Optional<Book> bookOptional = bookRepository.findById(bookId);
@@ -99,6 +88,27 @@ public class BookService {
     public CommonResponse<?> searchBook(BookSearchRequest request) {
         try {
             List<BookResponse> books = bookCustomRepository.searchBook(request);
+            Integer pageIndex = request.getPageIndex();
+            Integer pageSize = request.getPageSize();
+
+            PaginationUtils<BookResponse> paginationUtils = new PaginationUtils<>();
+            int pageNumber = paginationUtils.getPageNumber(books, pageSize);
+            books = paginationUtils.searchData(books, pageIndex, pageSize);
+
+
+            return CommonResponse.builder()
+                    .pageNumber(pageNumber)
+                    .data(books)
+                    .build();
+        } catch (Exception e) {
+            throw new NotFoundException("Page index out of bound");
+        }
+    }
+
+
+    public CommonResponse<?> searchBookAuthen(BookSearchRequest request, Long userId) {
+        try {
+            List<BookResponse> books = bookCustomRepository.searchBookAuthen(request,userId);
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
 
@@ -213,5 +223,24 @@ public class BookService {
     public List<CategoryResponse> getAllCategories() {
         return categoryService.getAllCategories();
     }
+
+    public List<BookResponse> findRandomBooks() {
+        List<Long> allIds = bookRepository.getAllIds();
+        List<Long> randomNumbers = getRandomNumbers(allIds, 4);
+        List<Book> randomBooks = bookRepository.findRandomBooks(randomNumbers);
+        List<BookResponse> result = new ArrayList<>();
+        randomBooks.forEach(book -> result.add(objectMapper.convertValue(book, BookResponse.class)));
+        return result;
+    }
+
+    public List<Long> getRandomNumbers(List<Long> source, int count) {
+        if (count > source.size()) {
+            throw new IllegalArgumentException("Số lượng số ngẫu nhiên yêu cầu vượt quá số lượng số trong danh sách.");
+        }
+        List<Long> shuffledNumbers = new ArrayList<>(source);
+        Collections.shuffle(shuffledNumbers);
+        return shuffledNumbers.subList(0, count);
+    }
+
 }
 

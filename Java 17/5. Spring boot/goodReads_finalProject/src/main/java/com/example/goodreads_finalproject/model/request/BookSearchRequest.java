@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.Size;
 
 @Data
-public class BookSearchRequest extends BaseSearchRequest {
+public class  BookSearchRequest extends BaseSearchRequest {
     @Size(max = 100, message = "search cannot over 100 characters")
     String all;
 

@@ -75,7 +75,7 @@ $(document).ready(function () {
                 toastr.success("Create book success!");
                 setTimeout(function () {
                     $('#submitBtn').prop('disabled', false);
-                    window.location.reload();
+                    window.location.href='/admin/books';
                 }, 800)
             },
             error: function () {
