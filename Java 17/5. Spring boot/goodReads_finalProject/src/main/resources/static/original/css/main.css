@@ -2354,10 +2354,15 @@ li.menu-item-has-mega-menu {
 .tg-featureimg {
     margin: 0;
     width: 100%;
-    height: 210px;
+    height: 215px;
     float: left;
     overflow: hidden;
     position: relative;
+}
+
+.tg-productdetail .tg-featureimg {
+    height: 100% !important;
+
 }
 
 .tg-bookimg {
@@ -3489,7 +3494,7 @@ li.menu-item-has-mega-menu {
 }
 
 .tg-widget + .tg-widget {
-    margin: 30px 0 0;
+    margin: 55px 0 0;
 }
 
 .tg-widgettitle {

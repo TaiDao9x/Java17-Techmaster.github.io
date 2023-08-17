@@ -37,4 +37,6 @@ public class BookResponse {
     String buyBook;
 
     String readingStatus;
+
+    Integer countOfRating;
 }

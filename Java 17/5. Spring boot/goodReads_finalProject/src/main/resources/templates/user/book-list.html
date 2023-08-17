@@ -203,7 +203,7 @@
         if (maxBookInPage > bookSearchData.totalResult) {
             maxBookInPage = bookSearchData.totalResult;
         }
-        let htmlShowingItem = `showing ${minBookInPage} to ${maxBookInPage} of <b>${bookSearchData.totalResult}</b> total`
+        let htmlShowingItem = `showing ${minBookInPage} - ${maxBookInPage} of <b>${bookSearchData.totalResult}</b> books`
         $('#showing-status').html(htmlShowingItem)
     </script>
 </th:block>

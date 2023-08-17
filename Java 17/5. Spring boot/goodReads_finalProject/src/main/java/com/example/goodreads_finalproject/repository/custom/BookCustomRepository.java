@@ -107,6 +107,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("ANY_VALUE(b.rating) AS rating, ");
         sql.append("ANY_VALUE(b.published) AS published, ");
         sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
+        sql.append("COUNT(DISTINCT rv.id) AS countOfRating, ");
         sql.append("ANY_VALUE(CASE ");
         sql.append("	WHEN r.reading_status = 'READ' THEN 'Read' ");
         sql.append("    WHEN r.reading_status = 'READING' THEN 'Reading' ");
@@ -115,6 +116,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("FROM books b ");
         sql.append("LEFT JOIN book_category AS book_cat ON b.id=book_cat.book_id ");
         sql.append("LEFT JOIN categories AS category ON book_cat.category_id=category.id ");
+        sql.append("LEFT JOIN reviews AS rv ON b.id = rv.book_id AND rv.rating > 0 ");
         sql.append("LEFT JOIN reading_book r ON b.id = r.book_id AND r.user_id = :userId ");
         sql.append("WHERE 1=1 ");
 
@@ -150,6 +152,7 @@ public class BookCustomRepository extends BaseRepository {
                     .published(bookSearchResponse.getPublished())
                     .rating(bookSearchResponse.getRating())
                     .readingStatus(bookSearchResponse.getReadingStatus())
+                    .countOfRating(bookSearchResponse.getCountOfRating())
                     .build();
             bookResponseList.add(bookResponse);
         });

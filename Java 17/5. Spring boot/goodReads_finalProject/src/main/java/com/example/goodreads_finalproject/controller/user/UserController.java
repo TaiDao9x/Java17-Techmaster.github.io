@@ -36,7 +36,7 @@ public class UserController {
     BookService bookService;
 
 
-    @GetMapping("/users/book-reading")
+    @GetMapping("/users/my-book")
     public String getMyBook(Model model) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
         if (userIdOptional.isEmpty()) {
