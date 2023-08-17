@@ -49,6 +49,7 @@ $(document).ready(function () {
 
         let newBook = {
             image: "",
+            buyBook: "",
             title: title,
             categoryId: categoryConvert,
             author: author,
@@ -75,11 +76,12 @@ $(document).ready(function () {
                 toastr.success("Create book success!");
                 setTimeout(function () {
                     $('#submitBtn').prop('disabled', false);
-                    window.location.href='/admin/books';
+                    window.location.href = '/admin/books';
                 }, 800)
             },
             error: function () {
                 toastr.warning("Create book not success!");
+                $('#submitBtn').prop('disabled', false);
             }
         });
     }

@@ -2354,7 +2354,7 @@ li.menu-item-has-mega-menu {
 .tg-featureimg {
     margin: 0;
     width: 100%;
-    height: 250px;
+    height: 210px;
     float: left;
     overflow: hidden;
     position: relative;
@@ -2557,6 +2557,7 @@ li.menu-item-has-mega-menu {
     font-size: 16px;
     font-weight: 500;
     line-height: 19px;
+    min-height: 40px;
 }
 
 .tg-bookwriter {

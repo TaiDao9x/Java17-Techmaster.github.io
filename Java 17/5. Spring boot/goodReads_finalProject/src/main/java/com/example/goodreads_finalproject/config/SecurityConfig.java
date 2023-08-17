@@ -59,15 +59,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/v1/authentication/login", "/api/v1/authentication/signup").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/authentication/refresh-token", "/api/v1/authentication/logout", "/api/v1/authentication/password-change").authenticated()
-                .antMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/{id}").hasAnyAuthority(Roles.USER.toString(), Roles.ADMIN.toString())
+//                .antMatchers(HttpMethod.GET, "/api/v1/users", "/api/v1/users/{id}").hasAnyAuthority(Roles.USER.toString(), Roles.ADMIN.toString())
                 .antMatchers("/api/v1/users/**").authenticated()
                 .antMatchers("/api/v1/admin/**", "/admin/**").hasAnyAuthority(Roles.ADMIN.toString())
                 .anyRequest().permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login") // Cấu hình trang đăng nhập
-                .permitAll()
-                .and()
+//                .formLogin()
+//                .loginPage("/login") // Cấu hình trang đăng nhập
+//                .permitAll()
+//                .and()
                 .httpBasic()
                 .and()
                 .headers().frameOptions().sameOrigin();

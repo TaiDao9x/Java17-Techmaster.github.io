@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-@RestController
-@RequestMapping
+@Controller
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class WebController {
@@ -67,7 +66,7 @@ public class WebController {
     }
 
     @GetMapping("/books")
-    public  CommonResponse<?> searchBook(Model model, @Valid BookSearchRequest request) {
+    public String searchBook(Model model, @Valid BookSearchRequest request) {
         Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
         CommonResponse<?> bookSearchData;
         if (optionalId.isEmpty()) {
@@ -76,7 +75,9 @@ public class WebController {
             bookSearchData = bookService.searchBookAuthen(request, optionalId.get());
         }
         model.addAttribute("bookSearchData", bookSearchData);
-        return bookSearchData;
+        model.addAttribute("currentPage", request.getPageIndex());
+
+        return "user/book-list";
     }
 
     @GetMapping("/books/{bookId}")

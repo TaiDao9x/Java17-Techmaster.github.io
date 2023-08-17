@@ -53,6 +53,11 @@ public class UserController {
 
     @PostMapping("/api/v1/users/book-reading")
     public ResponseEntity<?> markBook(@RequestBody ReadingBookRequest request) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        request.setUserId(userIdOptional.get());
         bookService.markBook(request);
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }

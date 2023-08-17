@@ -1,0 +1,85 @@
+<th:block th:fragment="readingBook(readingStatus,bookId)">
+
+    <th:block th:if="${readingStatus=='Not-read' or readingStatus==null}">
+        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
+            <button type="button" class="btn btn-success dropdown-item" style="width: 125px" data-value="To-read"
+                    th:attr="book-Id=${bookId}">
+                <span>Want to read</span>
+            </button>
+            <button type="button"
+                    class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu"
+                 style="min-width: 150px; padding-left: 20px">
+                <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Read" th:attr="book-Id=${bookId}">Read</a>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${readingStatus}=='To-read'">
+        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
+            <button type="button" class="btn btn-light" style="width: 125px">
+                <i class="fa-solid fa-check"></i>
+                <span>Want to read</span>
+            </button>
+            <button type="button"
+                    class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu"
+                 style="min-width: 150px; padding-left: 20px">
+                <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Read" th:attr="book-Id=${bookId}">Read</a>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${readingStatus}=='Reading'">
+        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
+            <button type="button" class="btn btn-light" style="width: 125px">
+                <i class="fa-solid fa-check"></i>
+                <span>Reading</span>
+            </button>
+            <button type="button"
+                    class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu"
+                 style="min-width: 150px; padding-left: 20px">
+                <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Read" th:attr="book-Id=${bookId}">Read</a>
+            </div>
+        </div>
+    </th:block>
+
+    <th:block th:if="${readingStatus}=='Read'">
+        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
+            <button type="button" class="btn btn-light" style="width: 125px">
+                <i class="fa-solid fa-check"></i>
+                <span>Read</span>
+            </button>
+            <button type="button"
+                    class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu"
+                 style="min-width: 150px; padding-left: 20px">
+                <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
+            </div>
+        </div>
+    </th:block>
+
+</th:block>

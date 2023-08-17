@@ -2,7 +2,7 @@
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: #header},
                                                 ~{:: #tg-main},
                                                 ~{:: #footer},
@@ -12,7 +12,13 @@
 <head>
 
     <title>My Books</title>
-
+    <th:block id="css">
+        <style>
+            #tg-main {
+                font-size: 13px;
+            }
+        </style>
+    </th:block>
 </head>
 
 <body>
@@ -65,14 +71,15 @@
                                                     <td>
                                                         <div class="mybook-cover p-2"
                                                              style="width: 50px; height: 80px; padding: 3px;">
-                                                            <a th:href="@{/api/v1/users/books/{bookId} (bookId=${myBook.book.id})}"><img
+                                                            <a th:href="@{/books/{bookId} (bookId=${myBook.book.id})}"><img
                                                                     th:src="${myBook.book.image}"
                                                                     alt="image cover"></a>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="mybook-title">
-                                                            <a href="#" th:text="${myBook.book.title}">abc1sádafsf</a>
+                                                        <div class="mybook-title" style="max-width: 125px">
+                                                            <a th:href="@{/books/{bookId} (bookId=${myBook.book.id})}"
+                                                               th:text="${myBook.book.title}">abc1sádafsf</a>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -102,7 +109,8 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="mybook-review" style="padding-top: 9px; max-width: 200px">
+                                                        <div class="mybook-review"
+                                                             style="padding-top: 9px; max-width: 200px">
                                                             <p class="mybook-review-content">your review
                                                                 sadfasdfsadfsafsfsafasf df...<span><a
                                                                         href="#">[edit]</a></span></p>

@@ -49,6 +49,7 @@ public class BookService {
                 .categories(categories)
                 .description(newBook.getDescription())
                 .published(newBook.getPublished())
+                .buyBook(newBook.getBuyBook().equals("") ? "https://www.fahasa.com/" : newBook.getBuyBook())
                 .build();
         bookRepository.save(book);
     }
@@ -64,9 +65,12 @@ public class BookService {
             book.setImage(updateBookRequest.getImage());
         }
 
+        if (!updateBookRequest.getBuyBook().equals("")) {
+            book.setBuyBook(updateBookRequest.getBuyBook());
+        }
+
         book.setTitle(updateBookRequest.getTitle());
         book.setAuthor(updateBookRequest.getAuthor());
-        book.setBuyBook(updateBookRequest.getBuyBook());
         book.setCategories(categories);
         book.setDescription(updateBookRequest.getDescription());
         book.setPublished(updateBookRequest.getPublished());
@@ -88,6 +92,8 @@ public class BookService {
     public CommonResponse<?> searchBook(BookSearchRequest request) {
         try {
             List<BookResponse> books = bookCustomRepository.searchBook(request);
+            Integer totalResult = books.size();
+
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
 
@@ -97,6 +103,7 @@ public class BookService {
 
 
             return CommonResponse.builder()
+                    .totalResult(totalResult)
                     .pageNumber(pageNumber)
                     .data(books)
                     .build();
@@ -108,7 +115,8 @@ public class BookService {
 
     public CommonResponse<?> searchBookAuthen(BookSearchRequest request, Long userId) {
         try {
-            List<BookResponse> books = bookCustomRepository.searchBookAuthen(request,userId);
+            List<BookResponse> books = bookCustomRepository.searchBookAuthen(request, userId);
+            Integer totalResult = books.size();
             Integer pageIndex = request.getPageIndex();
             Integer pageSize = request.getPageSize();
 
@@ -118,6 +126,7 @@ public class BookService {
 
 
             return CommonResponse.builder()
+                    .totalResult(totalResult)
                     .pageNumber(pageNumber)
                     .data(books)
                     .build();
@@ -132,6 +141,7 @@ public class BookService {
         if (bookOptional.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
+
         String status = request.getReadingStatus();
         ReadingStatus enumValue = null;
         for (ReadingStatus readingStatus : ReadingStatus.values()) {
@@ -143,11 +153,18 @@ public class BookService {
         if (enumValue == null) {
             throw new IllegalArgumentException("Invalid Reading Status!");
         }
-        ReadingBook readingBook = ReadingBook.builder()
-                .book(bookOptional.get())
-                .user(user)
-                .readingStatus(enumValue)
-                .build();
+        Optional<ReadingBook> readingBookOptional = readingBookRepository.findByUserAndBook(user, bookOptional.get());
+        ReadingBook readingBook;
+        if (readingBookOptional.isEmpty()) {
+            readingBook = ReadingBook.builder()
+                    .book(bookOptional.get())
+                    .user(user)
+                    .readingStatus(enumValue)
+                    .build();
+        } else {
+            readingBook = readingBookOptional.get();
+            readingBook.setReadingStatus(enumValue);
+        }
         readingBookRepository.save(readingBook);
     }
 
@@ -226,7 +243,7 @@ public class BookService {
 
     public List<BookResponse> findRandomBooks() {
         List<Long> allIds = bookRepository.getAllIds();
-        List<Long> randomNumbers = getRandomNumbers(allIds, 4);
+        List<Long> randomNumbers = getRandomNumbers(allIds, 7);
         List<Book> randomBooks = bookRepository.findRandomBooks(randomNumbers);
         List<BookResponse> result = new ArrayList<>();
         randomBooks.forEach(book -> result.add(objectMapper.convertValue(book, BookResponse.class)));

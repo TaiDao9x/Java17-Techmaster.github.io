@@ -89,7 +89,7 @@
                         </button>
                     </a>
                     <div class="ml-10 col-auto d-flex align-items-end">
-                        <label for="pageInput" class="text-14 text-light-1 mr-10">Chose page </label>
+                        <label for="pageInput" class="text-12 text-light-1 mr-10"> </label>
                         <select class="form-control text-10" id="pageInput">
                             <option th:each="page : ${#numbers.sequence(1,pageBookInfo.pageNumber)}"
                                     th:value="${page}"

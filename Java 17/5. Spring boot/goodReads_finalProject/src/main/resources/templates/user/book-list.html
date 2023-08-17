@@ -2,7 +2,7 @@
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: #header},
                                                 ~{:: #main-content},
                                                 ~{:: #footer},
@@ -12,7 +12,12 @@
 <head>
 
     <title>Book List</title>
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/admin/css/vendors.css}">
+        <link rel="stylesheet" th:href="@{/admin/css/main.css}">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 
+    </th:block>
 </head>
 <body>
 
@@ -65,23 +70,25 @@
 
                                         <div class="tg-productgrid">
                                             <div class="tg-refinesearch">
-                                                <span>showing 1 to 8 of 20 total</span>
+                                                <span id="showing-status"></span>
                                                 <form class="tg-formtheme tg-formsortshoitems">
                                                     <fieldset>
+
+                                                        <!--                                                        <div class="form-group">-->
+                                                        <!--                                                            <label>sort by:</label>-->
+                                                        <!--                                                            <span class="tg-select">-->
+                                                        <!--																<select>-->
+                                                        <!--																	<option>name</option>-->
+                                                        <!--																	<option>name</option>-->
+                                                        <!--																	<option>name</option>-->
+                                                        <!--																</select>-->
+                                                        <!--															</span>-->
+                                                        <!--                                                        </div>-->
                                                         <div class="form-group">
-                                                            <label>sort by:</label>
-                                                            <span class="tg-select">
-																<select>
-																	<option>name</option>
-																	<option>name</option>
-																	<option>name</option>
-																</select>
-															</span>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>show:</label>
+                                                            <label>Show:</label>
                                                             <span class="tg-select">
 																<select id="show-pagesize">
+																	<option>4</option>
 																	<option>8</option>
 																	<option>16</option>
 																	<option>20</option>
@@ -121,7 +128,7 @@
                                                                     class="tg-themetag">Goodreads Choice Award</span>
                                                             </div>
                                                             <div class="tg-booktitle">
-                                                                <h3><a href="javascript:void(0);"
+                                                                <h3><a th:href="@{/books/{bookId} (bookId=${book.id})}"
                                                                        th:text="${book.title}">Help Me Find My
                                                                     Stomach</a></h3>
                                                             </div>
@@ -136,19 +143,24 @@
                                                             </span>
                                                             <span class="tg-stars"
                                                                   th:value="${book.rating}"><span></span></span>
-                                                            <a class="tg-btn tg-btnstyletwo" href="javascript:void(0);">
-                                                                <i class="fa-regular fa-bookmark"></i>
-                                                                <em>Want To read</em>
-                                                            </a>
+
+                                                            <th:block
+                                                                    th:replace="fragments/reading-book :: readingBook(${book.readingStatus},${book.id})">
+                                                            </th:block>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div id="pagination-user" class="form-group">
+                                            <th:block
+                                                    th:replace="fragments/paginationUser::pagination(${currentPage},${bookSearchData})"></th:block>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-left">
                                 <th:block id="tg-sidebar" th:replace="fragments/sidebar :: sidebar"></th:block>
                             </div>
@@ -178,8 +190,21 @@
         Wrapper End
 *************************************-->
 <th:block id="js">
-    <script th:inline="javascript">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <script th:inline="javascript">
+        let bookSearchData = [[${bookSearchData}]]
+        let currentPage = [[${currentPage}]]
+        $('#pageInput').select2({});
+
+        // Showing book status
+        let minBookInPage = ((currentPage - 1) * showPageSize) + 1;
+        let maxBookInPage = currentPage * (showPageSize);
+        if (maxBookInPage > bookSearchData.totalResult) {
+            maxBookInPage = bookSearchData.totalResult;
+        }
+        let htmlShowingItem = `showing ${minBookInPage} to ${maxBookInPage} of <b>${bookSearchData.totalResult}</b> total`
+        $('#showing-status').html(htmlShowingItem)
     </script>
 </th:block>
 </body>

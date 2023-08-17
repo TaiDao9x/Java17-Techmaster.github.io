@@ -24,8 +24,7 @@
     <div class="container">
         <div class="signin-content">
             <div class="signin-image">
-                <figure><img th:src="@{/account/img/signin-image.jpg}" alt="sing up image"></figure>
-
+                <figure><a href="/"><img th:src="@{/account/img/signin-image.jpg}" alt="sing up image">Homepage</a></figure>
             </div>
 
             <div class="signin-form">
@@ -53,6 +52,7 @@
 
                 <!--                <a href="" class="link forgot-password-link">Forgot password?</a>-->
                 <button class="btn link forgot-password-link">Forgot password?</button>
+
                 <button onclick=window.location.href='http://localhost:8080/signup' class="btn link signup-image-link">
                     Create an account?
                 </button>
