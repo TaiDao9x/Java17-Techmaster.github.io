@@ -27,6 +27,4 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select b from Book b where b.id in :randomIds")
     List<Book> findRandomBooks(List<Long> randomIds);
 
-    @Query("select b.id from Book b")
-    List<Long> getAllIds();
 }

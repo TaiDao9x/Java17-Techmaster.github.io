@@ -39,9 +39,7 @@ public class UserController {
     @GetMapping("/users/my-book")
     public String getMyBook(Model model) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
-        if (userIdOptional.isEmpty()) {
-            throw new UsernameNotFoundException("Tài khoản không tồn tại");
-        }
+
         model.addAttribute("myBookList", bookService.getMyBookPagination(ReadingBookRequest.builder()
                 .userId(userIdOptional.get())
                 .build()));

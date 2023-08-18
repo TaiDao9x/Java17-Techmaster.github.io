@@ -241,13 +241,15 @@ public class BookService {
         return categoryService.getAllCategories();
     }
 
-    public List<BookResponse> findRandomBooks() {
-        List<Long> allIds = bookRepository.getAllIds();
-        List<Long> randomNumbers = getRandomNumbers(allIds, 7);
-        List<Book> randomBooks = bookRepository.findRandomBooks(randomNumbers);
-        List<BookResponse> result = new ArrayList<>();
-        randomBooks.forEach(book -> result.add(objectMapper.convertValue(book, BookResponse.class)));
-        return result;
+    public CommonResponse<?> findRandomBooks(Long userId) {
+        List<Long> allIds = bookCustomRepository.getAllIds(userId);
+
+        List<Long> randomNumbers = getRandomNumbers(allIds, 5);
+        List<BookResponse> randomBooks = bookCustomRepository.findRandomBooks(randomNumbers);
+
+        return CommonResponse.builder()
+                .data(randomBooks)
+                .build();
     }
 
     public List<Long> getRandomNumbers(List<Long> source, int count) {

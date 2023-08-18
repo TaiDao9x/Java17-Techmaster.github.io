@@ -29,7 +29,13 @@ public class WebController {
 
     @GetMapping
     public String getHomePage(Model model) {
-        List<BookResponse> bookResponses = bookService.findRandomBooks();
+        Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
+        CommonResponse<?> bookResponses;
+        if (optionalId.isEmpty()) {
+            bookResponses = bookService.findRandomBooks(null);
+        } else {
+            bookResponses = bookService.findRandomBooks(optionalId.get());
+        }
         model.addAttribute("randomBookList", bookResponses);
         return "user/index";
     }

@@ -5628,3 +5628,30 @@ body.tg-comingsoonpage .tg-footerbar {
     left: 50%;
     transform: translateX(-50%);
 }
+
+#display-rating {
+    display: flex;
+}
+
+.stars {
+    position: relative;
+    white-space: nowrap;
+}
+
+.stars svg {
+    width: 13px;
+}
+
+.overlay {
+    background: #fff;
+    height: 100%;
+    overflow: hidden;
+    mix-blend-mode: color;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+svg {
+    fill: #FCD01E;
+}

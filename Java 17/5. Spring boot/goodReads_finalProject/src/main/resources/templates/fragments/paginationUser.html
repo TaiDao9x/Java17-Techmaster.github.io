@@ -3,7 +3,7 @@
         <div class="pt-30">
             <div class="row justify-content-center">
 
-                <div class="col-auto">
+                <div class="col-auto mr-15">
                     <a type="button" class="page-link previous-link"
                        th:classappend="${currentPage == 1 ? 'disabled-link' : ''}">
                         <button class="button -blue-1 size-40 rounded-full border-light">
@@ -16,7 +16,7 @@
                     <div class="col-auto">
                         <div class="row x-gap-20 y-gap-20 items-center">
                             <div class="col-auto flex-center">
-                                <a type="button" class="size-40 flex-center rounded-full chose-page"
+                                <a type="button" class="size-40 flex-center rounded-full chose-page pointer"
                                    th:each="page:${#numbers.sequence(1,pageBookInfo.pageNumber)}"
                                    th:attr="page-number=${page}"
                                    th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
@@ -32,7 +32,7 @@
                         <div class="col-auto">
                             <div class="row x-gap-20 y-gap-20 items-center">
                                 <div class="col-auto flex-center">
-                                    <a type="button" class="size-40 flex-center rounded-full chose-page"
+                                    <a type="button" class="size-40 flex-center rounded-full chose-page pointer"
                                        th:each="page:${#numbers.sequence(1,5)}"
                                        th:attr="page-number=${page}"
                                        th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
@@ -50,7 +50,7 @@
                                 <div class="row x-gap-20 y-gap-20 items-center">
                                     <div class="col-auto flex-center">
                                         <span>...</span>
-                                        <a type="button" class="size-40 flex-center rounded-full chose-page"
+                                        <a type="button" class="size-40 flex-center rounded-full chose-page pointer"
                                            th:each="page:${#numbers.sequence(currentPage-2,currentPage+2)}"
                                            th:attr="page-number=${page}"
                                            th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
@@ -67,7 +67,7 @@
                                 <div class="row x-gap-20 y-gap-20 items-center">
                                     <div class="col-auto flex-center">
                                         <span>...</span>
-                                        <a type="button" class="size-40 flex-center rounded-full chose-page"
+                                        <a type="button" class="size-40 flex-center rounded-full chose-page pointer"
                                            th:each="page:${#numbers.sequence(pageBookInfo.pageNumber-4,pageBookInfo.pageNumber)}"
                                            th:attr="page-number=${page}"
                                            th:classappend="${currentPage == page ? 'bg-dark-1 text-white' : '' }">
@@ -81,7 +81,7 @@
                     </th:block>
                 </th:block>
 
-                <div class="col-auto d-flex d-inline">
+                <div class="col-auto d-flex d-inline ml-15">
                     <a type="button" class="page-link next-link"
                        th:classappend="${currentPage == pageBookInfo.pageNumber ? 'disabled-link' : ''}">
                         <button class="button -blue-1 size-40 rounded-full border-light">

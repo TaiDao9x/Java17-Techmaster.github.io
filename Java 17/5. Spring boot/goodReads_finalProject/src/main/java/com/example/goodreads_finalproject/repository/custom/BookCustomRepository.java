@@ -55,22 +55,7 @@ public class BookCustomRepository extends BaseRepository {
 
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 
-        List<BookResponse> bookResponseList = new ArrayList<>();
-        bookSearchResponses.forEach(bookSearchResponse -> {
-            BookResponse bookResponse = BookResponse.builder()
-                    .id(bookSearchResponse.getId())
-                    .image(bookSearchResponse.getImage())
-                    .title(bookSearchResponse.getTitle())
-                    .author(bookSearchResponse.getAuthor())
-                    .categories(convertCategory(bookSearchResponse.getCategories()))
-                    .description(bookSearchResponse.getDescription())
-                    .buyBook(bookSearchResponse.getBuyBook())
-                    .published(bookSearchResponse.getPublished())
-                    .rating(bookSearchResponse.getRating())
-                    .build();
-            bookResponseList.add(bookResponse);
-        });
-        return bookResponseList;
+        return convertToBookResponse(bookSearchResponses);
     }
 
     private Set<Category> convertCategory(String CategoryString) {
@@ -139,6 +124,64 @@ public class BookCustomRepository extends BaseRepository {
 
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 
+        return convertToBookResponse(bookSearchResponses);
+    }
+
+    public List<Long> getAllIds(Long userId) {
+        String sql;
+        Map<String, Object> parameters = new HashMap<>();
+        if (userId == null) {
+            sql = "Select b.id FROM books b";
+        } else {
+            sql = "SELECT" +
+                    "    b.id " +
+                    "FROM" +
+                    "    books b " +
+                    "LEFT JOIN reading_book r ON " +
+                    "    b.id = r.book_id AND r.user_id = :userId " +
+                    "WHERE " +
+                    "    r.reading_status IS NULL ";
+
+            parameters.put("userId", userId);
+        }
+        return getNamedParameterJdbcTemplate().queryForList(sql, parameters, Long.class);
+//        return getNamedParameterJdbcTemplate().query(sql, parameters, BeanPropertyRowMapper.newInstance(Long.class));
+    }
+
+    public List<BookResponse> findRandomBooks(List<Long> randomNumbers) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append("ANY_VALUE(b.id) AS id, ");
+        sql.append("ANY_VALUE(b.image) AS image, ");
+        sql.append("ANY_VALUE(b.title) AS title, ");
+        sql.append("GROUP_CONCAT(category.name SEPARATOR ', ') AS categories, ");
+        sql.append("ANY_VALUE(b.author) AS author, ");
+        sql.append("ANY_VALUE(b.description) AS description, ");
+        sql.append("ANY_VALUE(b.rating) AS rating, ");
+        sql.append("ANY_VALUE(b.published) AS published, ");
+        sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
+        sql.append("COUNT(DISTINCT rv.id) AS countOfRating, ");
+        sql.append("ANY_VALUE(CASE ");
+        sql.append("	WHEN r.reading_status = 'READ' THEN 'Read' ");
+        sql.append("    WHEN r.reading_status = 'READING' THEN 'Reading' ");
+        sql.append("    WHEN r.reading_status = 'WANT_TO_READ' THEN 'To-read' ");
+        sql.append("    END) AS readingStatus ");
+        sql.append("FROM books b ");
+        sql.append("LEFT JOIN book_category AS book_cat ON b.id=book_cat.book_id ");
+        sql.append("LEFT JOIN categories AS category ON book_cat.category_id=category.id ");
+        sql.append("LEFT JOIN reading_book r ON b.id = r.book_id ");
+        sql.append("LEFT JOIN reviews AS rv ON b.id = rv.book_id AND rv.rating > 0 ");
+        sql.append("WHERE b.id in (:randomIds) And r.reading_status IS NULL");
+        sql.append(" GROUP BY b.id");
+        parameters.put("randomIds", randomNumbers);
+
+        List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
+
+        return convertToBookResponse(bookSearchResponses);
+    }
+
+    private List<BookResponse> convertToBookResponse(List<BookSearchResponse> bookSearchResponses) {
         List<BookResponse> bookResponseList = new ArrayList<>();
         bookSearchResponses.forEach(bookSearchResponse -> {
             BookResponse bookResponse = BookResponse.builder()
