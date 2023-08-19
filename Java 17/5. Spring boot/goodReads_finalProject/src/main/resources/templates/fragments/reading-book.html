@@ -1,8 +1,9 @@
 <th:block th:fragment="readingBook(readingStatus,bookId)">
 
     <th:block th:if="${readingStatus=='Not-read' or readingStatus==null}">
-        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
-            <button type="button" class="btn btn-success dropdown-item" style="width: 125px" data-value="To-read"
+        <div class="btn-group" id="reading-book-status">
+            <button type="button" class="btn btn-success dropdown-item status-content"
+                    data-value="To-read"
                     th:attr="book-Id=${bookId}">
                 <span>Want to read</span>
             </button>
@@ -11,8 +12,7 @@
                     data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
-            <div class="dropdown-menu"
-                 style="min-width: 150px; padding-left: 20px">
+            <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
                 <br>
                 <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
@@ -23,8 +23,8 @@
     </th:block>
 
     <th:block th:if="${readingStatus}=='To-read'">
-        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
-            <button type="button" class="btn btn-light" style="width: 125px">
+        <div class="btn-group" id="reading-book-status">
+            <button type="button" class="btn btn-light status-content">
                 <i class="fa-solid fa-check"></i>
                 <span>Want to read</span>
             </button>
@@ -33,18 +33,19 @@
                     data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
-            <div class="dropdown-menu"
-                 style="min-width: 150px; padding-left: 20px">
+            <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
                 <br>
                 <a class="dropdown-item" href="#" data-value="Read" th:attr="book-Id=${bookId}">Read</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Remove" th:attr="book-Id=${bookId}">Remove</a>
             </div>
         </div>
     </th:block>
 
     <th:block th:if="${readingStatus}=='Reading'">
-        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
-            <button type="button" class="btn btn-light" style="width: 125px">
+        <div class="btn-group" id="reading-book-status">
+            <button type="button" class="btn btn-light status-content">
                 <i class="fa-solid fa-check"></i>
                 <span>Reading</span>
             </button>
@@ -53,18 +54,19 @@
                     data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
-            <div class="dropdown-menu"
-                 style="min-width: 150px; padding-left: 20px">
+            <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
                 <br>
                 <a class="dropdown-item" href="#" data-value="Read" th:attr="book-Id=${bookId}">Read</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Remove" th:attr="book-Id=${bookId}">Remove</a>
             </div>
         </div>
     </th:block>
 
     <th:block th:if="${readingStatus}=='Read'">
-        <div class="btn-group" id="reading-book-status" style="margin-top: 15px">
-            <button type="button" class="btn btn-light" style="width: 125px">
+        <div class="btn-group" id="reading-book-status">
+            <button type="button" class="btn btn-light status-content">
                 <i class="fa-solid fa-check"></i>
                 <span>Read</span>
             </button>
@@ -73,11 +75,12 @@
                     data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
-            <div class="dropdown-menu"
-                 style="min-width: 150px; padding-left: 20px">
+            <div class="dropdown-menu">
                 <a class="dropdown-item" href="#" data-value="To-read" th:attr="book-Id=${bookId}">Want to read</a>
                 <br>
                 <a class="dropdown-item" href="#" data-value="Reading" th:attr="book-Id=${bookId}">Reading</a>
+                <br>
+                <a class="dropdown-item" href="#" data-value="Remove" th:attr="book-Id=${bookId}">Remove</a>
             </div>
         </div>
     </th:block>

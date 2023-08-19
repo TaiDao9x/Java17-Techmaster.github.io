@@ -32,11 +32,17 @@ public class BookResponse {
 
     double rating;
 
+    double ratingDetail;
+
     LocalDate published;
 
     String buyBook;
 
     String readingStatus;
 
-    Integer countOfRating;
+    Integer countOfRatings;
+
+    Integer countOfReviews;
+
+    String content;
 }

@@ -4,10 +4,7 @@ import com.example.goodreads_finalproject.entity.District;
 import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.NotFoundException;
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
-import com.example.goodreads_finalproject.model.request.ReadingBookRequest;
-import com.example.goodreads_finalproject.model.request.ResetPasswordRequest;
-import com.example.goodreads_finalproject.model.request.EmailRequest;
-import com.example.goodreads_finalproject.model.request.WardRequest;
+import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.BookService;
@@ -59,6 +56,43 @@ public class UserController {
         bookService.markBook(request);
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/api/v1/users/book-reading/{bookId}")
+    public ResponseEntity<?> removeMarkBook(@PathVariable Long bookId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.removeMarkBook(bookId, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+    @PutMapping("/api/v1/users/rating")
+    public ResponseEntity<?> changeRating(@RequestBody @Valid RatingRequest request) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.changeRating(request, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/v1/users/rating/{bookId}")
+    public ResponseEntity<?> removeRating(@PathVariable Long bookId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.removeRating(bookId, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+
+
+
+
+
+
 
     @GetMapping("/api/v1/users/districts/{provinceCode}")
     public ResponseEntity<?> getDistricts(@PathVariable String provinceCode) {

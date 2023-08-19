@@ -2,15 +2,44 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: #header},
                                                 ~{:: #main-content},
                                                 ~{:: #footer},
-                                                ~{}
+                                                ~{:: #js}
                                                 )}">
 <head>
 
     <title>Book - Detail</title>
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/handle/reading-book-btn.css}">
+        <style>
+            .tg-productcontent {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .stars svg {
+                width: 25px;
+                margin: 0 5px;
+            }
+
+            .tg-bookprice {
+                margin-left: 10px;
+            }
+
+            #display-rating, #display-rating-personal {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+            }
+
+            #review-book {
+                display: flex;
+                justify-content: center;
+            }
+        </style>
+    </th:block>
 
 </head>
 <body>
@@ -71,11 +100,52 @@
                                                     <figure class="tg-featureimg"><img th:src="${book.image}"
                                                                                        alt="image description"></figure>
                                                     <div class="tg-postbookcontent">
-                                                        <a class="tg-btn tg-active tg-btn-lg"
-                                                           href="javascript:void(0);">Want to read</a>
-                                                        <a class="tg-btnaddtowishlist" href="javascript:void(0);">
-                                                            <span>add to wishlist</span>
+                                                        <th:block
+                                                                th:replace="fragments/reading-book :: readingBook(${book.readingStatus},${book.id})"></th:block>
+
+                                                        <a class="tg-btnaddtowishlist" th:href="${book.buyBook}"
+                                                           target="_blank">
+                                                            <span>Buy book</span>
                                                         </a>
+                                                        <div id="display-rating-personal">
+                                                            <a type="button" class="btn">
+
+                                                                <div class="stars">
+                                                                    <svg class="star" data-value="1"
+                                                                         viewBox="0 0 940.688 940.688">
+                                                                        <path
+                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                    </svg>
+                                                                    <svg class="star" data-value="2"
+                                                                         viewBox="0 0 940.688 940.688">
+                                                                        <path
+                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                    </svg>
+                                                                    <svg class="star" data-value="3"
+                                                                         viewBox="0 0 940.688 940.688">
+                                                                        <path
+                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                    </svg>
+                                                                    <svg class="star" data-value="4"
+                                                                         viewBox="0 0 940.688 940.688">
+                                                                        <path
+                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                    </svg>
+                                                                    <svg class="star" data-value="5"
+                                                                         viewBox="0 0 940.688 940.688">
+                                                                        <path
+                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                    </svg>
+
+                                                                    <div class="overlay"
+                                                                         th:attr="ratingDetail=${book.ratingDetail}"
+                                                                         th:style="|width:${100-(book.ratingDetail*20)}%|">
+
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                        <div id="review-book"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,23 +165,48 @@
                                                     </div>
                                                     <span class="tg-bookwriter">By: <a href="javascript:void(0);"
                                                                                        th:text="${book.author}">Angela Gunning</a></span>
-                                                    <span class="tg-stars"><span></span></span>
-                                                    <span class="tg-addreviews ml-10"><a href="javascript:void(0);">Add Your Review</a></span>
-                                                    <div class="tg-share">
-                                                        <span>Share:</span>
-                                                        <ul class="tg-socialicons">
-                                                            <li class="tg-facebook"><a href="javascript:void(0);"><i
-                                                                    class="fa fa-facebook"></i></a></li>
-                                                            <li class="tg-twitter"><a href="javascript:void(0);"><i
-                                                                    class="fa fa-twitter"></i></a></li>
-                                                            <li class="tg-linkedin"><a href="javascript:void(0);"><i
-                                                                    class="fa fa-linkedin"></i></a></li>
-                                                            <li class="tg-googleplus"><a href="javascript:void(0);"><i
-                                                                    class="fa fa-google-plus"></i></a></li>
-                                                            <li class="tg-rss"><a href="javascript:void(0);"><i
-                                                                    class="fa fa-rss"></i></a></li>
-                                                        </ul>
+                                                    <div id="display-rating">
+                                                        <div class="stars">
+                                                            <svg viewBox="0 0 940.688 940.688">
+                                                                <path
+                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                            </svg>
+                                                            <svg viewBox="0 0 940.688 940.688">
+                                                                <path
+                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                            </svg>
+                                                            <svg viewBox="0 0 940.688 940.688">
+                                                                <path
+                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                            </svg>
+                                                            <svg viewBox="0 0 940.688 940.688">
+                                                                <path
+                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                            </svg>
+                                                            <svg viewBox="0 0 940.688 940.688">
+                                                                <path
+                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                            </svg>
+
+                                                            <div class="overlay"
+                                                                 th:attr="rating=${book.rating}"
+                                                                 th:style="|width:${100-(book.rating*20)}%|"></div>
+
+                                                        </div>
+                                                        <span class="tg-bookprice">
+                                                             <span> </span>
+
+                                                                <span th:text="${book.rating}"
+                                                                      style="font-weight: bolder; font-size: 23px; "></span>
+                                                                <span>-</span>
+                                                                <span th:text="${book.countOfRatings}"></span>
+                                                                <span>ratings</span>
+                                                            <span>-</span>
+                                                                <span th:text="${book.countOfReviews}"></span>
+                                                                <span>reviews</span>
+                                                            </span>
                                                     </div>
+
                                                     <div class="tg-description">
                                                         <p>Consectetur adipisicing elit, sed do eiusmod tempor
                                                             incididunt ut
@@ -665,6 +760,98 @@
         Wrapper End
 *************************************-->
 
+<th:block id="js">
+    <script th:inline="javascript">
+        let bookDetail = [[${bookDetail}]]
+        let hasContent = false;
+        if (bookDetail.ratingDetail === 0) {
+            $('#review-book').html('<p >Rate this book</p>')
+
+        } else {
+            if (bookDetail.content != null && bookDetail.content.trim() !== '') {
+                $('#review-book').html('<a type="button" class="btn edit-review"> <i class="fa-solid fa-pen"></i> Edit review</a>')
+                hasContent = true;
+            } else {
+                $('#review-book').html('<a type="button" class="btn add-review"><i class="fa-solid fa-pen"></i> Review this book</a>')
+            }
+        }
+
+        $(document).ready(function () {
+            let bookId = bookDetail.id;
+            let initialWidth = (100 - (bookDetail.ratingDetail * 20)) + "%";
+            $("#display-rating-personal .stars").mousemove(function (event) {
+                $('#display-rating-personal .overlay').css('width', '0%');
+                highlightStars(event);
+            });
+
+            $("#display-rating-personal .stars").mouseleave(function () {
+                $('#display-rating-personal .overlay').css('width', initialWidth)
+                resetStars();
+            });
+
+            let rating = 0;
+
+            function highlightStars(event) {
+                const mouseX = event.clientX;
+
+                $('#display-rating-personal .stars .star').each(function () {
+                    const starX = $(this).offset().left;
+                    if (mouseX >= starX) {
+                        $(this).css("fill", "#FCD01E");
+                        rating = parseInt($(this).data('value'));
+
+                    } else {
+                        $(this).css("fill", "#CACACA");
+                    }
+                })
+            }
+
+            function resetStars() {
+                $('#display-rating-personal .stars .star').css("fill", "");
+            }
+
+            $('#display-rating-personal .stars .star').on('click', function (event) {
+                if (rating === bookDetail.ratingDetail && rating !== 0) {
+                    $.ajax({
+                        url: '/api/v1/users/rating/' + bookId,
+                        type: 'DELETE',
+                        success: function () {
+                            toastr.success('Rating removed');
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 700);
+                        }, error: function () {
+                            toastr.warning('Rating removed not successfully');
+                        }
+                    })
+                } else {
+                    let formData = {
+                        bookId: bookId,
+                        rating: rating,
+                        readingStatus: bookDetail.readingStatus,
+                        hasContent: hasContent;
+                    }
+                    $.ajax({
+                        url: '/api/v1/users/rating',
+                        type: 'PUT',
+                        data: JSON.stringify(formData),
+                        contentType: 'application/json',
+                        success: function () {
+                            toastr.success(rating + ' stars rating saved');
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 700);
+                        }, error: function () {
+                            toastr.warning('Rating not successfully');
+                        }
+                    })
+
+                }
+            })
+
+        })
+    </script>
+</th:block>
 </body>
 
 </html>

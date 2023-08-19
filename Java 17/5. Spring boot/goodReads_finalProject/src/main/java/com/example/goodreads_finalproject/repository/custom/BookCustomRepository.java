@@ -2,6 +2,7 @@ package com.example.goodreads_finalproject.repository.custom;
 
 import com.example.goodreads_finalproject.entity.Category;
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
+import com.example.goodreads_finalproject.model.request.RatingRequest;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.BookSearchResponse;
 import com.example.goodreads_finalproject.repository.BaseRepository;
@@ -78,6 +79,39 @@ public class BookCustomRepository extends BaseRepository {
         getNamedParameterJdbcTemplate().update(sql, parameters);
     }
 
+    public void removeMarkBook(Long bookId, Long userId) {
+        String sql = "DELETE FROM `reading_book` rd WHERE rd.book_id = :bookId AND rd.user_id = :userId";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("bookId", bookId);
+        parameters.put("userId", userId);
+        getNamedParameterJdbcTemplate().update(sql, parameters);
+    }
+
+    public void removeRating(Long bookId, Long userId) {
+        String sql = "UPDATE reviews rv SET rv.rating=0 WHERE rv.book_id = :bookId AND rv.user_id = :userId";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("bookId", bookId);
+        parameters.put("userId", userId);
+        getNamedParameterJdbcTemplate().update(sql, parameters);
+    }
+
+    public void changeRating(RatingRequest request, Long userId) {
+        String sql = "UPDATE reviews rv SET rv.rating= :userRating WHERE rv.book_id = :bookId AND rv.user_id = :userId";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("userRating", request.getRating());
+        parameters.put("bookId", request.getBookId());
+        parameters.put("userId", userId);
+        getNamedParameterJdbcTemplate().update(sql, parameters);
+    }
+
+    public void removeReview(Long bookId, Long userId) {
+        String sql = "DELETE FROM reviews rv WHERE rv.book_id = :bookId AND rv.user_id = :userId";
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("bookId", bookId);
+        parameters.put("userId", userId);
+        getNamedParameterJdbcTemplate().update(sql, parameters);
+    }
+
     public List<BookResponse> searchBookAuthen(BookSearchRequest request, Long userId) {
 
         HashMap<String, Object> parameters = new HashMap<>();
@@ -92,7 +126,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("ANY_VALUE(b.rating) AS rating, ");
         sql.append("ANY_VALUE(b.published) AS published, ");
         sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
-        sql.append("COUNT(DISTINCT rv.id) AS countOfRating, ");
+        sql.append("COUNT(DISTINCT rv.id) AS countOfRatings, ");
         sql.append("ANY_VALUE(CASE ");
         sql.append("	WHEN r.reading_status = 'READ' THEN 'Read' ");
         sql.append("    WHEN r.reading_status = 'READING' THEN 'Reading' ");
@@ -148,7 +182,7 @@ public class BookCustomRepository extends BaseRepository {
 //        return getNamedParameterJdbcTemplate().query(sql, parameters, BeanPropertyRowMapper.newInstance(Long.class));
     }
 
-    public List<BookResponse> findRandomBooks(List<Long> randomNumbers) {
+    public List<BookResponse> findRandomBooks(List<Long> randomNumbers, Long userId) {
         HashMap<String, Object> parameters = new HashMap<>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ");
@@ -161,24 +195,84 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("ANY_VALUE(b.rating) AS rating, ");
         sql.append("ANY_VALUE(b.published) AS published, ");
         sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
-        sql.append("COUNT(DISTINCT rv.id) AS countOfRating, ");
+        sql.append("COUNT(DISTINCT rv.id) AS countOfRatings, ");
         sql.append("ANY_VALUE(CASE ");
         sql.append("	WHEN r.reading_status = 'READ' THEN 'Read' ");
         sql.append("    WHEN r.reading_status = 'READING' THEN 'Reading' ");
         sql.append("    WHEN r.reading_status = 'WANT_TO_READ' THEN 'To-read' ");
-        sql.append("    END) AS readingStatus ");
+        sql.append("    ELSE NULL END) AS readingStatus ");
         sql.append("FROM books b ");
         sql.append("LEFT JOIN book_category AS book_cat ON b.id=book_cat.book_id ");
         sql.append("LEFT JOIN categories AS category ON book_cat.category_id=category.id ");
         sql.append("LEFT JOIN reading_book r ON b.id = r.book_id ");
+
+        sql.append("AND r.user_Id = :userId ");
+        parameters.put("userId", userId);
+
         sql.append("LEFT JOIN reviews AS rv ON b.id = rv.book_id AND rv.rating > 0 ");
-        sql.append("WHERE b.id in (:randomIds) And r.reading_status IS NULL");
-        sql.append(" GROUP BY b.id");
+        sql.append("WHERE b.id in (:randomIds) ");
+        if (userId != null) {
+            sql.append("And r.reading_status IS NULL ");
+        }
+        sql.append("GROUP BY b.id ");
         parameters.put("randomIds", randomNumbers);
 
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 
         return convertToBookResponse(bookSearchResponses);
+    }
+
+    public BookResponse findByBookIdAndUserId(Long bookId, Long userId) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append("ANY_VALUE(b.id) AS id, ");
+        sql.append("ANY_VALUE(b.image) AS image, ");
+        sql.append("ANY_VALUE(b.title) AS title, ");
+        sql.append("GROUP_CONCAT(category.name SEPARATOR ', ') AS categories, ");
+        sql.append("ANY_VALUE(b.author) AS author, ");
+        sql.append("ANY_VALUE(b.description) AS description, ");
+        sql.append("ANY_VALUE(b.rating) AS rating, ");
+        sql.append("ANY_VALUE(b.published) AS published, ");
+        sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
+        sql.append("ANY_VALUE(rv.rating) AS ratingDetail, ");
+        sql.append("ANY_VALUE(rv.content) AS content, ");
+
+        sql.append("ANY_VALUE(CASE ");
+        sql.append("	WHEN r.reading_status = 'READ' THEN 'Read' ");
+        sql.append("    WHEN r.reading_status = 'READING' THEN 'Reading' ");
+        sql.append("    WHEN r.reading_status = 'WANT_TO_READ' THEN 'To-read' ");
+        sql.append("    ELSE NULL END) AS readingStatus ");
+        sql.append("FROM books b ");
+        sql.append("LEFT JOIN book_category AS book_cat ON b.id=book_cat.book_id ");
+        sql.append("LEFT JOIN categories AS category ON book_cat.category_id=category.id ");
+        sql.append("LEFT JOIN reviews rv ON b.id = rv.book_id AND rv.user_Id = :userId ");
+        sql.append("LEFT JOIN reading_book r ON b.id = r.book_id AND r.user_Id = :userId ");
+        sql.append("where b.id = :bookId ");
+
+        parameters.put("userId", userId);
+        parameters.put("bookId", bookId);
+
+        List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
+        List<BookResponse> bookResponses = convertToBookResponse(bookSearchResponses);
+        BookResponse result = bookResponses.get(0);
+        result.setCountOfRatings(countOfRatings(bookId));
+        result.setCountOfReviews(countOfReviews(bookId));
+        return result;
+    }
+
+    private Integer countOfRatings(Long bookId) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        String sql = "SELECT COUNT(rv.id) FROM reviews rv WHERE rv.rating>0 AND rv.book_id =:bookId";
+        parameters.put("bookId", bookId);
+        return getNamedParameterJdbcTemplate().queryForObject(sql, parameters, Integer.class);
+    }
+
+    private Integer countOfReviews(Long bookId) {
+        HashMap<String, Object> parameters = new HashMap<>();
+        String sql = "SELECT COUNT(rv.id) FROM reviews rv WHERE TRIM(rv.content) <> '' AND rv.book_id = :bookId";
+        parameters.put("bookId", bookId);
+        return getNamedParameterJdbcTemplate().queryForObject(sql, parameters, Integer.class);
     }
 
     private List<BookResponse> convertToBookResponse(List<BookSearchResponse> bookSearchResponses) {
@@ -194,8 +288,11 @@ public class BookCustomRepository extends BaseRepository {
                     .buyBook(bookSearchResponse.getBuyBook())
                     .published(bookSearchResponse.getPublished())
                     .rating(bookSearchResponse.getRating())
+                    .ratingDetail(bookSearchResponse.getRatingDetail() == null ? 0 : Double.parseDouble(bookSearchResponse.getRatingDetail()))
                     .readingStatus(bookSearchResponse.getReadingStatus())
-                    .countOfRating(bookSearchResponse.getCountOfRating())
+                    .countOfRatings(bookSearchResponse.getCountOfRatings())
+                    .countOfReviews(bookSearchResponse.getCountOfReview())
+                    .content(bookSearchResponse.getContent())
                     .build();
             bookResponseList.add(bookResponse);
         });

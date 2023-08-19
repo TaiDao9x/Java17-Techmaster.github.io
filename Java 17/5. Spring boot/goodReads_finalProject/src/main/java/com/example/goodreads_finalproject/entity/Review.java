@@ -3,10 +3,7 @@ package com.example.goodreads_finalproject.entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,8 +22,10 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "book_id")
     Book book;
 
+    @Column(nullable = false, columnDefinition = "decimal default 0")
     double rating;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
     String content;
 
     LocalDateTime deletedDateTime;

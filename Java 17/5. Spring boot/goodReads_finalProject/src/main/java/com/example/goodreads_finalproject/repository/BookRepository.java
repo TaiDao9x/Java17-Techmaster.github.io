@@ -7,6 +7,7 @@ import com.example.goodreads_finalproject.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -23,8 +24,5 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("select b from Book b where lower(b.title) like :title and lower(b.author) like :author")
     Page<Book> findAllByAuthorContainingIgnoreCase1(String title, String author, Pageable pageable);
-
-    @Query("select b from Book b where b.id in :randomIds")
-    List<Book> findRandomBooks(List<Long> randomIds);
 
 }

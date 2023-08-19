@@ -32,6 +32,7 @@ public class BookService {
     BookOfChallengeRepository bookOfChallengeRepository;
     ObjectMapper objectMapper;
     BookCustomRepository bookCustomRepository;
+    ReviewBookRepository reviewBookRepository;
 
 
     public void createBook(BookRequest newBook) {
@@ -78,15 +79,21 @@ public class BookService {
         bookRepository.save(book);
     }
 
-
     public BookResponse findBookByBookId(Long bookId) {
-        Optional<Book> bookOptional = bookRepository.findById(bookId);
-        if (bookOptional.isEmpty()) {
+        Optional<Book> bookResponse = bookRepository.findById(bookId);
+        if (bookResponse.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
-        Book book = bookOptional.get();
 
-        return objectMapper.convertValue(book, BookResponse.class);
+        return objectMapper.convertValue(bookResponse, BookResponse.class);
+    }
+
+    public BookResponse findBookByBookId(Long bookId, Long userId) {
+        BookResponse bookResponse = bookCustomRepository.findByBookIdAndUserId(bookId, userId);
+        if (bookResponse == null) {
+            throw new NotFoundException("Book not found!");
+        }
+        return bookResponse;
     }
 
     public CommonResponse<?> searchBook(BookSearchRequest request) {
@@ -244,8 +251,8 @@ public class BookService {
     public CommonResponse<?> findRandomBooks(Long userId) {
         List<Long> allIds = bookCustomRepository.getAllIds(userId);
 
-        List<Long> randomNumbers = getRandomNumbers(allIds, 5);
-        List<BookResponse> randomBooks = bookCustomRepository.findRandomBooks(randomNumbers);
+        List<Long> randomNumbers = getRandomNumbers(allIds, 7);
+        List<BookResponse> randomBooks = bookCustomRepository.findRandomBooks(randomNumbers, userId);
 
         return CommonResponse.builder()
                 .data(randomBooks)
@@ -261,5 +268,46 @@ public class BookService {
         return shuffledNumbers.subList(0, count);
     }
 
+    public void removeMarkBook(Long bookId, Long userId) {
+        bookCustomRepository.removeMarkBook(bookId, userId);
+        removeReview(bookId, userId);
+    }
+
+    public void removeRating(Long bookId, Long userId) {
+        bookCustomRepository.removeRating(bookId, userId);
+    }
+
+    public void changeRating(RatingRequest request, Long userId) {
+        if (!request.getHasContent()) {
+            Review review = Review.builder()
+                    .rating(request.getRating())
+                    .build();
+            reviewBookRepository.save(review);
+        }
+        bookCustomRepository.changeRating(request, userId);
+        if (request.getReadingStatus() == null) {
+            ReadingBookRequest readingBookRequest = ReadingBookRequest.builder()
+                    .userId(request.getBookId())
+                    .bookId(request.getBookId())
+                    .readingStatus("Read")
+                    .build();
+            markBook(readingBookRequest);
+
+        }
+    }
+
+    public void addReview(ReviewRequest reviewRequest) {
+        Review review = Review.builder()
+                .book(bookRepository.findById(reviewRequest.getBookId()).get())
+                .user(userRepository.findById(reviewRequest.getUserId()).get())
+                .content(reviewRequest.getContent())
+                .rating(0)
+                .build();
+        reviewBookRepository.save(review);
+    }
+
+    public void removeReview(Long bookId, Long userId) {
+        bookCustomRepository.removeReview(bookId, userId);
+    }
 }
 

@@ -15,7 +15,12 @@
     <th:block id="css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
         <link rel="stylesheet" th:href="@{/handle/paginationCSS.css}">
-
+        <link rel="stylesheet" th:href="@{/handle/reading-book-btn.css}">
+        <style>
+            #reading-book-status {
+                width: 125px;
+            }
+        </style>
     </th:block>
 </head>
 <body>
@@ -140,7 +145,7 @@
                                                                 <span th:text="${book.rating}"
                                                                       style="font-weight: bolder"></span>
                                                                 <span>-</span>
-                                                                <span th:text="${book.countOfRating}"></span>
+                                                                <span th:text="${book.countOfRatings}"></span>
                                                                 <span>ratings</span>
                                                             </span>
                                                             <!--                                                            <span class="tg-stars"-->

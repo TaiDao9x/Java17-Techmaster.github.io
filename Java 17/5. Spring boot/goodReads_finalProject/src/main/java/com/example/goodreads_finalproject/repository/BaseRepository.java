@@ -1,6 +1,7 @@
 package com.example.goodreads_finalproject.repository;
 
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
+import com.example.goodreads_finalproject.model.request.RatingRequest;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Getter

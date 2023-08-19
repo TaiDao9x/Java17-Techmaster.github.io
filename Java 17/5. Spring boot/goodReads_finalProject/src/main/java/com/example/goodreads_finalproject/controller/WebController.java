@@ -88,8 +88,11 @@ public class WebController {
 
     @GetMapping("/books/{bookId}")
     public String getBookDetail(Model model, @PathVariable Long bookId) {
-//        ModelAndView modelAndView = new ModelAndView("user/book-detail");
-        model.addAttribute("bookDetail", bookService.findBookByBookId(bookId));
+        Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
+        BookResponse bookResponse;
+        bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
+
+        model.addAttribute("bookDetail", bookResponse);
         return "user/book-detail";
     }
 }

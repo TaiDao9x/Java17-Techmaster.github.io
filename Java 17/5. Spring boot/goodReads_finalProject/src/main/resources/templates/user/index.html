@@ -2,16 +2,24 @@
 <html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layout/layout :: main-fragment(
                                                 ~{:: title},
-                                                ~{},
+                                                ~{:: #css},
                                                 ~{:: #header},
                                                 ~{:: #main-content},
                                                 ~{:: #footer},
-                                                ~{:: js}
+                                                ~{:: #js}
                                                 )}">
 
 <head>
 
     <title>Book Library</title>
+    <th:block id="css">
+        <link rel="stylesheet" th:href="@{/handle/reading-book-btn.css}">
+        <style>
+            #reading-book-status {
+                width: 125px;
+            }
+        </style>
+    </th:block>
 
 </head>
 <body class="tg-home tg-homeone">
@@ -106,7 +114,7 @@
                                         <span class="tg-bookprice">
                                             <span th:text="${book.rating}" style="font-weight: bolder">$25.18</span>
                                             <span>-</span>
-                                            <span th:text="${book.countOfRating}"> </span>
+                                            <span th:text="${book.countOfRatings}"> </span>
                                             <span style="font-size: 12px">ratings</span>
                                         </span>
                                         <div id="display-rating">
@@ -451,7 +459,14 @@
 <!--************************************
         Wrapper End
 *************************************-->
+<th:block id="js">
+    <script th:inline="javascript">
+        let bookResponse = [[${randomBookList}]]
+        console.log(bookResponse)
+        console.log(123)
+    </script>
 
+</th:block>
 </body>
 
 </html>
