@@ -278,9 +278,14 @@ public class BookService {
     }
 
     public void changeRating(RatingRequest request, Long userId) {
-        if (!request.getHasContent()) {
+        User user = userRepository.findById(userId).get();
+        Book book = bookRepository.findById(request.getBookId()).get();
+        Optional<Review> reviewOptional = reviewBookRepository.findByUserAndBook(user, book);
+        if (reviewOptional.isEmpty()) {
             Review review = Review.builder()
-                    .rating(request.getRating())
+                    .book(book)
+                    .user(user)
+                    .rating(0)
                     .build();
             reviewBookRepository.save(review);
         }
@@ -292,7 +297,6 @@ public class BookService {
                     .readingStatus("Read")
                     .build();
             markBook(readingBookRequest);
-
         }
     }
 

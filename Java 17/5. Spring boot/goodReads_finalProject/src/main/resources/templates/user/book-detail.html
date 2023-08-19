@@ -828,8 +828,7 @@
                     let formData = {
                         bookId: bookId,
                         rating: rating,
-                        readingStatus: bookDetail.readingStatus,
-                        hasContent: hasContent;
+                        readingStatus: bookDetail.readingStatus
                     }
                     $.ajax({
                         url: '/api/v1/users/rating',

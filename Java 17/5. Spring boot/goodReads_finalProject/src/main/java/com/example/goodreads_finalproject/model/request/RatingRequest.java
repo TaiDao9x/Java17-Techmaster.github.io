@@ -14,10 +14,9 @@ public class RatingRequest {
     Long bookId;
 
     @NotNull
-    @Size(max = 5)
+    @Max(value = 5)
     double rating;
 
     String readingStatus;
 
-    Boolean hasContent;
 }
