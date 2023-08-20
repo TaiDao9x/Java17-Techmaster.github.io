@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -44,6 +45,10 @@ public class BookService {
         Set<Category> categories = new HashSet<>();
         newBook.getCategoryId().forEach(id -> categories.add(categoryService.findById(id).get()));
 
+        String bookNameParam = newBook.getTitle().trim().replace(" ", "%20");
+        String buyBookFahasaLink = "https://www.fahasa.com/searchengine?q=" + bookNameParam;
+
+
         Book book = Book.builder()
                 .image(newBook.getImage().equals("") ? "/original/images/books/no-cover.png" : newBook.getImage())
                 .title(newBook.getTitle())
@@ -52,7 +57,7 @@ public class BookService {
                 .categories(categories)
                 .description(newBook.getDescription())
                 .published(newBook.getPublished())
-                .buyBook(newBook.getBuyBook().equals("") ? "https://www.fahasa.com/" : newBook.getBuyBook())
+                .buyBook(newBook.getBuyBook().equals("") ? buyBookFahasaLink : newBook.getBuyBook())
                 .build();
         bookRepository.save(book);
     }
@@ -77,17 +82,16 @@ public class BookService {
         book.setCategories(categories);
         book.setDescription(updateBookRequest.getDescription());
         book.setPublished(updateBookRequest.getPublished());
-        book.setRating(updateBookRequest.getRating());
         bookRepository.save(book);
     }
 
-    public BookResponse findBookByBookId(Long bookId) {
+    public Book findBookByBookId(Long bookId) {
         Optional<Book> bookResponse = bookRepository.findById(bookId);
         if (bookResponse.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
 
-        return objectMapper.convertValue(bookResponse, BookResponse.class);
+        return bookResponse.get();
     }
 
     public BookResponse findBookByBookId(Long bookId, Long userId) {
@@ -334,7 +338,8 @@ public class BookService {
         } else {
             avgRating = totalRatingValue / totalOfRating;
         }
-        book.setRating(avgRating);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        book.setRating(Double.parseDouble(decimalFormat.format(avgRating)));
         bookRepository.save(book);
     }
 

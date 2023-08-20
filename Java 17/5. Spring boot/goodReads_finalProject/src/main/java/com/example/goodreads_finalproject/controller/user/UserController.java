@@ -5,6 +5,7 @@ import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.NotFoundException;
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
 import com.example.goodreads_finalproject.model.request.*;
+import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.BookService;
@@ -34,7 +35,7 @@ public class UserController {
 
 
     @GetMapping("/users/my-book")
-    public String getMyBook(Model model) {
+    public String getMyBookPage(Model model) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
 
         model.addAttribute("myBookList", bookService.getMyBookPagination(ReadingBookRequest.builder()
@@ -42,6 +43,15 @@ public class UserController {
                 .build()));
         model.addAttribute("countMyBookList", bookService.countMyBookList(userIdOptional.get()));
         return "user/my-book";
+    }
+
+    @GetMapping("/users/review/{bookId}")
+    public String getReviewPage(Model model, @PathVariable Long bookId) {
+        Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
+        BookResponse bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
+        model.addAttribute("bookDetail", bookResponse);
+
+        return "user/review-detail";
     }
 
     // API
@@ -86,12 +96,6 @@ public class UserController {
         bookService.removeRating(bookId, userIdOptional.get());
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
-
-
-
-
-
-
 
 
     @GetMapping("/api/v1/users/districts/{provinceCode}")

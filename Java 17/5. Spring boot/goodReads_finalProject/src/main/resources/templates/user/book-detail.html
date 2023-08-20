@@ -14,6 +14,7 @@
     <th:block id="css">
         <link rel="stylesheet" th:href="@{/handle/reading-book-btn.css}">
         <style>
+
             .tg-productcontent {
                 display: flex;
                 flex-direction: column;
@@ -42,6 +43,28 @@
                 display: flex;
                 justify-content: center;
             }
+
+            .tg-description {
+                white-space: pre-line;
+                margin-bottom: 20px;
+            }
+
+            #book-description {
+                white-space: pre-line;
+            }
+
+            .truncate-description {
+                display: -webkit-box;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            #show-more-btn {
+                font-weight: bolder;
+                font-size: 12px;
+            }
+
         </style>
     </th:block>
 
@@ -56,7 +79,7 @@
     <!--************************************
             Header End
     *************************************-->
-    <th:block id="main-content" th:with="book=${bookDetail} ">
+    <th:block id="main-content" th:with="book=${bookDetail}">
         <!--************************************
                 Inner Banner Start
         *************************************-->
@@ -69,9 +92,9 @@
                         <div class="tg-innerbannercontent">
                             <h1>Book Detail</h1>
                             <ol class="tg-breadcrumb">
-                                <li><a href="javascript:void(0);">home</a></li>
-                                <li><a href="javascript:void(0);">Books</a></li>
-                                <li class="tg-active" th:text="${book.title}">Product Title Here</li>
+                                <li><a href="/">home</a></li>
+                                <li><a href="/users/books">Books</a></li>
+                                <li class="tg-active" th:text="${book.title}"></li>
                             </ol>
                         </div>
                     </div>
@@ -109,7 +132,7 @@
 
                                                         <a class="tg-btnaddtowishlist" th:href="${book.buyBook}"
                                                            target="_blank">
-                                                            <span>Buy book</span>
+                                                            <span>Buy book on Fahasa.com</span>
                                                         </a>
                                                         <div id="display-rating-personal">
                                                             <a type="button" class="btn">
@@ -212,19 +235,12 @@
                                                     </div>
 
                                                     <div class="tg-description">
-                                                        <p>Consectetur adipisicing elit, sed do eiusmod tempor
-                                                            incididunt ut
-                                                            labore etdoloreat magna aliqua. Ut enim ad minim veniam,
-                                                            quis
-                                                            nostrud exercitation ullamco laborisi nisi ut aliquip ex ea
-                                                            commodo consequat aute.</p>
-                                                        <p>Arure dolor in reprehenderit in voluptate velit esse cillum
-                                                            dolore fugiat nulla aetur excepteur sint occaecat cupidatat
-                                                            non
-                                                            proident, sunt in culpa quistan officia serunt mollit anim
-                                                            id
-                                                            est laborum sed ut perspiciatis unde omnis iste natus... <a
-                                                                    href="javascript:void(0);">More</a></p>
+                                                        <div id="book-description" class="truncate-description"
+                                                             th:text="${book.description}">
+                                                        </div>
+                                                        <button id="show-more-btn" onclick="showMore()">Show more <i
+                                                                class="fa-solid fa-angle-down"></i>
+                                                        </button>
                                                     </div>
                                                     <div class="tg-sectionhead">
                                                         <h2>Book Details</h2>
@@ -255,46 +271,9 @@
                                                     <div class="tg-tab-content tab-content">
                                                         <div role="tabpanel" class="tg-tab-pane tab-pane active"
                                                              id="description">
-                                                            <div class="tg-description">
-                                                                <p>Consectetur adipisicing elit, sed do eiusmod tempor
-                                                                    incididunt ut labore et dolore magna aliqua. Ut enim
-                                                                    ad
-                                                                    minim veni quis nostrud exercitation ullamco laboris
-                                                                    nisi ut aliquip ex ea commodo consequat. Duis aute
-                                                                    irure
-                                                                    dolor in reprehenden
-                                                                    voluptate velit esse cillum dolore eu fugiat nulla
-                                                                    pariatur.</p>
-                                                                <figure class="tg-alignleft">
-                                                                    <img src="images/placeholdervtwo.jpg"
-                                                                         alt="image description">
-                                                                    <iframe src="https://www.youtube.com/embed/aLwpuDpZm1k?rel=0&amp;controls=0&amp;showinfo=0"></iframe>
-                                                                </figure>
-                                                                <ul class="tg-liststyle">
-                                                                    <li><span>Sed do eiusmod tempor incididunt ut labore et dolore</span>
-                                                                    </li>
-                                                                    <li><span>Magna aliqua enim ad minim veniam</span>
-                                                                    </li>
-                                                                    <li><span>Quis nostrud exercitation ullamco laboris nisi ut</span>
-                                                                    </li>
-                                                                    <li><span>Aliquip ex ea commodo consequat aute dolor reprehenderit</span>
-                                                                    </li>
-                                                                    <li><span>Voluptate velit esse cillum dolore eu fugiat nulla pariatur</span>
-                                                                    </li>
-                                                                    <li><span>Magna aliqua enim ad minim veniam</span>
-                                                                    </li>
-                                                                    <li><span>Quis nostrud exercitation ullamco laboris nisi ut</span>
-                                                                    </li>
-                                                                </ul>
-                                                                <p>Sed ut perspiciatis unde omnis iste natus error sit
-                                                                    voluptatem accusantium doloremque laudantium, totam
-                                                                    remmata aperiam, eaque ipsa quae ab illo inventore
-                                                                    veritatis et quasi architecto beatae vitae dicta
-                                                                    sunt
-                                                                    explicabo. Nemo enimsam
-                                                                    voluptatem quia voluptas sit aspernatur aut odit aut
-                                                                    fugit, sed quia consequuntur magni dolores eos
-                                                                    quistatoa.</p>
+                                                            <div class="tg-description" style="white-space: pre-line;"
+                                                                 th:text="${book.description}">
+
                                                             </div>
                                                         </div>
                                                         <div role="tabpanel" class="tg-tab-pane tab-pane" id="review">
@@ -759,19 +738,35 @@
     <script th:inline="javascript">
         let bookDetail = [[${bookDetail}]]
         let hasContent = false;
-        if (bookDetail.ratingDetail === 0) {
-            $('#review-book').html('<p >Rate this book</p>')
-        } else {
-            if (bookDetail.content != null && bookDetail.content.trim() !== '') {
-                $('#review-book').html('<a type="button" class="btn edit-review"> <i class="fa-solid fa-pen"></i> Edit review</a>')
-                hasContent = true;
+
+        function showMore() {
+            if ($('#book-description').hasClass("truncate-description")) {
+                $('#book-description').removeClass("truncate-description");
+                $('#show-more-btn').html(`Show less <i class="fa-solid fa-angle-up"></i>`);
             } else {
-                $('#review-book').html('<a type="button" class="btn add-review"><i class="fa-solid fa-pen"></i> Review this book</a>')
+                $('#book-description').addClass("truncate-description");
+                $('#show-more-btn').html(`Show more <i class="fa-solid fa-angle-down"></i>`);
             }
         }
 
         $(document).ready(function () {
             let bookId = bookDetail.id;
+
+            if (bookDetail.ratingDetail === 0) {
+                $('#review-book').html('<p>Rate this book</p>')
+            } else {
+                if (bookDetail.content != null && bookDetail.content.trim() !== '') {
+                    $('#review-book').html('<a type="button" class="btn edit-review"> <i class="fa-solid fa-pen"></i> Edit review</a>')
+                    hasContent = true;
+                } else {
+                    $('#review-book').html('<a type="button" class="btn add-review"><i class="fa-solid fa-pen"></i> Review this book</a>')
+                }
+            }
+
+            $('.edit-review, .add-review').on('click', function () {
+                window.location.href = '/users/review/' + bookId;
+            })
+
             let initialWidth = (100 - (bookDetail.ratingDetail * 20)) + "%";
             $("#display-rating-personal .stars").mousemove(function (event) {
                 $('#display-rating-personal .overlay').css('width', '0%');
@@ -830,15 +825,11 @@
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
                         success: function (data) {
-                            setTimeout(function () {
-                                toastr.success(rating + ' stars rating saved');
-                            }, 200);
                             autoDirectLoginPage(data);
                         }, error: function () {
                             toastr.warning('Rating not successfully');
                         }
                     })
-
                 }
             })
 

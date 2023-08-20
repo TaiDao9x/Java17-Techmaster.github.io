@@ -37,4 +37,8 @@ public class Book extends BaseEntity {
     LocalDate published;
 
     String buyBook;
+
+    //TODO: thêm số trang để cập nhật quá trình đọc sách
+//    @Column(nullable = false, columnDefinition = "default 0")
+//    Integer pages;
 }
