@@ -15,11 +15,7 @@ $(document).ready(function () {
                     data: JSON.stringify(formData),
                     contentType: 'application/json',
                     success: function (data) {
-                        if (isLoginPage(data)) {
-                            window.location.href = '/login';
-                        } else {
-                            window.location.reload();
-                        }
+                        autoDirectLoginPage(data)
                     },
                     error: function () {
                         toastr.warning('Not success!')
@@ -30,11 +26,7 @@ $(document).ready(function () {
                     url: '/api/v1/users/book-reading/' + bookId,
                     type: 'DELETE',
                     success: function (data) {
-                        if (isLoginPage(data)) {
-                            window.location.href = '/login';
-                        } else {
-                            window.location.reload();
-                        }
+                        autoDirectLoginPage(data)
                     },
                     error: function () {
                         toastr.warning('Not success!')
@@ -43,9 +35,18 @@ $(document).ready(function () {
             }
         }
     )
-
-    function isLoginPage(data) {
-        return $(data).find('.signin-form').length > 0;
-    }
 })
 
+function autoDirectLoginPage(data) {
+    if (isLoginPage(data)) {
+        window.location.href = '/login';
+    } else {
+        setTimeout(function () {
+        window.location.reload();
+        }, 700);
+    }
+}
+
+function isLoginPage(data) {
+    return $(data).find('.signin-form').length > 0;
+}

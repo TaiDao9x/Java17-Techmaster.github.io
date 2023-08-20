@@ -31,7 +31,7 @@ public class Book extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     String description;
 
-    @Column(nullable = false, columnDefinition = "decimal default 0")
+    @Column(nullable = false, columnDefinition = "default 0")
     double rating;
 
     LocalDate published;

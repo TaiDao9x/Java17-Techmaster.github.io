@@ -34,6 +34,10 @@
                 justify-content: center;
             }
 
+            #display-rating {
+                margin-bottom: 20px;
+            }
+
             #review-book {
                 display: flex;
                 justify-content: center;
@@ -223,24 +227,15 @@
                                                                     href="javascript:void(0);">More</a></p>
                                                     </div>
                                                     <div class="tg-sectionhead">
-                                                        <h2>Product Details</h2>
+                                                        <h2>Book Details</h2>
                                                     </div>
                                                     <ul class="tg-productinfo">
-                                                        <li><span>Format:</span><span>Hardback</span></li>
-                                                        <li><span>Pages:</span><span>528 pages</span></li>
-                                                        <li><span>Dimensions:</span><span>153 x 234 x 43mm | 758g</span>
-                                                        </li>
-                                                        <li><span>Publication Date:</span><span>June 27, 2017</span>
+                                                        <li><span>Pages:</span><span>328 pages, Paperback</span></li>
+                                                        <li><span>Publication Date:</span><span
+                                                                th:text="${book.published}"></span>
                                                         </li>
                                                         <li><span>Publisher:</span><span>Sunshine Orlando</span></li>
                                                         <li><span>Language:</span><span>English</span></li>
-                                                        <li><span>Illustrations note:</span><span>b&amp;w images thru-out; 1 x 16pp colour plates</span>
-                                                        </li>
-                                                        <li><span>ISBN10:</span><span>1234567890</span></li>
-                                                        <li><span>ISBN13:</span><span>1234567890000</span></li>
-                                                        <li>
-                                                            <span>Other Fomate:</span><span>CD-Audio, Paperback, E-Book</span>
-                                                        </li>
                                                     </ul>
 
                                                 </div>
@@ -248,7 +243,7 @@
                                             <div class="tg-productdescription">
                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                     <div class="tg-sectionhead">
-                                                        <h2>Product Description</h2>
+                                                        <h2>Book Description</h2>
                                                     </div>
                                                     <ul class="tg-themetabs" role="tablist">
                                                         <li role="presentation" class="active"><a href="#description"
@@ -766,7 +761,6 @@
         let hasContent = false;
         if (bookDetail.ratingDetail === 0) {
             $('#review-book').html('<p >Rate this book</p>')
-
         } else {
             if (bookDetail.content != null && bookDetail.content.trim() !== '') {
                 $('#review-book').html('<a type="button" class="btn edit-review"> <i class="fa-solid fa-pen"></i> Edit review</a>')
@@ -832,14 +826,14 @@
                     }
                     $.ajax({
                         url: '/api/v1/users/rating',
-                        type: 'PUT',
+                        type: 'POST',
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
-                        success: function () {
-                            toastr.success(rating + ' stars rating saved');
+                        success: function (data) {
                             setTimeout(function () {
-                                window.location.reload();
-                            }, 700);
+                                toastr.success(rating + ' stars rating saved');
+                            }, 200);
+                            autoDirectLoginPage(data);
                         }, error: function () {
                             toastr.warning('Rating not successfully');
                         }

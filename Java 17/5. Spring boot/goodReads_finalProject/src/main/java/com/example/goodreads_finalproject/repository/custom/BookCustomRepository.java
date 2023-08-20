@@ -53,7 +53,6 @@ public class BookCustomRepository extends BaseRepository {
             parameters.put("category", "%" + request.getCategory().toLowerCase() + "%");
         }
 
-
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 
         return convertToBookResponse(bookSearchResponses);
@@ -81,31 +80,6 @@ public class BookCustomRepository extends BaseRepository {
 
     public void removeMarkBook(Long bookId, Long userId) {
         String sql = "DELETE FROM `reading_book` rd WHERE rd.book_id = :bookId AND rd.user_id = :userId";
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("bookId", bookId);
-        parameters.put("userId", userId);
-        getNamedParameterJdbcTemplate().update(sql, parameters);
-    }
-
-    public void removeRating(Long bookId, Long userId) {
-        String sql = "UPDATE reviews rv SET rv.rating=0 WHERE rv.book_id = :bookId AND rv.user_id = :userId";
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("bookId", bookId);
-        parameters.put("userId", userId);
-        getNamedParameterJdbcTemplate().update(sql, parameters);
-    }
-
-    public void changeRating(RatingRequest request, Long userId) {
-        String sql = "UPDATE reviews rv SET rv.rating= :userRating WHERE rv.book_id = :bookId AND rv.user_id = :userId";
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("userRating", request.getRating());
-        parameters.put("bookId", request.getBookId());
-        parameters.put("userId", userId);
-        getNamedParameterJdbcTemplate().update(sql, parameters);
-    }
-
-    public void removeReview(Long bookId, Long userId) {
-        String sql = "DELETE FROM reviews rv WHERE rv.book_id = :bookId AND rv.user_id = :userId";
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("bookId", bookId);
         parameters.put("userId", userId);

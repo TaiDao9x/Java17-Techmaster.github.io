@@ -67,7 +67,7 @@ public class UserController {
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/v1/users/rating")
+    @PostMapping("/api/v1/users/rating")
     public ResponseEntity<?> changeRating(@RequestBody @Valid RatingRequest request) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
         if (userIdOptional.isEmpty()) {

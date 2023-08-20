@@ -6,6 +6,7 @@ import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.*;
 import com.example.goodreads_finalproject.repository.*;
 import com.example.goodreads_finalproject.repository.custom.BookCustomRepository;
+import com.example.goodreads_finalproject.repository.custom.ReviewCustomRepository;
 import com.example.goodreads_finalproject.statics.ReadingStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
@@ -33,6 +34,7 @@ public class BookService {
     ObjectMapper objectMapper;
     BookCustomRepository bookCustomRepository;
     ReviewBookRepository reviewBookRepository;
+    ReviewCustomRepository reviewCustomRepository;
 
 
     public void createBook(BookRequest newBook) {
@@ -274,7 +276,8 @@ public class BookService {
     }
 
     public void removeRating(Long bookId, Long userId) {
-        bookCustomRepository.removeRating(bookId, userId);
+        reviewCustomRepository.removeRating(bookId, userId);
+        calculateAvgRating(bookId);
     }
 
     public void changeRating(RatingRequest request, Long userId) {
@@ -289,15 +292,16 @@ public class BookService {
                     .build();
             reviewBookRepository.save(review);
         }
-        bookCustomRepository.changeRating(request, userId);
+        reviewCustomRepository.changeRating(request, userId);
         if (request.getReadingStatus() == null) {
             ReadingBookRequest readingBookRequest = ReadingBookRequest.builder()
-                    .userId(request.getBookId())
+                    .userId(userId)
                     .bookId(request.getBookId())
                     .readingStatus("Read")
                     .build();
             markBook(readingBookRequest);
         }
+        calculateAvgRating(request.getBookId());
     }
 
     public void addReview(ReviewRequest reviewRequest) {
@@ -311,7 +315,28 @@ public class BookService {
     }
 
     public void removeReview(Long bookId, Long userId) {
-        bookCustomRepository.removeReview(bookId, userId);
+        reviewCustomRepository.removeReview(bookId, userId);
+        calculateAvgRating(bookId);
     }
+
+    public void calculateAvgRating(Long bookId) {
+        Book book = bookRepository.findById(bookId).get();
+        double totalRatingValue = 0;
+        Integer totalOfRating = 0;
+        List<AvgRatingResponse> avgRatingResponses = reviewCustomRepository.calculateAvgRating(bookId);
+        for (AvgRatingResponse avg : avgRatingResponses) {
+            totalRatingValue += avg.getRating() * avg.getCountOfRating();
+            totalOfRating += avg.getCountOfRating();
+        }
+        double avgRating;
+        if (totalOfRating == 0) {
+            avgRating = 0;
+        } else {
+            avgRating = totalRatingValue / totalOfRating;
+        }
+        book.setRating(avgRating);
+        bookRepository.save(book);
+    }
+
 }
 

@@ -82,7 +82,6 @@ public class WebController {
         }
         model.addAttribute("bookSearchData", bookSearchData);
         model.addAttribute("currentPage", request.getPageIndex());
-
         return "user/book-list";
     }
 
@@ -90,8 +89,11 @@ public class WebController {
     public String getBookDetail(Model model, @PathVariable Long bookId) {
         Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
         BookResponse bookResponse;
-        bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
-
+        if (optionalId.isPresent()) {
+            bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
+        } else {
+            bookResponse = bookService.findBookByBookId(bookId, null);
+        }
         model.addAttribute("bookDetail", bookResponse);
         return "user/book-detail";
     }

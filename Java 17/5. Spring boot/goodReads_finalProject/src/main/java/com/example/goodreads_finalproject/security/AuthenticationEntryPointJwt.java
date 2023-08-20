@@ -20,6 +20,6 @@ public class AuthenticationEntryPointJwt implements AuthenticationEntryPoint {
             throws IOException {
 //        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
         log.info("ádfasfasf");
-        response.sendRedirect("/login");
+        response.sendRedirect("http://localhost:8080/login");
     }
 }

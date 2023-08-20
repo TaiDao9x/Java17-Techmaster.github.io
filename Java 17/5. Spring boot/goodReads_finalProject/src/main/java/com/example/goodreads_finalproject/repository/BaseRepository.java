@@ -2,6 +2,7 @@ package com.example.goodreads_finalproject.repository;
 
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
 import com.example.goodreads_finalproject.model.request.RatingRequest;
+import com.example.goodreads_finalproject.model.response.AvgRatingResponse;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import lombok.AccessLevel;
 import lombok.Getter;

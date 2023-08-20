@@ -22,7 +22,7 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "book_id")
     Book book;
 
-    @Column(nullable = false, columnDefinition = "decimal default 0")
+    @Column(nullable = false, columnDefinition = "default 0")
     double rating;
 
     @Column(nullable = false, columnDefinition = "TEXT")
