@@ -1,7 +1,10 @@
 package com.example.goodreads_finalproject.repository.custom;
 
+import com.example.goodreads_finalproject.entity.Comment;
 import com.example.goodreads_finalproject.model.request.ReviewRequest;
 import com.example.goodreads_finalproject.model.response.AvgRatingResponse;
+import com.example.goodreads_finalproject.model.response.CommentResponse;
+import com.example.goodreads_finalproject.model.response.ReviewResponse;
 import com.example.goodreads_finalproject.repository.BaseRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -41,6 +44,76 @@ public class ReviewCustomRepository extends BaseRepository {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("bookId", bookId);
         return getNamedParameterJdbcTemplate().query(sql, parameters, BeanPropertyRowMapper.newInstance(AvgRatingResponse.class));
+    }
+
+    public List<ReviewResponse> getAllReviews(Long bookId, Long userId) {
+        Map<String, Object> parameters = new HashMap<>();
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("SELECT ");
+        sql.append("u.id userReviewId, ");
+        sql.append("u.avatar avatar, ");
+        sql.append("u.full_name name, ");
+        sql.append("rv.id reviewId, ");
+        sql.append("rv.content, ");
+        sql.append("rv.rating ratingDetail, ");
+        sql.append("Date(rv.created_date_time) reviewDate, ");
+        sql.append("COUNT(likes.id) likes ");
+        sql.append("FROM users u ");
+        sql.append("LEFT JOIN reviews rv ON u.id = rv.user_id ");
+        sql.append("LEFT JOIN likes ON rv.id = likes.review_id ");
+        sql.append("WHERE rv.book_id = :bookId AND rv.content IS NOT NULL ");
+        sql.append("GROUP BY  u.id,  u.avatar,  u.full_name, rv.id,  rv.content,  rv.rating, rv.created_date_time ");
+        parameters.put("bookId", bookId);
+
+        List<ReviewResponse> reviewResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(ReviewResponse.class));
+
+        for (ReviewResponse rv : reviewResponses) {
+            if (rv.getUserReviewId().equals(userId)) {
+                reviewResponses.remove(rv);
+                break;
+            }
+            List<CommentResponse> childComments = getAllCommentsOfReview(rv.getReviewId());
+            rv.setChildComments(childComments);
+
+            Boolean following = checkRelationship(userId, rv.getUserReviewId());
+            rv.setFollowing(following);
+        }
+        return reviewResponses;
+    }
+
+    public List<CommentResponse> getAllCommentsOfReview(Long reviewId) {
+        Map<String, Object> parameters = new HashMap<>();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT ");
+        sql.append("u.avatar, ");
+        sql.append("u.full_name name, ");
+        sql.append("cm.content contentOfComment, ");
+        sql.append("DATE(cm.created_date_time) commentDate ");
+        sql.append("FROM comments cm ");
+        sql.append("LEFT JOIN users u ON cm.user_id = u.id ");
+        sql.append("WHERE cm.review_id = :reviewId ");
+
+        parameters.put("reviewId", reviewId);
+        return getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(CommentResponse.class));
+    }
+
+    public Boolean checkRelationship(Long currentUserId, Long anonymousUserId) {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append("CASE ");
+            sql.append(" WHEN following_status = 'FOLLOWING' THEN TRUE  ELSE FALSE ");
+            sql.append(" END AS following ");
+            sql.append("FROM followings ");
+            sql.append("WHERE user_request_id = :currentUserId and user_accept_id= :anonymousUserId");
+            parameters.put("currentUserId", currentUserId);
+            parameters.put("anonymousUserId", anonymousUserId);
+            return getNamedParameterJdbcTemplate().queryForObject(sql.toString(), parameters, Boolean.class);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

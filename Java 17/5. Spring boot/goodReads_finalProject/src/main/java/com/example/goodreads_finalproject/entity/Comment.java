@@ -19,10 +19,6 @@ public class Comment extends BaseEntity {
     User user;
 
     @ManyToOne
-    @JoinColumn(name = "book_id")
-    Book book;
-
-    @ManyToOne
     @JoinColumn(name = "review_id")
     Review review;
 

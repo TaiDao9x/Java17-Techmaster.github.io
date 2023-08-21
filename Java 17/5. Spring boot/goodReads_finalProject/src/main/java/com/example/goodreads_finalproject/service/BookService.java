@@ -346,5 +346,8 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public List<ReviewResponse> getAllReviews(Long bookId, Long userId) {
+        return reviewCustomRepository.getAllReviews(bookId, userId);
+    }
 }
 
