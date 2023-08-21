@@ -12,16 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -284,18 +280,8 @@ public class BookService {
         calculateAvgRating(bookId);
     }
 
-    public void changeRating(RatingRequest request, Long userId) {
-        User user = userRepository.findById(userId).get();
-        Book book = bookRepository.findById(request.getBookId()).get();
-        Optional<Review> reviewOptional = reviewBookRepository.findByUserAndBook(user, book);
-        if (reviewOptional.isEmpty()) {
-            Review review = Review.builder()
-                    .book(book)
-                    .user(user)
-                    .rating(0)
-                    .build();
-            reviewBookRepository.save(review);
-        }
+    public void changeRating(ReviewRequest request, Long userId) {
+        saveReview(request, userId);
         reviewCustomRepository.changeRating(request, userId);
         if (request.getReadingStatus() == null) {
             ReadingBookRequest readingBookRequest = ReadingBookRequest.builder()
@@ -308,14 +294,31 @@ public class BookService {
         calculateAvgRating(request.getBookId());
     }
 
-    public void addReview(ReviewRequest reviewRequest) {
-        Review review = Review.builder()
-                .book(bookRepository.findById(reviewRequest.getBookId()).get())
-                .user(userRepository.findById(reviewRequest.getUserId()).get())
-                .content(reviewRequest.getContent())
-                .rating(0)
-                .build();
+    public void saveReview(ReviewRequest request, Long userId) {
+        User user = userRepository.findById(userId).get();
+        Book book = bookRepository.findById(request.getBookId()).get();
+        Optional<Review> reviewOptional = reviewBookRepository.findByUserAndBook(user, book);
+        Review review;
+        if (reviewOptional.isEmpty()) {
+            review = Review.builder()
+                    .book(bookRepository.findById(request.getBookId()).get())
+                    .user(userRepository.findById(userId).get())
+                    .content(request.getContent())
+                    .rating(0)
+                    .build();
+        } else {
+            review = reviewOptional.get();
+            review.setContent(request.getContent());
+        }
         reviewBookRepository.save(review);
+        if (request.getReadingStatus() == null) {
+            ReadingBookRequest readingBookRequest = ReadingBookRequest.builder()
+                    .userId(userId)
+                    .bookId(request.getBookId())
+                    .readingStatus("Read")
+                    .build();
+            markBook(readingBookRequest);
+        }
     }
 
     public void removeReview(Long bookId, Long userId) {

@@ -76,7 +76,7 @@ public class WebController {
         Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
         CommonResponse<?> bookSearchData;
         if (optionalId.isEmpty()) {
-            bookSearchData = bookService.searchBook(request);
+            bookSearchData = bookService.searchBookAuthen(request,null);
         } else {
             bookSearchData = bookService.searchBookAuthen(request, optionalId.get());
         }

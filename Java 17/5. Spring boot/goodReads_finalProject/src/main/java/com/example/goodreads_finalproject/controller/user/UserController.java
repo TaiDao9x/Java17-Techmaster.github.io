@@ -1,9 +1,7 @@
 package com.example.goodreads_finalproject.controller.user;
 
-import com.example.goodreads_finalproject.entity.District;
 import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.NotFoundException;
-import com.example.goodreads_finalproject.exception.OtpExpiredException;
 import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.LocationResponse;
@@ -15,7 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +30,7 @@ public class UserController {
     UserService userService;
     BookService bookService;
 
-
+    // Thymleaf
     @GetMapping("/users/my-book")
     public String getMyBookPage(Model model) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
@@ -77,8 +74,9 @@ public class UserController {
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
 
+    // Rating
     @PostMapping("/api/v1/users/rating")
-    public ResponseEntity<?> changeRating(@RequestBody @Valid RatingRequest request) {
+    public ResponseEntity<?> changeRating(@RequestBody @Valid ReviewRequest request) {
         Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
         if (userIdOptional.isEmpty()) {
             throw new NotFoundException("not found user");
@@ -97,7 +95,28 @@ public class UserController {
         return new ResponseEntity<>("Successful", HttpStatus.CREATED);
     }
 
+    // Review
+    @PostMapping("/api/v1/users/review")
+    public ResponseEntity<?> createReview(@RequestBody @Valid ReviewRequest request) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.saveReview(request, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
 
+    @PutMapping("/api/v1/users/review")
+    public ResponseEntity<?> updateReview(@RequestBody @Valid ReviewRequest request) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.saveReview(request, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+    // Address
     @GetMapping("/api/v1/users/districts/{provinceCode}")
     public ResponseEntity<?> getDistricts(@PathVariable String provinceCode) {
         try {

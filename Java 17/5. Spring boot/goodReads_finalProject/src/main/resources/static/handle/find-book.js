@@ -1,8 +1,7 @@
-
 const pageSize = 8;
 const urlParam = new URLSearchParams(window.location.search);
 const showPageSize = urlParam.get('pageSize') || pageSize;
-const lastSearchCriteria = urlParam.get('title') || '';
+const lastSearchCriteria = urlParam.get('search') || '';
 $('#search-input').val(lastSearchCriteria);
 $('#show-pagesize').val(showPageSize);
 
@@ -50,7 +49,7 @@ $(document).ready(function () {
     function changeUrl(pageNumber, pageSize) {
         let keyword = checkSearchInput();
         if (keyword !== '') {
-            window.location.href = `/books?pageIndex=${pageNumber}&pageSize=${pageSize}&title=${keyword}`;
+            window.location.href = `/books?pageIndex=${pageNumber}&pageSize=${pageSize}&search=${keyword}`;
         } else {
             window.location.href = `/books?pageIndex=${pageNumber}&pageSize=${pageSize}`;
         }

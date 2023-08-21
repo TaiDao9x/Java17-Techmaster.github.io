@@ -1,11 +1,7 @@
 package com.example.goodreads_finalproject.repository.custom;
 
-import com.example.goodreads_finalproject.entity.Category;
-import com.example.goodreads_finalproject.model.request.BookSearchRequest;
-import com.example.goodreads_finalproject.model.request.RatingRequest;
+import com.example.goodreads_finalproject.model.request.ReviewRequest;
 import com.example.goodreads_finalproject.model.response.AvgRatingResponse;
-import com.example.goodreads_finalproject.model.response.BookResponse;
-import com.example.goodreads_finalproject.model.response.BookSearchResponse;
 import com.example.goodreads_finalproject.repository.BaseRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -23,7 +19,7 @@ public class ReviewCustomRepository extends BaseRepository {
         getNamedParameterJdbcTemplate().update(sql, parameters);
     }
 
-    public void changeRating(RatingRequest request, Long userId) {
+    public void changeRating(ReviewRequest request, Long userId) {
         String sql = "UPDATE reviews rv SET rv.rating= :rating WHERE rv.book_id = :bookId AND rv.user_id = :userId";
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("rating", request.getRating());

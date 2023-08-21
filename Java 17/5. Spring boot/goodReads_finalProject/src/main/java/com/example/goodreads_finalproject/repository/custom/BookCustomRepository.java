@@ -2,7 +2,6 @@ package com.example.goodreads_finalproject.repository.custom;
 
 import com.example.goodreads_finalproject.entity.Category;
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
-import com.example.goodreads_finalproject.model.request.RatingRequest;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.BookSearchResponse;
 import com.example.goodreads_finalproject.repository.BaseRepository;
@@ -115,19 +114,11 @@ public class BookCustomRepository extends BaseRepository {
 
         parameters.put("userId", userId);
 
-        if (request.getTitle() != null && !request.getTitle().trim().equals("")) {
-            sql.append(" and lower(b.title) like :title");
-            parameters.put("title", "%" + request.getTitle().toLowerCase() + "%");
+        if (request.getSearch() != null && !request.getSearch().trim().equals("")) {
+            sql.append(" and lower(b.author) like :search or lower(b.title) like :search");
+            parameters.put("search", "%" + request.getSearch().toLowerCase() + "%");
         }
-        if (request.getAuthor() != null && !request.getAuthor().trim().equals("")) {
-            sql.append(" and lower(b.author) like :author");
-            parameters.put("author", "%" + request.getAuthor().toLowerCase() + "%");
-        }
-        if (request.getAll() != null && !request.getAll().trim().equals("")) {
-            sql.append(" and lower(b.author) like :author or lower(b.title) like :title");
-            parameters.put("author", "%" + request.getAll().toLowerCase() + "%");
-            parameters.put("title", "%" + request.getAll().toLowerCase() + "%");
-        }
+
         sql.append(" GROUP BY b.id");
 
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));

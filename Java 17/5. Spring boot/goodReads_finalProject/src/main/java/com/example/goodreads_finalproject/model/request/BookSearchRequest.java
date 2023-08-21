@@ -17,4 +17,7 @@ public class  BookSearchRequest extends BaseSearchRequest {
 
     @Size(max = 100, message = "Category cannot over 100 characters")
     String category;
+
+    @Size(max = 100, message = "Search cannot over 100 characters")
+    String search;
 }

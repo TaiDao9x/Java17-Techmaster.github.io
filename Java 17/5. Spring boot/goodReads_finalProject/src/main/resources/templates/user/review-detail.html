@@ -13,16 +13,55 @@
     <title>Book - Review</title>
     <th:block id="css">
         <style>
+
+            textarea {
+                text-transform: none;
+            }
+
+            .d-flex {
+                display: flex;
+            }
+
             .tg-authorbox {
                 display: flex;
             }
+
+            .tg-authorinfo {
+                overflow: inherit;
+            }
+
+            .p-0 {
+                padding: 0;
+            }
+
+            .pt-0 {
+                padding-top: 0;
+            }
+
+            .mt-58 {
+                margin-top: 58px;
+            }
+
+            .font-weight-bolder {
+                font-weight: bolder;
+            }
+
+            #reading-book-status {
+                width: 150px;
+                display: flex;
+            }
+
+            #reading-book-status button:first-child {
+                width: 100%;
+            }
+
         </style>
     </th:block>
 
 </head>
 <body>
 
-<div id="tg-wrapper" class="tg-wrapper tg-haslayout">
+<div id="tg-wrapper" class="tg-wrapper tg-haslayout review-page">
     <!--************************************
             Header Start
     *************************************-->
@@ -43,9 +82,10 @@
                         <div class="tg-innerbannercontent">
                             <h1>Reviews</h1>
                             <ol class="tg-breadcrumb">
-                                <li><a href="javascript:void(0);">home</a></li>
-                                <li><a href="javascript:void(0);">Books</a></li>
-                                <li><a href="javascript:void(0);">title</a></li>
+                                <li><a href="/">home</a></li>
+                                <li><a href="/books?pageIndex=1&pageSize=8">Books</a></li>
+                                <li><a th:href="@{/books/{bookId} (bookId=${book.id})}"
+                                       th:text="${book.title}">title</a></li>
                                 <li class="tg-active">Review</li>
                             </ol>
                         </div>
@@ -71,7 +111,7 @@
                                 <div id="tg-content" class="tg-content">
                                     <div class="tg-newsdetail">
 
-                                        <div class="tg-authorbox">
+                                        <div class="tg-authorbox d-lex">
                                             <figure class="tg-img" style="width: 100px; padding: 3px;">
                                                 <img th:src="${book.image}" alt="image description">
                                             </figure>
@@ -79,15 +119,63 @@
                                                 <div class="tg-authorhead">
                                                     <div class="tg-leftarea">
                                                         <div class="tg-authorname">
-                                                            <h2 th:text="${book.title}">Kathrine Culbertson</h2>
-                                                            <span th:text="${book.author}">Author Since: June 27, 2017</span>
+                                                            <div class="tg-booktitle p-0 font-weight-bolder">
+                                                                <h2><a th:href="@{/books/{bookId} (bookId=${book.id})}"
+                                                                       th:text="${book.title}"></a></h2>
+                                                            </div>
+                                                            <span class="tg-bookwriter ">By: <a
+                                                                    href="javascript:void(0);"
+                                                                    th:text="${book.author}">Angela Gunning</a></span>
+                                                            <div class="d-flex mt-58">
+
+                                                                <div id="display-rating-personal" class="d-flex">
+                                                                    <span class="pt-4" style="padding-top: 4px">My rating: </span>
+                                                                    <a type="button" class="btn pt-0">
+
+                                                                        <div class="stars">
+                                                                            <svg class="star" data-value="1"
+                                                                                 viewBox="0 0 940.688 940.688">
+                                                                                <path
+                                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                            </svg>
+                                                                            <svg class="star" data-value="2"
+                                                                                 viewBox="0 0 940.688 940.688">
+                                                                                <path
+                                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                            </svg>
+                                                                            <svg class="star" data-value="3"
+                                                                                 viewBox="0 0 940.688 940.688">
+                                                                                <path
+                                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                            </svg>
+                                                                            <svg class="star" data-value="4"
+                                                                                 viewBox="0 0 940.688 940.688">
+                                                                                <path
+                                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                            </svg>
+                                                                            <svg class="star" data-value="5"
+                                                                                 viewBox="0 0 940.688 940.688">
+                                                                                <path
+                                                                                        d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                            </svg>
+
+                                                                            <div class="overlay"
+                                                                                 th:attr="ratingDetail=${book.ratingDetail}"
+                                                                                 th:style="|width:${100-(book.ratingDetail*20)}%|">
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
                                                 </div>
-
-                                                <a class="tg-btn tg-active" href="javascript:void(0);">View All
-                                                    Books</a>
+                                                <th:block
+                                                        th:replace="fragments/reading-book :: readingBook(${book.readingStatus},${book.id})">
+                                                </th:block>
                                             </div>
                                         </div>
 
@@ -96,7 +184,8 @@
                                             <form class="tg-formtheme tg-formleavecomment">
                                                 <fieldset>
                                                     <div class="form-group" style="width: 100%">
-                                                        <textarea placeholder="Enter your review" rows="5"></textarea>
+                                                        <textarea type="text" placeholder="Enter your review" rows="5"
+                                                                  name="review-content" id="review-content"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Date started: </label>
@@ -110,7 +199,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <a class="tg-btn tg-active"
-                                                           href="javascript:void(0);">Post</a>
+                                                           href="javascript:void(0);" id="save-review"></a>
                                                     </div>
                                                 </fieldset>
                                             </form>
@@ -147,8 +236,12 @@
 
 <th:block id="js">
     <script th:inline="javascript">
+        let bookDetail = [[${bookDetail}]]
+        let bookId = bookDetail.id;
 
     </script>
+    <script th:src="@{/handle/rating-review.js}"></script>
+
 </th:block>
 </body>
 
