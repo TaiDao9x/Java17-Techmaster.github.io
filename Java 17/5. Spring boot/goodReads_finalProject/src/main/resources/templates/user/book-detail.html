@@ -15,12 +15,28 @@
         <link rel="stylesheet" th:href="@{/handle/reading-book-btn.css}">
         <style>
 
+            .m-0 {
+                margin: 0px;
+            }
+
             .mt-20 {
                 margin-top: 20px;
             }
 
             .mt-10 {
                 margin-top: 10px;
+            }
+
+            .mt-10 {
+                margin-top: 10px;
+            }
+
+            .mr-5 {
+                margin-right: 5px;
+            }
+
+            .fs-12 {
+                font-size: 12px;
             }
 
             .tg-productcontent {
@@ -68,9 +84,18 @@
                 overflow: hidden;
             }
 
-            #show-more-btn {
+            .truncate-description-2 {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .show-content {
+                padding: 0 3px;
                 font-weight: bolder;
-                font-size: 12px;
+                font-size: 11px;
+                max-height: 28px;
             }
 
             .tg-productdescription #tg-comments img {
@@ -81,6 +106,49 @@
                 width: 150px;
                 background: #FCFCFC;
             }
+
+            #tg-comments .following, #tg-comments .un-following {
+                border-radius: 30px;
+                min-width: 100px;
+                text-align: center;
+            }
+
+            .p-0 {
+                padding: 0px;
+            }
+
+            .tg-childcomment .tg-authorbox .tg-authorimg {
+                width: 35px;
+            }
+
+            .tg-childcomment .tg-authorbox {
+                padding: 20px 20px 0px 20px;
+            }
+
+            .display-rating-reivew .stars svg {
+                width: 20px;
+                margin: 0 3px;
+            }
+
+            .like-comment-review a {
+                color: #484848;
+                font-size: 13px !important;
+                font-weight: 600;
+            }
+
+            .like-comment-review a:hover {
+                color: #77b748;
+            }
+
+            .liked {
+                color: red !important;
+            }
+
+            .disabled-link {
+                pointer-events: none;
+                color: gray;
+            }
+
         </style>
     </th:block>
 
@@ -254,7 +322,8 @@
                                                         <div id="book-description" class="truncate-description"
                                                              th:text="${book.description}">
                                                         </div>
-                                                        <button id="show-more-btn" onclick="showMore()">Show more <i
+                                                        <button id="show-more-btn" class="show-content"
+                                                                onclick="showMore()">Show more<i
                                                                 class="fa-solid fa-angle-down"></i>
                                                         </button>
                                                     </div>
@@ -330,12 +399,12 @@
                                                         <h2>Book Description</h2>
                                                     </div>
                                                     <ul class="tg-themetabs" role="tablist">
-                                                        <li role="presentation"><a href="#my-review"
-                                                                                   data-toggle="tab">My
+                                                        <li role="presentation" class="active"><a href="#my-review"
+                                                                                                  data-toggle="tab">My
                                                             Review</a>
                                                         </li>
-                                                        <li role="presentation" class="active"><a href="#review"
-                                                                                                  data-toggle="tab">Reviews</a>
+                                                        <li role="presentation"><a href="#review"
+                                                                                   data-toggle="tab">Reviews</a>
                                                         </li>
                                                     </ul>
                                                     <div class="tg-tab-content tab-content">
@@ -343,7 +412,7 @@
                                                              id="my-review">
                                                             <div class="tg-description">
                                                                 <div class="tg-authorbox">
-                                                                    <figure class="tg-authorimg"  >
+                                                                    <figure class="tg-authorimg">
                                                                         <img th:src="@{/original/images/author/imag-24.jpg}"
                                                                              alt="image description">
                                                                     </figure>
@@ -370,6 +439,7 @@
                                                                                 ab illo inventore veritatis
                                                                                 etation.</p>
                                                                         </div>
+
                                                                     </div>
                                                                     <div class="tg-bottomarrow"></div>
                                                                 </div>
@@ -379,92 +449,142 @@
                                                         <div role="tabpanel" class="tg-tab-pane tab-pane" id="review">
                                                             <div class="tg-commentsarea">
                                                                 <div class="tg-sectionhead">
-                                                                    <h2>03 Comments</h2>
+                                                                    <h2 th:text="${'Total '+reviewsList.size+' Reviews'}"></h2>
                                                                 </div>
                                                                 <ul id="tg-comments" class="tg-comments">
-                                                                    <li>
+                                                                    <li th:each="review:${reviewsList}">
                                                                         <div class="tg-authorbox">
                                                                             <figure class="tg-authorimg">
-                                                                                <img th:src="@{/original/images/author/imag-24.jpg}"
+                                                                                <img th:src="${review.avatar}"
                                                                                      alt="image description">
                                                                                 <div class="tg-authorname mt-20">
-                                                                                    <h2>Kathrine </h2>
-                                                                                    <span>June 27, 2017</span>
-                                                                                    <span>June 27, </span>
-                                                                                    <div class="tg-leftarea mt-10">
-                                                                                        <a class="tg-btnreply"
-                                                                                           href="javascript:void(0);"
-                                                                                           style="border-radius: 30px">Follow</a>
-                                                                                    </div>
+                                                                                    <h2 th:text="${review.name}">
+                                                                                        Kathrine </h2>
+
+                                                                                    <th:block
+                                                                                            th:replace="fragments/following :: following(${review.following},${review.userReviewId})"></th:block>
                                                                                 </div>
                                                                             </figure>
                                                                             <div class="tg-authorinfo">
                                                                                 <div class="tg-authorhead">
                                                                                     <div class="tg-leftarea">
                                                                                         <div class="tg-authorname">
-                                                                                            <h2>Kathrine
-                                                                                                Culbertson</h2>
-                                                                                            <span>Author Since: June 27, 2017</span>
+                                                                                            <div class="display-rating-reivew">
+                                                                                                <div class="stars">
+                                                                                                    <svg viewBox="0 0 940.688 940.688">
+                                                                                                        <path
+                                                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                                                    </svg>
+                                                                                                    <svg viewBox="0 0 940.688 940.688">
+                                                                                                        <path
+                                                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                                                    </svg>
+                                                                                                    <svg viewBox="0 0 940.688 940.688">
+                                                                                                        <path
+                                                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                                                    </svg>
+                                                                                                    <svg viewBox="0 0 940.688 940.688">
+                                                                                                        <path
+                                                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                                                    </svg>
+                                                                                                    <svg viewBox="0 0 940.688 940.688">
+                                                                                                        <path
+                                                                                                                d="M885.344,319.071l-258-3.8l-102.7-264.399c-19.8-48.801-88.899-48.801-108.6,0l-102.7,264.399l-258,3.8 c-53.4,3.101-75.1,70.2-33.7,103.9l209.2,181.4l-71.3,247.7c-14,50.899,41.1,92.899,86.5,65.899l224.3-122.7l224.3,122.601 c45.4,27,100.5-15,86.5-65.9l-71.3-247.7l209.2-181.399C960.443,389.172,938.744,322.071,885.344,319.071z"/>
+                                                                                                    </svg>
+
+                                                                                                    <div class="overlay"
+                                                                                                         th:attr="rating=${review.ratingDetail}"
+                                                                                                         th:style="|width:${100-(review.ratingDetail*20)}%|"></div>
+
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
 
                                                                                     </div>
                                                                                     <div class="tg-rightarea">
-                                                                                        <a class="tg-btnreply"
-                                                                                           href="javascript:void(0);">Reply<i
-                                                                                                class="fa fa-mail-reply"></i></a>
+                                                                                        <span th:text="${review.reviewDate}"></span>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="tg-description">
-                                                                                    <p>Laborum sed ut perspiciatis
-                                                                                        unde omnis iste natus sit
-                                                                                        voluptatem accusantium
-                                                                                        doloremque laudantium totam
-                                                                                        rem aperiam eaque ipsa quae
-                                                                                        ab illo inventore veritatis
-                                                                                        etation.</p>
+                                                                                    <div th:text="${review.content}"
+                                                                                         th:id="|review-${review.reviewId}|"
+                                                                                         class="truncate-description-2"></div>
+                                                                                    <button th:id="|show-more-review-btn-${review.reviewId}|"
+                                                                                            th:onclick="|showMoreReview(${review.reviewId})|"
+                                                                                            class="show-content">
+                                                                                        Show more <i
+                                                                                            class="fa-solid fa-angle-down"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="like-comment-review">
+                                                                                    <span><a
+                                                                                            type="button"
+                                                                                            class="btn btn-light"><span
+                                                                                            th:text="${review.likes==0?'':review.likes +' likes'}"></span>  </a><a
+                                                                                            type="button"
+                                                                                            class="btn btn-light"
+                                                                                            th:onclick="|showChildComment(${review.reviewId})|">  <span
+                                                                                            th:text="${review.childComments.size ==0?'':review.childComments.size + ' comments'}"></span> </a>
+                                                                                    </span>
+                                                                                    <br>
+                                                                                    <span>
+                                                                                        <th:block
+                                                                                                th:replace="fragments/likeAndComment :: likeAndComment(${review})"></th:block>
+                                                                                    </span>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="tg-bottomarrow"></div>
                                                                         </div>
-                                                                        <ul class="tg-childcomment">
-                                                                            <li>
+                                                                        <ul class="tg-childcomment"
+                                                                            th:id="|child-comment-${review.reviewId}|"
+                                                                            style="display: none">
+                                                                            <li th:each="comment:${review.childComments}">
                                                                                 <div class="tg-authorbox">
                                                                                     <figure class="tg-authorimg">
-                                                                                        <img th:src="@{/original/images/author/imag-24.jpg}"
+                                                                                        <img th:src="${comment.avatar}"
                                                                                              alt="image description">
                                                                                     </figure>
                                                                                     <div class="tg-authorinfo">
-                                                                                        <div class="tg-authorhead">
+                                                                                        <div class="tg-authorhead p-0">
                                                                                             <div class="tg-leftarea">
                                                                                                 <div class="tg-authorname">
-                                                                                                    <h2>Kathrine
-                                                                                                        Culbertson</h2>
-                                                                                                    <span>Author Since: June 27, 2017</span>
+                                                                                                    <span style="font-weight: 600"
+                                                                                                          th:text="${comment.name==''?'Anonymous':comment.name}"></span>
+
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="tg-rightarea">
-                                                                                                <a class="tg-btnreply"
-                                                                                                   href="javascript:void(0);">Reply<i
-                                                                                                        class="fa fa-mail-reply"></i></a>
+                                                                                                <span th:text="${comment.commentDate}"></span>
                                                                                             </div>
                                                                                         </div>
-                                                                                        <div class="tg-description">
-                                                                                            <p>Laborum sed ut
-                                                                                                perspiciatis unde
-                                                                                                omnis iste natus sit
-                                                                                                voluptatem
-                                                                                                accusantium
-                                                                                                doloremque
-                                                                                                laudantium totam rem
-                                                                                                aperiam eaque ipsa
-                                                                                                quae ab illo
-                                                                                                inventore veritatis
-                                                                                                etation.</p>
+                                                                                        <div class="tg-description m-0">
+                                                                                            <p th:text="${comment.contentOfComment}"></p>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="tg-bottomarrow"></div>
                                                                                 </div>
                                                                             </li>
+
+                                                                            <div class="tg-authorbox" id="your-comment">
+                                                                                <figure class="tg-authorimg">
+                                                                                    <img th:src="${review.avatar}"
+                                                                                         alt="image description">
+                                                                                </figure>
+                                                                                <div class="tg-authorinfo"
+                                                                                     style="padding-bottom: 17px">
+                                                                                    <textarea type="text"
+                                                                                              name="comment-content"
+                                                                                              th:id="|comment-input-${review.reviewId}|"
+                                                                                              style="width: 100%;"></textarea>
+                                                                                    <div class="tg-rightarea mt-10">
+                                                                                        <a class="tg-btnreply fs-12 btn submit-comment-btn"
+                                                                                           th:attr="review-id=${review.reviewId}"
+                                                                                           href="javascript:void(0);">Post<i
+                                                                                                class="fa fa-mail-reply"></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="tg-bottomarrow"></div>
+                                                                            </div>
                                                                         </ul>
                                                                     </li>
 
@@ -842,8 +962,12 @@
 
 <th:block id="js">
     <script th:inline="javascript">
-        let bookDetail = [[${bookDetail}]]
+        let bookDetail = [[${bookDetail}]];
         let bookId = bookDetail.id;
+        let reviewsList = [[${reviewsList}]];
+        console.log(reviewsList)
+        // let userInformation = localStorage.getItem('userInfomation')
+        // let currentUserId = JSON.parse(userInformation).userId
 
         function showMore() {
             if ($('#book-description').hasClass("truncate-description")) {
@@ -854,6 +978,99 @@
                 $('#show-more-btn').html(`Show more <i class="fa-solid fa-angle-down"></i>`);
             }
         }
+
+        function showMoreReview(reviewId) {
+            if ($(`#review-${reviewId}`).hasClass("truncate-description-2")) {
+                $(`#review-${reviewId}`).removeClass("truncate-description-2");
+                $(`#show-more-review-btn-${reviewId}`).html(`Show less <i class="fa-solid fa-angle-up"></i>`);
+            } else {
+                $(`#review-${reviewId}`).addClass("truncate-description-2");
+                $(`#show-more-review-btn-${reviewId}`).html(`Show more <i class="fa-solid fa-angle-down"></i>`);
+            }
+        }
+
+        function showChildComment(reviewId) {
+            if ($(`#child-comment-${reviewId}`).is(':hidden')) {
+                $(`#child-comment-${reviewId}`).show()
+            } else {
+                $(`#child-comment-${reviewId}`).hide()
+            }
+        }
+
+        function showAndFocusOnCommentInput(reviewId) {
+            if ($(`#child-comment-${reviewId}`).is(':hidden')) {
+                $(`#child-comment-${reviewId}`).show()
+            }
+
+            $('html, body').animate({
+                scrollTop: $(`#comment-input-${reviewId}`).offset().top - 100
+            }, 700);
+            $(`#comment-input-${reviewId}`).focus();
+
+        }
+
+        function changeText(link) {
+            link.textContent = "UnFollow";
+        }
+
+        function restoreText(link) {
+            link.textContent = "Following";
+        }
+
+        $(document).ready(function () {
+            $('.follow').on('click', function (event) {
+                event.preventDefault();
+                let userAcceptId = $(event.currentTarget).attr("user-accept-id");
+                let isFollowing = $(event.currentTarget).attr("is-following");
+                let typeMethod = 'POST';
+                if (isFollowing === '1') {
+                    typeMethod = 'DELETE'
+                }
+                $.ajax({
+                    url: '/api/v1/users/following/' + userAcceptId,
+                    type: typeMethod,
+                    success: function (data) {
+                        autoDirectLoginPage(data);
+                        console.log("success")
+
+                    }, error: function () {
+                        toastr.warning('Not success')
+                    }
+                })
+            })
+            $('.submit-comment-btn').on('click', function (event) {
+                event.preventDefault();
+                let reviewId = $(event.currentTarget).attr("review-id")
+                let commentContent = $(`#comment-input-${reviewId}`).val().trim()
+
+                if (commentContent.length >= 65535) {
+                    toastr.warning('Comment cannot be longer than 65535 characters');
+                    return;
+                } else if (commentContent === '') {
+                    return;
+                }
+                $('.submit-comment-btn').toggleClass('disabled-link');
+                let formData = {
+                    reviewId: reviewId,
+                    content: commentContent
+                }
+                $.ajax({
+                    url: '/api/v1/users/comment',
+                    type: 'POST',
+                    data: JSON.stringify(formData),
+                    contentType: 'application/json',
+                    success: function (data) {
+                        autoDirectLoginPage(data);
+                        $('.submit-comment-btn').toggleClass('disabled-link');
+                        // window.location.reload()
+
+                    }, error: function () {
+                        toastr.warning('Post comment not success')
+                        $('.submit-comment-btn').toggleClass('disabled-link');
+                    }
+                })
+            })
+        })
     </script>
     <script th:src="@{/handle/rating-review.js}"></script>
 

@@ -100,8 +100,9 @@ public class WebController {
             bookResponse = bookService.findBookByBookId(bookId, null);
             reviewResponses = bookService.getAllReviews(bookId, null);
         }
+
         model.addAttribute("bookDetail", bookResponse);
-        model.addAttribute("reviewsList", reviewResponses);
+       model.addAttribute("reviewsList", reviewResponses);
         return "user/book-detail";
     }
 }

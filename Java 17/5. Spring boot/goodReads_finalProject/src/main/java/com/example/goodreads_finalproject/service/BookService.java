@@ -6,6 +6,7 @@ import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.*;
 import com.example.goodreads_finalproject.repository.*;
 import com.example.goodreads_finalproject.repository.custom.BookCustomRepository;
+import com.example.goodreads_finalproject.repository.custom.CommentCustomRepository;
 import com.example.goodreads_finalproject.repository.custom.ReviewCustomRepository;
 import com.example.goodreads_finalproject.statics.ReadingStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,8 @@ public class BookService {
     BookCustomRepository bookCustomRepository;
     ReviewBookRepository reviewBookRepository;
     ReviewCustomRepository reviewCustomRepository;
+    CommentCustomRepository commentCustomRepository;
+    CommentRepository commentRepository;
 
 
     public void createBook(BookRequest newBook) {
@@ -348,6 +351,22 @@ public class BookService {
 
     public List<ReviewResponse> getAllReviews(Long bookId, Long userId) {
         return reviewCustomRepository.getAllReviews(bookId, userId);
+    }
+
+    public CommentResponse createComment(CommentRequest request, Long userId) {
+        User user = userRepository.findById(userId).get();
+        Comment comment = Comment.builder()
+                .review(reviewBookRepository.findById(request.getReviewId()).get())
+                .user(user)
+                .content(request.getContent())
+                .build();
+        commentRepository.save(comment);
+        return CommentResponse.builder()
+                .avatar(user.getAvatar())
+                .name(user.getFullName())
+                .contentOfComment(request.getContent())
+                .commentDate(comment.getCreatedDateTime().toLocalDate())
+                .build();
     }
 }
 

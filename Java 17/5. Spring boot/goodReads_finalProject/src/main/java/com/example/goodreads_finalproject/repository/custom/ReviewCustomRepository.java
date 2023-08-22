@@ -69,16 +69,16 @@ public class ReviewCustomRepository extends BaseRepository {
         List<ReviewResponse> reviewResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(ReviewResponse.class));
 
         for (ReviewResponse rv : reviewResponses) {
-            if (rv.getUserReviewId().equals(userId)) {
-                reviewResponses.remove(rv);
-                break;
-            }
             List<CommentResponse> childComments = getAllCommentsOfReview(rv.getReviewId());
             rv.setChildComments(childComments);
 
             Boolean following = checkRelationship(userId, rv.getUserReviewId());
             rv.setFollowing(following);
+
+            Boolean liked = checkLiked(userId, rv.getReviewId());
+            rv.setLiked(liked);
         }
+//        reviewResponses.removeIf(rv -> rv.getUserReviewId().equals(userId));
         return reviewResponses;
     }
 
@@ -110,6 +110,22 @@ public class ReviewCustomRepository extends BaseRepository {
             sql.append("WHERE user_request_id = :currentUserId and user_accept_id= :anonymousUserId");
             parameters.put("currentUserId", currentUserId);
             parameters.put("anonymousUserId", anonymousUserId);
+            return getNamedParameterJdbcTemplate().queryForObject(sql.toString(), parameters, Boolean.class);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public Boolean checkLiked(Long currentUserId, Long reviewId) {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT ");
+            sql.append("CASE WHEN COUNT(likes.id) > 0 THEN true ELSE false END AS liked ");
+            sql.append("FROM likes ");
+            sql.append("WHERE likes.user_id = :currentUserId AND likes.review_id= :reviewId");
+            parameters.put("currentUserId", currentUserId);
+            parameters.put("reviewId", reviewId);
             return getNamedParameterJdbcTemplate().queryForObject(sql.toString(), parameters, Boolean.class);
         } catch (Exception e) {
             return false;

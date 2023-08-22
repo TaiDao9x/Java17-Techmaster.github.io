@@ -4,9 +4,11 @@ import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.NotFoundException;
 import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.BookResponse;
+import com.example.goodreads_finalproject.model.response.CommentResponse;
 import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.BookService;
+import com.example.goodreads_finalproject.service.FollowingService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,6 +31,7 @@ public class UserController {
 
     UserService userService;
     BookService bookService;
+    FollowingService followingService;
 
     // Thymleaf
     @GetMapping("/users/my-book")
@@ -113,6 +116,38 @@ public class UserController {
             throw new NotFoundException("not found user");
         }
         bookService.saveReview(request, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+    // Comment
+    @PostMapping("/api/v1/users/comment")
+    public ResponseEntity<?> createComment(@RequestBody @Valid CommentRequest request) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        CommentResponse commentResponse = bookService.createComment(request, userIdOptional.get());
+        return new ResponseEntity<>(commentResponse, HttpStatus.CREATED);
+    }
+
+    // Following
+    @PostMapping("/api/v1/users/following/{userAcceptId}")
+    public ResponseEntity<?> followUser(@PathVariable Long userAcceptId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        followingService.followUser(userIdOptional.get(), userAcceptId);
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/v1/users/following/{userAcceptId}")
+    public ResponseEntity<?> unFollow(@PathVariable Long userAcceptId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        followingService.unFollow(userIdOptional.get(), userAcceptId);
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 

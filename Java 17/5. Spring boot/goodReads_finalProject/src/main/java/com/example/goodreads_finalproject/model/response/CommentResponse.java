@@ -20,6 +20,6 @@ public class CommentResponse {
 
     String contentOfComment;
 
-    String commentDate;
+    LocalDate commentDate;
 
 }

@@ -34,6 +34,8 @@ public class ReviewResponse {
 
     Boolean following;
 
+    Boolean liked;
+
     List<CommentResponse> childComments;
 
 }
