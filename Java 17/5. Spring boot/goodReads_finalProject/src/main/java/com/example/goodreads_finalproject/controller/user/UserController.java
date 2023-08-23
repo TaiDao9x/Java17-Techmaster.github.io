@@ -54,6 +54,15 @@ public class UserController {
         return "user/review-detail";
     }
 
+    @GetMapping("/users/challenge")
+    public String getChallengePage(Model model) {
+        Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
+//        BookResponse bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
+//        model.addAttribute("bookDetail", bookResponse);
+
+        return "user/challenge-reading";
+    }
+
     // API
 
     @PostMapping("/api/v1/users/book-reading")

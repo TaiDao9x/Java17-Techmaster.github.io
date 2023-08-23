@@ -7,9 +7,36 @@
                                                 )}">
 
 <head>
-    <title>Add Book</title>
+    <title>Add User</title>
     <th:block id="css">
         <style>
+            .form-input select {
+                padding: 0 15px 0;
+                min-height: 56px;
+                transition: all .2s cubic-bezier(.165, .84, .44, 1);
+                background: rgba(243, 246, 253, 0.5);
+                border: 1px dashed #DDDDDD;
+                border-radius: 8px;
+            }
+
+            /*.show-update-form-btn {*/
+            /*    position: absolute;*/
+            /*    top: 50px;*/
+            /*    right: 15px;*/
+            /*    color: #8c929c;*/
+            /*}*/
+
+            /*.show-update-form-btn:hover {*/
+            /*    color: black;*/
+            /*}*/
+
+            /*.hide-element {*/
+            /*    display: none;*/
+            /*}*/
+
+            #fullName {
+                text-transform: capitalize;
+            }
 
         </style>
     </th:block>
@@ -21,14 +48,10 @@
     <div class="dashboard__content">
         <div class="row y-gap-20 justify-between items-end pb-20 lg:pb-40 md:pb-32">
             <div class="col-auto">
-
-                <h1 class="text-30 lh-14 fw-600">Add Book</h1>
-                <div class="text-15 text-light-1">Add your next book!</div>
-
+                <h1 class="text-30 lh-14 fw-600">Add User</h1>
             </div>
 
             <div class="col-auto">
-
             </div>
         </div>
 
@@ -39,7 +62,7 @@
                     <div class="col-auto">
                         <button
                                 class="tabs__button text-18 lg:text-16 text-light-1 fw-500 pb-5 lg:pb-0 js-tabs-button is-tab-el-active"
-                                data-tab-target=".-tab-item-1">Book Information
+                                data-tab-target=".-tab-item-1">User Information
                         </button>
                     </div>
 
@@ -51,60 +74,67 @@
                             <div class="border-top-light mt-30 mb-30"></div>
                             <form id="create-book-form">
                                 <div class="row x-gap-20 y-gap-20">
-                                    <div class="col-sm-12 col-md-9">
+
+                                    <div class="col-md-6">
                                         <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Title <span class="error-message"> *</span></label>
-                                            <input type="text" name="title" id="title" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-3">
-                                        <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Pages <span class="error-message"> *</span></label>
-                                            <input type="number" name="pages" id="pages" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Author <span class="error-message"> *</span></label>
-                                            <input type="text" name="author" id="author"
-                                                   style="text-transform: capitalize" required>
+                                            <label for="fullName" class="lh-1 text-16 text-light-1">Your Name</label>
+                                            <input type="text" name="fullName" id="fullName">
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-6">
+                                    <div class="col-md-6">
                                         <div class="form-input ">
-                                            <label class="lh-1 text-16 text-light-1">Published <span
+                                            <label for="email" class="lh-1 text-16 text-light-1">Email <span
                                                     class="error-message"> *</span></label>
-                                            <input type="date" name="published" id="published" required>
+                                            <input type="text" id="email">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1" for="role">Role</label>
+                                            <select class="" id="role">
+                                                <option value="User">User</option>
+                                                <option value="Author">Author</option>
+                                                <option value="Admin">Admin</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-input ">
+                                            <label for="phone" class="lh-1 text-16 text-light-1">Phone Number</label>
+                                            <input type="number" name="phone" id="phone">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1" for="gender">Gender</label>
+                                            <select class="" id="gender">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                                <option value="Undefined">Undefined</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-input ">
+                                            <label for="dob" class="lh-1 text-16 text-light-1">Birthday</label>
+                                            <input type="date" name="dob" id="dob">
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-input ">
                                             <label class="lh-1 text-16 text-light-1">About</label>
-                                            <textarea rows="3" name="about" id="about"></textarea>
+                                            <textarea rows="5" name="about" id="about"></textarea>
                                         </div>
                                     </div>
-
-                                    <!--                                    <div class="col">-->
-
-                                    <!--                                        <div class="row x-gap-100 y-gap-15">-->
-                                    <!--                                            <div class="col-12 d-flex">-->
-                                    <div class="lh-1 text-16 text-light-1 col-sm-12 col-md-2">Categories <span
-                                            class="error-message"> *</span>
-                                    </div>
-                                    <div class="col-sm-12 col-md-10">
-                                        <select class="form-control" name="category" id="book-category"
-                                                multiple="multiple">
-                                            <option th:each="category : ${categoryList}" th:value="${category.id}"
-                                                    th:text="${category.name}">
-                                            </option>
-                                        </select>
-                                        <div id="category-error"></div>
-
-                                    </div>
-
-
                                 </div>
                             </form>
 

@@ -3,6 +3,11 @@ $(document).ready(function () {
     $('#pageInput').select2({});
     $('#pageNumberInput').select2({});
 
+
+    $('#add-book').click(() => {
+        window.location.href = '/admin/add-book'
+    })
+
     let searchFrom = getPreviousSearchCriteria();
 
     $('.search-admin, #search-by div').on('keyup', function (event) {
@@ -13,10 +18,6 @@ $(document).ready(function () {
 
     $('#btn-search-admin').click(() => {
         changeUrl(1, pageSize);
-    })
-
-    $('#add-book').click(() => {
-        window.location.href = '/admin/add-book'
     })
 
     $('#pageInput').change(() => {

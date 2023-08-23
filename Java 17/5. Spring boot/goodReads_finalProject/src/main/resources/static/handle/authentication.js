@@ -26,7 +26,7 @@ $(window).on("load", function () {
             }
             $('#avatar-admin').append(avatarAdminHtml);
 
-            // Avatar user
+            // Avatar trang phía user
             let userLoginHtml;
             if (userInfomation.role[0] === 'ADMIN') {
                 userLoginHtml = `
@@ -125,7 +125,6 @@ $(window).on("load", function () {
                                 </div>
                                 `
             } else {
-
                 userLoginHtml = `
                 <div class="dropdown tg-themedropdown tg-wishlistdropdown">
                                     <a href="javascript:void(0);" id="tg-wishlisst" class="tg-btnthemedropdown"
@@ -207,16 +206,17 @@ $(window).on("load", function () {
                                     <ul class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-currenty">
                                         <li>
                                             <a href="javascript:void(0);">
-                                                <i>£</i>
-                                                <span>British Pound</span>
+                                                <i class="fa-regular fa-user"></i>
+                                                <span>Profile</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0);">
-                                                <i>$</i>
-                                                <span>Us Dollar</span>
+                                            <a href="/users/challenge">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                                <span>Reading Challenge</span>
                                             </a>
                                         </li>
+                                        
                                         <li>
                                             <a href="#" id="sign-out">
                                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>

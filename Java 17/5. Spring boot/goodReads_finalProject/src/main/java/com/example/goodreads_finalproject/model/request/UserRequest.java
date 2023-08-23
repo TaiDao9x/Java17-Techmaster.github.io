@@ -33,4 +33,6 @@ public class UserRequest {
 
     @Size(max = 65535, message = "About cannot over 65.535 characters")
     String about;
+
+    String Role;
 }

@@ -44,6 +44,13 @@ public class ManageUserController {
         return "admin/user/user-list";
     }
 
+    @GetMapping("/admin/add-user")
+    public String createUserPage(Model model, UserRequest request) {
+
+
+        return "admin/user/user-create";
+    }
+
     @GetMapping("/admin/roles")
     public String searchRoles(Model model) {
         List<Role> allRole = roleService.findAllRole();
@@ -67,6 +74,7 @@ public class ManageUserController {
         return "admin/user/profile";
     }
 
+    // API
 //    @PostMapping("api/v1/admin/users")
 //    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserRequest request) {
 //        try {

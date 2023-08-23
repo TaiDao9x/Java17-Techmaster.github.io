@@ -280,7 +280,6 @@ $(document).ready(function () {
                         }
                     });
                 }, 700);
-
             },
             error: function () {
                 toastr.warning("Changed password not successfully!");

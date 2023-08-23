@@ -38,9 +38,9 @@
                                    href="/admin/users"
                                    data-tab-target=".-tab-item-1">All Users
                                 </a>
-                                <!--                                <button class="ml-20 bg-light-2 rounded-4 size-35" id="add-book">-->
-                                <!--                                    <i class="icon-plus text-16 text-light-1"></i>-->
-                                <!--                                </button>-->
+                                <button class="ml-20 bg-light-2 rounded-4 size-35" id="add-user">
+                                    <i class="icon-plus text-16 text-light-1"></i>
+                                </button>
                             </div>
                             <div class="col-10">
                                 <div class="single-field relative d-flex items-center md:d-none ml-30">
@@ -156,6 +156,9 @@
         const showPageSize = urlParam.get('pageSize') || pageSize
         $('#pageNumberInput').val(showPageSize);
 
+        $('#add-user').click(()=>{
+            window.location.href = "/admin/add-user"
+        })
     </script>
 </th:block>
 </body>
