@@ -340,12 +340,15 @@
                                                         <h2>Book Details</h2>
                                                     </div>
                                                     <ul class="tg-productinfo">
-                                                        <li><span>Pages:</span><span>328 pages, Paperback</span></li>
+                                                        <li><span>Pages:</span>
+                                                            <span th:text="${book.pages} + ' pages, Paperback' ">328</span>
+
+                                                        </li>
                                                         <li><span>Publication Date:</span><span
                                                                 th:text="${book.published}"></span>
                                                         </li>
-                                                        <li><span>Publisher:</span><span>Sunshine Orlando</span></li>
-                                                        <li><span>Language:</span><span>English</span></li>
+                                                        <li><span>Publisher:</span><span>First new</span></li>
+                                                        <li><span>Language:</span><span>Vietnamese</span></li>
                                                     </ul>
 
                                                 </div>
@@ -356,9 +359,13 @@
                                                         <h2>About Author</h2>
                                                     </div>
                                                     <div class="tg-authorbox">
-                                                        <figure class="tg-authorimg" style="width: 70px">
-                                                            <img th:src="@{/original/images/author/imag-24.jpg}"
-                                                                 alt="image description">
+                                                        <figure class="tg-authorimg">
+                                                            <img
+                                                                    alt="image description">
+                                                            <div class="tg-authorname mt-20">
+                                                                <!--//TODO: thêm thông tin của author-->
+
+                                                            </div>
                                                         </figure>
                                                         <div class="tg-authorinfo">
                                                             <div class="tg-authorhead">
@@ -369,23 +376,11 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="tg-rightarea">
-                                                                    <ul class="tg-socialicons">
-                                                                        <li class="tg-facebook"><a
-                                                                                href="javascript:void(0);"><i
-                                                                                class="fa fa-facebook"></i></a></li>
-                                                                        <li class="tg-twitter"><a
-                                                                                href="javascript:void(0);"><i
-                                                                                class="fa fa-twitter"></i></a></li>
-                                                                        <li class="tg-linkedin"><a
-                                                                                href="javascript:void(0);"><i
-                                                                                class="fa fa-linkedin"></i></a></li>
-                                                                        <li class="tg-googleplus"><a
-                                                                                href="javascript:void(0);"><i
-                                                                                class="fa fa-google-plus"></i></a></li>
-                                                                        <li class="tg-rss"><a
-                                                                                href="javascript:void(0);"><i
-                                                                                class="fa fa-rss"></i></a></li>
-                                                                    </ul>
+
+<!--                                                                    TODO: thêm nút following-->
+
+                                                                    <!--                                                                <th:block-->
+                                                                    <!--                                                                        th:replace="fragments/following :: following(${review.following},${review.userReviewId})"></th:block>-->
                                                                 </div>
                                                             </div>
                                                             <div class="tg-description">
@@ -969,6 +964,7 @@
 <th:block id="js">
     <script th:inline="javascript">
         let bookDetail = [[${bookDetail}]];
+        console.log(bookDetail)
         let bookId = bookDetail.id;
         let reviewsList = [[${reviewsList}]];
         console.log(reviewsList)

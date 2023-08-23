@@ -24,6 +24,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("b.author, ");
         sql.append("b.description, ");
         sql.append("b.rating, ");
+        sql.append("b.pages, ");
         sql.append("b.published, ");
         sql.append("b.buy_book buyBook ");
         sql.append("from books b ");
@@ -97,6 +98,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("ANY_VALUE(b.author) AS author, ");
         sql.append("ANY_VALUE(b.description) AS description, ");
         sql.append("ANY_VALUE(b.rating) AS rating, ");
+        sql.append("ANY_VALUE(b.pages), ");
         sql.append("ANY_VALUE(b.published) AS published, ");
         sql.append("ANY_VALUE(b.buy_book) AS buyBook, ");
         sql.append("COUNT(DISTINCT rv.id) AS countOfRatings, ");
@@ -196,6 +198,7 @@ public class BookCustomRepository extends BaseRepository {
         sql.append("ANY_VALUE(b.title) AS title, ");
         sql.append("GROUP_CONCAT(category.name SEPARATOR ', ') AS categories, ");
         sql.append("ANY_VALUE(b.author) AS author, ");
+        sql.append("ANY_VALUE(b.pages) AS pages, ");
         sql.append("ANY_VALUE(b.description) AS description, ");
         sql.append("ANY_VALUE(b.rating) AS rating, ");
         sql.append("ANY_VALUE(b.published) AS published, ");
@@ -254,6 +257,7 @@ public class BookCustomRepository extends BaseRepository {
                     .published(bookSearchResponse.getPublished())
                     .rating(bookSearchResponse.getRating())
                     .ratingDetail(bookSearchResponse.getRatingDetail() == null ? 0 : Double.parseDouble(bookSearchResponse.getRatingDetail()))
+                    .pages(bookSearchResponse.getPages())
                     .readingStatus(bookSearchResponse.getReadingStatus())
                     .countOfRatings(bookSearchResponse.getCountOfRatings())
                     .countOfReviews(bookSearchResponse.getCountOfReview())

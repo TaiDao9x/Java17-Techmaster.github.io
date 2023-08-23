@@ -34,6 +34,8 @@ public class BookResponse {
 
     double ratingDetail;
 
+    Integer pages;
+
     LocalDate published;
 
     String buyBook;

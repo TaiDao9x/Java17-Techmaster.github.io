@@ -1,5 +1,6 @@
 package com.example.goodreads_finalproject.entity;
 
+import com.sun.xml.bind.v2.TODO;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -38,7 +39,6 @@ public class Book extends BaseEntity {
 
     String buyBook;
 
-    //TODO: thêm số trang để cập nhật quá trình đọc sách
-//    @Column(nullable = false, columnDefinition = "default 0")
-//    Integer pages;
+    @Column(nullable = false,columnDefinition = "default 0")
+    Integer pages;
 }

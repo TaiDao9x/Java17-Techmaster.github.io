@@ -40,4 +40,7 @@ public class BookRequest {
 
     double rating;
 
+    @NotNull
+    @Max(value = 21450)
+    Integer pages;
 }

@@ -30,6 +30,8 @@ public class BookSearchResponse {
 
     String ratingDetail;
 
+    Integer pages;
+
     LocalDate published;
 
     String buyBook;

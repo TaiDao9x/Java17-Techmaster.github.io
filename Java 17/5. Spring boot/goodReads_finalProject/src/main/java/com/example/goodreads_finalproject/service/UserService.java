@@ -78,8 +78,17 @@ public class UserService {
         Optional<Role> optionalRole = roleRepository.findByName(Roles.USER);
         Set<Role> roles = new HashSet<>();
         roles.add(optionalRole.get());
+
+        String name;
+        if (registrationRequest.getFullName().equals("")) {
+            int atIndex = registrationRequest.getEmail().indexOf('@');
+            name = registrationRequest.getEmail().substring(0, atIndex);
+        } else {
+            name = registrationRequest.getFullName();
+        }
+
         User user = User.builder()
-                .fullName(registrationRequest.getFullName().equals("") ? registrationRequest.getEmail() : registrationRequest.getFullName())
+                .fullName(name)
                 .email(registrationRequest.getEmail())
                 .password(passwordEncoder.encode(registrationRequest.getPassword()))
                 .roles(roles)

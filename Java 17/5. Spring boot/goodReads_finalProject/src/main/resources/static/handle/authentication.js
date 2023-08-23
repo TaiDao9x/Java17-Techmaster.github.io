@@ -15,8 +15,9 @@ $(window).on("load", function () {
         } else {
             // avatar ADMIN
             const userInfomation = JSON.parse(localStorage.getItem('userInfomation'));
-
             const avatar = userInfomation.avatar;
+            const fullName = userInfomation.fullName;
+
             let avatarAdminHtml;
             if (avatar === null) {
                 avatarAdminHtml = ` <img src="https://firebasestorage.googleapis.com/v0/b/fir-e9a96.appspot.com/o/images%2Fu_60x60-267f0ca0ea48fd3acfd44b95afa64f01.png?alt=media&token=894f32ca-266a-40c1-81c0-eb7f8142f13a" alt="image" class="size-40 rounded-22 object-cover">`
@@ -26,7 +27,7 @@ $(window).on("load", function () {
             $('#avatar-admin').append(avatarAdminHtml);
 
             // Avatar user
-            let userLoginHtml = "";
+            let userLoginHtml;
             if (userInfomation.role[0] === 'ADMIN') {
                 userLoginHtml = `
                 <div class="dropdown tg-themedropdown tg-wishlistdropdown">
@@ -98,7 +99,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-currencydropdown">
                                     <a href="javascript:void(0);" id="tg-currenty" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span> Hi, Tai</span>
+                                        <span> Hi, ${fullName}</span>
                                         <a href="javascript:void(0);" id="avatar-user">
                                             <img 
                                                  style="border-radius: 50%;height:45px;margin-left: 10px; padding: 2px"
@@ -195,7 +196,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-currencydropdown">
                                     <a href="javascript:void(0);" id="tg-currenty" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span> Hi, Tai</span>
+                                        <span> Hi, ${fullName}</span>
                                         <a href="javascript:void(0);" id="avatar-user">
                                             <img 
                                                  style="border-radius: 50%;height:45px;margin-left: 10px; padding: 2px"

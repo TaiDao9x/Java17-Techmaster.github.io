@@ -42,6 +42,7 @@ $(document).ready(function () {
     async function uploadImageAndCreateBook() {
         let title = $("#title").val();
         let author = $("#author").val();
+        let pages = $("#pages").val();
         let published = $("#published").val();
         let about = $("#about").val();
         let categories = $('#book-category').val();
@@ -53,6 +54,7 @@ $(document).ready(function () {
             title: title,
             categoryId: categoryConvert,
             author: author,
+            pages: pages,
             description: about,
             published: published,
         };
@@ -77,7 +79,7 @@ $(document).ready(function () {
                 setTimeout(function () {
                     $('#submitBtn').prop('disabled', false);
                     window.location.href = '/admin/books';
-                }, 800)
+                }, 700)
             },
             error: function () {
                 toastr.warning("Create book not success!");
@@ -119,6 +121,10 @@ $(document).ready(function () {
                 required: true,
                 maxlength: 255
             },
+            "pages": {
+                required: true,
+                max: 21450
+            },
             "category": {
                 required: true
             },
@@ -138,6 +144,10 @@ $(document).ready(function () {
             "author": {
                 required: "* Enter author",
                 maxlength: "Cannot be longer than 255 characters"
+            },
+            "pages": {
+                required: "* Enter number of pages",
+                max: "* Cannot exceed 21450 pages"
             },
             "category": {
                 required: "* Select category",
@@ -173,6 +183,7 @@ $(document).ready(function () {
         uploadImageAndCreateBook();
     })
 
+
 // Edit book
     $("#edit-book-form").validate({
         onfocusout: false,
@@ -196,6 +207,10 @@ $(document).ready(function () {
                 required: true,
                 maxlength: 255
             },
+            "pages": {
+                required: true,
+                max: 21450
+            },
             "category": {
                 required: true
             },
@@ -215,6 +230,10 @@ $(document).ready(function () {
             "author": {
                 required: "* Enter author",
                 maxlength: "Cannot be longer than 255 characters"
+            },
+            "pages": {
+                required: "* Enter number of pages",
+                max: "* Cannot exceed 21450 pages"
             },
             "category": {
                 required: "* Select category",
@@ -252,6 +271,7 @@ $(document).ready(function () {
     async function uploadImageAndUpdateBook(bookId) {
         let title = $("#title").val();
         let author = $("#author").val();
+        let pages = $("#pages").val();
         let published = $("#published").val();
         let description = $("#about").val();
         let buyBook = $("#buyBook").val();
@@ -265,6 +285,7 @@ $(document).ready(function () {
             title: title,
             categoryId: categoryConvert,
             author: author,
+            pages: pages,
             description: description,
             published: published,
             buyBook: buyBook
@@ -301,7 +322,7 @@ $(document).ready(function () {
                 setTimeout(function () {
                     $('#submit-edit-btn').prop('disabled', false);
                     window.location.href = 'http://localhost:8080/admin/books';
-                }, 800)
+                }, 700)
             },
             error: function () {
                 toastr.warning("Update book not success!");
