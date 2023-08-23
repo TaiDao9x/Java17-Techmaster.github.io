@@ -69,6 +69,8 @@ public class ReviewCustomRepository extends BaseRepository {
         List<ReviewResponse> reviewResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(ReviewResponse.class));
 
         for (ReviewResponse rv : reviewResponses) {
+            rv.setCurrentUserId(userId);
+
             List<CommentResponse> childComments = getAllCommentsOfReview(rv.getReviewId());
             rv.setChildComments(childComments);
 
@@ -86,6 +88,8 @@ public class ReviewCustomRepository extends BaseRepository {
         Map<String, Object> parameters = new HashMap<>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ");
+        sql.append("cm.id, ");
+        sql.append("u.id userCommentId, ");
         sql.append("u.avatar, ");
         sql.append("u.full_name name, ");
         sql.append("cm.content contentOfComment, ");

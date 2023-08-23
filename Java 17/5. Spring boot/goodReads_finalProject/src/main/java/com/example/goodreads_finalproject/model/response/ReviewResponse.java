@@ -16,6 +16,8 @@ import java.util.concurrent.ConcurrentMap;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReviewResponse {
+    Long currentUserId;
+
     Long reviewId;
 
     Long userReviewId;

@@ -149,6 +149,15 @@
                 color: gray;
             }
 
+            .your-comment .register-page {
+                color: #666;
+                font-weight: 600;
+            }
+
+            .your-comment .register-page:hover {
+                color: #77B748;
+            }
+
         </style>
     </th:block>
 
@@ -553,8 +562,21 @@
 
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="tg-rightarea">
-                                                                                                <span th:text="${comment.commentDate}"></span>
+                                                                                            <div class="tg-rightarea"
+                                                                                                 th:id="|action-comment-${review.reviewId}|">
+                                                                                                <span th:text="${comment.commentDate}"
+                                                                                                      class="mr-5"></span>
+
+                                                                                                <span th:if="${comment.userCommentId == review.currentUserId}"><a
+                                                                                                        type="button"
+                                                                                                        th:onclick="|deleteComment(${comment.id})|"
+                                                                                                        class="delete-comment btn"><i
+                                                                                                        class="fa-regular fa-trash-can"></i></a></span>
+                                                                                                <span th:if="${comment.userCommentId != review.currentUserId || review.currentUserId==null}"><a
+                                                                                                        type="button"
+                                                                                                        th:onclick="|reportComment(${comment.id})|"
+                                                                                                        class="delete-comment btn"><i
+                                                                                                        class="fa-regular fa-flag"></i></a></span>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="tg-description m-0">
@@ -565,25 +587,9 @@
                                                                                 </div>
                                                                             </li>
 
-                                                                            <div class="tg-authorbox" id="your-comment">
-                                                                                <figure class="tg-authorimg">
-                                                                                    <img th:src="${review.avatar}"
-                                                                                         alt="image description">
-                                                                                </figure>
-                                                                                <div class="tg-authorinfo"
-                                                                                     style="padding-bottom: 17px">
-                                                                                    <textarea type="text"
-                                                                                              name="comment-content"
-                                                                                              th:id="|comment-input-${review.reviewId}|"
-                                                                                              style="width: 100%;"></textarea>
-                                                                                    <div class="tg-rightarea mt-10">
-                                                                                        <a class="tg-btnreply fs-12 btn submit-comment-btn"
-                                                                                           th:attr="review-id=${review.reviewId}"
-                                                                                           href="javascript:void(0);">Post<i
-                                                                                                class="fa fa-mail-reply"></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="tg-bottomarrow"></div>
+                                                                            <div class="tg-authorbox your-comment"
+                                                                                 th:id="|your-comment-${review.reviewId}|">
+
                                                                             </div>
                                                                         </ul>
                                                                     </li>
@@ -1001,12 +1007,30 @@
             if ($(`#child-comment-${reviewId}`).is(':hidden')) {
                 $(`#child-comment-${reviewId}`).show()
             }
+            try {
+                $('html, body').animate({
+                    scrollTop: $(`#comment-input-${reviewId}`).offset().top - 100
+                }, 700);
+                $(`#comment-input-${reviewId}`).focus();
+            } catch (e) {
+                console.log(e)
+            }
+        }
 
-            $('html, body').animate({
-                scrollTop: $(`#comment-input-${reviewId}`).offset().top - 100
-            }, 700);
-            $(`#comment-input-${reviewId}`).focus();
-
+        function likeReview(reviewId, liked) {
+            let typeMethod = 'POST';
+            if (liked === true) {
+                typeMethod = 'DELETE';
+            }
+            $.ajax({
+                url: '/api/v1/users/like/' + reviewId,
+                type: typeMethod,
+                success: function (data) {
+                    autoDirectLoginPage(data);
+                }, error: function () {
+                    toastr.warning('Not success')
+                }
+            })
         }
 
         function changeText(link) {
@@ -1017,60 +1041,133 @@
             link.textContent = "Following";
         }
 
-        $(document).ready(function () {
-            $('.follow').on('click', function (event) {
-                event.preventDefault();
-                let userAcceptId = $(event.currentTarget).attr("user-accept-id");
-                let isFollowing = $(event.currentTarget).attr("is-following");
-                let typeMethod = 'POST';
-                if (isFollowing === '1') {
-                    typeMethod = 'DELETE'
-                }
+        function deleteComment(commentId) {
+            if (window.confirm('Delete this comment?')) {
                 $.ajax({
-                    url: '/api/v1/users/following/' + userAcceptId,
-                    type: typeMethod,
+                    url: '/api/v1/users/comment/' + commentId,
+                    type: 'DELETE',
                     success: function (data) {
-                        autoDirectLoginPage(data);
-                        console.log("success")
-
+                        toastr.success("Delete comment successfully");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 600)
                     }, error: function () {
-                        toastr.warning('Not success')
+                        toastr.warning('Cannot delete this comment!');
                     }
                 })
-            })
-            $('.submit-comment-btn').on('click', function (event) {
-                event.preventDefault();
-                let reviewId = $(event.currentTarget).attr("review-id")
-                let commentContent = $(`#comment-input-${reviewId}`).val().trim()
+            }
+        }
 
-                if (commentContent.length >= 65535) {
-                    toastr.warning('Comment cannot be longer than 65535 characters');
-                    return;
-                } else if (commentContent === '') {
-                    return;
+        function reportComment(commentId) {
+            if (!localStorage.getItem("jwtToken")) {
+                window.location.href = '/login';
+            } else {
+                if (window.confirm('Report this comment?')) {
+                    toastr.success("Sent your report successfully!")
                 }
-                $('.submit-comment-btn').toggleClass('disabled-link');
-                let formData = {
-                    reviewId: reviewId,
-                    content: commentContent
-                }
-                $.ajax({
-                    url: '/api/v1/users/comment',
-                    type: 'POST',
-                    data: JSON.stringify(formData),
-                    contentType: 'application/json',
-                    success: function (data) {
-                        autoDirectLoginPage(data);
-                        $('.submit-comment-btn').toggleClass('disabled-link');
-                        // window.location.reload()
+            }
+        }
 
-                    }, error: function () {
-                        toastr.warning('Post comment not success')
-                        $('.submit-comment-btn').toggleClass('disabled-link');
+        $(window).on('load', function () {
+
+            function checkUserLogin() {
+                const jwtToken = localStorage.getItem("jwtToken");
+
+                let commentHtml;
+                if (!jwtToken) {
+                    commentHtml = `
+                 <div class="tg-authorinfo" style="padding-bottom: 17px">
+                    <p><a href="/login" class="register-page">Sign in</a> or
+                        <a href="/signup" class="register-page">Create a free account</a>
+                        to leave a comment</p>
+                 </div>
+                 <div class="tg-bottomarrow"></div>
+                `
+                    for (let i = 0; i < reviewsList.length; i++) {
+                        $('.your-comment').html(commentHtml)
                     }
+                } else {
+                    const avatar = JSON.parse(localStorage.getItem('userInfomation')).avatar
+                    for (let i = 0; i < reviewsList.length; i++) {
+                        let review = reviewsList[i];
+                        commentHtml = `
+                 <figure class="tg-authorimg"><img src="${avatar}" alt="image description"> </figure>
+                 <div class="tg-authorinfo" style="padding-bottom: 17px">
+                    <textarea type="text" placeholder="Add a comment"
+                      id="comment-input-${review.reviewId}" style="width: 100%; text-transform: none"></textarea>
+                       <div class="tg-rightarea mt-10">
+                        <a class="tg-btnreply fs-12 btn submit-comment-btn"
+                            review-id="${review.reviewId}" href="javascript:void(0);">Post
+                            <i class="fa fa-mail-reply"></i></a>
+                       </div>
+                 </div>
+                 <div class="tg-bottomarrow"></div>
+                `
+                        $(`#your-comment-${review.reviewId}`).html(commentHtml)
+                    }
+                }
+            }
+
+            checkUserLogin();
+
+            $(document).ready(function () {
+                $('.follow').on('click', function (event) {
+                    event.preventDefault();
+                    let userAcceptId = $(event.currentTarget).attr("user-accept-id");
+                    let isFollowing = $(event.currentTarget).attr("is-following");
+                    let typeMethod = 'POST';
+                    if (isFollowing === '1') {
+                        typeMethod = 'DELETE'
+                    }
+                    $.ajax({
+                        url: '/api/v1/users/following/' + userAcceptId,
+                        type: typeMethod,
+                        success: function (data) {
+                            autoDirectLoginPage(data);
+
+                        }, error: function () {
+                            toastr.warning('Not success')
+                        }
+                    })
+                })
+                $('.submit-comment-btn').on('click', function (event) {
+                    event.preventDefault();
+                    let reviewId = $(event.currentTarget).attr("review-id")
+                    console.log(reviewId)
+                    let commentContent = $(`#comment-input-${reviewId}`).val().trim()
+
+                    if (commentContent.length >= 65535) {
+                        toastr.warning('Comment cannot be longer than 65535 characters');
+                        return;
+                    } else if (commentContent === '') {
+                        return;
+                    }
+                    $('.submit-comment-btn').toggleClass('disabled-link');
+                    let formData = {
+                        reviewId: reviewId,
+                        content: commentContent
+                    }
+                    $.ajax({
+                        url: '/api/v1/users/comment',
+                        type: 'POST',
+                        data: JSON.stringify(formData),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            autoDirectLoginPage(data);
+                            $('.submit-comment-btn').toggleClass('disabled-link');
+                            // window.location.reload()
+
+                        }, error: function () {
+                            toastr.warning('Post comment not success')
+                            $('.submit-comment-btn').toggleClass('disabled-link');
+                        }
+                    })
                 })
             })
+
+
         })
+
     </script>
     <script th:src="@{/handle/rating-review.js}"></script>
 

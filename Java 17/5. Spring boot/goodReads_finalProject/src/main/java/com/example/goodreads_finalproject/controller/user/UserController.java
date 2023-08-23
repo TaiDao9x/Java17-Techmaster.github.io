@@ -119,6 +119,27 @@ public class UserController {
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 
+    // Like
+    @PostMapping("/api/v1/users/like/{reviewId}")
+    public ResponseEntity<?> likeReview(@PathVariable Long reviewId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.likeReview(reviewId, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/v1/users/like/{reviewId}")
+    public ResponseEntity<?> unLikeReview(@PathVariable Long reviewId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.unLikeReview(reviewId, userIdOptional.get());
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
     // Comment
     @PostMapping("/api/v1/users/comment")
     public ResponseEntity<?> createComment(@RequestBody @Valid CommentRequest request) {
@@ -128,6 +149,16 @@ public class UserController {
         }
         CommentResponse commentResponse = bookService.createComment(request, userIdOptional.get());
         return new ResponseEntity<>(commentResponse, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/v1/users/comment/{commentId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        bookService.deleteComment(commentId);
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 
     // Following

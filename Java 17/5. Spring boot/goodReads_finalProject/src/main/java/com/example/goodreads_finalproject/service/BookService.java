@@ -35,6 +35,7 @@ public class BookService {
     ReviewCustomRepository reviewCustomRepository;
     CommentCustomRepository commentCustomRepository;
     CommentRepository commentRepository;
+    LikeRepository likeRepository;
 
 
     public void createBook(BookRequest newBook) {
@@ -367,6 +368,30 @@ public class BookService {
                 .contentOfComment(request.getContent())
                 .commentDate(comment.getCreatedDateTime().toLocalDate())
                 .build();
+    }
+
+    public void deleteComment(Long commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
+    public void likeReview(Long reviewId, Long userCurrentId) {
+        Review review = reviewBookRepository.findById(reviewId).get();
+        User user = userRepository.findById(userCurrentId).get();
+        Like like = Like.builder()
+                .user(user)
+                .review(review)
+                .build();
+        likeRepository.save(like);
+    }
+
+    public void unLikeReview(Long reviewId, Long userCurrentId) {
+        User user = userRepository.findById(userCurrentId).get();
+        Review review = reviewBookRepository.findById(reviewId).get();
+        Optional<Like> likeOptional = likeRepository.findByUserAndReview(user, review);
+        if (likeOptional.isEmpty()) {
+            throw new NotFoundException("Not found Like");
+        }
+        likeRepository.delete(likeOptional.get());
     }
 }
 

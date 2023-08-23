@@ -41,9 +41,10 @@ function autoDirectLoginPage(data) {
     if (isLoginPage(data)) {
         window.location.href = '/login';
     } else {
+        toastr.success('Success');
         setTimeout(function () {
-        window.location.reload();
-        }, 700);
+            window.location.reload();
+        }, 500);
     }
 }
 
