@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -173,10 +174,20 @@ public class BookService {
                     .book(bookOptional.get())
                     .user(user)
                     .readingStatus(enumValue)
+                    .addedDate(LocalDate.now())
                     .build();
+
+            if (enumValue == ReadingStatus.READ) {
+                readingBook.setStartedDate(request.getStartedDate() == null ? LocalDate.now() : request.getStartedDate());
+                readingBook.setFinishedDate(request.getFinishedDate() == null ? LocalDate.now() : request.getFinishedDate());
+            } else if (enumValue == ReadingStatus.READING) {
+                readingBook.setStartedDate(request.getStartedDate() == null ? LocalDate.now() : request.getStartedDate());
+            }
         } else {
             readingBook = readingBookOptional.get();
             readingBook.setReadingStatus(enumValue);
+            readingBook.setStartedDate(request.getStartedDate() == null ? readingBook.getStartedDate() : request.getStartedDate());
+            readingBook.setFinishedDate(request.getFinishedDate() == null ? readingBook.getFinishedDate() : request.getFinishedDate());
         }
         readingBookRepository.save(readingBook);
     }
@@ -195,8 +206,8 @@ public class BookService {
                             .readingStatus(readingBook.getReadingStatus().getName())
                             .readingProgress(readingBook.getReadingProgress())
                             .addedDateTime(LocalDate.now())
-                            .startedDateTime(readingBook.getStartedDateTime())
-                            .finishedDateTime(readingBook.getFinishedDateTime())
+                            .startedDateTime(readingBook.getStartedDate())
+                            .finishedDateTime(readingBook.getFinishedDate())
                             .build());
         }
 
@@ -276,7 +287,8 @@ public class BookService {
 
     public void removeMarkBook(Long bookId, Long userId) {
         bookCustomRepository.removeMarkBook(bookId, userId);
-        removeReview(bookId, userId);
+        removeRating(bookId, userId);
+//        removeReview(bookId, userId);
     }
 
     public void removeRating(Long bookId, Long userId) {
@@ -315,16 +327,19 @@ public class BookService {
             review.setContent(request.getContent());
         }
         reviewBookRepository.save(review);
-        if (request.getReadingStatus() == null) {
+        if (request.getReadingStatus() == null || request.getReadingStatus().equals("Read")) {
             ReadingBookRequest readingBookRequest = ReadingBookRequest.builder()
                     .userId(userId)
                     .bookId(request.getBookId())
                     .readingStatus("Read")
+                    .startedDate(request.getStartedDate() == null ? LocalDate.now() : request.getStartedDate())
+                    .finishedDate(request.getFinishedDate() == null ? LocalDate.now() : request.getFinishedDate())
                     .build();
             markBook(readingBookRequest);
         }
     }
 
+    @Transactional
     public void removeReview(Long bookId, Long userId) {
         reviewCustomRepository.removeReview(bookId, userId);
         calculateAvgRating(bookId);

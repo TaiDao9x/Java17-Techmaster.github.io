@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,17 +20,13 @@ public class Challenge extends BaseEntity {
     @JoinColumn(name = "user_id")
     User user;
 
-    String typeOfChallenge;
-
     Integer numberOfBook;
 
     @Enumerated(EnumType.STRING)
     ChallengeStatus challengeStatus;
 
-    LocalDateTime startedDateTime;
+    LocalDate startedDate;
 
-    LocalDateTime finishedDateTime;
-
-    LocalDateTime deletedDateTime;
+    LocalDate endDate;
 
 }

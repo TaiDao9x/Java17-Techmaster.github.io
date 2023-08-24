@@ -26,8 +26,8 @@ public class ReadingBookRequest extends BaseSearchRequest {
 
     double readingProgress;
 
-    LocalDate startedDateTime;
+    LocalDate startedDate;
 
-    LocalDate finishedDateTime;
+    LocalDate finishedDate;
 
 }

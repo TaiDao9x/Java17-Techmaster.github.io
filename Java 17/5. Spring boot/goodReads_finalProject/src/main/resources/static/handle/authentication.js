@@ -109,6 +109,18 @@ $(window).on("load", function () {
 
                                     <ul class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-currenty">
                                         <li>
+                                            <a href="/admin/profile">
+                                                <i class="fa-regular fa-user"></i>
+                                                <span>Profile</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/users/challenge">
+                                                <i class="fa-regular fa-bookmark"></i>
+                                                <span>Reading Challenge</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="/admin/books">
                                                 <i class="fa-regular fa-user"></i>
                                                 <span>Admin page</span>

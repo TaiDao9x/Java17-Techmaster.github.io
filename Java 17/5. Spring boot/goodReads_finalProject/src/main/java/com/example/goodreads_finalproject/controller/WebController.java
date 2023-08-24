@@ -92,17 +92,29 @@ public class WebController {
         Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
         BookResponse bookResponse;
         List<ReviewResponse> reviewResponses;
+        ReviewResponse myReview = new ReviewResponse();
+
 
         if (optionalId.isPresent()) {
             bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
             reviewResponses = bookService.getAllReviews(bookId, optionalId.get());
+
+            for (ReviewResponse rv : reviewResponses) {
+                if (rv.getCurrentUserId().equals(rv.getUserReviewId())) {
+                    myReview = rv;
+                }
+            }
+            reviewResponses.removeIf(rv -> rv.getUserReviewId().equals(optionalId.get()));
         } else {
             bookResponse = bookService.findBookByBookId(bookId, null);
             reviewResponses = bookService.getAllReviews(bookId, null);
+            myReview = null;
         }
 
+
         model.addAttribute("bookDetail", bookResponse);
-       model.addAttribute("reviewsList", reviewResponses);
+        model.addAttribute("reviewsList", reviewResponses);
+        model.addAttribute("myReview", myReview);
         return "user/book-detail";
     }
 }

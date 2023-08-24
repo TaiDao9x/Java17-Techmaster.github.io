@@ -29,9 +29,9 @@ public class ReadingBook extends BaseEntity {
     @Column(nullable = false)
     double readingProgress;
 
-    LocalDate addedDateTime;
+    LocalDate addedDate;
 
-    LocalDate startedDateTime;
+    LocalDate startedDate;
 
-    LocalDate finishedDateTime;
+    LocalDate finishedDate;
 }

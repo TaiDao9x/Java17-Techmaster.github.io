@@ -3,8 +3,10 @@ package com.example.goodreads_finalproject.model.request;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,4 +23,9 @@ public class ReviewRequest {
 
     String readingStatus;
 
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
+    LocalDate startedDate;
+
+    @DateTimeFormat(pattern = "YYYY-MM-dd")
+    LocalDate finishedDate;
 }

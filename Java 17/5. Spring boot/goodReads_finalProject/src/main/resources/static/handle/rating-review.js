@@ -50,6 +50,7 @@ $(document).ready(function () {
     }
 
     $('#display-rating-personal .stars .star').on('click', function (event) {
+
         if (rating === bookDetail.ratingDetail && rating !== 0) {
             $.ajax({
                 url: '/api/v1/users/rating/' + bookId,
@@ -99,7 +100,41 @@ $(document).ready(function () {
         typeApi = "POST"
     }
 
-    $('#review-content').validate({
+    console.log('status'+bookDetail.readingStatus)
+
+    $('#save-review').on('click', function (event) {
+        let startDate = $('#start-date').val()
+        let finishDate = $('#finish-date').val()
+        event.preventDefault()
+        let isValidForm = $('#review-form').valid();
+        if (!isValidForm) {
+            return;
+        }
+        let reviewContent = $('#review-content').val();
+        let readingStatus = bookDetail.readingStatus;
+        let formData = {
+            bookId: bookId,
+            content: reviewContent,
+            readingStatus: readingStatus,
+            startedDate: startDate,
+            finishedDate: finishDate
+        }
+        $.ajax({
+            url: '/api/v1/users/review',
+            type: typeApi,
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            success: function (data) {
+                autoDirectLoginPage(data);
+                window.location.href = '/books/' + bookId
+            }, error: function () {
+                toastr.warning('Saved review not success')
+            }
+
+        })
+    })
+
+    $('#review-form').validate({
         onfocusout: false,
         onkeyup: false,
         onclick: false,
@@ -116,32 +151,6 @@ $(document).ready(function () {
             "review-content": {
                 maxlength: "Cannot be longer than 65535 characters"
             }
-        },
-    })
-
-    $('#save-review').on('click', function () {
-        let isValidForm = $('#review-content').valid();
-        if (!isValidForm) {
-            return;
         }
-        let reviewContent = $('#review-content').val();
-        console.log(reviewContent)
-        let formData = {
-            bookId: bookId,
-            content: reviewContent
-        }
-        $.ajax({
-            url: '/api/v1/users/review',
-            type: typeApi,
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            success: function (data) {
-                autoDirectLoginPage(data);
-                window.location.href = '/books/' + bookId
-            }, error: function () {
-                toastr.warning('Saved review not success')
-            }
-
-        })
     })
 })

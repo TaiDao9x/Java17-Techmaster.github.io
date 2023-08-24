@@ -4,10 +4,12 @@ import com.example.goodreads_finalproject.exception.BadRequestException;
 import com.example.goodreads_finalproject.exception.NotFoundException;
 import com.example.goodreads_finalproject.model.request.*;
 import com.example.goodreads_finalproject.model.response.BookResponse;
+import com.example.goodreads_finalproject.model.response.ChallengeResponse;
 import com.example.goodreads_finalproject.model.response.CommentResponse;
 import com.example.goodreads_finalproject.model.response.LocationResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.BookService;
+import com.example.goodreads_finalproject.service.ChallengeService;
 import com.example.goodreads_finalproject.service.FollowingService;
 import com.example.goodreads_finalproject.service.UserService;
 import lombok.AccessLevel;
@@ -32,6 +34,7 @@ public class UserController {
     UserService userService;
     BookService bookService;
     FollowingService followingService;
+    ChallengeService challengeService;
 
     // Thymleaf
     @GetMapping("/users/my-book")
@@ -57,10 +60,10 @@ public class UserController {
     @GetMapping("/users/challenge")
     public String getChallengePage(Model model) {
         Optional<Long> optionalId = SecurityUtils.getCurrentUserLoginId();
-//        BookResponse bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
-//        model.addAttribute("bookDetail", bookResponse);
+        ChallengeResponse challengeResponse = challengeService.findChallengeByUserId(optionalId.get());
+        model.addAttribute("challengeDetail", challengeResponse);
 
-        return "user/challenge-reading";
+        return "user/reading-challenge";
     }
 
     // API
@@ -188,6 +191,23 @@ public class UserController {
             throw new NotFoundException("not found user");
         }
         followingService.unFollow(userIdOptional.get(), userAcceptId);
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+    // Reading Challenge
+    @PostMapping("/api/v1/users/reading-challenge")
+    public ResponseEntity<?> createChallenge(@RequestBody @Valid ChallengeRequest challengeRequest) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        challengeService.createChallenge(userIdOptional.get(), challengeRequest);
+        return new ResponseEntity<>("Successful", HttpStatus.CREATED);
+    }
+
+    @PutMapping("/api/v1/users/reading-challenge/{challengeId}")
+    public ResponseEntity<?> updateChallenge(@RequestBody @Valid ChallengeRequest challengeRequest, @PathVariable Long challengeId) {
+        challengeService.updateChallenge(challengeRequest, challengeId);
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 

@@ -55,6 +55,10 @@
                 width: 100%;
             }
 
+            .dropdown-menu {
+                padding: 10px;
+            }
+
         </style>
     </th:block>
 
@@ -181,7 +185,7 @@
 
                                         <div class="tg-leaveyourcomment">
 
-                                            <form class="tg-formtheme tg-formleavecomment">
+                                            <form class="tg-formtheme tg-formleavecomment" id="review-form">
                                                 <fieldset>
                                                     <div class="form-group" style="width: 100%">
                                                         <textarea type="text" placeholder="Enter your review" rows="5"
@@ -189,20 +193,20 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Date started: </label>
-                                                        <input type="date" name="date started" class="form-control"
-                                                               placeholder="Date started">
+                                                        <input type="date" name="date started" id="start-date"
+                                                               class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Date finished: </label>
-                                                        <input type="date" name="date finished" class="form-control"
-                                                               placeholder="Date finished">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <a class="tg-btn tg-active"
-                                                           href="javascript:void(0);" id="save-review"></a>
+                                                        <input type="date" name="finished-date" id="finish-date"
+                                                               class="form-control">
                                                     </div>
                                                 </fieldset>
                                             </form>
+                                            <div class="form-group">
+                                                <a class="tg-btn tg-active"
+                                                   href="javascript:void(0);" id="save-review"></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
