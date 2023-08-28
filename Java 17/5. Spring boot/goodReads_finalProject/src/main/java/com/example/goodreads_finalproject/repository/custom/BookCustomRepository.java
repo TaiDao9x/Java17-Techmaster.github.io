@@ -52,7 +52,7 @@ public class BookCustomRepository extends BaseRepository {
             sql.append(" having lower(GROUP_CONCAT(category.name SEPARATOR ', ')) like :category");
             parameters.put("category", "%" + request.getCategory().toLowerCase() + "%");
         }
-
+       
         List<BookSearchResponse> bookSearchResponses = getNamedParameterJdbcTemplate().query(sql.toString(), parameters, BeanPropertyRowMapper.newInstance(BookSearchResponse.class));
 
         return convertToBookResponse(bookSearchResponses);
