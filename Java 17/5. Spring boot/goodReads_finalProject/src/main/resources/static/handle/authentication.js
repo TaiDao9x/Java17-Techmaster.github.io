@@ -33,7 +33,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-wishlistdropdown">
                                     <a href="javascript:void(0);" id="tg-wishlisst" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
+<!--                                        <span class="tg-themebadge">3</span>-->
                                         <i class="fa-regular fa-bell"></i>
                                     </a>
                                     <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-wishlisst">
@@ -45,7 +45,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-minicartdropdown">
                                     <a href="javascript:void(0);" id="tg-minicart" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
+<!--                                        <span class="tg-themebadge">3</span>-->
                                         <i class="fa-solid fa-people-group"></i>
                                     </a>
                                     <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-minicart">
@@ -102,7 +102,7 @@ $(window).on("load", function () {
                                         <span> Hi, ${fullName}</span>
                                         <a href="javascript:void(0);" id="avatar-user">
                                             <img 
-                                                 style="border-radius: 50%;height:45px;margin-left: 10px; padding: 2px"
+                                                 style="border-radius: 50%;height:45px;width:45px;margin-left: 10px; padding: 2px"
                                                  src="${avatar}"
                                                  alt="image description"></a>
                                     </a>
@@ -141,7 +141,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-wishlistdropdown">
                                     <a href="javascript:void(0);" id="tg-wishlisst" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
+<!--                                        <span class="tg-themebadge">3</span>-->
                                         <i class="fa-regular fa-bell"></i>
                                     </a>
                                     <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-wishlisst">
@@ -153,7 +153,7 @@ $(window).on("load", function () {
                 <div class="dropdown tg-themedropdown tg-minicartdropdown">
                                     <a href="javascript:void(0);" id="tg-minicart" class="tg-btnthemedropdown"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="tg-themebadge">3</span>
+<!--                                        <span class="tg-themebadge">3</span>-->
                                         <i class="fa-solid fa-people-group"></i>
                                     </a>
                                     <div class="dropdown-menu tg-themedropdownmenu" aria-labelledby="tg-minicart">
@@ -210,7 +210,7 @@ $(window).on("load", function () {
                                         <span> Hi, ${fullName}</span>
                                         <a href="javascript:void(0);" id="avatar-user">
                                             <img 
-                                                 style="border-radius: 50%;height:45px;margin-left: 10px; padding: 2px"
+                                                 style="border-radius: 50%;height:45px;width:45px;margin-left: 10px; padding: 2px"
                                                  src="${avatar}"
                                                  alt="image description"></a>
                                     </a>

@@ -11,6 +11,16 @@
     <title>Categories</title>
     <th:block id="css">
         <link rel="stylesheet" th:href="@{/admin/css/category.css}">
+        <style>
+            .modal-content{
+                padding: 16px;
+                border-radius: 10px;
+            }
+
+            .modal-footer{
+                border-radius: 10px;
+            }
+        </style>
     </th:block>
 </head>
 
@@ -113,7 +123,7 @@
                                 </div>
 
                                 <div id="edit-modal" class="modal">
-                                    <!-- Modal create category -->
+                                    <!-- Modal edit category -->
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <span class="close">&times;</span>
@@ -126,7 +136,7 @@
                                         <div class="modal-footer flex-center justify-content-end">
                                             <button id="submit-edit-category"
                                                     class="flex-center rounded-4 p-2 text-white w-100">
-                                                Submit
+                                                Update
                                             </button>
                                         </div>
                                     </div>

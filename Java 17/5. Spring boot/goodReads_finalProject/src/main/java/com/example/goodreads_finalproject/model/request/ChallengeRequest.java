@@ -21,5 +21,9 @@ public class ChallengeRequest extends BaseSearchRequest {
 
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    LocalDate startedDate;
+
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     LocalDate endDate;
 }

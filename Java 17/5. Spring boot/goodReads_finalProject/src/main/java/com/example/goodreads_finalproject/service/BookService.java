@@ -39,16 +39,13 @@ public class BookService {
     LikeRepository likeRepository;
 
 
+    // BOOK
     public void createBook(BookRequest newBook) {
-//        Set<Long> categoryId = newBook.getCategoryId().stream()
-//                .map(Long::parseLong)
-//                .collect(Collectors.toSet());
         Set<Category> categories = new HashSet<>();
         newBook.getCategoryId().forEach(id -> categories.add(categoryService.findById(id).get()));
 
         String bookNameParam = newBook.getTitle().trim().replace(" ", "%20");
         String buyBookFahasaLink = "https://www.fahasa.com/searchengine?q=" + bookNameParam;
-
 
         Book book = Book.builder()
                 .image(newBook.getImage().equals("") ? "/original/images/books/no-cover.png" : newBook.getImage())
@@ -58,6 +55,8 @@ public class BookService {
                 .categories(categories)
                 .description(newBook.getDescription())
                 .published(newBook.getPublished())
+                .rating(0)
+                .pages(newBook.getPages())
                 .buyBook(newBook.getBuyBook().equals("") ? buyBookFahasaLink : newBook.getBuyBook())
                 .build();
         bookRepository.save(book);
@@ -81,6 +80,7 @@ public class BookService {
         book.setTitle(updateBookRequest.getTitle());
         book.setAuthor(updateBookRequest.getAuthor());
         book.setCategories(categories);
+        book.setPages(updateBookRequest.getPages());
         book.setDescription(updateBookRequest.getDescription());
         book.setPublished(updateBookRequest.getPublished());
         bookRepository.save(book);
@@ -91,7 +91,6 @@ public class BookService {
         if (bookResponse.isEmpty()) {
             throw new NotFoundException("Book not found!");
         }
-
         return bookResponse.get();
     }
 
@@ -125,7 +124,6 @@ public class BookService {
             throw new NotFoundException("Page index out of bound");
         }
     }
-
 
     public CommonResponse<?> searchBookAuthen(BookSearchRequest request, Long userId) {
         try {
@@ -288,14 +286,10 @@ public class BookService {
     public void removeMarkBook(Long bookId, Long userId) {
         bookCustomRepository.removeMarkBook(bookId, userId);
         removeRating(bookId, userId);
-//        removeReview(bookId, userId);
     }
 
-    public void removeRating(Long bookId, Long userId) {
-        reviewCustomRepository.removeRating(bookId, userId);
-        calculateAvgRating(bookId);
-    }
 
+    // RATING
     public void changeRating(ReviewRequest request, Long userId) {
         saveReview(request, userId);
         reviewCustomRepository.changeRating(request, userId);
@@ -308,6 +302,37 @@ public class BookService {
             markBook(readingBookRequest);
         }
         calculateAvgRating(request.getBookId());
+    }
+
+    public void removeRating(Long bookId, Long userId) {
+        reviewCustomRepository.removeRating(bookId, userId);
+        calculateAvgRating(bookId);
+    }
+
+    public void calculateAvgRating(Long bookId) {
+        Book book = bookRepository.findById(bookId).get();
+        double totalRatingValue = 0;
+        Integer totalOfRating = 0;
+        List<AvgRatingResponse> avgRatingResponses = reviewCustomRepository.calculateAvgRating(bookId);
+        for (AvgRatingResponse avg : avgRatingResponses) {
+            totalRatingValue += avg.getRating() * avg.getCountOfRating();
+            totalOfRating += avg.getCountOfRating();
+        }
+        double avgRating;
+        if (totalOfRating == 0) {
+            avgRating = 0;
+        } else {
+            avgRating = totalRatingValue / totalOfRating;
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        book.setRating(Double.parseDouble(decimalFormat.format(avgRating)));
+        bookRepository.save(book);
+    }
+
+
+    // REVIEW
+    public List<ReviewResponse> getAllReviews(Long bookId, Long userId) {
+        return reviewCustomRepository.getAllReviews(bookId, userId);
     }
 
     public void saveReview(ReviewRequest request, Long userId) {
@@ -340,35 +365,21 @@ public class BookService {
     }
 
     @Transactional
-    public void removeReview(Long bookId, Long userId) {
-        reviewCustomRepository.removeReview(bookId, userId);
+    public void deleteReview(Long reviewId) {
+        Optional<Review> reviewOptional = reviewBookRepository.findById(reviewId);
+        if (reviewOptional.isEmpty()) {
+            throw new NotFoundException("Not found review");
+        }
+        Review review = reviewOptional.get();
+        Long bookId = review.getBook().getId();
+        likeRepository.deleteAllByReview(review);
+        commentRepository.deleteAllByReview(review);
+        reviewBookRepository.delete(review);
         calculateAvgRating(bookId);
     }
 
-    public void calculateAvgRating(Long bookId) {
-        Book book = bookRepository.findById(bookId).get();
-        double totalRatingValue = 0;
-        Integer totalOfRating = 0;
-        List<AvgRatingResponse> avgRatingResponses = reviewCustomRepository.calculateAvgRating(bookId);
-        for (AvgRatingResponse avg : avgRatingResponses) {
-            totalRatingValue += avg.getRating() * avg.getCountOfRating();
-            totalOfRating += avg.getCountOfRating();
-        }
-        double avgRating;
-        if (totalOfRating == 0) {
-            avgRating = 0;
-        } else {
-            avgRating = totalRatingValue / totalOfRating;
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        book.setRating(Double.parseDouble(decimalFormat.format(avgRating)));
-        bookRepository.save(book);
-    }
 
-    public List<ReviewResponse> getAllReviews(Long bookId, Long userId) {
-        return reviewCustomRepository.getAllReviews(bookId, userId);
-    }
-
+    // COMMENT
     public CommentResponse createComment(CommentRequest request, Long userId) {
         User user = userRepository.findById(userId).get();
         Comment comment = Comment.builder()
@@ -389,6 +400,8 @@ public class BookService {
         commentRepository.deleteById(commentId);
     }
 
+
+    // LIKE
     public void likeReview(Long reviewId, Long userCurrentId) {
         Review review = reviewBookRepository.findById(reviewId).get();
         User user = userRepository.findById(userCurrentId).get();

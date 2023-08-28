@@ -25,7 +25,7 @@ public class BookController {
     BookService bookService;
 
     @GetMapping("/admin/books")
-    public String searchBook(Model model,@Valid BookSearchRequest request) {
+    public String searchBook(Model model, BookSearchRequest request) {
         CommonResponse<?> commonResponse = bookService.searchBook(request);
         model.addAttribute("pageBookInfo", commonResponse);
         model.addAttribute("currentPage", request.getPageIndex());
@@ -54,7 +54,7 @@ public class BookController {
     }
 
     @PutMapping("/api/v1/admin/book")
-    public ResponseEntity<?> updateBook(@RequestBody @Valid  BookRequest updateBookRequest) {
+    public ResponseEntity<?> updateBook(@RequestBody @Valid BookRequest updateBookRequest) {
         bookService.updateBook(updateBookRequest);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

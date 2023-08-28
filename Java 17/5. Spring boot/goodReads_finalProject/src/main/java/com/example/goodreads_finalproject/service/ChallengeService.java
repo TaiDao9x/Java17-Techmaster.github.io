@@ -53,7 +53,7 @@ public class ChallengeService {
                 .user(user)
                 .numberOfBook(challengeRequest.getNumberOfBook())
                 .challengeStatus(ChallengeStatus.HAPPENING)
-                .startedDate(LocalDate.now())
+                .startedDate(challengeRequest.getStartedDate())
                 .endDate(challengeRequest.getEndDate())
                 .build();
         challengeRepository.save(challenge);
@@ -68,6 +68,10 @@ public class ChallengeService {
         challenge.setNumberOfBook(challengeRequest.getNumberOfBook());
         challenge.setEndDate(challengeRequest.getEndDate());
         challengeRepository.save(challenge);
+    }
+
+    public void deleteChallenge(Long challengeId) {
+        challengeRepository.deleteById(challengeId);
     }
 }
 

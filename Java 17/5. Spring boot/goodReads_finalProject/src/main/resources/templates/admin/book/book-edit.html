@@ -48,11 +48,17 @@
                             <div class="border-top-light mt-30 mb-30"></div>
                             <form id="edit-book-form">
                                 <div class="row x-gap-20 y-gap-20">
-                                    <div class="col-12">
+                                    <div class="col-sm-12 col-md-9">
                                         <div class="form-input ">
                                             <label class="lh-1 text-16 text-light-1">Title <span class="error-message"> *</span></label>
                                             <input type="text" name="title" id="title" required
                                                    th:value="${bookEdit.title}">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-input ">
+                                            <label class="lh-1 text-16 text-light-1">Pages <span class="error-message"> *</span></label>
+                                            <input type="number" name="pages" id="pages" required  th:value="${bookEdit.pages}">
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-6">

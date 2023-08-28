@@ -56,9 +56,10 @@ $(document).ready(function () {
             author: author,
             pages: pages,
             description: about,
+            rating: 0,
             published: published,
         };
-
+        console.log(newBook);
         // Upload the image first
         if (chosenFile != null) {
             newBook.image = await uploadImage(chosenFile);

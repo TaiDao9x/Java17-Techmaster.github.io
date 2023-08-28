@@ -1,4 +1,4 @@
-//Rating
+// RATING
 $(document).ready(function () {
     let hasContent = false;
 
@@ -84,11 +84,9 @@ $(document).ready(function () {
             })
         }
     })
-
 })
 
-
-// Review
+// REVIEW
 $(document).ready(function () {
     let typeApi = "PUT";
 
@@ -100,7 +98,7 @@ $(document).ready(function () {
         typeApi = "POST"
     }
 
-    console.log('status'+bookDetail.readingStatus)
+    console.log('status' + bookDetail.readingStatus)
 
     $('#save-review').on('click', function (event) {
         let startDate = $('#start-date').val()
@@ -110,7 +108,10 @@ $(document).ready(function () {
         if (!isValidForm) {
             return;
         }
-        let reviewContent = $('#review-content').val();
+        let reviewContent = $('#review-content').val().trim();
+        if (reviewContent === '') {
+            window.confirm("Your review content is empty, do you want to continue?");
+        }
         let readingStatus = bookDetail.readingStatus;
         let formData = {
             bookId: bookId,
@@ -125,13 +126,13 @@ $(document).ready(function () {
             data: JSON.stringify(formData),
             contentType: 'application/json',
             success: function (data) {
-                autoDirectLoginPage(data);
-                window.location.href = '/books/' + bookId
+                reviewAutoDirectLoginPage(data);
             }, error: function () {
                 toastr.warning('Saved review not success')
             }
 
         })
+
     })
 
     $('#review-form').validate({
@@ -153,4 +154,20 @@ $(document).ready(function () {
             }
         }
     })
+
+    function reviewAutoDirectLoginPage(data) {
+        if (isLoginPage(data)) {
+            window.location.href = '/login';
+        } else {
+            toastr.success('Success');
+            setTimeout(function () {
+                window.location.href = '/books/' + bookId
+            }, 500);
+        }
+    }
+
+    function isLoginPage(data) {
+        return $(data).find('.signin-form').length > 0;
+    }
+
 })

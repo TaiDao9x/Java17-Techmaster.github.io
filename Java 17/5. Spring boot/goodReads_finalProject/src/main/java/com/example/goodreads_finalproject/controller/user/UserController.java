@@ -131,6 +131,16 @@ public class UserController {
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 
+//    @DeleteMapping("/api/v1/users/review/{reviewId}")
+//    public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
+//        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+//        if (userIdOptional.isEmpty()) {
+//            throw new NotFoundException("not found user");
+//        }
+//        bookService.deleteReview(reviewId);
+//        return new ResponseEntity<>("Successful", HttpStatus.OK);
+//    }
+
     // Like
     @PostMapping("/api/v1/users/like/{reviewId}")
     public ResponseEntity<?> likeReview(@PathVariable Long reviewId) {
@@ -208,6 +218,16 @@ public class UserController {
     @PutMapping("/api/v1/users/reading-challenge/{challengeId}")
     public ResponseEntity<?> updateChallenge(@RequestBody @Valid ChallengeRequest challengeRequest, @PathVariable Long challengeId) {
         challengeService.updateChallenge(challengeRequest, challengeId);
+        return new ResponseEntity<>("Successful", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/v1/users/reading-challenge/{challengeId}")
+    public ResponseEntity<?> deleteChallenge(@PathVariable Long challengeId) {
+        Optional<Long> userIdOptional = SecurityUtils.getCurrentUserLoginId();
+        if (userIdOptional.isEmpty()) {
+            throw new NotFoundException("not found user");
+        }
+        challengeService.deleteChallenge(challengeId);
         return new ResponseEntity<>("Successful", HttpStatus.OK);
     }
 

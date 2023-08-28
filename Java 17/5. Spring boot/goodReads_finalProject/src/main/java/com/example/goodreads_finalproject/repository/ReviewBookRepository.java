@@ -15,4 +15,5 @@ import java.util.Optional;
 public interface ReviewBookRepository extends JpaRepository<Review, Long> {
     Optional<Review> findByUserAndBook(User user, Book book);
 
+
 }

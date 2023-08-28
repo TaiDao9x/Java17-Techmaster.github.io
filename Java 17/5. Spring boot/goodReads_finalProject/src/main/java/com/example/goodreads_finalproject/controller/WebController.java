@@ -1,10 +1,12 @@
 package com.example.goodreads_finalproject.controller;
 
+import com.example.goodreads_finalproject.entity.User;
 import com.example.goodreads_finalproject.exception.OtpExpiredException;
 import com.example.goodreads_finalproject.model.request.BookSearchRequest;
 import com.example.goodreads_finalproject.model.response.BookResponse;
 import com.example.goodreads_finalproject.model.response.CommonResponse;
 import com.example.goodreads_finalproject.model.response.ReviewResponse;
+import com.example.goodreads_finalproject.model.response.UserResponse;
 import com.example.goodreads_finalproject.security.SecurityUtils;
 import com.example.goodreads_finalproject.service.BookService;
 import com.example.goodreads_finalproject.service.UserService;
@@ -94,23 +96,25 @@ public class WebController {
         List<ReviewResponse> reviewResponses;
         ReviewResponse myReview = new ReviewResponse();
 
-
         if (optionalId.isPresent()) {
+            UserResponse user = userService.findUserById(optionalId.get());
             bookResponse = bookService.findBookByBookId(bookId, optionalId.get());
             reviewResponses = bookService.getAllReviews(bookId, optionalId.get());
 
             for (ReviewResponse rv : reviewResponses) {
                 if (rv.getCurrentUserId().equals(rv.getUserReviewId())) {
+
                     myReview = rv;
                 }
             }
+            myReview.setAvatar(user.getAvatar());
             reviewResponses.removeIf(rv -> rv.getUserReviewId().equals(optionalId.get()));
+            reviewResponses.removeIf(rv -> rv.getContent() == null || rv.getContent().trim().isEmpty());
         } else {
             bookResponse = bookService.findBookByBookId(bookId, null);
             reviewResponses = bookService.getAllReviews(bookId, null);
             myReview = null;
         }
-
 
         model.addAttribute("bookDetail", bookResponse);
         model.addAttribute("reviewsList", reviewResponses);

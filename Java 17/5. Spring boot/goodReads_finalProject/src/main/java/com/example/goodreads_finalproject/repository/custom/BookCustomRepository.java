@@ -41,7 +41,7 @@ public class BookCustomRepository extends BaseRepository {
             parameters.put("author", "%" + request.getAuthor().toLowerCase() + "%");
         }
         if (request.getAll() != null && !request.getAll().trim().equals("")) {
-            sql.append(" and lower(b.author) like :author or lower(b.title) like :title");
+            sql.append(" and (lower(b.author) like :author or lower(b.title) like :title)");
             parameters.put("author", "%" + request.getAll().toLowerCase() + "%");
             parameters.put("title", "%" + request.getAll().toLowerCase() + "%");
         }

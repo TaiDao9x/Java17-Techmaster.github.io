@@ -40,4 +40,6 @@ public class ReviewResponse {
 
     List<CommentResponse> childComments;
 
+    Integer comments;
+
 }

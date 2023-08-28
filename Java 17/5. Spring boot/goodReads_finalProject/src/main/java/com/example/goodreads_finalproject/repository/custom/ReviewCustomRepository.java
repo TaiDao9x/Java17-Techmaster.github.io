@@ -62,7 +62,7 @@ public class ReviewCustomRepository extends BaseRepository {
         sql.append("FROM users u ");
         sql.append("LEFT JOIN reviews rv ON u.id = rv.user_id ");
         sql.append("LEFT JOIN likes ON rv.id = likes.review_id ");
-        sql.append("WHERE rv.book_id = :bookId AND rv.content IS NOT NULL ");
+        sql.append("WHERE rv.book_id = :bookId ");
         sql.append("GROUP BY  u.id,  u.avatar,  u.full_name, rv.id,  rv.content,  rv.rating, rv.created_date_time ");
         parameters.put("bookId", bookId);
 
@@ -73,6 +73,7 @@ public class ReviewCustomRepository extends BaseRepository {
 
             List<CommentResponse> childComments = getAllCommentsOfReview(rv.getReviewId());
             rv.setChildComments(childComments);
+            rv.setComments(childComments == null ? 0 : childComments.size());
 
             Boolean following = checkRelationship(userId, rv.getUserReviewId());
             rv.setFollowing(following);
