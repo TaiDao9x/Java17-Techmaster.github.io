@@ -59,10 +59,10 @@
                                                     <th class="mybook-header title">title</th>
                                                     <th class="mybook-header author">author</th>
                                                     <th class="mybook-header cover">avg<br> rating</th>
-<!--                                                    <th class="mybook-header cover rating">Your<br> rating</th>-->
+                                                    <!--                                                    <th class="mybook-header cover rating">Your<br> rating</th>-->
                                                     <th class="mybook-header cover shelves">shelves</th>
-<!--                                                    <th class="mybook-header cover review">review</th>-->
-<!--                                                    <th class="mybook-header cover date">date</th>-->
+                                                    <!--                                                    <th class="mybook-header cover review">review</th>-->
+                                                    <!--                                                    <th class="mybook-header cover date">date</th>-->
                                                     <th class="mybook-header cover date">actions</th>
                                                 </tr>
                                                 </thead>
@@ -92,41 +92,42 @@
                                                             <a href="#" th:text="${myBook.book.rating}">abc3</a>
                                                         </div>
                                                     </td>
-<!--                                                    <td>-->
-<!--                                                        <div class="mybook-rating"-->
-<!--                                                             style="padding: 12px 0px 0px 10px;">-->
-<!--                                                            <div class="star">-->
-<!--                                                                <a href="#" style="margin-top: 5px;"><span-->
-<!--                                                                        class="tg-stars"><span></span></span></a>-->
-<!--                                                            </div>-->
+                                                    <!--                                                    <td>-->
+                                                    <!--                                                        <div class="mybook-rating"-->
+                                                    <!--                                                             style="padding: 12px 0px 0px 10px;">-->
+                                                    <!--                                                            <div class="star">-->
+                                                    <!--                                                                <a href="#" style="margin-top: 5px;"><span-->
+                                                    <!--                                                                        class="tg-stars"><span></span></span></a>-->
+                                                    <!--                                                            </div>-->
 
-<!--                                                        </div>-->
-<!--                                                    </td>-->
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </td>-->
                                                     <td>
                                                         <div class="mybook-shelves">
                                                             <a th:text="${myBook.readingStatus}">to-read</a>
 
                                                         </div>
                                                     </td>
-<!--                                                    <td>-->
-<!--                                                        <div class="mybook-review"-->
-<!--                                                             style="padding-top: 9px; max-width: 200px">-->
-<!--                                                            <p class="mybook-review-content">your review-->
-<!--                                                                sadfasdfsadfsafsfsafasf df...<span><a-->
-<!--                                                                        href="#">[edit]</a></span></p>-->
-<!--                                                        </div>-->
-<!--                                                    </td>-->
-<!--                                                    <td>-->
-<!--                                                        <div class="mybook-date" style="padding-top: 10px;">-->
-<!--                                                            <p>28/5/2023</p>-->
-<!--                                                        </div>-->
-<!--                                                    </td>-->
+                                                    <!--                                                    <td>-->
+                                                    <!--                                                        <div class="mybook-review"-->
+                                                    <!--                                                             style="padding-top: 9px; max-width: 200px">-->
+                                                    <!--                                                            <p class="mybook-review-content">your review-->
+                                                    <!--                                                                sadfasdfsadfsafsfsafasf df...<span><a-->
+                                                    <!--                                                                        href="#">[edit]</a></span></p>-->
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </td>-->
+                                                    <!--                                                    <td>-->
+                                                    <!--                                                        <div class="mybook-date" style="padding-top: 10px;">-->
+                                                    <!--                                                            <p>28/5/2023</p>-->
+                                                    <!--                                                        </div>-->
+                                                    <!--                                                    </td>-->
                                                     <td>
                                                         <div class="action"
                                                              style="display: flex; justify-content: space-around ;">
-<!--                                                            <a href="javascript:void(0);"><i-->
-<!--                                                                    class="fa fa-eye"></i></a>-->
+                                                            <!--                                                            <a href="javascript:void(0);"><i-->
+                                                            <!--                                                                    class="fa fa-eye"></i></a>-->
                                                             <button type="button" class="close" data-dismiss="alert"
+                                                                    th:onclick="|deleteMybook(${myBook.book.id})|"
                                                                     aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -147,9 +148,9 @@
                                 <div class="tg-widget tg-widgetsearch">
                                     <form class="tg-formtheme tg-formsearch">
                                         <div class="form-group">
-<!--                                            <button type="submit"><i class="icon-magnifier"></i></button>-->
-<!--                                            <input type="search" name="search" class="form-group"-->
-<!--                                                   placeholder="Search Here">-->
+                                            <!--                                            <button type="submit"><i class="icon-magnifier"></i></button>-->
+                                            <!--                                            <input type="search" name="search" class="form-group"-->
+                                            <!--                                                   placeholder="Search Here">-->
                                         </div>
                                     </form>
                                 </div>
@@ -216,8 +217,24 @@
         Wrapper End
 *************************************-->
 
+<th:block id="jsRecourse">
+    <script th:inline="javascript">
+        function deleteMybook(bookId) {
+            $.ajax({
+                url: '/api/v1/users/book-reading/' + bookId,
+                type: 'DELETE',
+                success: function () {
+                    window.confirm("Do you want remove this book?")
+                    toastr.success('Remove book successfull!');
+                    setTimeout(function () {
+                        window.location.reload()
+                    }, 600)
+                }
+            })
+        }
+    </script>
+</th:block>
 </body>
-
 
 </html>
 

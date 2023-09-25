@@ -492,7 +492,8 @@
                                                                                                  class="truncate-description-2"></div>
                                                                                             <button th:id="|show-more-review-btn-${review.reviewId}|"
                                                                                                     th:onclick="|showMoreReview(${review.reviewId})|"
-                                                                                                    class="show-content"  style=" background-color: #FCFCFC;">
+                                                                                                    class="show-content"
+                                                                                                    style=" background-color: #FCFCFC;">
                                                                                                 Show more <i
                                                                                                     class="fa-solid fa-angle-down"></i>
                                                                                             </button>
@@ -506,7 +507,7 @@
                                                                                                     type="button"
                                                                                                     class="btn btn-light"
                                                                                                     th:onclick="|showChildComment(${review.reviewId})|">  <span
-                                                                                                    th:text="${review.comments + ' comments'}"></span> </a>
+                                                                                                    th:text="${review.comments==0?'':review.comments + ' comments'}"></span> </a>
                                                                                             </span>
                                                                                             <br>
                                                                                             <span>

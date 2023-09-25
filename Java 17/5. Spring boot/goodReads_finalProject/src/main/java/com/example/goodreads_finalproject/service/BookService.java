@@ -186,6 +186,15 @@ public class BookService {
             readingBook.setReadingStatus(enumValue);
             readingBook.setStartedDate(request.getStartedDate() == null ? readingBook.getStartedDate() : request.getStartedDate());
             readingBook.setFinishedDate(request.getFinishedDate() == null ? readingBook.getFinishedDate() : request.getFinishedDate());
+
+            if (enumValue == ReadingStatus.READ) {
+                if (readingBook.getFinishedDate() == null) {
+                    readingBook.setFinishedDate(LocalDate.now());
+                }
+                if (readingBook.getStartedDate() == null) {
+                    readingBook.setStartedDate(LocalDate.now());
+                }
+            }
         }
         readingBookRepository.save(readingBook);
     }

@@ -1,4 +1,4 @@
-package com.example.goodreads_finalproject.security;
+package com.example.day01.security;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -14,14 +14,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthTokenFilter extends OncePerRequestFilter {
-
     @Autowired
     JwtUtils jwtUtils;
 
@@ -30,11 +28,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwt = resolveToken(request);
+            String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
@@ -55,26 +53,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private static final String JWT_COOKIE_NAME = "jwtToken";
-    public String resolveToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(JWT_COOKIE_NAME)) {
-                    // Trích xuất JWT từ cookie
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
-    }
-
     String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
         }
+
         return null;
     }
 }

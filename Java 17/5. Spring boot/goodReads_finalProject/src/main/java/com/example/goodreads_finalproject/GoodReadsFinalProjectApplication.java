@@ -12,6 +12,7 @@ public class GoodReadsFinalProjectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GoodReadsFinalProjectApplication.class, args);
-    }
+
+            }
 
 }

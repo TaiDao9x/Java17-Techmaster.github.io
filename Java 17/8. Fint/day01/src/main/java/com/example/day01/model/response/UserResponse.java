@@ -1,4 +1,4 @@
-package com.example.goodreads_finalproject.model.response;
+package com.example.day01.model.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,8 +8,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CommonResponse<T> {
-    Integer totalResult;
-    Integer pageNumber;
-    T data;
+public class UserResponse {
+    String email;
+
+    String phone;
+
+    String fullName;
 }
