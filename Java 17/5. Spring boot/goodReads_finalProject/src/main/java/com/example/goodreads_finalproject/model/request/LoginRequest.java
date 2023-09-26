@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class LoginRequest {
 
     @NotBlank
-    @Email
+    @Email (message = "Email format is incorrect")
     String email;
 
     @NotBlank
